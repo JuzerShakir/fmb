@@ -6,7 +6,9 @@ RSpec.describe Sabeel, :type => :model do
 
     context "validation tests" do
         context "of ITS attribute" do
-            it "must be numerical"
+            it "must be an integer type" do
+
+            end
 
             it "must have a length of exactly 8 digits"
 
