@@ -30,9 +30,14 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "of HOF name" do
-            it "cannot be null"
+            it "cannot be null" do
+                expect(new_sabeel.hof_name).to be_truthy
+            end
 
-            it "must be unique"
+            it "must be unique" do
+                new_sabeel.hof_name = persisted_sabeel.hof_name
+                expect(new_sabeel).not_to be_valid
+            end
         end
 
         context "of Address attribute" do
