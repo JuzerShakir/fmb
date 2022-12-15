@@ -7,12 +7,14 @@ RSpec.describe Sabeel, :type => :model do
 
     context "validation tests" do
         context "of ITS attribute" do
+            let(:its) { new_sabeel.its }
+
             it "must be an integer type" do
-                expect(new_sabeel.its).to be_a_kind_of(Integer)
+                expect(its).to be_a_kind_of(Integer)
             end
 
             it "must have a length of exactly 8 digits" do
-                expect(new_sabeel.its.digits.count).to eq(8)
+                expect(its.digits.count).to eq(8)
             end
 
             it "must be unique" do
@@ -21,7 +23,7 @@ RSpec.describe Sabeel, :type => :model do
             end
 
             it "cannot be null" do
-                expect(new_sabeel.its).to be_truthy
+                expect(its).to be_truthy
             end
         end
 
@@ -41,26 +43,30 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "of Address attribute" do
+            let(:address) { new_sabeel.address }
+
             it "cannot be null" do
-                expect(new_sabeel.address).to be_truthy
+                expect(address).to be_truthy
             end
 
             it "must be in a specific format" do
-                expect(new_sabeel.address).to match(/\A[a-z]+ [a-z]+ \d+\z/i)
+                expect(address).to match(/\A[a-z]+ [a-z]+ \d+\z/i)
             end
         end
 
         context "of Mobile attribute" do
+            let(:mobile) { new_sabeel.mobile }
+
             it "must be an integer type" do
-                expect(new_sabeel.mobile).to be_a_kind_of(Integer)
+                expect(mobile).to be_a_kind_of(Integer)
             end
 
             it "must have a length of exactly 10 digits" do
-                expect(new_sabeel.mobile.digits.count).to eq(10)
+                expect(mobile.digits.count).to eq(10)
             end
 
             it "cannot be null" do
-                expect(new_sabeel.mobile).to be_truthy
+                expect(mobile).to be_truthy
             end
         end
 
