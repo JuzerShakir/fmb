@@ -64,11 +64,8 @@ RSpec.describe Sabeel, :type => :model do
             end
         end
 
-        context "of Mobile attribute" do
-            it "must be a boolean "
-        end
-
-        context "of Mobile attribute" do
+        context "of takes_thaali attribute" do
+            it "must be a boolean"
             it "should default to false after creating a sabeel instance"
         end
     end
