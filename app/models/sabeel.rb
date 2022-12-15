@@ -1,0 +1,2 @@
+class Sabeel < ApplicationRecord
+end
