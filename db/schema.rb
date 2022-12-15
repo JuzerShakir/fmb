@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_162531) do
     t.string "address"
     t.bigint "mobile"
     t.string "email"
-    t.boolean "takes_thaali"
+    t.boolean "takes_thaali", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["hof_name"], name: "index_sabeels_on_hof_name", unique: true

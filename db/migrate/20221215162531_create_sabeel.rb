@@ -6,7 +6,7 @@ class CreateSabeel < ActiveRecord::Migration[7.0]
       t.string :address
       t.integer :mobile, limit: 8
       t.string :email
-      t.boolean :takes_thaali
+      t.boolean :takes_thaali, default: false
 
       t.timestamps
     end

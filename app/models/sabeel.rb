@@ -9,4 +9,6 @@ class Sabeel < ApplicationRecord
     validates :address, presence: true, format: { with: /\A[a-z]+ [a-z]+ \d+\z/i }
 
     validates :mobile, length: { is: 10 }
+
+    validates :takes_thaali, inclusion: [true, false]
 end

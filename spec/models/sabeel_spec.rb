@@ -65,8 +65,13 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "of takes_thaali attribute" do
-            it "must be a boolean"
-            it "should default to false after creating a sabeel instance"
+            it "must be a boolean" do
+                expect(new_sabeel.takes_thaali).to be_a_kind_of(FalseClass)
+            end
+
+            it "should default to false after creating a sabeel instance" do
+                expect(persisted_sabeel.takes_thaali).not_to be
+            end
         end
     end
 end
