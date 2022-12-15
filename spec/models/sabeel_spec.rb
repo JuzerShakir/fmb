@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Sabeel, type: model do
+RSpec.describe Sabeel, :type => :model do
     context "validation tests" do
         context "of ITS attribute" do
             it "must be numerical"
