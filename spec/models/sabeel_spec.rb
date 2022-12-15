@@ -7,14 +7,21 @@ RSpec.describe Sabeel, :type => :model do
     context "validation tests" do
         context "of ITS attribute" do
             it "must be an integer type" do
-
+                expect(new_sabeel.its).to be_a_kind_of(Integer)
             end
 
-            it "must have a length of exactly 8 digits"
+            it "must have a length of exactly 8 digits" do
+                expect(new_sabeel.its.digits.count).to eq(8)
+            end
 
-            it "must be unique"
+            it "must be unique" do
+                new_sabeel.its = persisted_sabeel.its
+                expect(new_sabeel).not_to be_valid
+            end
 
-            it "cannot be null"
+            it "cannot be null" do
+                expect(new_sabeel.its).to be_truthy
+            end
         end
 
         context "of Email attribute" do
