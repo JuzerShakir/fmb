@@ -51,11 +51,17 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "of Mobile attribute" do
-            it "must be numerical"
+            it "must be an integer type" do
+                expect(new_sabeel.mobile).to be_a_kind_of(Integer)
+            end
 
-            it "must have a length of exactly 10 digits"
+            it "must have a length of exactly 10 digits" do
+                expect(new_sabeel.mobile.digits.count).to eq(10)
+            end
 
-            it "cannot be null"
+            it "cannot be null" do
+                expect(new_sabeel.mobile).to be_truthy
+            end
         end
 
         context "of Mobile attribute" do
