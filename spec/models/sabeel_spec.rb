@@ -41,9 +41,13 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "of Address attribute" do
-            it "cannot be null"
+            it "cannot be null" do
+                expect(new_sabeel.address).to be_truthy
+            end
 
-            it "must be in a specific format"
+            it "must be in a specific format" do
+                expect(new_sabeel.address).to match(/\A[a-z]+ [a-z]+ \d+\z/i)
+            end
         end
 
         context "of Mobile attribute" do
