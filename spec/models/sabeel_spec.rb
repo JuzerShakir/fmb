@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe Sabeel, :type => :model do
+    let(:new_sabeel)  { build(:sabeel) }
+    let(:persisted_sabeel) { create(:sabeel) }
+
     context "validation tests" do
         context "of ITS attribute" do
             it "must be numerical"
