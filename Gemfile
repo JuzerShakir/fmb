@@ -69,3 +69,4 @@ group :development do
   # gem "spring"
 end
 
+gem 'validates_email_format_of'

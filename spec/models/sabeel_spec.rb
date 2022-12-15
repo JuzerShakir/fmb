@@ -1,4 +1,5 @@
 require "rails_helper"
+require "validates_email_format_of/rspec_matcher"
 
 RSpec.describe Sabeel, :type => :model do
     let(:new_sabeel)  { build(:sabeel) }
@@ -25,7 +26,7 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "of Email attribute" do
-            it "must be in a valid format"
+            it { should validate_email_format_of(:email) }
         end
 
         context "of HOF name" do
