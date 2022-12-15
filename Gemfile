@@ -70,3 +70,5 @@ group :development do
 end
 
 gem 'validates_email_format_of'
+
+gem "shoulda-matchers", "~> 5.2", :group => :test
