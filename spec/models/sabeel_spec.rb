@@ -9,22 +9,15 @@ RSpec.describe Sabeel, :type => :model do
         context "of ITS attribute" do
             let(:its) { new_sabeel.its }
 
-            it "must be an integer type" do
-                expect(its).to be_a_kind_of(Integer)
-            end
+            it { should validate_numericality_of(:its).only_integer }
 
             it "must have a length of exactly 8 digits" do
                 expect(its.digits.count).to eq(8)
             end
 
-            it "must be unique" do
-                new_sabeel.its = persisted_sabeel.its
-                expect(new_sabeel).not_to be_valid
-            end
+            it { should validate_uniqueness_of(:its) }
 
-            it "cannot be null" do
-                expect(its).to be_truthy
-            end
+            it { should validate_presence_of(:its) }
         end
 
         context "of Email attribute" do
@@ -32,22 +25,15 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "of HOF name" do
-            it "cannot be null" do
-                expect(new_sabeel.hof_name).to be_truthy
-            end
+            it { should validate_presence_of(:hof_name) }
 
-            it "must be unique" do
-                new_sabeel.hof_name = persisted_sabeel.hof_name
-                expect(new_sabeel).not_to be_valid
-            end
+            it { should validate_uniqueness_of(:hof_name) }
         end
 
         context "of Address attribute" do
             let(:address) { new_sabeel.address }
 
-            it "cannot be null" do
-                expect(address).to be_truthy
-            end
+            it { should validate_presence_of(:address) }
 
             it "must be in a specific format" do
                 expect(address).to match(/\A[a-z]+ [a-z]+ \d+\z/i)
@@ -57,23 +43,19 @@ RSpec.describe Sabeel, :type => :model do
         context "of Mobile attribute" do
             let(:mobile) { new_sabeel.mobile }
 
-            it "must be an integer type" do
-                expect(mobile).to be_a_kind_of(Integer)
-            end
+            it { should validate_numericality_of(:mobile).only_integer }
 
             it "must have a length of exactly 10 digits" do
                 expect(mobile.digits.count).to eq(10)
             end
 
-            it "cannot be null" do
-                expect(mobile).to be_truthy
-            end
+            it { should validate_presence_of(:mobile) }
+
         end
 
         context "of takes_thaali attribute" do
-            it "must be a boolean" do
-                expect(new_sabeel.takes_thaali).to be_a_kind_of(FalseClass)
-            end
+            # NOT RECOMMENDED BY SHOULDA-MATCHERS GEM
+            # it { should validate_inclusion_of(:takes_thaali).in_array([true, false]) }
 
             it "should default to false after creating a sabeel instance" do
                 expect(persisted_sabeel.takes_thaali).not_to be
