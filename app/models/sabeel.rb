@@ -1,6 +1,6 @@
 class Sabeel < ApplicationRecord
-    before_save :capitalize_hof_name, :generate_address
-    before_validation :capitalize_wing
+    before_save  :generate_address
+    after_validation :capitalize_wing, :capitalize_hof_name
 
     validates :its, :mobile, numericality: { only_integer: true }, presence: true
     validates_numericality_of :its, in: 10000000..99999999
@@ -20,8 +20,6 @@ class Sabeel < ApplicationRecord
 
     validates_numericality_of :flat_no, only_integer: true, greater_than: 0
 
-    validates :address, presence: true, format: { with: /\A[a-z]+ [a-z]{1} \d+\z/i }
-
     validates_numericality_of :mobile, in: 1000000000..9999999999
 
     validates :takes_thaali, inclusion: [true, false]
@@ -29,7 +27,7 @@ class Sabeel < ApplicationRecord
     private
 
         def capitalize_hof_name
-            self.hof_name  = self.hof_name.split(" ").map(&:capitalize).join(" ")
+            self.hof_name  = self.hof_name.split(" ").map(&:capitalize).join(" ") unless self.hof_name.nil?
         end
 
         def generate_address

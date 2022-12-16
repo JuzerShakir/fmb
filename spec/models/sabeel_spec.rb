@@ -87,7 +87,7 @@ RSpec.describe Sabeel, :type => :model do
 
     context "callbacks" do
         context "capitalize_hof_name method" do
-            it { is_expected.to callback(:capitalize_hof_name).before(:save) }
+            it { is_expected.to callback(:capitalize_hof_name).after(:validation) }
 
             it "must return capitalized name" do
                 expect(subject).to receive(:capitalize_hof_name).and_return("Juzer Shabbir Shakir")
@@ -105,7 +105,7 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "capitalize_wing method" do
-            it { is_expected.to callback(:capitalize_wing).before(:validation) }
+            it { is_expected.to callback(:capitalize_wing).after(:validation) }
 
             it "must be capitalize the character" do
                 expect(subject).to receive(:capitalize_wing).and_return(/[A-Z]{1}/)
