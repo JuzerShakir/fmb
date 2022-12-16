@@ -6,6 +6,10 @@ RSpec.describe Sabeel, :type => :model do
     let(:persisted_sabeel) { create(:sabeel) }
 
     context "validations of" do
+        before do
+            Sabeel.skip_callback(:save, :before, :capitalize_hof_name)
+        end
+
         context "ITS attribute" do
             it { should validate_numericality_of(:its).only_integer }
 
@@ -51,5 +55,22 @@ RSpec.describe Sabeel, :type => :model do
                 expect(persisted_sabeel.takes_thaali).not_to be
             end
         end
+
+        after do
+            Sabeel.set_callback(:save, :before, :capitalize_hof_name)
+        end
     end
+
+    context "instance method" do
+        context "capitalize_hof_name" do
+
+            it { is_expected.to callback(:capitalize_hof_name).before(:save) }
+
+            it "must return capitalized name" do
+                expect(new_sabeel).to receive(:capitalize_hof_name).and_return("Juzer Shabbir Shakir")
+                new_sabeel.save
+            end
+        end
+    end
+
 end

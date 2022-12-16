@@ -1,5 +1,5 @@
 class Sabeel < ApplicationRecord
-    # before_validation :capitalize_hof_name
+    before_save :capitalize_hof_name
 
     validates :its, :mobile, numericality: { only_integer: true }, presence: true
     validates_numericality_of :its, in: 10000000..99999999
@@ -15,10 +15,9 @@ class Sabeel < ApplicationRecord
 
     validates :takes_thaali, inclusion: [true, false]
 
-    # private
+    private
 
-        # def capitalize_hof_name
-        #     # p self
-        #     self.hof_name  = self.hof_name.split(" ").map(&:capitalize).join(" ")
-        # end
+        def capitalize_hof_name
+            self.hof_name  = self.hof_name.split(" ").map(&:capitalize).join(" ")
+        end
 end
