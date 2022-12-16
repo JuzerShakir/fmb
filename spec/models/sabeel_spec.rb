@@ -8,6 +8,7 @@ RSpec.describe Sabeel, :type => :model do
     context "validations of" do
         before do
             Sabeel.skip_callback(:save, :before, :capitalize_hof_name)
+            Sabeel.skip_callback(:validation, :before, :generate_address)
         end
 
         context "ITS attribute" do
@@ -58,10 +59,6 @@ RSpec.describe Sabeel, :type => :model do
 
         context "Address attribute" do
             it { should validate_presence_of(:address) }
-
-            it "must be in a specific format" do
-                expect(subject.address).to match(/\A[a-z]+ [a-z]+ \d+\z/i)
-            end
         end
 
         context "Mobile attribute" do
@@ -84,12 +81,12 @@ RSpec.describe Sabeel, :type => :model do
 
         after do
             Sabeel.set_callback(:save, :before, :capitalize_hof_name)
+            Sabeel.set_callback(:validation, :before, :generate_address)
         end
     end
 
     context "instance method" do
         context "capitalize_hof_name" do
-
             it { is_expected.to callback(:capitalize_hof_name).before(:save) }
 
             it "must return capitalized name" do

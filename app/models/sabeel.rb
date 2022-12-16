@@ -1,5 +1,6 @@
 class Sabeel < ApplicationRecord
     before_save :capitalize_hof_name
+    before_validation :generate_address
 
     validates :its, :mobile, numericality: { only_integer: true }, presence: true
     validates_numericality_of :its, in: 10000000..99999999
@@ -29,5 +30,9 @@ class Sabeel < ApplicationRecord
 
         def capitalize_hof_name
             self.hof_name  = self.hof_name.split(" ").map(&:capitalize).join(" ")
+        end
+
+        def generate_address
+            self.address = "#{self.building_name} #{self.wing} #{self.flat_no}"
         end
 end
