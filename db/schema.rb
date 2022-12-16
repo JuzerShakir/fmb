@@ -15,15 +15,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_162531) do
   enable_extension "plpgsql"
 
   create_table "sabeels", force: :cascade do |t|
-    t.integer "its"
-    t.string "hof_name"
+    t.integer "its", null: false
+    t.string "hof_name", null: false
     t.string "building_name", null: false
     t.string "wing", null: false
     t.integer "flat_no", null: false
     t.string "address", null: false
-    t.bigint "mobile"
+    t.bigint "mobile", null: false
     t.string "email"
-    t.boolean "takes_thaali", default: false
+    t.boolean "takes_thaali", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["hof_name", "its"], name: "index_sabeels_on_hof_name_and_its", unique: true
