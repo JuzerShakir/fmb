@@ -14,4 +14,8 @@ RSpec.describe "Thaali", type: :model do
             it { should validate_presence_of(:size) }
         end
     end
+
+    context "association" do
+        it { should belong_to(:sabeel) }
+    end
 end
