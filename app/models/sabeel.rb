@@ -1,5 +1,6 @@
 class Sabeel < ApplicationRecord
     before_save :capitalize_hof_name, :generate_address
+    before_validation :capitalize_wing
 
     validates :its, :mobile, numericality: { only_integer: true }, presence: true
     validates_numericality_of :its, in: 10000000..99999999
@@ -33,5 +34,9 @@ class Sabeel < ApplicationRecord
 
         def generate_address
             self.address = "#{self.building_name} #{self.wing} #{self.flat_no}"
+        end
+
+        def capitalize_wing
+            self.wing = self.wing.upcase unless self.wing.nil?
         end
 end
