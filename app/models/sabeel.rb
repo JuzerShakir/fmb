@@ -1,6 +1,5 @@
 class Sabeel < ApplicationRecord
-    before_save :capitalize_hof_name
-    before_validation :generate_address
+    before_save :capitalize_hof_name, :generate_address
 
     validates :its, :mobile, numericality: { only_integer: true }, presence: true
     validates_numericality_of :its, in: 10000000..99999999

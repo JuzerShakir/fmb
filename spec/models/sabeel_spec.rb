@@ -3,12 +3,11 @@ require "validates_email_format_of/rspec_matcher"
 
 RSpec.describe Sabeel, :type => :model do
     subject { build(:sabeel) }
-    let(:persisted_sabeel) { create(:sabeel) }
 
     context "validations of" do
         before do
             Sabeel.skip_callback(:save, :before, :capitalize_hof_name)
-            Sabeel.skip_callback(:validation, :before, :generate_address)
+            Sabeel.skip_callback(:save, :before, :generate_address)
         end
 
         context "ITS attribute" do
@@ -75,13 +74,14 @@ RSpec.describe Sabeel, :type => :model do
             # it { should validate_inclusion_of(:takes_thaali).in_array([true, false]) }
 
             it "should default to false after creating a sabeel instance" do
-                expect(persisted_sabeel.takes_thaali).not_to be
+                subject.save
+                expect(subject.takes_thaali).not_to be
             end
         end
 
         after do
             Sabeel.set_callback(:save, :before, :capitalize_hof_name)
-            Sabeel.set_callback(:validation, :before, :generate_address)
+            Sabeel.set_callback(:save, :before, :generate_address)
         end
     end
 
@@ -96,7 +96,7 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "generate_address" do
-            it { is_expected.to callback(:generate_address).before(:validation) }
+            it { is_expected.to callback(:generate_address).before(:save) }
 
             it "must be in a specific format" do
                 expect(subject).to receive(:generate_address).and_return(/\A[a-z]+ [a-z]{1} \d+\z/i)
