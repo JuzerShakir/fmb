@@ -30,6 +30,18 @@ RSpec.describe Sabeel, :type => :model do
             it { should validate_uniqueness_of(:hof_name).scoped_to(:its) }
         end
 
+        context "BuildingName attribute" do
+            let(:phase_1) { [:mohammedi, :saifee, :jamali, :taiyebi, :imadi, :burhani, :zaini, :fakhri, :badri] }
+            let(:phase_2) { [:maimoon, :qutbi, :najmi] }
+            let(:phase_3) { [:husami, :noorani] }
+
+            let(:buildings) { Array.new.push(*phase_1, *phase_2, *phase_3) }
+
+            it { should validate_presence_of(:building_name) }
+
+            it { should define_enum_for(:building_name).with_values(buildings) }
+        end
+
         context "Address attribute" do
             it { should validate_presence_of(:address) }
 
