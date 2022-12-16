@@ -4,12 +4,12 @@ require "validates_email_format_of/rspec_matcher"
 RSpec.describe Sabeel, :type => :model do
     subject { build(:sabeel) }
 
-    context "assocaitions" do
+    context "assocaition" do
         it { should have_one(:thaali) }
     end
 
-    context "validations of" do
-        context "ITS attribute" do
+    context "validations of attribute" do
+        context "ITS" do
             it { should validate_numericality_of(:its).only_integer }
 
             it { should validate_numericality_of(:its).is_in(10000000..99999999) }
@@ -19,18 +19,18 @@ RSpec.describe Sabeel, :type => :model do
             it { should validate_presence_of(:its) }
         end
 
-        context "Email attribute" do
+        context "email" do
             it { should validate_email_format_of(:email) }
             it { should allow_value(nil).for(:email) }
         end
 
-        context "HOF name" do
+        context "hof_name" do
             it { should validate_presence_of(:hof_name) }
 
             it { should validate_uniqueness_of(:hof_name).scoped_to(:its) }
         end
 
-        context "BuildingName attribute" do
+        context "building_name" do
             let(:phase_1) { %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri) }
             let(:phase_2) { %i(maimoon qutbi najmi) }
             let(:phase_3) { %i(husami noorani) }
@@ -42,13 +42,13 @@ RSpec.describe Sabeel, :type => :model do
             it { should define_enum_for(:building_name).with_values(buildings) }
         end
 
-        context "wing attribute" do
+        context "wing" do
             it { should validate_presence_of(:wing) }
 
             it { should validate_length_of(:wing).is_equal_to(1) }
         end
 
-        context "flat_no attribute" do
+        context "flat_no" do
             it { should validate_numericality_of(:flat_no).only_integer }
 
             it { should validate_presence_of(:flat_no) }
@@ -56,11 +56,11 @@ RSpec.describe Sabeel, :type => :model do
             it { should validate_numericality_of(:flat_no).is_greater_than(0) }
         end
 
-        # context "Address attribute" do
+        # context "Address" do
         #     it { should validate_presence_of(:address) }
         # end
 
-        context "Mobile attribute" do
+        context "mobile" do
             it { should validate_numericality_of(:mobile).only_integer }
 
             it { should validate_numericality_of(:mobile).is_in(1000000000..9999999999) }
@@ -69,7 +69,7 @@ RSpec.describe Sabeel, :type => :model do
 
         end
 
-        context "takes_thaali attribute" do
+        context "takes_thaali" do
             # NOT RECOMMENDED BY SHOULDA-MATCHERS GEM
             # it { should validate_inclusion_of(:takes_thaali).in_array([true, false]) }
 
@@ -81,8 +81,8 @@ RSpec.describe Sabeel, :type => :model do
 
     end
 
-    context "callbacks" do
-        context "capitalize_hof_name method" do
+    context "callback method" do
+        context "capitalize_hof_name" do
             it { is_expected.to callback(:capitalize_hof_name).after(:validation) }
 
             it "must return capitalized name" do
@@ -91,7 +91,7 @@ RSpec.describe Sabeel, :type => :model do
             end
         end
 
-        context "generate_address method" do
+        context "generate_address" do
             it { is_expected.to callback(:generate_address).before(:save) }
 
             it "must be in a specific format" do
@@ -100,7 +100,7 @@ RSpec.describe Sabeel, :type => :model do
             end
         end
 
-        context "capitalize_wing method" do
+        context "capitalize_wing" do
             it { is_expected.to callback(:capitalize_wing).after(:validation) }
 
             it "must be capitalize the character" do
