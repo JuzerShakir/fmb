@@ -102,6 +102,15 @@ RSpec.describe Sabeel, :type => :model do
                 subject.save
             end
         end
+
+        context "capitalize_wing method" do
+            it { is_expected.to callback(:capitalize_wing).before(:validation) }
+
+            it "must be capitalize the character" do
+                expect(subject).to receive(:capitalize_wing).and_return(/[A-Z]{1}/)
+                subject.save
+            end
+        end
     end
 
 end
