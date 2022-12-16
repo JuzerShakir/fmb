@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_162531) do
   create_table "sabeels", force: :cascade do |t|
     t.integer "its", null: false
     t.string "hof_name", null: false
-    t.string "building_name", null: false
+    t.integer "building_name", null: false
     t.string "wing", null: false
     t.integer "flat_no", null: false
     t.string "address", null: false
