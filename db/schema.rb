@@ -17,7 +17,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_162531) do
   create_table "sabeels", force: :cascade do |t|
     t.integer "its"
     t.string "hof_name"
-    t.string "address"
+    t.string "building_name", null: false
+    t.string "wing", null: false
+    t.integer "flat_no", null: false
+    t.string "address", null: false
     t.bigint "mobile"
     t.string "email"
     t.boolean "takes_thaali", default: false
