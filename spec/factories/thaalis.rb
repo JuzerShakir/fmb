@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :thaali do
-    number { 1 }
-    size { 1 }
-    sabeel { nil }
+    sabeel
+    sequence(:number, 1)
+    sequence :size, %i[small medium large].cycle
   end
 end

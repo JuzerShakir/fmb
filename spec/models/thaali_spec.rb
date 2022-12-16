@@ -1,7 +1,9 @@
 require "rails_helper"
 
-RSpec.describe "Thaali", type: :model do
+RSpec.describe Thaali, type: :model do
     context "validations of" do
+        subject { build(:thaali) }
+
         context "number attribute" do
             it { should validate_numericality_of(:number).only_integer }
             it { should validate_uniqueness_of(:number) }
