@@ -69,6 +69,9 @@ group :development do
   # gem "spring"
 end
 
-gem 'validates_email_format_of'
+group :test do
+  gem "shoulda-matchers", git: 'https://github.com/thoughtbot/shoulda-matchers.git'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
+end
 
-gem "shoulda-matchers", git: 'https://github.com/thoughtbot/shoulda-matchers.git', :group => :test
+gem 'validates_email_format_of'
