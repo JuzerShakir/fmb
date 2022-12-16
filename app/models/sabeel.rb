@@ -1,6 +1,6 @@
 class Sabeel < ApplicationRecord
     validates :its, :mobile, numericality: { only_integer: true }, uniqueness: true, presence: true
-    validates :its, length: { is: 8 }
+    validates_numericality_of :its, greater_than_or_equal_to: 10000000, less_than_or_equal_to: 99999999
 
     validates_email_format_of :email
 
@@ -8,7 +8,7 @@ class Sabeel < ApplicationRecord
 
     validates :address, presence: true, format: { with: /\A[a-z]+ [a-z]+ \d+\z/i }
 
-    validates :mobile, length: { is: 10 }
+    validates_numericality_of :mobile, greater_than_or_equal_to: 1000000000, less_than_or_equal_to: 9999999999
 
     validates :takes_thaali, inclusion: [true, false]
 end

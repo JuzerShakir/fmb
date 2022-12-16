@@ -11,9 +11,9 @@ RSpec.describe Sabeel, :type => :model do
 
             it { should validate_numericality_of(:its).only_integer }
 
-            it "must have a length of exactly 8 digits" do
-                expect(its.digits.count).to eq(8)
-            end
+            it { should validate_numericality_of(:its).is_greater_than_or_equal_to(10000000) }
+
+            it { should validate_numericality_of(:its).is_less_than_or_equal_to(99999999) }
 
             it { should validate_uniqueness_of(:its) }
 
@@ -45,9 +45,9 @@ RSpec.describe Sabeel, :type => :model do
 
             it { should validate_numericality_of(:mobile).only_integer }
 
-            it "must have a length of exactly 10 digits" do
-                expect(mobile.digits.count).to eq(10)
-            end
+            it { should validate_numericality_of(:mobile).is_greater_than_or_equal_to(1000000000) }
+
+            it { should validate_numericality_of(:mobile).is_less_than_or_equal_to(9999999999) }
 
             it { should validate_presence_of(:mobile) }
 
