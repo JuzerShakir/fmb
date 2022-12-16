@@ -15,7 +15,7 @@ RSpec.describe "Thaali", type: :model do
         end
     end
 
-    context "association" do
+    context "associations" do
         it { should belong_to(:sabeel) }
     end
 end
