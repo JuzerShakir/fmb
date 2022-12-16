@@ -27,7 +27,7 @@ RSpec.describe Sabeel, :type => :model do
         context "HOF name" do
             it { should validate_presence_of(:hof_name) }
 
-            it { should validate_uniqueness_of(:hof_name) }
+            it { should validate_uniqueness_of(:hof_name).scoped_to(:its) }
         end
 
         context "Address attribute" do

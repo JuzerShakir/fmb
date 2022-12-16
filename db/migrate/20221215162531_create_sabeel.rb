@@ -11,6 +11,6 @@ class CreateSabeel < ActiveRecord::Migration[7.0]
       t.timestamps
     end
     add_index :sabeels, :its, unique: true
-    add_index :sabeels, :hof_name, unique: true
+    add_index :sabeels, [:hof_name, :its], unique: true
   end
 end
