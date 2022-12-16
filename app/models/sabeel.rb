@@ -9,12 +9,13 @@ class Sabeel < ApplicationRecord
 
     validates :hof_name, uniqueness: { scope: :its }, presence: true
 
-    validates_presence_of :building_name
+    validates_presence_of :building_name, :wing
     buildings_in_phase_1 = { mohammedi: 0, saifee: 1, jamali: 2, taiyebi: 3, imadi: 4, burhani: 5, zaini: 6, fakhri: 7, badri: 8 }
     buildings_in_phase_2 = { maimoon: 9, qutbi: 10, najmi:11 }
     buildings_in_phase_3 = { husami: 12, noorani: 13 }
-
     enum :building_name, Hash.new.merge!(buildings_in_phase_1, buildings_in_phase_2, buildings_in_phase_3)
+
+    validates_length_of :wing, is: 1
 
     validates :address, presence: true, format: { with: /\A[a-z]+ [a-z]+ \d+\z/i }
 
