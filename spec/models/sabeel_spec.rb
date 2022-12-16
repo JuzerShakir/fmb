@@ -4,6 +4,10 @@ require "validates_email_format_of/rspec_matcher"
 RSpec.describe Sabeel, :type => :model do
     subject { build(:sabeel) }
 
+    context "assocaitions" do
+        it { should have_one(:thaali) }
+    end
+
     context "validations of" do
         context "ITS attribute" do
             it { should validate_numericality_of(:its).only_integer }

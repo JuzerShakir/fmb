@@ -1,4 +1,6 @@
 class Sabeel < ApplicationRecord
+    has_one :thaali
+
     before_save  :generate_address
     after_validation :capitalize_wing, :capitalize_hof_name
 
