@@ -97,6 +97,15 @@ RSpec.describe Sabeel, :type => :model do
                 subject.save
             end
         end
+
+        context "generate_address" do
+            it { is_expected.to callback(:generate_address).before(:validation) }
+
+            it "must be in a specific format" do
+                expect(subject).to receive(:generate_address).and_return(/\A[a-z]+ [a-z]{1} \d+\z/i)
+                subject.save
+            end
+        end
     end
 
 end
