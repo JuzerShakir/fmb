@@ -2,7 +2,7 @@ require "rails_helper"
 require "validates_email_format_of/rspec_matcher"
 
 RSpec.describe Sabeel, :type => :model do
-    let(:new_sabeel)  { build(:sabeel) }
+    subject { build(:sabeel) }
     let(:persisted_sabeel) { create(:sabeel) }
 
     context "validations of" do
@@ -34,7 +34,7 @@ RSpec.describe Sabeel, :type => :model do
             it { should validate_presence_of(:address) }
 
             it "must be in a specific format" do
-                expect(new_sabeel.address).to match(/\A[a-z]+ [a-z]+ \d+\z/i)
+                expect(subject.address).to match(/\A[a-z]+ [a-z]+ \d+\z/i)
             end
         end
 
@@ -67,8 +67,8 @@ RSpec.describe Sabeel, :type => :model do
             it { is_expected.to callback(:capitalize_hof_name).before(:save) }
 
             it "must return capitalized name" do
-                expect(new_sabeel).to receive(:capitalize_hof_name).and_return("Juzer Shabbir Shakir")
-                new_sabeel.save
+                expect(subject).to receive(:capitalize_hof_name).and_return("Juzer Shabbir Shakir")
+                subject.save
             end
         end
     end
