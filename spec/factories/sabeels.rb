@@ -3,7 +3,7 @@ FactoryBot.define do
     sequence(:its, 12345678)
     hof_name { '  jUZER SHaBBir ShaKIR  ' }
     building_name { "maimoon" }
-    wing { 'A' }
+    sequence(:wing, 'A')
     sequence(:flat_no, 1)
     address { "#{building_name} #{wing} #{flat_no}" }
     sequence(:mobile, 1234567890)
