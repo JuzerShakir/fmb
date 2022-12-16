@@ -42,6 +42,12 @@ RSpec.describe Sabeel, :type => :model do
             it { should define_enum_for(:building_name).with_values(buildings) }
         end
 
+        context "wing attribute" do
+            it { should validate_presence_of(:wing) }
+
+            it { should validate_length_of(:wing).is_equal_to(1) }
+        end
+
         context "Address attribute" do
             it { should validate_presence_of(:address) }
 
