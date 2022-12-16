@@ -20,7 +20,7 @@ class Sabeel < ApplicationRecord
 
     validates_numericality_of :flat_no, only_integer: true, greater_than: 0
 
-    validates :address, presence: true, format: { with: /\A[a-z]+ [a-z]+ \d+\z/i }
+    validates :address, presence: true, format: { with: /\A[a-z]+ [a-z]{1} \d+\z/i }
 
     validates_numericality_of :mobile, in: 1000000000..9999999999
 
