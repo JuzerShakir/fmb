@@ -5,8 +5,8 @@ RSpec.describe Sabeel, :type => :model do
     let(:new_sabeel)  { build(:sabeel) }
     let(:persisted_sabeel) { create(:sabeel) }
 
-    context "validation tests" do
-        context "of ITS attribute" do
+    context "validations of" do
+        context "ITS attribute" do
             let(:its) { new_sabeel.its }
 
             it { should validate_numericality_of(:its).only_integer }
@@ -20,17 +20,17 @@ RSpec.describe Sabeel, :type => :model do
             it { should validate_presence_of(:its) }
         end
 
-        context "of Email attribute" do
+        context "Email attribute" do
             it { should validate_email_format_of(:email) }
         end
 
-        context "of HOF name" do
+        context "HOF name" do
             it { should validate_presence_of(:hof_name) }
 
             it { should validate_uniqueness_of(:hof_name) }
         end
 
-        context "of Address attribute" do
+        context "Address attribute" do
             let(:address) { new_sabeel.address }
 
             it { should validate_presence_of(:address) }
@@ -40,7 +40,7 @@ RSpec.describe Sabeel, :type => :model do
             end
         end
 
-        context "of Mobile attribute" do
+        context "Mobile attribute" do
             let(:mobile) { new_sabeel.mobile }
 
             it { should validate_numericality_of(:mobile).only_integer }
@@ -53,7 +53,7 @@ RSpec.describe Sabeel, :type => :model do
 
         end
 
-        context "of takes_thaali attribute" do
+        context "takes_thaali attribute" do
             # NOT RECOMMENDED BY SHOULDA-MATCHERS GEM
             # it { should validate_inclusion_of(:takes_thaali).in_array([true, false]) }
 
