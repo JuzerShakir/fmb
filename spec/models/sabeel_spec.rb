@@ -7,13 +7,9 @@ RSpec.describe Sabeel, :type => :model do
 
     context "validations of" do
         context "ITS attribute" do
-            let(:its) { new_sabeel.its }
-
             it { should validate_numericality_of(:its).only_integer }
 
-            it { should validate_numericality_of(:its).is_greater_than_or_equal_to(10000000) }
-
-            it { should validate_numericality_of(:its).is_less_than_or_equal_to(99999999) }
+            it { should validate_numericality_of(:its).is_in(10000000..99999999) }
 
             it { should validate_uniqueness_of(:its) }
 
@@ -31,23 +27,17 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "Address attribute" do
-            let(:address) { new_sabeel.address }
-
             it { should validate_presence_of(:address) }
 
             it "must be in a specific format" do
-                expect(address).to match(/\A[a-z]+ [a-z]+ \d+\z/i)
+                expect(new_sabeel.address).to match(/\A[a-z]+ [a-z]+ \d+\z/i)
             end
         end
 
         context "Mobile attribute" do
-            let(:mobile) { new_sabeel.mobile }
-
             it { should validate_numericality_of(:mobile).only_integer }
 
-            it { should validate_numericality_of(:mobile).is_greater_than_or_equal_to(1000000000) }
-
-            it { should validate_numericality_of(:mobile).is_less_than_or_equal_to(9999999999) }
+            it { should validate_numericality_of(:mobile).is_in(1000000000..9999999999) }
 
             it { should validate_presence_of(:mobile) }
 

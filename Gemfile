@@ -71,4 +71,4 @@ end
 
 gem 'validates_email_format_of'
 
-gem "shoulda-matchers", "~> 5.2", :group => :test
+gem "shoulda-matchers", git: 'https://github.com/thoughtbot/shoulda-matchers.git', :group => :test
