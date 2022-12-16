@@ -1,8 +1,12 @@
 FactoryBot.define do
+  phase_1 = %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri)
+  phase_2 = %i(maimoon qutbi najmi)
+  phase_3 = %i(husami noorani)
+
   factory :sabeel do
     sequence(:its, 12345678)
     hof_name { '  jUZER SHaBBir ShaKIR  ' }
-    building_name { "maimoon" }
+    sequence :building_name, Array.new.push(*phase_1, *phase_2, *phase_3).cycle
     sequence(:wing, 'A')
     sequence(:flat_no, 1)
     address { "#{building_name} #{wing} #{flat_no}" }
