@@ -84,8 +84,8 @@ RSpec.describe Sabeel, :type => :model do
 
     end
 
-    context "instance method" do
-        context "capitalize_hof_name" do
+    context "callbacks" do
+        context "capitalize_hof_name method" do
             it { is_expected.to callback(:capitalize_hof_name).before(:save) }
 
             it "must return capitalized name" do
@@ -94,7 +94,7 @@ RSpec.describe Sabeel, :type => :model do
             end
         end
 
-        context "generate_address" do
+        context "generate_address method" do
             it { is_expected.to callback(:generate_address).before(:save) }
 
             it "must be in a specific format" do
