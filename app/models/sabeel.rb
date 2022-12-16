@@ -31,7 +31,7 @@ class Sabeel < ApplicationRecord
         end
 
         def generate_address
-            self.address = "#{self.building_name} #{self.wing} #{self.flat_no}"
+            self.address = "#{self.building_name.capitalize} #{self.wing} #{self.flat_no}"
         end
 
         def capitalize_wing
