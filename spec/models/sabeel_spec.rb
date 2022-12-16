@@ -52,9 +52,9 @@ RSpec.describe Sabeel, :type => :model do
             it { should validate_numericality_of(:flat_no).is_greater_than(0) }
         end
 
-        context "Address attribute" do
-            it { should validate_presence_of(:address) }
-        end
+        # context "Address attribute" do
+        #     it { should validate_presence_of(:address) }
+        # end
 
         context "Mobile attribute" do
             it { should validate_numericality_of(:mobile).only_integer }
