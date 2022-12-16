@@ -6,11 +6,11 @@ RSpec.describe Sabeel, :type => :model do
 
     context "validations of" do
         before do
-            Sabeel.skip_callback(:save, :before, :capitalize_hof_name, :generate_address)
+            # Sabeel.skip_callback(:save, :before, :capitalize_hof_name, :generate_address)
         end
 
         after do
-            Sabeel.set_callback(:save, :before, :capitalize_hof_name, :generate_address)
+            # Sabeel.set_callback(:save, :before, :capitalize_hof_name, :generate_address)
         end
 
         context "ITS attribute" do
