@@ -6,7 +6,7 @@ class Sabeel < ApplicationRecord
     validates_numericality_of :its, in: 10000000..99999999
     validates_uniqueness_of :its
 
-    validates_email_format_of :email
+    validates_email_format_of :email, allow_blank: true
 
     validates :hof_name, uniqueness: { scope: :its }, presence: true
 
