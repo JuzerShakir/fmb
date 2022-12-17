@@ -42,8 +42,23 @@ RSpec.describe Takhmeen, type: :model do
             it { should validate_presence_of(:is_complete) }
 
             it "must set its value to false after instance is persisted" do
+                subject.save
                 expect(subject.is_complete).to be_falsey
             end
         end
+
+        context "balance" do
+            it { should validate_presence_of(:balance) }
+
+            it { should validate_numericality_of(:balance).only_integer }
+
+            it "must set its value to 'total' after instance is persisted" do
+                subject.save
+                expect(subject.balance).to be_eql(subject.total)
+            end
+
+            # it { should validate_numericality_of(:balance).is_less_than_or_equal_to(subject.total) }
+        end
+
     end
 end
