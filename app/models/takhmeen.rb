@@ -1,7 +1,10 @@
 class Takhmeen < ApplicationRecord
   belongs_to :thaali
 
-  validates_presence_of :year
+  validates_presence_of :year, :total
   validates_numericality_of :year, only_integer: true, greater_than_or_equal_to: 2022
   validates_uniqueness_of :year, { scope: :thaali_id }
+
+  validates_numericality_of :total, only_integer: true, greater_than: 0
+
 end
