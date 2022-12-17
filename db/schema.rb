@@ -37,7 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_16_145934) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["number"], name: "index_thaalis_on_number", unique: true
-    t.index ["sabeel_id"], name: "index_thaalis_on_sabeel_id"
+    t.index ["sabeel_id"], name: "index_thaalis_on_sabeel_id", unique: true
   end
 
   add_foreign_key "thaalis", "sabeels"
