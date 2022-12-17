@@ -1,5 +1,6 @@
 class Sabeel < ApplicationRecord
     has_one :thaali, dependent: :destroy
+    has_many :takhmeens, through: :thaali
 
     before_save  :generate_address
     after_validation :capitalize_wing, :capitalize_hof_name
