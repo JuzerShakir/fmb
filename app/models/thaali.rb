@@ -1,5 +1,6 @@
 class Thaali < ApplicationRecord
   belongs_to :sabeel
+  has_many :takhmeens
 
   after_create :set_takes_thaali_true
   after_destroy :set_takes_thaali_false
