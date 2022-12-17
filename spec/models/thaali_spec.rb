@@ -24,6 +24,7 @@ RSpec.describe Thaali, type: :model do
     context "association" do
         it { should belong_to(:sabeel) }
         it { should have_many(:takhmeens) }
+        it { should have_many(:transactions).through(:takhmeens) }
     end
 
     context "callback method" do

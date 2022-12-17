@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Takhmeen, type: :model do
     context "association" do
         it { should belong_to(:thaali) }
+        it { should have_many(:transactions) }
     end
 
     context "validation of attribute" do

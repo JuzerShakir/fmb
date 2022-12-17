@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Transaction, type: :model do
+    context "assocaition" do
+        it { should belong_to(:takhmeen) }
+    end
+
     context "validation of attribute" do
         subject { build(:transaction) }
         context "mode" do

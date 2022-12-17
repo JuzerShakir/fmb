@@ -1,5 +1,6 @@
 class Takhmeen < ApplicationRecord
   belongs_to :thaali
+  has_many :transactions
 
   before_save :set_balance
 
