@@ -1,12 +1,13 @@
 require "rails_helper"
 
 RSpec.describe Transaction, type: :model do
+    subject { build(:transaction) }
+
     context "assocaition" do
         it { should belong_to(:takhmeen) }
     end
 
     context "validation of attribute" do
-        subject { build(:transaction) }
         context "mode" do
             let(:mode_of_payments) { %i(cash cheque bank) }
             it { should validate_presence_of(:mode) }
