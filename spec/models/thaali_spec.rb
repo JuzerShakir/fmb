@@ -25,7 +25,7 @@ RSpec.describe Thaali, type: :model do
         subject { create(:thaali) }
 
         context "set_takes_thaali_true" do
-            it { is_expected.to callback(:set_takes_thaali_true).after(:save) }
+            it { is_expected.to callback(:set_takes_thaali_true).after(:create) }
 
             it "must set parent attribute takes_thaali to true" do
                 expect(subject.sabeel.takes_thaali).to be_truthy

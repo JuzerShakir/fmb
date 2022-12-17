@@ -1,7 +1,7 @@
 class Thaali < ApplicationRecord
   belongs_to :sabeel
 
-  after_save :set_takes_thaali_true
+  after_create :set_takes_thaali_true
   after_destroy :set_takes_thaali_false
 
   validates_numericality_of :number, only_integer: true, greater_than: 0
