@@ -1,14 +1,14 @@
 require "rails_helper"
 
 RSpec.describe Takhmeen, type: :model do
+    subject { build(:takhmeen) }
+
     context "association" do
         it { should belong_to(:thaali) }
         it { should have_many(:transactions) }
     end
 
     context "validation of attribute" do
-        subject { build(:takhmeen) }
-
         context "year" do
             it { should validate_presence_of(:year) }
             it { should validate_numericality_of(:year).only_integer }
@@ -50,6 +50,7 @@ RSpec.describe Takhmeen, type: :model do
             it { is_expected.to callback(:set_balance).before(:save) }
 
             it "must set the balance" do
+                subject.save
                 expect(subject.balance).to eq(subject.total)
             end
         end
