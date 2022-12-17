@@ -6,7 +6,7 @@ class Thaali < ApplicationRecord
 
   validates_numericality_of :number, only_integer: true, greater_than: 0
 
-  validates_uniqueness_of :number
+  validates_uniqueness_of :number, :sabeel_id
 
   validates_presence_of :number, :size
 

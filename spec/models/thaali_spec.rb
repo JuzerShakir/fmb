@@ -15,6 +15,10 @@ RSpec.describe Thaali, type: :model do
             it { should define_enum_for(:size).with_values([:small, :medium, :large]) }
             it { should validate_presence_of(:size) }
         end
+
+        context "sabeel_id"  do
+            it { should validate_uniqueness_of(:sabeel_id) }
+        end
     end
 
     context "association" do
