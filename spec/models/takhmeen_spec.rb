@@ -55,10 +55,10 @@ RSpec.describe Takhmeen, type: :model do
     end
 
     context "callback method" do
-        context "set_balance" do
-            it { is_expected.to callback(:set_balance).before(:save) }
+        context "update_balance" do
+            it { is_expected.to callback(:update_balance).before(:save) }
 
-            it "must set the balance" do
+            it "must instantiate with same amount as total amount" do
                 subject.save
                 expect(subject.balance).to eq(subject.total)
             end
