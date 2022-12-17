@@ -44,4 +44,18 @@ RSpec.describe Transaction, type: :model do
             end
         end
     end
+
+    context "callback method" do
+        context "update_paid_amount" do
+            it { is_expected.to callback(:update_paid_amount).after(:commit) }
+
+            it "should update the the parents 'paid' value" do
+                previous_paid_amount = subject.takhmeen.paid
+                subject.amount = 500
+                previous_paid_amount += subject.amount
+                subject.save
+                expect(subject.takhmeen.paid).to eq(previous_paid_amount)
+            end
+        end
+    end
 end
