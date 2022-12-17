@@ -33,14 +33,12 @@ RSpec.describe Takhmeen, type: :model do
             it { should validate_numericality_of(:paid).is_greater_than_or_equal_to(0) }
 
             it "must set its value to 0 after instance is persisted" do
-                subject.save
                 expect(subject.paid).to be_eql(0)
             end
         end
 
         context "is_complete" do
             it "must set its value to false after instance is persisted" do
-                subject.save
                 expect(subject.is_complete).to be_falsey
             end
         end
