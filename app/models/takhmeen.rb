@@ -2,7 +2,7 @@ class Takhmeen < ApplicationRecord
   belongs_to :thaali
   has_many :transactions
 
-  before_save :set_balance
+  before_save :set_balance, :check_if_balance_is_zero
 
   validates_presence_of :year, :total, :paid
 
@@ -16,5 +16,9 @@ class Takhmeen < ApplicationRecord
   private
     def set_balance
       self.balance = self.total - self.paid
+    end
+
+    def check_if_balance_is_zero
+      self.is_complete = true if self.balance.zero? && !self.is_complete
     end
 end

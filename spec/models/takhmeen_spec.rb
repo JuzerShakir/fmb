@@ -54,5 +54,15 @@ RSpec.describe Takhmeen, type: :model do
                 expect(subject.balance).to eq(subject.total)
             end
         end
+
+        context "check_if_balance_is_zero" do
+            it { is_expected.to callback(:check_if_balance_is_zero).before(:save) }
+
+            it "must set is_complete to truthy" do
+                subject.paid = subject.total = 2000
+                subject.save
+                expect(subject.is_complete).to be_truthy
+            end
+        end
     end
 end
