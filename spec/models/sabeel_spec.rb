@@ -5,7 +5,7 @@ RSpec.describe Sabeel, :type => :model do
     subject { build(:sabeel) }
 
     context "assocaition" do
-        it { should have_one(:thaali) }
+        it { should have_one(:thaali).dependent(:destroy) }
     end
 
     context "validations of attribute" do
