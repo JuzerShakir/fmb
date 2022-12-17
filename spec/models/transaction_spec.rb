@@ -49,12 +49,21 @@ RSpec.describe Transaction, type: :model do
         context "update_paid_amount" do
             it { is_expected.to callback(:update_paid_amount).after(:commit) }
 
-            it "should update the the parents 'paid' value" do
+            it "should update the the parents 'paid' value if takhmeen payment is NOT complete" do
+                expect(subject.takhmeen.is_complete).to be_falsey
                 previous_paid_amount = subject.takhmeen.paid
                 subject.amount = 500
                 previous_paid_amount += subject.amount
                 subject.save
                 expect(subject.takhmeen.paid).to eq(previous_paid_amount)
+            end
+
+            it "should not update the parents 'paid' value if takhmeen payment IS complete" do
+                takhmeen_paid_amount = subject.takhmeen.paid = subject.takhmeen.total
+                subject.takhmeen.is_complete = true
+                subject.amount = 1000
+                subject.save
+                expect(subject.takhmeen.paid).to eq(takhmeen_paid_amount)
             end
         end
     end

@@ -21,7 +21,9 @@ class Transaction < ApplicationRecord
   private
 
     def update_paid_amount
-      self.takhmeen.paid += self.amount
-      self.takhmeen.update_attribute(:paid, self.takhmeen.paid)
+      unless self.takhmeen.is_complete
+        self.takhmeen.paid += self.amount
+        self.takhmeen.update_attribute(:paid, self.takhmeen.paid)
+      end
     end
 end
