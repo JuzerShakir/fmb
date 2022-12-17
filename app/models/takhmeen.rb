@@ -1,6 +1,8 @@
 class Takhmeen < ApplicationRecord
   belongs_to :thaali
 
+  before_save :set_balance
+
   validates_presence_of :year, :total, :paid
 
   validates_numericality_of :year, only_integer: true, greater_than_or_equal_to: 2022
@@ -10,4 +12,8 @@ class Takhmeen < ApplicationRecord
 
   validates_numericality_of :paid, only_integer: true, greater_than_or_equal_to: 0
 
+  private
+    def set_balance
+      self.balance = self.total - self.paid
+    end
 end
