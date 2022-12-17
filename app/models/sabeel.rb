@@ -3,7 +3,8 @@ class Sabeel < ApplicationRecord
     has_many :takhmeens, through: :thaali
 
     before_save  :generate_address
-    after_validation :capitalize_wing, :capitalize_hof_name
+    before_save :capitalize_wing, if: :will_save_change_to_wing?
+    before_save :capitalize_hof_name, if: :will_save_change_to_hof_name?
 
     validates :its, :mobile, numericality: { only_integer: true }, presence: true
     validates_numericality_of :its, in: 10000000..99999999
