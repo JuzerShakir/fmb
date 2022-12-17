@@ -1,8 +1,10 @@
 FactoryBot.define do
+  mode_of_payments = %i(cash cheque bank)
+
   factory :transaction do
-    takhmeen { nil }
-    mode { 1 }
-    amount { 1 }
-    on_date { "2022-12-17" }
+    takhmeen
+    sequence :mode, mode_of_payments.cycle
+    sequence(:amount, 1000)
+    on_date { Date.today }
   end
 end

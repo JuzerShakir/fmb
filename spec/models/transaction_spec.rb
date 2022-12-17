@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe Transaction, type: :model do
     context "validation of attribute" do
+        subject { build(:transaction) }
         context "mode" do
             let(:mode_of_payments) { %i(cash cheque bank) }
             it { should validate_presence_of(:mode) }
