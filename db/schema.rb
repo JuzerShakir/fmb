@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_16_145934) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_17_053403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,6 +30,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_16_145934) do
     t.index ["its"], name: "index_sabeels_on_its", unique: true
   end
 
+  create_table "takhmeens", force: :cascade do |t|
+    t.bigint "thaali_id", null: false
+    t.integer "year", default: 2022, null: false
+    t.integer "total", null: false
+    t.integer "paid", default: 0, null: false
+    t.integer "balance", null: false
+    t.boolean "is_complete", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["thaali_id"], name: "index_takhmeens_on_thaali_id"
+    t.index ["year", "thaali_id"], name: "index_takhmeens_on_year_and_thaali_id", unique: true
+  end
+
   create_table "thaalis", force: :cascade do |t|
     t.integer "number", null: false
     t.integer "size", null: false
@@ -40,5 +53,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_16_145934) do
     t.index ["sabeel_id"], name: "index_thaalis_on_sabeel_id", unique: true
   end
 
+  add_foreign_key "takhmeens", "thaalis"
   add_foreign_key "thaalis", "sabeels"
 end
