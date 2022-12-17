@@ -1,7 +1,7 @@
 class Transaction < ApplicationRecord
   belongs_to :takhmeen
 
-  after_commit :add_transaction_amount_to_paid_amount
+  after_commit :add_all_transaction_amounts_to_paid_amount
 
   validates_presence_of :mode, :amount, :on_date
 
@@ -20,10 +20,17 @@ class Transaction < ApplicationRecord
 
   private
 
-    def add_transaction_amount_to_paid_amount
+    def add_all_transaction_amounts_to_paid_amount
       unless self.takhmeen.is_complete
-        self.takhmeen.paid += self.amount
-        self.takhmeen.update_attribute(:paid, self.takhmeen.paid)
+        takhmeen = self.takhmeen
+        all_transactions_of_a_takhmeen = takhmeen.transactions
+
+        if all_transactions_of_a_takhmeen.exists?
+          total_takhmeen = all_transactions_of_a_takhmeen.pluck(:amount).sum(0)
+          takhmeen.update_attribute(:paid, total_takhmeen)
+        else
+          takhmeen.update_attribute(:paid, 0)
+        end
       end
     end
 end

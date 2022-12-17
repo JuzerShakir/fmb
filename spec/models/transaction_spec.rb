@@ -46,24 +46,38 @@ RSpec.describe Transaction, type: :model do
     end
 
     context "callback method" do
-        context "add_transaction_amount_to_paid_amount" do
-            it { is_expected.to callback(:add_transaction_amount_to_paid_amount).after(:commit) }
+        context "add_all_transaction_amounts_to_paid_amount" do
+            it { is_expected.to callback(:add_all_transaction_amounts_to_paid_amount).after(:commit) }
 
-            it "should update the value if takhmeen payment is NOT complete" do
-                expect(subject.takhmeen.is_complete).to be_falsey
-                previous_paid_amount = subject.takhmeen.paid
-                subject.amount = 500
-                previous_paid_amount += subject.amount
-                subject.save
-                expect(subject.takhmeen.paid).to eq(previous_paid_amount)
+            context "if takhmeen is NOT complete" do
+                subject { create(:transaction) }
+
+                let!(:takhmeen) { subject.takhmeen }
+                let!(:all_transactions_of_a_takhmeen) { takhmeen.transactions }
+
+                context "with one or more transactions" do
+                    it "should add all the transaction amounts" do
+                        total_takhmeen = all_transactions_of_a_takhmeen.pluck(:amount).sum(0)
+                        expect(takhmeen.paid).to eq(total_takhmeen)
+                    end
+                end
+
+                context "with no transactions"  do
+                    it "should reset paid amount to zero" do
+                        subject.destroy
+                        expect(subject.takhmeen.paid).to eq(0)
+                    end
+                end
             end
 
-            it "should NOT update the value if takhmeen payment IS complete" do
-                takhmeen_paid_amount = subject.takhmeen.paid = subject.takhmeen.total
-                subject.takhmeen.is_complete = true
-                subject.amount = 1000
-                subject.save
-                expect(subject.takhmeen.paid).to eq(takhmeen_paid_amount)
+            context "if takhmeen IS complete" do
+                it "should NOT update the paid_amount" do
+                    takhmeen_paid_amount = subject.takhmeen.paid = subject.takhmeen.total
+                    subject.takhmeen.is_complete = true
+                    subject.amount = 1000
+                    subject.save
+                    expect(subject.takhmeen.paid).to eq(takhmeen_paid_amount)
+                end
             end
         end
     end
