@@ -4,6 +4,7 @@ RSpec.describe Transaction, type: :model do
     subject { build(:transaction) }
 
     context "assocaition" do
+        subject { create(:transaction) }
         it { should belong_to(:takhmeen) }
     end
 
@@ -41,6 +42,20 @@ RSpec.describe Transaction, type: :model do
                 subject.on_date = Date.today
                 subject.validate
                 expect(subject.errors[:on_date]).to_not include("cannot be in the future")
+            end
+        end
+
+        context "amount_should_be_less_than_the_balance" do
+            it "must raise an error if amount value is greater than balance value" do
+                subject.amount = subject.takhmeen.balance + 1000
+                subject.validate
+                expect(subject.errors[:amount]).to include("cannot be greater than the balance")
+            end
+
+            it "must NOT raise an error if amount value is less than balance value" do
+                subject.amount = subject.takhmeen.balance - 1000
+                subject.validate
+                expect(subject.errors[:amount]).to_not include("cannot be greater than the balance")
             end
         end
     end
