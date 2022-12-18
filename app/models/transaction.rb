@@ -12,7 +12,7 @@ class Transaction < ApplicationRecord
 
   validate :amount_should_be_less_than_the_balance, if: :will_save_change_to_amount?
 
-  validate :on_date_must_not_be_in_future
+  validate :on_date_must_not_be_in_future, if: :will_save_change_to_on_date?
 
   def on_date_must_not_be_in_future
     if self.on_date.present? && (self.on_date > Date.today)
