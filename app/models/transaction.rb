@@ -34,8 +34,13 @@ class Transaction < ApplicationRecord
         all_transactions_of_a_takhmeen = takhmeen.transactions
 
         if all_transactions_of_a_takhmeen.exists?
-          total_takhmeen = all_transactions_of_a_takhmeen.pluck(:amount).sum(0)
-          takhmeen.update_attribute(:paid, total_takhmeen)
+          total_takhmeen_paid = 0
+
+          all_transactions_of_a_takhmeen.each do |transaction|
+            total_takhmeen_paid += transaction.amount if transaction.persisted?
+          end
+
+          takhmeen.update_attribute(:paid, total_takhmeen_paid)
         else
           takhmeen.update_attribute(:paid, 0)
         end
