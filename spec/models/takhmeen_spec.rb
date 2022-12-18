@@ -38,15 +38,6 @@ RSpec.describe Takhmeen, type: :model do
             end
         end
 
-        context "balance" do
-            it { should validate_presence_of(:balance) }
-
-            it { should validate_numericality_of(:balance).only_integer }
-
-            it { should validate_numericality_of(:balance).is_greater_than_or_equal_to(0) }
-
-        end
-
         context "is_complete" do
             it "must set its value to false after instance is persisted" do
                 expect(subject.is_complete).to be_falsey
