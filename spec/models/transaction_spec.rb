@@ -89,7 +89,7 @@ RSpec.describe Transaction, type: :model do
                 it "should NOT update the paid attribute amount" do
                     takhmeen_paid_amount = subject.takhmeen.paid = subject.takhmeen.total
                     subject.save # is_complete attribute for takhmeen model will be set to true through callback
-                    subject.amount = 1000
+                    subject.amount = Faker::Number.non_zero_digit
                     subject.save # will NOT update the paid attribute amount as is_complete is set to true
                     expect(subject.takhmeen.paid).to eq(takhmeen_paid_amount)
                 end
