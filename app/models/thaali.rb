@@ -16,6 +16,8 @@ class Thaali < ApplicationRecord
 
   scope :in_the_year, -> year { joins(:takhmeens).where('takhmeens.year = ?', year) }
 
+  scope :all_pending_takhmeens_till_date, -> { joins(:takhmeens).where('takhmeens.is_complete = ?', false) }
+
   private
     def set_takes_thaali_true
       self.sabeel.update_attribute(:takes_thaali, true)
