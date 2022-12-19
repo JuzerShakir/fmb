@@ -17,8 +17,8 @@ class Sabeel < ApplicationRecord
     validates_email_format_of :email, allow_blank: true
     # hof_name
     validates :hof_name, uniqueness: { scope: :its }, presence: true
-    # building_name
-    validates_presence_of :building_name, :wing, :flat_no
+    # apartment
+    validates_presence_of :apartment, :wing, :flat_no
     # Wing
     validates_length_of :wing, is: 1
     # Flat No
@@ -29,20 +29,20 @@ class Sabeel < ApplicationRecord
     validates :takes_thaali, inclusion: [true, false]
 
     # * Enums
-    # building_name
-    building_names =  %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi maimoon qutbi najmi husami noorani)
+    # apartment
+    all_apartments =  %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi maimoon qutbi najmi husami noorani)
 
-    building_names_with_ids = building_names.each_with_object({}).with_index do | (building_name, hash), i |
-        hash[building_name] = i
+    all_apartments_with_ids = all_apartments.each_with_object({}).with_index do | (apartment, hash), i |
+        hash[apartment] = i
     end
-    enum :building_name, building_names_with_ids
+    enum :apartment, all_apartments_with_ids
 
     # * Scopes
-    scope :in_phase_1, -> { where(building_name: ["mohammedi", "saifee", "jamali", "taiyebi", "imadi", "burhani", "zaini", "fakhri", "badri", "ezzi"]) }
+    scope :in_phase_1, -> { where(apartment: ["mohammedi", "saifee", "jamali", "taiyebi", "imadi", "burhani", "zaini", "fakhri", "badri", "ezzi"]) }
 
-    scope :in_phase_2, -> { where(building_name: ["maimoon", "qutbi", "najmi"]) }
+    scope :in_phase_2, -> { where(apartment: ["maimoon", "qutbi", "najmi"]) }
 
-    scope :in_phase_3, -> { where(building_name: ["husami", "noorani"]) }
+    scope :in_phase_3, -> { where(apartment: ["husami", "noorani"]) }
 
     scope :in_maimoon_a, -> { maimoon.where(wing: "A") }
 
@@ -72,7 +72,7 @@ class Sabeel < ApplicationRecord
         end
 
         def set_up_address
-            self.address = "#{self.building_name.capitalize} #{self.wing} #{self.flat_no}"
+            self.address = "#{self.apartment.capitalize} #{self.wing} #{self.flat_no}"
         end
 
         def upcase_wing
