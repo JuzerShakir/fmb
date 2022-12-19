@@ -64,15 +64,28 @@ RSpec.describe Thaali, type: :model do
 
         context "takhmeen" do
             context ".all_pending_takhmeens_till_date" do
-                let!(:incomplete_takhmeens) { create(:takhmeen, is_complete: false) }
-                let!(:completed_takhmeens) { create(:takhmeen, is_complete: true) }
+                let!(:incomplete_takhmeen) { create(:takhmeen, is_complete: false) }
+                let!(:completed_takhmeen) { create(:takhmeen, is_complete: true) }
 
                 it "should return all the thaalis for whos takhmeen is pending" do
-                    expect(described_class.all_pending_takhmeens_till_date).to contain_exactly(incomplete_takhmeens.thaali)
+                    expect(described_class.all_pending_takhmeens_till_date).to contain_exactly(incomplete_takhmeen.thaali)
                 end
 
                 it "should NOT return thaalis whose takhmeen is paid" do
-                    expect(described_class.all_pending_takhmeens_till_date).not_to contain_exactly(completed_takhmeens.thaali)
+                    expect(described_class.all_pending_takhmeens_till_date).not_to contain_exactly(completed_takhmeen.thaali)
+                end
+            end
+
+            context ".all_pending_takhmeens_for_the_year" do
+                let!(:incomplete_takhmeen_for_current_year) { create(:takhmeen, is_complete: false, year: Date.current.year) }
+                let!(:incomplete_takhmeen_for_other_years) { create(:takhmeen, is_complete: true, year: Date.current.next_year.year) }
+
+                it "should return all the thaalis whos takhmeen is pending for the current year" do
+                    expect(described_class.all_pending_takhmeens_for_the_year(Date.current.year)).to contain_exactly(incomplete_takhmeen_for_current_year.thaali)
+                end
+
+                it "should NOT return thaalis whos takhmeen is pending for the other years" do
+                    expect(described_class.all_pending_takhmeens_for_the_year(Date.current.next_year.year)).not_to contain_exactly(incomplete_takhmeen_for_other_years.thaali)
                 end
             end
         end
