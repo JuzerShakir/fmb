@@ -3,6 +3,9 @@ require "validates_email_format_of/rspec_matcher"
 
 RSpec.describe Sabeel, :type => :model do
     subject { build(:sabeel) }
+    phase_1 = %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi)
+    phase_2 = %i(maimoon qutbi najmi)
+    phase_3 = %i(husami noorani)
 
     context "assocaition" do
         it { should have_one(:thaali).dependent(:destroy) }
@@ -32,10 +35,6 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "building_name" do
-            let(:phase_1) { %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri) }
-            let(:phase_2) { %i(maimoon qutbi najmi) }
-            let(:phase_3) { %i(husami noorani) }
-
             let(:buildings) { Array.new.push(*phase_1, *phase_2, *phase_3) }
 
             it { should validate_presence_of(:building_name) }
@@ -115,10 +114,6 @@ RSpec.describe Sabeel, :type => :model do
     end
 
     context "scope" do
-        phase_1 = %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri)
-        phase_2 = %i(maimoon qutbi najmi)
-        phase_3 = %i(husami noorani)
-
         context ".in_phase_1" do
             it "should return all the sabeels who live in Phase 1 buildings" do
                 sabeels_in_phase_1 = phase_1.map { | building | create(:sabeel, building) }
@@ -152,7 +147,6 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "by wings" do
-
             context "for maimoon" do
                 let!(:sabeels_in_maimoon_b) { create_list(:sabeel, 2, :maimoon, wing: "B") }
                 let!(:sabeels_in_maimoon_a) { create_list(:sabeel, 2, :maimoon, wing: "A") }
