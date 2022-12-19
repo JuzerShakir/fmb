@@ -14,6 +14,8 @@ class Thaali < ApplicationRecord
 
   enum :size, { small: 0, medium: 1, large: 2 }
 
+  scope :in_the_year, -> year { joins(:takhmeens).where('takhmeens.year = ?', year) }
+
   private
     def set_takes_thaali_true
       self.sabeel.update_attribute(:takes_thaali, true)
