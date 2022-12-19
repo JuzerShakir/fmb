@@ -1,15 +1,16 @@
 class Transaction < ApplicationRecord
+  # * Associations
   belongs_to :takhmeen
 
+  # * Callbacks
   after_commit :add_all_transaction_amounts_to_paid_amount
 
+  # * Validations
   validates_presence_of :mode, :amount, :on_date
-
-  mode_of_payments = { cash: 0, cheque: 1, bank: 2 }
-  enum :mode, mode_of_payments
 
   validates_numericality_of :amount, only_integer: true, greater_than: 0
 
+  # * Custom Validations
   validate :amount_should_be_less_than_the_balance, if: :will_save_change_to_amount?
 
   validate :on_date_must_not_be_in_future, if: :will_save_change_to_on_date?
@@ -26,6 +27,11 @@ class Transaction < ApplicationRecord
     end
   end
 
+  # * Enums
+  mode_of_payments = { cash: 0, cheque: 1, bank: 2 }
+  enum :mode, mode_of_payments
+
+  # * Scopes
   scope :that_occured_on, -> date { where(on_date: date)}
 
   private
