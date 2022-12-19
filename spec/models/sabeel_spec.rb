@@ -83,7 +83,7 @@ RSpec.describe Sabeel, :type => :model do
     end
 
     context "callback method" do
-        context "titleize_hof_name" do
+        context "#titleize_hof_name" do
             it { is_expected.to callback(:titleize_hof_name).before(:save).if(:will_save_change_to_hof_name?) }
 
             it "must return capitalized name" do
@@ -94,7 +94,7 @@ RSpec.describe Sabeel, :type => :model do
             end
         end
 
-        context "set_up_address" do
+        context "#set_up_address" do
             it { is_expected.to callback(:set_up_address).before(:save) }
 
             it "must be in a specific format" do
@@ -103,7 +103,7 @@ RSpec.describe Sabeel, :type => :model do
             end
         end
 
-        context "upcase_wing" do
+        context "#upcase_wing" do
             it { is_expected.to callback(:upcase_wing).before(:save).if(:will_save_change_to_wing?) }
 
             it "must capitalize the character" do

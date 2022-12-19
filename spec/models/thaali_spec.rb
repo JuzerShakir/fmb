@@ -30,7 +30,7 @@ RSpec.describe Thaali, type: :model do
     context "callback method" do
         subject { create(:thaali) }
 
-        context "set_takes_thaali_true" do
+        context "#set_takes_thaali_true" do
             it { is_expected.to callback(:set_takes_thaali_true).after(:create) }
 
             it "must set parent attribute takes_thaali to true" do
@@ -38,7 +38,7 @@ RSpec.describe Thaali, type: :model do
             end
         end
 
-        context "set_takes_thaali_false" do
+        context "#set_takes_thaali_false" do
             it { is_expected.to callback(:set_takes_thaali_false).after(:destroy) }
 
             it "must set parent attribute takes_thaali to false" do

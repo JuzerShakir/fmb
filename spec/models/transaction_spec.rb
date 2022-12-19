@@ -61,7 +61,7 @@ RSpec.describe Transaction, type: :model do
     end
 
     context "callback method" do
-        context "add_all_transaction_amounts_to_paid_amount" do
+        context "#add_all_transaction_amounts_to_paid_amount" do
             it { is_expected.to callback(:add_all_transaction_amounts_to_paid_amount).after(:commit) }
 
             context "if takhmeen is NOT complete" do

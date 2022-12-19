@@ -46,7 +46,7 @@ RSpec.describe Takhmeen, type: :model do
     end
 
     context "callback method" do
-        context "update_balance" do
+        context "#update_balance" do
             it { is_expected.to callback(:update_balance).before(:save) }
 
             it "must instantiate with same amount as total amount" do
@@ -55,7 +55,7 @@ RSpec.describe Takhmeen, type: :model do
             end
         end
 
-        context "check_if_balance_is_zero" do
+        context "#check_if_balance_is_zero" do
             it { is_expected.to callback(:check_if_balance_is_zero).before(:save) }
 
             it "must set is_complete to truthy" do
