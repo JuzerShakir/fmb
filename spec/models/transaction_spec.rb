@@ -47,13 +47,13 @@ RSpec.describe Transaction, type: :model do
 
         context "amount_should_be_less_than_the_balance" do
             it "must raise an error if amount value is greater than balance value" do
-                subject.amount = subject.takhmeen.balance + 1000
+                subject.amount = subject.takhmeen.balance + Faker::Number.non_zero_digit
                 subject.validate
                 expect(subject.errors[:amount]).to include("cannot be greater than the balance")
             end
 
             it "must NOT raise an error if amount value is less than balance value" do
-                subject.amount = subject.takhmeen.balance - 1000
+                subject.amount = subject.takhmeen.balance - Faker::Number.non_zero_digit
                 subject.validate
                 expect(subject.errors[:amount]).to_not include("cannot be greater than the balance")
             end
