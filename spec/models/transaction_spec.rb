@@ -2,6 +2,10 @@ require "rails_helper"
 
 RSpec.describe Transaction, type: :model do
     subject { build(:transaction) }
+    today = Date.today
+    yesterday = Date.today.prev_day
+    current_year = today.year
+    next_year = today.next_year.year
 
     context "assocaition" do
         subject { create(:transaction) }
@@ -39,7 +43,7 @@ RSpec.describe Transaction, type: :model do
             end
 
             it "must pass for present or past dates" do
-                subject.on_date = Date.today
+                subject.on_date = today
                 subject.validate
                 expect(subject.errors[:on_date]).to_not include("cannot be in the future")
             end
@@ -100,14 +104,14 @@ RSpec.describe Transaction, type: :model do
     context "scope" do
         context "that_occured_on" do
             let!(:transaction_today) { create(:transaction) }
-            let!(:transaction_prev_day) { create(:transaction, on_date: Date.today.prev_day) }
+            let!(:transaction_prev_day) { create(:transaction, on_date: yesterday) }
 
             it "should return all the transactions that occured on the given date" do
-                expect(described_class.that_occured_on(Date.today)).to contain_exactly(transaction_today)
+                expect(described_class.that_occured_on(today)).to contain_exactly(transaction_today)
             end
 
             it "should NOT return the transactions that occured on some other day" do
-                expect(described_class.that_occured_on(Date.today)).not_to contain_exactly(transaction_prev_day)
+                expect(described_class.that_occured_on(today)).not_to contain_exactly(transaction_prev_day)
             end
         end
     end

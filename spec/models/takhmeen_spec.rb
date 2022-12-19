@@ -2,6 +2,10 @@ require "rails_helper"
 
 RSpec.describe Takhmeen, type: :model do
     subject { build(:takhmeen) }
+    today = Date.today
+    yesterday = Date.today.prev_day
+    current_year = today.year
+    next_year = today.next_year.year
 
     context "association" do
         it { should belong_to(:thaali) }
@@ -13,7 +17,7 @@ RSpec.describe Takhmeen, type: :model do
             it { should validate_presence_of(:year) }
             it { should validate_numericality_of(:year).only_integer }
 
-            it { should validate_numericality_of(:year).is_greater_than_or_equal_to(Date.current.year) }
+            it { should validate_numericality_of(:year).is_greater_than_or_equal_to(current_year) }
 
             it { should validate_uniqueness_of(:year).scoped_to(:thaali_id) }
         end
