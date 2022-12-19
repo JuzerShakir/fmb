@@ -103,8 +103,8 @@ RSpec.describe Sabeel, :type => :model do
             end
         end
 
-        context "capitalize_wing" do
-            it { is_expected.to callback(:capitalize_wing).before(:save).if(:will_save_change_to_wing?) }
+        context "upcase_wing" do
+            it { is_expected.to callback(:upcase_wing).before(:save).if(:will_save_change_to_wing?) }
 
             it "must capitalize the character" do
                 subject.wing = 'a'

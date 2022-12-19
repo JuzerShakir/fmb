@@ -3,7 +3,7 @@ class Sabeel < ApplicationRecord
     has_many :takhmeens, through: :thaali
 
     before_save  :generate_address
-    before_save :capitalize_wing, if: :will_save_change_to_wing?
+    before_save :upcase_wing, if: :will_save_change_to_wing?
     before_save :titleize_hof_name, if: :will_save_change_to_hof_name?
 
     validates :its, :mobile, numericality: { only_integer: true }, presence: true
@@ -38,7 +38,7 @@ class Sabeel < ApplicationRecord
             self.address = "#{self.building_name.capitalize} #{self.wing} #{self.flat_no}"
         end
 
-        def capitalize_wing
+        def upcase_wing
             self.wing = self.wing.upcase unless self.wing.nil?
         end
 end
