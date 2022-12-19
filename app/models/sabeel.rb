@@ -4,7 +4,7 @@ class Sabeel < ApplicationRecord
 
     before_save  :generate_address
     before_save :capitalize_wing, if: :will_save_change_to_wing?
-    before_save :capitalize_hof_name, if: :will_save_change_to_hof_name?
+    before_save :titleize_hof_name, if: :will_save_change_to_hof_name?
 
     validates :its, :mobile, numericality: { only_integer: true }, presence: true
     validates_numericality_of :its, in: 10000000..99999999
@@ -30,7 +30,7 @@ class Sabeel < ApplicationRecord
 
     private
 
-        def capitalize_hof_name
+        def titleize_hof_name
             self.hof_name  = self.hof_name.split(" ").map(&:capitalize).join(" ") unless self.hof_name.nil?
         end
 

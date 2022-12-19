@@ -83,13 +83,13 @@ RSpec.describe Sabeel, :type => :model do
     end
 
     context "callback method" do
-        context "capitalize_hof_name" do
-            it { is_expected.to callback(:capitalize_hof_name).before(:save).if(:will_save_change_to_hof_name?) }
+        context "titleize_hof_name" do
+            it { is_expected.to callback(:titleize_hof_name).before(:save).if(:will_save_change_to_hof_name?) }
 
             it "must return capitalized name" do
                 subject.hof_name = Faker::Name.name.swapcase
                 name_titleize_format = subject.hof_name.swapcase.titleize
-                expect(subject).to receive(:capitalize_hof_name).and_return(name_titleize_format)
+                expect(subject).to receive(:titleize_hof_name).and_return(name_titleize_format)
                 subject.save
             end
         end
