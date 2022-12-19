@@ -15,10 +15,14 @@ class Sabeel < ApplicationRecord
     validates :hof_name, uniqueness: { scope: :its }, presence: true
 
     validates_presence_of :building_name, :wing, :flat_no
-    buildings_in_phase_1 = { mohammedi: 0, saifee: 1, jamali: 2, taiyebi: 3, imadi: 4, burhani: 5, zaini: 6, fakhri: 7, badri: 8 }
-    buildings_in_phase_2 = { maimoon: 9, qutbi: 10, najmi:11 }
-    buildings_in_phase_3 = { husami: 12, noorani: 13 }
-    enum :building_name, Hash.new.merge!(buildings_in_phase_1, buildings_in_phase_2, buildings_in_phase_3)
+
+    building_names =  %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri maimoon qutbi najmi husami noorani)
+
+    building_names_with_ids = building_names.each_with_object({}).with_index do | (building_name, hash), i |
+        hash[building_name] = i
+    end
+
+    enum :building_name, building_names_with_ids
 
     validates_length_of :wing, is: 1
 
@@ -29,11 +33,11 @@ class Sabeel < ApplicationRecord
     validates :takes_thaali, inclusion: [true, false]
 
     # * Scopes
-    scope :in_phase_1, -> { where(building_name: buildings_in_phase_1.keys ) }
+    scope :in_phase_1, -> { where(building_name: ["mohammedi", "saifee", "jamali", "taiyebi", "imadi", "burhani", "zaini", "fakhri", "badri"]) }
 
-    scope :in_phase_2, -> { where(building_name: buildings_in_phase_2.keys ) }
+    scope :in_phase_2, -> { where(building_name: ["maimoon", "qutbi", "najmi"]) }
 
-    scope :in_phase_3, -> { where(building_name: buildings_in_phase_3.keys ) }
+    scope :in_phase_3, -> { where(building_name: ["husami", "noorani"]) }
 
     private
 
