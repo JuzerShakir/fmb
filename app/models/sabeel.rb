@@ -57,6 +57,8 @@ class Sabeel < ApplicationRecord
 
     scope :who_takes_thaali, -> { where(takes_thaali: true) }
 
+    scope :who_doesnt_takes_thaali, -> { where(takes_thaali: false) }
+
 
     private
 
