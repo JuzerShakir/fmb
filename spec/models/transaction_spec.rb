@@ -33,7 +33,7 @@ RSpec.describe Transaction, type: :model do
     context "custom validation method" do
         context "on_date_must_not_be_in_future" do
             it "must raise error for future dates" do
-                subject.on_date = Date.tomorrow
+                subject.on_date = Faker::Date.forward
                 subject.validate
                 expect(subject.errors[:on_date]).to include("cannot be in the future")
             end
