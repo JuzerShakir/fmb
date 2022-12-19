@@ -26,6 +26,8 @@ class Transaction < ApplicationRecord
     end
   end
 
+  scope :that_occured_on, -> date { where(on_date: date)}
+
   private
 
     def add_all_transaction_amounts_to_paid_amount

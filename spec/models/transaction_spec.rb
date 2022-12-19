@@ -96,4 +96,19 @@ RSpec.describe Transaction, type: :model do
             end
         end
     end
+
+    context "scope" do
+        context "that_occured_on" do
+            let!(:transaction_today) { create(:transaction) }
+            let!(:transaction_prev_day) { create(:transaction, on_date: Date.today.prev_day) }
+
+            it "should return all the transactions that occured on the given date" do
+                expect(described_class.that_occured_on(Date.today)).to contain_exactly(transaction_today)
+            end
+
+            it "should NOT return the transactions that occured on some other day" do
+                expect(described_class.that_occured_on(Date.today)).not_to contain_exactly(transaction_prev_day)
+            end
+        end
+    end
 end
