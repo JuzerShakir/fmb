@@ -13,7 +13,7 @@ RSpec.describe Takhmeen, type: :model do
             it { should validate_presence_of(:year) }
             it { should validate_numericality_of(:year).only_integer }
 
-            it { should validate_numericality_of(:year).is_greater_than_or_equal_to(2022) }
+            it { should validate_numericality_of(:year).is_greater_than_or_equal_to(Date.current.year) }
 
             it { should validate_uniqueness_of(:year).scoped_to(:thaali_id) }
         end
