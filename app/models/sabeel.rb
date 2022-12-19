@@ -2,8 +2,8 @@ class Sabeel < ApplicationRecord
     has_one :thaali, dependent: :destroy
     has_many :takhmeens, through: :thaali
 
-    before_save  :set_up_address
     before_save :upcase_wing, if: :will_save_change_to_wing?
+    before_save  :set_up_address
     before_save :titleize_hof_name, if: :will_save_change_to_hof_name?
 
     validates :its, :mobile, numericality: { only_integer: true }, presence: true
