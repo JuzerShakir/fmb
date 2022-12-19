@@ -154,24 +154,25 @@ RSpec.describe Sabeel, :type => :model do
         context "by wings" do
             let!(:sabeels_in_maimoon_b) { create_list(:sabeel, 2, :maimoon, wing: "B") }
             let!(:sabeels_in_maimoon_a) { create_list(:sabeel, 2, :maimoon, wing: "A") }
+            context "for maimoon" do
+                context ".in_maimoon_a" do
+                    it "should return all the sabeels who live in A wing of maimoon building" do
+                        expect(described_class.in_maimoon_a).to contain_exactly(*sabeels_in_maimoon_a)
+                    end
 
-            context ".in_maimoon_a" do
-                it "should return all the sabeels who live in A wing of maimoon building" do
-                    expect(described_class.in_maimoon_a).to contain_exactly(*sabeels_in_maimoon_a)
+                    it "should NOT return sabeels of different wing or building" do
+                        expect(described_class.in_maimoon_a).not_to contain_exactly(*sabeels_in_maimoon_b)
+                    end
                 end
 
-                it "should NOT return sabeels of different wing or building" do
-                    expect(described_class.in_maimoon_a).not_to contain_exactly(*sabeels_in_maimoon_b)
-                end
-            end
+                context ".in_maimoon_b" do
+                    it "should return all the sabeels who live in A wing of maimoon building" do
+                        expect(described_class.in_maimoon_b).to contain_exactly(*sabeels_in_maimoon_b)
+                    end
 
-            context ".in_maimoon_b" do
-                it "should return all the sabeels who live in A wing of maimoon building" do
-                    expect(described_class.in_maimoon_b).to contain_exactly(*sabeels_in_maimoon_b)
-                end
-
-                it "should NOT return sabeels of different wing or building" do
-                    expect(described_class.in_maimoon_b).not_to contain_exactly(*sabeels_in_maimoon_a)
+                    it "should NOT return sabeels of different wing or building" do
+                        expect(described_class.in_maimoon_b).not_to contain_exactly(*sabeels_in_maimoon_a)
+                    end
                 end
             end
         end
