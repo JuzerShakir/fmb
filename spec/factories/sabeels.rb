@@ -1,5 +1,5 @@
 FactoryBot.define do
-  phase_1 = %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri)
+  phase_1 = %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi)
   phase_2 = %i(maimoon qutbi najmi)
   phase_3 = %i(husami noorani)
 

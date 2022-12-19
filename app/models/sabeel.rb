@@ -30,7 +30,7 @@ class Sabeel < ApplicationRecord
 
     # * Enums
     # building_name
-    building_names =  %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri maimoon qutbi najmi husami noorani)
+    building_names =  %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi maimoon qutbi najmi husami noorani)
 
     building_names_with_ids = building_names.each_with_object({}).with_index do | (building_name, hash), i |
         hash[building_name] = i
@@ -38,7 +38,7 @@ class Sabeel < ApplicationRecord
     enum :building_name, building_names_with_ids
 
     # * Scopes
-    scope :in_phase_1, -> { where(building_name: ["mohammedi", "saifee", "jamali", "taiyebi", "imadi", "burhani", "zaini", "fakhri", "badri"]) }
+    scope :in_phase_1, -> { where(building_name: ["mohammedi", "saifee", "jamali", "taiyebi", "imadi", "burhani", "zaini", "fakhri", "badri", "ezzi"]) }
 
     scope :in_phase_2, -> { where(building_name: ["maimoon", "qutbi", "najmi"]) }
 
