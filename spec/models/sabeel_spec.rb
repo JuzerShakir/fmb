@@ -87,7 +87,9 @@ RSpec.describe Sabeel, :type => :model do
             it { is_expected.to callback(:capitalize_hof_name).before(:save).if(:will_save_change_to_hof_name?) }
 
             it "must return capitalized name" do
-                expect(subject).to receive(:capitalize_hof_name).and_return("Juzer Shabbir Shakir")
+                subject.hof_name = Faker::Name.name.swapcase
+                name_titleize_format = subject.hof_name.swapcase.titleize
+                expect(subject).to receive(:capitalize_hof_name).and_return(name_titleize_format)
                 subject.save
             end
         end
