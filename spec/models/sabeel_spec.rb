@@ -94,11 +94,11 @@ RSpec.describe Sabeel, :type => :model do
             end
         end
 
-        context "generate_address" do
-            it { is_expected.to callback(:generate_address).before(:save) }
+        context "set_up_address" do
+            it { is_expected.to callback(:set_up_address).before(:save) }
 
             it "must be in a specific format" do
-                expect(subject).to receive(:generate_address).and_return(/\A[a-z]+ [a-z]{1} \d+\z/i)
+                expect(subject).to receive(:set_up_address).and_return(/\A[a-z]+ [a-z]{1} \d+\z/i)
                 subject.save
             end
         end

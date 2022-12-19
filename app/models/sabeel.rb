@@ -2,7 +2,7 @@ class Sabeel < ApplicationRecord
     has_one :thaali, dependent: :destroy
     has_many :takhmeens, through: :thaali
 
-    before_save  :generate_address
+    before_save  :set_up_address
     before_save :upcase_wing, if: :will_save_change_to_wing?
     before_save :titleize_hof_name, if: :will_save_change_to_hof_name?
 
@@ -34,7 +34,7 @@ class Sabeel < ApplicationRecord
             self.hof_name  = self.hof_name.split(" ").map(&:capitalize).join(" ") unless self.hof_name.nil?
         end
 
-        def generate_address
+        def set_up_address
             self.address = "#{self.building_name.capitalize} #{self.wing} #{self.flat_no}"
         end
 
