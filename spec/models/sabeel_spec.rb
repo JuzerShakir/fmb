@@ -114,4 +114,39 @@ RSpec.describe Sabeel, :type => :model do
         end
     end
 
+    context "scope" do
+        phase_1 = %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri)
+        phase_2 = %i(maimoon qutbi najmi)
+        phase_3 = %i(husami noorani)
+
+        context ".in_phase_1" do
+            it "should return all the sabeels who live in Phase 1 buildings" do
+                sabeels_in_phase_1 = phase_1.map { | building | create(:sabeel, building) }
+
+                expect(described_class.in_phase_1).to contain_exactly(*sabeels_in_phase_1)
+
+                expect(described_class.in_phase_1).not_to contain_exactly(described_class.in_phase_2, described_class.in_phase_3)
+            end
+        end
+
+        context ".in_phase_2" do
+            it "should return all the sabeels who live in Phase 2 buildings" do
+                sabeels_in_phase_2 = phase_2.map { | building | create(:sabeel, building) }
+
+                expect(described_class.in_phase_2).to contain_exactly(*sabeels_in_phase_2)
+
+                expect(described_class.in_phase_2).not_to contain_exactly(described_class.in_phase_1, described_class.in_phase_3)
+            end
+        end
+
+        context ".in_phase_3" do
+            it "should return all the sabeels who live in Phase 3 buildings" do
+                sabeels_in_phase_3 = phase_3.map { | building | create(:sabeel, building) }
+
+                expect(described_class.in_phase_3).to contain_exactly(*sabeels_in_phase_3)
+
+                expect(described_class.in_phase_3).not_to contain_exactly(described_class.in_phase_1, described_class.in_phase_2)
+            end
+        end
+    end
 end

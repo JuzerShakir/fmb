@@ -28,6 +28,13 @@ class Sabeel < ApplicationRecord
 
     validates :takes_thaali, inclusion: [true, false]
 
+    # * Scopes
+    scope :in_phase_1, -> { where(building_name: buildings_in_phase_1.keys ) }
+
+    scope :in_phase_2, -> { where(building_name: buildings_in_phase_2.keys ) }
+
+    scope :in_phase_3, -> { where(building_name: buildings_in_phase_3.keys ) }
+
     private
 
         def titleize_hof_name
