@@ -86,7 +86,7 @@ RSpec.describe Transaction, type: :model do
             end
 
             context "if takhmeen IS complete" do
-                it "should NOT update the paid_amount" do
+                it "should NOT update the paid attribute amount" do
                     takhmeen_paid_amount = subject.takhmeen.paid = subject.takhmeen.total
                     subject.save # is_complete attribute for takhmeen model will be set to true through callback
                     subject.amount = 1000
