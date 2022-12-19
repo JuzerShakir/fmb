@@ -107,6 +107,7 @@ RSpec.describe Sabeel, :type => :model do
             it { is_expected.to callback(:capitalize_wing).before(:save).if(:will_save_change_to_wing?) }
 
             it "must capitalize the character" do
+                subject.wing = 'a'
                 subject.save
                 expect(subject.wing).to match(/[A-Z]{1}/)
             end
