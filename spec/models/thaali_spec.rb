@@ -67,12 +67,11 @@ RSpec.describe Thaali, type: :model do
             let!(:completed_takhmeens) { create(:takhmeen, is_complete: true) }
 
             context ".all_pending_takhmeens_till_date" do
-
-                it "should return all the thaalis of current year" do
+                it "should return all the thaalis for whos takhmeen is pending" do
                     expect(described_class.all_pending_takhmeens_till_date).to contain_exactly(incomplete_takhmeens.thaali)
                 end
 
-                it "should NOT return thaalis of other years" do
+                it "should NOT return thaalis whose takhmeen is paid" do
                     expect(described_class.all_pending_takhmeens_till_date).not_to contain_exactly(completed_takhmeens.thaali)
                 end
             end
