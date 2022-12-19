@@ -124,7 +124,9 @@ RSpec.describe Sabeel, :type => :model do
                 sabeels_in_phase_1 = phase_1.map { | building | create(:sabeel, building) }
 
                 expect(described_class.in_phase_1).to contain_exactly(*sabeels_in_phase_1)
+            end
 
+            it "should NOT return sabeels who live in different Phases" do
                 expect(described_class.in_phase_1).not_to contain_exactly(described_class.in_phase_2, described_class.in_phase_3)
             end
         end
