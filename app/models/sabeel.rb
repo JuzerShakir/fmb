@@ -39,21 +39,21 @@ class Sabeel < ApplicationRecord
 
     scope :in_phase_3, -> { where(building_name: ["husami", "noorani"]) }
 
-    scope :in_maimoon_a, -> { where(building_name: "maimoon", wing: "A") }
+    scope :in_maimoon_a, -> { maimoon.where(wing: "A") }
 
-    scope :in_maimoon_b, -> { where(building_name: "maimoon", wing: "B") }
+    scope :in_maimoon_b, -> { maimoon.where(wing: "B") }
 
-    scope :in_qutbi_a, -> { where(building_name: "qutbi", wing: "A") }
+    scope :in_qutbi_a, -> { qutbi.where(wing: "A") }
 
-    scope :in_qutbi_b, -> { where(building_name: "qutbi", wing: "B") }
+    scope :in_qutbi_b, -> { qutbi.where(wing: "B") }
 
-    scope :in_noorani_a, -> { where(building_name: "noorani", wing: "A") }
+    scope :in_noorani_a, -> { noorani.where(wing: "A") }
 
-    scope :in_noorani_b, -> { where(building_name: "noorani", wing: "B") }
+    scope :in_noorani_b, -> { noorani.where(wing: "B") }
 
-    scope :in_husami_a, -> { where(building_name: "husami", wing: "A") }
+    scope :in_husami_a, -> { husami.where(wing: "A") }
 
-    scope :in_husami_b, -> { where(building_name: "husami", wing: "B") }
+    scope :in_husami_b, -> { husami.where(wing: "B") }
 
     scope :who_takes_thaali, -> { where(takes_thaali: true) }
 
