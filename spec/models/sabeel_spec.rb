@@ -164,6 +164,16 @@ RSpec.describe Sabeel, :type => :model do
                     expect(described_class.in_maimoon_a).not_to contain_exactly(*sabeels_in_maimoon_b)
                 end
             end
+
+            context ".in_maimoon_b" do
+                it "should return all the sabeels who live in A wing of maimoon building" do
+                    expect(described_class.in_maimoon_b).to contain_exactly(*sabeels_in_maimoon_b)
+                end
+
+                it "should NOT return sabeels of different wing or building" do
+                    expect(described_class.in_maimoon_b).not_to contain_exactly(*sabeels_in_maimoon_a)
+                end
+            end
         end
     end
 end
