@@ -4,14 +4,14 @@ FactoryBot.define do
   phase_3 = %i(husami noorani)
 
   factory :sabeel do
-    sequence(:its, 12345678)
-    hof_name { '  jUZER SHaBBir ShaKIR  ' }
+    its { Faker::Number.number(digits: 8) }
+    hof_name { Faker::Name.name }
     sequence :building_name, Array.new.push(*phase_1, *phase_2, *phase_3).cycle
-    sequence(:wing, 'A')
-    sequence(:flat_no, 1)
+    wing { ('A'..'Z').to_a.sample }
+    flat_no { Faker::Number.within(range: 1..9999) }
     address { "#{building_name} #{wing} #{flat_no}" }
-    sequence(:mobile, 1234567890)
-    sequence(:email, 1) { |n| "email#{n}@gmail.com" }
+    mobile { Faker::Number.number(digits: 10) }
+    email { Faker::Internet.free_email }
     takes_thaali { false }
   end
 end
