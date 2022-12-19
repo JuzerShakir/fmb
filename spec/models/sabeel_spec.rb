@@ -253,5 +253,16 @@ RSpec.describe Sabeel, :type => :model do
                 end
             end
         end
+
+        context "for thaali" do
+            let!(:sabeels_who_takes_thaali) { create_list(:sabeel, 2, takes_thaali: true) }
+            let!(:sabeels_who_doesnt_take_thaali) { create_list(:sabeel, 2, takes_thaali: false) }
+
+            context ".who_takes_thaali" do
+                it "should return all sabeels who takes thaali" do
+                    expect(described_class.who_takes_thaali).to contain_exactly(*sabeels_who_takes_thaali)
+                end
+            end
+        end
     end
 end
