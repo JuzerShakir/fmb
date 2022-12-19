@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :transaction do
     takhmeen
     sequence :mode, mode_of_payments.cycle
-    sequence(:amount, 1000)
+    amount { Faker::Number.number(digits: 4) }
     on_date { Date.today }
   end
 end
