@@ -4,7 +4,6 @@ class CreateSabeel < ActiveRecord::Migration[7.0]
       t.integer :its, null: false
       t.string :hof_name, null: false
       t.integer :apartment, null: false
-      t.string :wing, null: false
       t.integer :flat_no, null: false
       t.string :address, null: false
       t.integer :mobile, limit: 8, null: false

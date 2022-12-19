@@ -18,7 +18,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_105012) do
     t.integer "its", null: false
     t.string "hof_name", null: false
     t.integer "apartment", null: false
-    t.string "wing", null: false
     t.integer "flat_no", null: false
     t.string "address", null: false
     t.bigint "mobile", null: false

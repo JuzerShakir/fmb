@@ -4,8 +4,8 @@ require "validates_email_format_of/rspec_matcher"
 RSpec.describe Sabeel, :type => :model do
     subject { build(:sabeel) }
     phase_1 = %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi)
-    phase_2 = %i(maimoon qutbi najmi)
-    phase_3 = %i(husami noorani)
+    phase_2 = %i(maimoon_a maimoon_b qutbi_a qutbi_b najmi)
+    phase_3 = %i(husami_a husami_b noorani_a noorani_b)
 
     context "assocaition" do
         it { should have_one(:thaali).dependent(:destroy) }
@@ -42,11 +42,11 @@ RSpec.describe Sabeel, :type => :model do
             it { should define_enum_for(:apartment).with_values(all_apartments) }
         end
 
-        context "wing" do
-            it { should validate_presence_of(:wing) }
+        # context "wing" do
+        #     it { should validate_presence_of(:wing) }
 
-            it { should validate_length_of(:wing).is_equal_to(1) }
-        end
+        #     it { should validate_length_of(:wing).is_equal_to(1) }
+        # end
 
         context "flat_no" do
             it { should validate_numericality_of(:flat_no).only_integer }
@@ -102,15 +102,15 @@ RSpec.describe Sabeel, :type => :model do
             end
         end
 
-        context "#upcase_wing" do
-            it { is_expected.to callback(:upcase_wing).before(:save).if(:will_save_change_to_wing?) }
+        # context "#upcase_wing" do
+        #     it { is_expected.to callback(:upcase_wing).before(:save).if(:will_save_change_to_wing?) }
 
-            it "must capitalize the character" do
-                subject.wing = ('a'..'z').to_a.sample
-                subject.save
-                expect(subject.wing).to match(/[A-Z]{1}/)
-            end
-        end
+        #     it "must capitalize the character" do
+        #         subject.wing = ('a'..'z').to_a.sample
+        #         subject.save
+        #         expect(subject.wing).to match(/[A-Z]{1}/)
+        #     end
+        # end
     end
 
     context "scope" do
@@ -143,108 +143,6 @@ RSpec.describe Sabeel, :type => :model do
 
             it "should NOT return sabeels who live in different Phases" do
                 expect(described_class.in_phase_3).not_to contain_exactly(described_class.in_phase_1, described_class.in_phase_2)
-            end
-        end
-
-        context "by wings" do
-            context "for maimoon" do
-                let!(:sabeels_in_maimoon_b) { create_list(:sabeel, 2, :maimoon, wing: "B") }
-                let!(:sabeels_in_maimoon_a) { create_list(:sabeel, 2, :maimoon, wing: "A") }
-
-                context ".in_maimoon_a" do
-                    it "should return all the sabeels who live in A wing of maimoon apartment" do
-                        expect(described_class.in_maimoon_a).to contain_exactly(*sabeels_in_maimoon_a)
-                    end
-
-                    it "should NOT return sabeels of different wing or apartment" do
-                        expect(described_class.in_maimoon_a).not_to contain_exactly(*sabeels_in_maimoon_b)
-                    end
-                end
-
-                context ".in_maimoon_b" do
-                    it "should return all the sabeels who live in A wing of maimoon apartment" do
-                        expect(described_class.in_maimoon_b).to contain_exactly(*sabeels_in_maimoon_b)
-                    end
-
-                    it "should NOT return sabeels of different wing or apartment" do
-                        expect(described_class.in_maimoon_b).not_to contain_exactly(*sabeels_in_maimoon_a)
-                    end
-                end
-            end
-
-            context "for qutbi" do
-                let!(:sabeels_in_qutbi_a) { create_list(:sabeel, 2, :qutbi, wing: "A") }
-                let!(:sabeels_in_qutbi_b) { create_list(:sabeel, 2, :qutbi, wing: "B") }
-
-                context ".in_qutbi_a" do
-                    it "should return all the sabeels who live in A wing of Qutbi apartment" do
-                        expect(described_class.in_qutbi_a).to contain_exactly(*sabeels_in_qutbi_a)
-                    end
-
-                    it "should NOT return sabeels of different wing or apartment" do
-                        expect(described_class.in_qutbi_a).not_to contain_exactly(*sabeels_in_qutbi_b)
-                    end
-                end
-
-                context ".in_qutbi_b" do
-                    it "should return all the sabeels who live in A wing of Qutbi apartment" do
-                        expect(described_class.in_qutbi_b).to contain_exactly(*sabeels_in_qutbi_b)
-                    end
-
-                    it "should NOT return sabeels of different wing or apartment" do
-                        expect(described_class.in_qutbi_b).not_to contain_exactly(*sabeels_in_qutbi_a)
-                    end
-                end
-            end
-
-            context "for noorani" do
-                let!(:sabeels_in_noorani_a) { create_list(:sabeel, 2, :noorani, wing: "A") }
-                let!(:sabeels_in_noorani_b) { create_list(:sabeel, 2, :noorani, wing: "B") }
-
-                context ".in_noorani_a" do
-                    it "should return all the sabeels who live in A wing of Noorani apartment" do
-                        expect(described_class.in_noorani_a).to contain_exactly(*sabeels_in_noorani_a)
-                    end
-
-                    it "should NOT return sabeels of different wing or apartment" do
-                        expect(described_class.in_noorani_a).not_to contain_exactly(*sabeels_in_noorani_b)
-                    end
-                end
-
-                context ".in_noorani_b" do
-                    it "should return all the sabeels who live in A wing of Noorani apartment" do
-                        expect(described_class.in_noorani_b).to contain_exactly(*sabeels_in_noorani_b)
-                    end
-
-                    it "should NOT return sabeels of different wing or apartment" do
-                        expect(described_class.in_noorani_b).not_to contain_exactly(*sabeels_in_noorani_a)
-                    end
-                end
-            end
-
-            context "for husami" do
-                let!(:sabeels_in_husami_a) { create_list(:sabeel, 2, :husami, wing: "A") }
-                let!(:sabeels_in_husami_b) { create_list(:sabeel, 2, :husami, wing: "B") }
-
-                context ".in_husami_a" do
-                    it "should return all the sabeels who live in A wing of Husami apartment" do
-                        expect(described_class.in_husami_a).to contain_exactly(*sabeels_in_husami_a)
-                    end
-
-                    it "should NOT return sabeels of different wing or apartment" do
-                        expect(described_class.in_husami_a).not_to contain_exactly(*sabeels_in_husami_b)
-                    end
-                end
-
-                context ".in_husami_b" do
-                    it "should return all the sabeels who live in A wing of Husami apartment" do
-                        expect(described_class.in_husami_b).to contain_exactly(*sabeels_in_husami_b)
-                    end
-
-                    it "should NOT return sabeels of different wing or apartment" do
-                        expect(described_class.in_husami_b).not_to contain_exactly(*sabeels_in_husami_a)
-                    end
-                end
             end
         end
 

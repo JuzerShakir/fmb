@@ -4,7 +4,6 @@ class Sabeel < ApplicationRecord
     has_many :takhmeens, through: :thaali
 
     # * Callbacks
-    before_save :upcase_wing, if: :will_save_change_to_wing?
     before_save  :set_up_address
     before_save :titleize_hof_name, if: :will_save_change_to_hof_name?
 
@@ -18,9 +17,7 @@ class Sabeel < ApplicationRecord
     # hof_name
     validates :hof_name, uniqueness: { scope: :its }, presence: true
     # apartment
-    validates_presence_of :apartment, :wing, :flat_no
-    # Wing
-    validates_length_of :wing, is: 1
+    validates_presence_of :apartment, :flat_no
     # Flat No
     validates_numericality_of :flat_no, only_integer: true, greater_than: 0
     # mobile
@@ -30,7 +27,8 @@ class Sabeel < ApplicationRecord
 
     # * Enums
     # apartment
-    all_apartments =  %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi maimoon qutbi najmi husami noorani)
+    all_apartments =  %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi
+                        maimoon_a maimoon_b qutbi_a qutbi_b najmi husami_a husami_b noorani_a noorani_b)
 
     all_apartments_with_ids = all_apartments.each_with_object({}).with_index do | (apartment, hash), i |
         hash[apartment] = i
@@ -40,25 +38,11 @@ class Sabeel < ApplicationRecord
     # * Scopes
     scope :in_phase_1, -> { where(apartment: ["mohammedi", "saifee", "jamali", "taiyebi", "imadi", "burhani", "zaini", "fakhri", "badri", "ezzi"]) }
 
-    scope :in_phase_2, -> { where(apartment: ["maimoon", "qutbi", "najmi"]) }
+    scope :in_phase_2, -> { where(apartment: ["maimoon_a", "maimoon_b", "qutbi_a", "qutbi_b", "najmi"]) }
 
-    scope :in_phase_3, -> { where(apartment: ["husami", "noorani"]) }
+    scope :in_phase_3, -> { where(apartment: ["husami_a", "husami_b", "noorani_a", "noorani_b"]) }
 
-    scope :in_maimoon_a, -> { maimoon.where(wing: "A") }
-
-    scope :in_maimoon_b, -> { maimoon.where(wing: "B") }
-
-    scope :in_qutbi_a, -> { qutbi.where(wing: "A") }
-
-    scope :in_qutbi_b, -> { qutbi.where(wing: "B") }
-
-    scope :in_noorani_a, -> { noorani.where(wing: "A") }
-
-    scope :in_noorani_b, -> { noorani.where(wing: "B") }
-
-    scope :in_husami_a, -> { husami.where(wing: "A") }
-
-    scope :in_husami_b, -> { husami.where(wing: "B") }
+    # give maimoon, qubti, najmi, noorani, husami scopes to get all sabeels for multilpe wings in a building
 
     scope :who_takes_thaali, -> { where(takes_thaali: true) }
 
@@ -72,10 +56,6 @@ class Sabeel < ApplicationRecord
         end
 
         def set_up_address
-            self.address = "#{self.apartment.capitalize} #{self.wing} #{self.flat_no}"
-        end
-
-        def upcase_wing
-            self.wing = self.wing.upcase unless self.wing.nil?
+            self.address = "#{self.apartment.titleize} #{self.flat_no}"
         end
 end
