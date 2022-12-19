@@ -63,10 +63,10 @@ RSpec.describe Thaali, type: :model do
         end
 
         context "takhmeen" do
-            let!(:incomplete_takhmeens) { create(:takhmeen, is_complete: false) }
-            let!(:completed_takhmeens) { create(:takhmeen, is_complete: true) }
-
             context ".all_pending_takhmeens_till_date" do
+                let!(:incomplete_takhmeens) { create(:takhmeen, is_complete: false) }
+                let!(:completed_takhmeens) { create(:takhmeen, is_complete: true) }
+
                 it "should return all the thaalis for whos takhmeen is pending" do
                     expect(described_class.all_pending_takhmeens_till_date).to contain_exactly(incomplete_takhmeens.thaali)
                 end
