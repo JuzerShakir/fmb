@@ -47,6 +47,9 @@ class Sabeel < ApplicationRecord
 
     scope :in_qutbi_b, -> { where(building_name: "qutbi", wing: "B") }
 
+    scope :in_noorani_a, -> { where(building_name: "noorani", wing: "A") }
+
+
 
     private
 
