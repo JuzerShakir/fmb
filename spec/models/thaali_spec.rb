@@ -47,4 +47,19 @@ RSpec.describe Thaali, type: :model do
             end
         end
     end
+
+    context "scope" do
+        context ".in_the_year" do
+            let!(:thaalis_in_current_year) { create(:takhmeen, year: Date.current.year) }
+            let!(:thaalis_in_next_year) { create(:takhmeen, year: Date.current.next_year.year) }
+
+            it "should return all the thaalis of current year" do
+                expect(described_class.in_the_year(Date.current.year)).to contain_exactly(thaalis_in_current_year.thaali)
+            end
+
+            it "should NOT return thaalis of other years" do
+                expect(described_class.in_the_year(Date.current.year)).not_to contain_exactly(thaalis_in_next_year.thaali)
+            end
+        end
+    end
 end
