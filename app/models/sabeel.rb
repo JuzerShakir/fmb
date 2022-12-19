@@ -39,6 +39,8 @@ class Sabeel < ApplicationRecord
 
     scope :in_phase_3, -> { where(building_name: ["husami", "noorani"]) }
 
+    scope :in_maimoon_a, -> { where(building_name: "maimoon", wing: "A") }
+
     private
 
         def titleize_hof_name
