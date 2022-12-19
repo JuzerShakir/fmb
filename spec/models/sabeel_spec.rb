@@ -202,6 +202,21 @@ RSpec.describe Sabeel, :type => :model do
                     end
                 end
             end
+
+            context "for noorani" do
+                let!(:sabeels_in_noorani_a) { create_list(:sabeel, 2, :noorani, wing: "A") }
+                let!(:sabeels_in_noorani_b) { create_list(:sabeel, 2, :noorani, wing: "B") }
+
+                context ".in_noorani_a" do
+                    it "should return all the sabeels who live in A wing of Qutbi building" do
+                        expect(described_class.in_noorani_a).to contain_exactly(*sabeels_in_noorani_a)
+                    end
+
+                    it "should NOT return sabeels of different wing or building" do
+                        expect(described_class.in_noorani_a).not_to contain_exactly(*sabeels_in_noorani_b)
+                    end
+                end
+            end
         end
     end
 end
