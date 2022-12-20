@@ -94,11 +94,11 @@ RSpec.describe Sabeel, :type => :model do
     end
 
     context "scope" do
-        context "Phases" do
-            let(:phase_1) { create_list(:sabeels_in_phase_1, 5) }
-            let(:phase_2) { create_list(:sabeels_in_phase_2, 5) }
-            let(:phase_3) { create_list(:sabeels_in_phase_3, 5) }
+        let(:phase_1) { create_list(:sabeels_in_phase_1, 5) }
+        let(:phase_2) { create_list(:sabeels_in_phase_2, 5) }
+        let(:phase_3) { create_list(:sabeels_in_phase_3, 5) }
 
+        context "Phases" do
             context ".in_phase_1" do
                 it "should ONLY return all the sabeels of Phase 1 apartments" do
                     expect(described_class.in_phase_1).to contain_exactly(*phase_1)
@@ -142,6 +142,26 @@ RSpec.describe Sabeel, :type => :model do
             context ".who_doesnt_takes_thaali" do
                 it "should ONLY return all sabeels who DOES NOT takes thaali" do
                     expect(described_class.who_doesnt_takes_thaali).to contain_exactly(*sabeels_who_doesnt_take_thaali)
+                end
+            end
+
+            context "in phase 1" do
+                context ".phase_1_thaali_size" do
+                    it "should ONLY return all the thaalis of small size of Phase 1" do
+                        phase_1.first(3).each do | sabeel |
+                            create(:thaali, sabeel: sabeel, size: "small")
+                        end
+
+                        expect(described_class.phase_1_thaali_size("small")).to contain_exactly(*phase_1.first(3))
+                    end
+
+                    it "should NOT return thaalis of other sizes of Phase 1" do
+                        phase_1.last(2).map do | sabeel |
+                            create(:thaali, sabeel: sabeel, size: %i(medium large).sample )
+                        end
+
+                        expect(described_class.phase_1_thaali_size("small")).not_to contain_exactly(*phase_1.last(2))
+                    end
                 end
             end
         end
