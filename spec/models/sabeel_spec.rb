@@ -94,35 +94,38 @@ RSpec.describe Sabeel, :type => :model do
     end
 
     context "scope" do
-        context ".in_phase_1" do
-            it "should ONLY return all the sabeels of Phase 1 apartments" do
-                sabeels_in_phase_1 = phase_1.map { | apartment | create(:sabeel, apartment) }
-                expect(described_class.in_phase_1).to contain_exactly(*sabeels_in_phase_1)
+        context "Phases" do
+            let(:phase_1) { create_list(:sabeels_in_phase_1, 5) }
+            let(:phase_2) { create_list(:sabeels_in_phase_2, 5) }
+            let(:phase_3) { create_list(:sabeels_in_phase_3, 5) }
+
+            context ".in_phase_1" do
+                it "should ONLY return all the sabeels of Phase 1 apartments" do
+                    expect(described_class.in_phase_1).to contain_exactly(*phase_1)
+                end
+
+                it "should NOT return sabeels of other Phases, except for Phase 1" do
+                    expect(described_class.in_phase_1).not_to contain_exactly(*phase_2, *phase_3)
+                end
             end
 
-            it "should NOT return sabeels of other Phases, except for Phase 1" do
-                expect(described_class.in_phase_1).not_to contain_exactly(described_class.in_phase_2, described_class.in_phase_3)
-            end
-        end
-
-        context ".in_phase_2" do
-            it "should ONLY return all the sabeels of Phase 2 apartments" do
-                sabeels_in_phase_2 = phase_2.map { | apartment | create(:sabeel, apartment) }
-                expect(described_class.in_phase_2).to contain_exactly(*sabeels_in_phase_2)
-            end
-            it "should NOT return sabeels of other Phases, except for Phase 2" do
-                expect(described_class.in_phase_2).not_to contain_exactly(described_class.in_phase_1, described_class.in_phase_3)
-            end
-        end
-
-        context ".in_phase_3" do
-            it "should ONLY return all the sabeels of Phase 3 apartments" do
-                sabeels_in_phase_3 = phase_3.map { | apartment | create(:sabeel, apartment) }
-                expect(described_class.in_phase_3).to contain_exactly(*sabeels_in_phase_3)
+            context ".in_phase_2" do
+                it "should ONLY return all the sabeels of Phase 2 apartments" do
+                    expect(described_class.in_phase_2).to contain_exactly(*phase_2)
+                end
+                it "should NOT return sabeels of other Phases, except for Phase 2" do
+                    expect(described_class.in_phase_2).not_to contain_exactly(*phase_1, *phase_3)
+                end
             end
 
-            it "should NOT return sabeels of other Phases, except for Phase 3" do
-                expect(described_class.in_phase_3).not_to contain_exactly(described_class.in_phase_1, described_class.in_phase_2)
+            context ".in_phase_3" do
+                it "should ONLY return all the sabeels of Phase 3 apartments" do
+                    expect(described_class.in_phase_3).to contain_exactly(*phase_3)
+                end
+
+                it "should NOT return sabeels of other Phases, except for Phase 3" do
+                    expect(described_class.in_phase_3).not_to contain_exactly(*phase_1, *phase_2)
+                end
             end
         end
 

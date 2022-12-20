@@ -17,6 +17,22 @@ FactoryBot.define do
       takes_thaali { true }
     end
 
+    trait :in_phase_1 do
+      apartment { phase_1.sample }
+    end
+
+    trait :in_phase_2 do
+      apartment { phase_2.sample }
+    end
+
+    trait :in_phase_3 do
+      apartment { phase_3.sample }
+    end
+
     factory :sabeel_with_thaali, traits: [:with_thaali]
+    factory :sabeels_in_phase_1, traits: [:in_phase_1]
+    factory :sabeels_in_phase_2, traits: [:in_phase_2]
+    factory :sabeels_in_phase_3, traits: [:in_phase_3]
+
   end
 end
