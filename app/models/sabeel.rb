@@ -42,8 +42,6 @@ class Sabeel < ApplicationRecord
 
     scope :in_phase_3, -> { where(apartment: ["husami_a", "husami_b", "noorani_a", "noorani_b"]) }
 
-    # give maimoon, qubti, najmi, noorani, husami scopes to get all sabeels for multilpe wings in a building
-
     scope :who_takes_thaali, -> { where(takes_thaali: true) }
 
     scope :who_doesnt_takes_thaali, -> { where(takes_thaali: false) }

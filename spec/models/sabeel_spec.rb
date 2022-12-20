@@ -3,9 +3,6 @@ require "validates_email_format_of/rspec_matcher"
 
 RSpec.describe Sabeel, :type => :model do
     subject { build(:sabeel) }
-    phase_1_apts = %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi)
-    phase_2_apts = %i(maimoon_a maimoon_b qutbi_a qutbi_b najmi)
-    phase_3_apts = %i(husami_a husami_b noorani_a noorani_b)
 
     context "assocaition" do
         it { should have_one(:thaali).dependent(:destroy) }
@@ -35,8 +32,7 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "apartment" do
-            let(:all_apartments) { Array.new.push(*phase_1_apts, *phase_2_apts, *phase_3_apts) }
-
+            let(:all_apartments) { Array.new.push(*$apt_list_phase_1, *$apt_list_phase_2, *$apt_list_phase_3) }
             it { should validate_presence_of(:apartment) }
 
             it { should define_enum_for(:apartment).with_values(all_apartments) }

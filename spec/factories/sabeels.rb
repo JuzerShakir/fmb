@@ -1,12 +1,14 @@
+# * Global variables
+$apt_list_phase_1 = %w(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi)
+$apt_list_phase_2 = %w(maimoon_a maimoon_b qutbi_a qutbi_b najmi)
+$apt_list_phase_3 = %w(husami_a husami_b noorani_a noorani_b)
+
 FactoryBot.define do
-  phase_1 = %i(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi)
-  phase_2 = %i(maimoon_a maimoon_b qutbi_a qutbi_b najmi)
-  phase_3 = %i(husami_a husami_b noorani_a noorani_b)
 
   factory :sabeel do
     its { Faker::Number.number(digits: 8) }
     hof_name { Faker::Name.name }
-    sequence :apartment, Array.new.push(*phase_1, *phase_2, *phase_3).cycle
+    apartment { Array.new.push(*$apt_list_phase_1, *$apt_list_phase_2, *$apt_list_phase_3).sample }
     flat_no { Faker::Number.within(range: 1..9999) }
     address { "#{apartment} #{flat_no}" }
     mobile { Faker::Number.number(digits: 10) }
@@ -18,15 +20,15 @@ FactoryBot.define do
     end
 
     trait :in_phase_1 do
-      apartment { phase_1.sample }
+      apartment { $apt_list_phase_1.sample }
     end
 
     trait :in_phase_2 do
-      apartment { phase_2.sample }
+      apartment { $apt_list_phase_2.sample }
     end
 
     trait :in_phase_3 do
-      apartment { phase_3.sample }
+      apartment { $apt_list_phase_3.sample }
     end
 
     factory :sabeel_with_thaali, traits: [:with_thaali]
