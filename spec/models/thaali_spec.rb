@@ -56,7 +56,6 @@ RSpec.describe Thaali, type: :model do
     context "scope" do
         let!(:current_year_takhmeen) { create(:takhmeen_of_current_year) }
         let!(:next_year_takhmeen) { create(:takhmeen_of_next_year) }
-        let!(:completed_takhmeen) { create(:takhmeen_is_complete) }
 
         context ".in_the_year" do
             it "should return all the thaalis of current year" do
@@ -69,6 +68,7 @@ RSpec.describe Thaali, type: :model do
         end
 
         context "takhmeen" do
+            let!(:completed_takhmeen) { create(:takhmeen_is_complete) }
             context ".all_pending_takhmeens_till_date" do
                 it "should return all the thaalis for whos takhmeen is pending" do
                     expect(described_class.all_pending_takhmeens_till_date).to contain_exactly(current_year_takhmeen.thaali, next_year_takhmeen.thaali)
