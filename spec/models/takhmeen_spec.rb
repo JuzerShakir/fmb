@@ -37,7 +37,7 @@ RSpec.describe Takhmeen, type: :model do
 
             it { should validate_numericality_of(:paid).is_greater_than_or_equal_to(0) }
 
-            it "must set its value to 0 after instance is persisted" do
+            it "is set to 0 by default after instance is instantiated" do
                 expect(subject.paid).to be_eql(0)
             end
         end
@@ -53,7 +53,7 @@ RSpec.describe Takhmeen, type: :model do
         context "#update_balance" do
             it { is_expected.to callback(:update_balance).before(:save) }
 
-            it "must instantiate with same amount as total amount" do
+            it "must instantiate balance attribute with same amount as total attribute amount" do
                 subject.save
                 expect(subject.balance).to eq(subject.total)
             end
@@ -62,7 +62,7 @@ RSpec.describe Takhmeen, type: :model do
         context "#check_if_balance_is_zero" do
             it { is_expected.to callback(:check_if_balance_is_zero).before(:save) }
 
-            it "must set is_complete to truthy" do
+            it "must set is_complete attribute to truthy" do
                 subject.paid = subject.total = Faker::Number.number(digits: 5)
                 subject.save
                 expect(subject.is_complete).to be_truthy

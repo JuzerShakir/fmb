@@ -95,33 +95,33 @@ RSpec.describe Sabeel, :type => :model do
 
     context "scope" do
         context ".in_phase_1" do
-            it "should return all the sabeels who live in Phase 1 apartments" do
+            it "should ONLY return all the sabeels of Phase 1 apartments" do
                 sabeels_in_phase_1 = phase_1.map { | apartment | create(:sabeel, apartment) }
                 expect(described_class.in_phase_1).to contain_exactly(*sabeels_in_phase_1)
             end
 
-            it "should NOT return sabeels who live in different Phases" do
+            it "should NOT return sabeels of other Phases, except for Phase 1" do
                 expect(described_class.in_phase_1).not_to contain_exactly(described_class.in_phase_2, described_class.in_phase_3)
             end
         end
 
         context ".in_phase_2" do
-            it "should return all the sabeels who live in Phase 2 apartments" do
+            it "should ONLY return all the sabeels of Phase 2 apartments" do
                 sabeels_in_phase_2 = phase_2.map { | apartment | create(:sabeel, apartment) }
                 expect(described_class.in_phase_2).to contain_exactly(*sabeels_in_phase_2)
             end
-            it "should NOT return sabeels who live in different Phases" do
+            it "should NOT return sabeels of other Phases, except for Phase 2" do
                 expect(described_class.in_phase_2).not_to contain_exactly(described_class.in_phase_1, described_class.in_phase_3)
             end
         end
 
         context ".in_phase_3" do
-            it "should return all the sabeels who live in Phase 3 apartments" do
+            it "should ONLY return all the sabeels of Phase 3 apartments" do
                 sabeels_in_phase_3 = phase_3.map { | apartment | create(:sabeel, apartment) }
                 expect(described_class.in_phase_3).to contain_exactly(*sabeels_in_phase_3)
             end
 
-            it "should NOT return sabeels who live in different Phases" do
+            it "should NOT return sabeels of other Phases, except for Phase 3" do
                 expect(described_class.in_phase_3).not_to contain_exactly(described_class.in_phase_1, described_class.in_phase_2)
             end
         end
@@ -131,13 +131,13 @@ RSpec.describe Sabeel, :type => :model do
             let!(:sabeels_who_doesnt_take_thaali) { create_list(:sabeel, 2, takes_thaali: false) }
 
             context ".who_takes_thaali" do
-                it "should return all sabeels who takes thaali" do
+                it "should ONLY return all sabeels who takes thaali" do
                     expect(described_class.who_takes_thaali).to contain_exactly(*sabeels_who_takes_thaali)
                 end
             end
 
             context ".who_doesnt_takes_thaali" do
-                it "should return all sabeels who takes thaali" do
+                it "should ONLY return all sabeels who DOES NOT takes thaali" do
                     expect(described_class.who_doesnt_takes_thaali).to contain_exactly(*sabeels_who_doesnt_take_thaali)
                 end
             end
