@@ -147,20 +147,17 @@ RSpec.describe Sabeel, :type => :model do
 
             context "in phase 1" do
                 context ".phase_1_thaali_size" do
-                    it "should ONLY return all the thaalis of small size of Phase 1" do
-                        phase_1.first(3).each do | sabeel |
-                            create(:thaali, sabeel: sabeel, size: "small")
+                    it "should return all the thaalis of Phase 1 of the size specified" do
+                        size = Thaali.sizes.keys.sample
+                        n = Random.rand(1..5)
+                        sabeels = phase_1.first(n)
+
+                        sabeels.each do | sabeel |
+                            create(:thaali, sabeel: sabeel, size: size)
                         end
 
-                        expect(described_class.phase_1_thaali_size("small")).to contain_exactly(*phase_1.first(3))
-                    end
-
-                    it "should NOT return thaalis of other sizes of Phase 1" do
-                        phase_1.last(2).map do | sabeel |
-                            create(:thaali, sabeel: sabeel, size: %i(medium large).sample )
-                        end
-
-                        expect(described_class.phase_1_thaali_size("small")).not_to contain_exactly(*phase_1.last(2))
+                        expect(described_class.phase_1_thaali_size(size)).to contain_exactly(*sabeels)
+                        expect(described_class.phase_1_thaali_size(size).count).to eq(n)
                     end
                 end
             end
