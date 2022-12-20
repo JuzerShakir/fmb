@@ -52,6 +52,7 @@ class Sabeel < ApplicationRecord
 
     scope :phase_2_thaali_size, -> size { in_phase_2.joins(:thaali).where(thaalis: {size: size}) }
 
+    scope :phase_3_thaali_size, -> size { in_phase_3.joins(:thaali).where(thaalis: {size: size}) }
 
     private
 

@@ -181,6 +181,23 @@ RSpec.describe Sabeel, :type => :model do
                         expect(output.count).to eq(n)
                     end
                 end
+
+                context ".phase_3_thaali_size" do
+                    it "should return all the thaalis of Phase 3 of the size specified" do
+                        size = available_sizes.sample
+                        n = Random.rand(1..5)
+                        sabeels = phase_3.first(n)
+
+                        sabeels.each do | sabeel |
+                            create(:thaali, sabeel: sabeel, size: size)
+                        end
+
+                        output = described_class.phase_3_thaali_size(size)
+
+                        expect(output).to contain_exactly(*sabeels)
+                        expect(output.count).to eq(n)
+                    end
+                end
             end
         end
     end
