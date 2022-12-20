@@ -145,10 +145,12 @@ RSpec.describe Sabeel, :type => :model do
                 end
             end
 
-            context "in phase 1" do
+            context "from different Phases" do
+                available_sizes = Thaali.sizes.keys
+
                 context ".phase_1_thaali_size" do
                     it "should return all the thaalis of Phase 1 of the size specified" do
-                        size = Thaali.sizes.keys.sample
+                        size = available_sizes.sample
                         n = Random.rand(1..5)
                         sabeels = phase_1.first(n)
 
@@ -156,8 +158,27 @@ RSpec.describe Sabeel, :type => :model do
                             create(:thaali, sabeel: sabeel, size: size)
                         end
 
-                        expect(described_class.phase_1_thaali_size(size)).to contain_exactly(*sabeels)
-                        expect(described_class.phase_1_thaali_size(size).count).to eq(n)
+                        output = described_class.phase_1_thaali_size(size)
+
+                        expect(output).to contain_exactly(*sabeels)
+                        expect(output.count).to eq(n)
+                    end
+                end
+
+                context ".phase_2_thaali_size" do
+                    it "should return all the thaalis of Phase 2 of the size specified" do
+                        size = available_sizes.sample
+                        n = Random.rand(1..5)
+                        sabeels = phase_2.first(n)
+
+                        sabeels.each do | sabeel |
+                            create(:thaali, sabeel: sabeel, size: size)
+                        end
+
+                        output = described_class.phase_2_thaali_size(size)
+
+                        expect(output).to contain_exactly(*sabeels)
+                        expect(output.count).to eq(n)
                     end
                 end
             end

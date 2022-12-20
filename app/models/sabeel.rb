@@ -50,6 +50,9 @@ class Sabeel < ApplicationRecord
 
     scope :phase_1_thaali_size, -> size { in_phase_1.joins(:thaali).where(thaalis: {size: size}) }
 
+    scope :phase_2_thaali_size, -> size { in_phase_2.joins(:thaali).where(thaalis: {size: size}) }
+
+
     private
 
         def titleize_hof_name
