@@ -103,7 +103,7 @@ RSpec.describe Transaction, type: :model do
 
     context "scope" do
         context ".that_occured_on" do
-            let!(:transaction_today) { create(:transaction) }
+            let!(:transaction_today) { create(:transaction, on_date: today) }
             let!(:transaction_prev_day) { create(:transaction, on_date: yesterday) }
 
             it "should return all the transactions that occured on the given date" do
