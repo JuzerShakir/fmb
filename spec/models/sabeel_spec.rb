@@ -42,12 +42,6 @@ RSpec.describe Sabeel, :type => :model do
             it { should define_enum_for(:apartment).with_values(all_apartments) }
         end
 
-        # context "wing" do
-        #     it { should validate_presence_of(:wing) }
-
-        #     it { should validate_length_of(:wing).is_equal_to(1) }
-        # end
-
         context "flat_no" do
             it { should validate_numericality_of(:flat_no).only_integer }
 
@@ -55,10 +49,6 @@ RSpec.describe Sabeel, :type => :model do
 
             it { should validate_numericality_of(:flat_no).is_greater_than(0) }
         end
-
-        # context "Address" do
-        #     it { should validate_presence_of(:address) }
-        # end
 
         context "mobile" do
             it { should validate_numericality_of(:mobile).only_integer }
@@ -101,16 +91,6 @@ RSpec.describe Sabeel, :type => :model do
                 subject.save
             end
         end
-
-        # context "#upcase_wing" do
-        #     it { is_expected.to callback(:upcase_wing).before(:save).if(:will_save_change_to_wing?) }
-
-        #     it "must capitalize the character" do
-        #         subject.wing = ('a'..'z').to_a.sample
-        #         subject.save
-        #         expect(subject.wing).to match(/[A-Z]{1}/)
-        #     end
-        # end
     end
 
     context "scope" do
