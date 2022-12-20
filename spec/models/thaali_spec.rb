@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe Thaali, type: :model do
     today = Date.today
+    yesterday = Date.today.prev_day
     current_year = today.year
     next_year = today.next_year.year
 
