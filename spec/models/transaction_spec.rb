@@ -70,7 +70,6 @@ RSpec.describe Transaction, type: :model do
 
             context "if takhmeen is NOT complete" do
                 subject { create(:transaction) }
-
                 let!(:takhmeen) { subject.takhmeen }
                 let!(:all_transactions_of_a_takhmeen) { takhmeen.transactions }
 

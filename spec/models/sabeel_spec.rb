@@ -127,8 +127,8 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "for thaali" do
-            let!(:sabeels_who_takes_thaali) { create_list(:sabeel, 2, takes_thaali: true) }
-            let!(:sabeels_who_doesnt_take_thaali) { create_list(:sabeel, 2, takes_thaali: false) }
+            let!(:sabeels_who_takes_thaali) { create_list(:sabeel_with_thaali, 2) }
+            let!(:sabeels_who_doesnt_take_thaali) { create_list(:sabeel, 2) }
 
             context ".who_takes_thaali" do
                 it "should ONLY return all sabeels who takes thaali" do

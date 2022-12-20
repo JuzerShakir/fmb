@@ -54,10 +54,11 @@ RSpec.describe Thaali, type: :model do
     end
 
     context "scope" do
-        context ".in_the_year" do
-            let!(:current_year_takhmeen) { create(:takhmeen, year: current_year) }
-            let!(:next_year_takhmeen) { create(:takhmeen, year: next_year) }
+        let!(:current_year_takhmeen) { create(:takhmeen_of_current_year) }
+        let!(:next_year_takhmeen) { create(:takhmeen_of_next_year) }
+        let!(:completed_takhmeen) { create(:takhmeen_is_complete) }
 
+        context ".in_the_year" do
             it "should return all the thaalis of current year" do
                 expect(described_class.in_the_year(current_year)).to contain_exactly(current_year_takhmeen.thaali)
             end
@@ -69,28 +70,22 @@ RSpec.describe Thaali, type: :model do
 
         context "takhmeen" do
             context ".all_pending_takhmeens_till_date" do
-                let!(:incomplete_takhmeen) { create(:takhmeen, is_complete: false) }
-                let!(:completed_takhmeen) { create(:takhmeen, is_complete: true) }
-
                 it "should return all the thaalis for whos takhmeen is pending" do
-                    expect(described_class.all_pending_takhmeens_till_date).to contain_exactly(incomplete_takhmeen.thaali)
+                    expect(described_class.all_pending_takhmeens_till_date).to contain_exactly(current_year_takhmeen.thaali, next_year_takhmeen.thaali)
                 end
 
-                it "should NOT return thaalis whose takhmeen is paid" do
+                it "should NOT return thaalis whose takhmeen is paid for any year" do
                     expect(described_class.all_pending_takhmeens_till_date).not_to contain_exactly(completed_takhmeen.thaali)
                 end
             end
 
             context ".all_pending_takhmeens_for_the_year" do
-                let!(:incomplete_takhmeen_for_current_year) { create(:takhmeen, is_complete: false, year: current_year) }
-                let!(:incomplete_takhmeen_for_other_years) { create(:takhmeen, is_complete: true, year: next_year) }
-
                 it "should return all the thaalis whos takhmeen is pending for the current year" do
-                    expect(described_class.all_pending_takhmeens_for_the_year(current_year)).to contain_exactly(incomplete_takhmeen_for_current_year.thaali)
+                    expect(described_class.all_pending_takhmeens_for_the_year(current_year)).to contain_exactly(current_year_takhmeen.thaali)
                 end
 
                 it "should NOT return thaalis whos takhmeen is pending for the other years" do
-                    expect(described_class.all_pending_takhmeens_for_the_year(next_year)).not_to contain_exactly(incomplete_takhmeen_for_other_years.thaali)
+                    expect(described_class.all_pending_takhmeens_for_the_year(current_year)).not_to contain_exactly(next_year_takhmeen.thaali)
                 end
             end
         end

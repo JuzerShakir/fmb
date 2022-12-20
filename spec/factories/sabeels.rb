@@ -12,5 +12,11 @@ FactoryBot.define do
     mobile { Faker::Number.number(digits: 10) }
     email { Faker::Internet.free_email }
     takes_thaali { false }
+
+    trait :with_thaali do
+      takes_thaali { true }
+    end
+
+    factory :sabeel_with_thaali, traits: [:with_thaali]
   end
 end
