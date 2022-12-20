@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :takhmeen do
     thaali
-    year { (Date.current.year..Date.current.next_year.year).to_a.sample }
+    year { Random.rand(Date.today.year..Date.today.year + 30) }
     total { Faker::Number.number(digits: 5) }
     balance { total - paid }
 
