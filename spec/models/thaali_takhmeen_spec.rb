@@ -49,5 +49,11 @@ RSpec.describe ThaaliTakhmeen, type: :model do
                 expect(subject.paid).to be_eql(0)
             end
         end
+
+        context "is_complete" do
+            it "must set its value to false after instance is persisted" do
+                expect(subject.is_complete).to be_falsey
+            end
+        end
     end
 end
