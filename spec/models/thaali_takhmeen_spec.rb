@@ -18,12 +18,15 @@ RSpec.describe ThaaliTakhmeen, type: :model do
             it { should validate_presence_of(:number) }
             it { should validate_numericality_of(:number).is_greater_than(0) }
             it { should validate_uniqueness_of(:number).scoped_to(:year) }
-
         end
 
         context "size" do
             it { should define_enum_for(:size).with_values([:small, :medium, :large]) }
             it { should validate_presence_of(:size) }
+        end
+
+        context "sabeel_id" do
+            it { should validate_uniqueness_of(:sabeel_id).scoped_to(:year) }
         end
     end
 end

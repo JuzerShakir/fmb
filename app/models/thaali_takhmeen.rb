@@ -6,6 +6,9 @@ class ThaaliTakhmeen < ApplicationRecord
   validates_numericality_of :number, only_integer: true, greater_than: 0
   validates_presence_of :number, :size
   validates_uniqueness_of :number, { scope: :year}
+  #sabeel_id
+  validates_uniqueness_of :sabeel_id, { scope: :year}
+
 
   # * Enums
   enum :size, { small: 0, medium: 1, large: 2 }
