@@ -96,7 +96,7 @@ RSpec.describe Sabeel, :type => :model do
     end
 
     context "scope" do
-        n = Random.rand(1..5)
+        n = Random.rand(1..4)
         size = available_sizes.sample
         other_size = available_sizes.difference([size]).sample
 
