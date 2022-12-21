@@ -4,6 +4,7 @@ class ThaaliTakhmeen < ApplicationRecord
 
   # * Callbacks
   before_save :update_balance, :check_if_balance_is_zero
+  after_create :set_takes_thaali_true
 
   # * Validations
   # number
@@ -28,5 +29,9 @@ class ThaaliTakhmeen < ApplicationRecord
 
     def check_if_balance_is_zero
       self.is_complete = true if self.balance.zero? && !self.is_complete
+    end
+
+    def set_takes_thaali_true
+      self.sabeel.update_attribute(:takes_thaali, true)
     end
 end
