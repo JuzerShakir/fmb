@@ -48,11 +48,11 @@ class Sabeel < ApplicationRecord
 
     scope :thaalis_of_the_size, -> size { joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
 
-    scope :phase_1_thaali_size, -> size { in_phase_1.joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
+    scope :phase_1_thaali_size, -> size { in_phase_1.thaalis_of_the_size(size) }
 
-    scope :phase_2_thaali_size, -> size { in_phase_2.joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
+    scope :phase_2_thaali_size, -> size { in_phase_2.thaalis_of_the_size(size) }
 
-    scope :phase_3_thaali_size, -> size { in_phase_3.joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
+    scope :phase_3_thaali_size, -> size { in_phase_3.thaalis_of_the_size(size) }
 
     private
 
