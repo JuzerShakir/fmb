@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_21_041658) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_17_105012) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,19 +29,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_21_041658) do
     t.index ["its"], name: "index_sabeels_on_its", unique: true
   end
 
-  create_table "takhmeens", force: :cascade do |t|
-    t.bigint "thaali_id", null: false
-    t.integer "year", default: 2022, null: false
-    t.integer "total", null: false
-    t.integer "paid", default: 0, null: false
-    t.integer "balance", null: false
-    t.boolean "is_complete", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["thaali_id"], name: "index_takhmeens_on_thaali_id"
-    t.index ["year", "thaali_id"], name: "index_takhmeens_on_year_and_thaali_id", unique: true
-  end
-
   create_table "thaali_takhmeens", force: :cascade do |t|
     t.bigint "sabeel_id", null: false
     t.integer "year", default: 2023, null: false
@@ -58,28 +45,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_21_041658) do
     t.index ["year", "sabeel_id"], name: "index_thaali_takhmeens_on_year_and_sabeel_id", unique: true
   end
 
-  create_table "thaalis", force: :cascade do |t|
-    t.integer "number", null: false
-    t.integer "size", null: false
-    t.bigint "sabeel_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["number"], name: "index_thaalis_on_number", unique: true
-    t.index ["sabeel_id"], name: "index_thaalis_on_sabeel_id", unique: true
-  end
-
   create_table "transactions", force: :cascade do |t|
-    t.bigint "takhmeen_id", null: false
+    t.bigint "thaali_takhmeen_id", null: false
     t.integer "mode", null: false
     t.integer "amount", null: false
     t.date "on_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["takhmeen_id"], name: "index_transactions_on_takhmeen_id"
+    t.index ["thaali_takhmeen_id"], name: "index_transactions_on_thaali_takhmeen_id"
   end
 
-  add_foreign_key "takhmeens", "thaalis"
   add_foreign_key "thaali_takhmeens", "sabeels"
-  add_foreign_key "thaalis", "sabeels"
-  add_foreign_key "transactions", "takhmeens"
+  add_foreign_key "transactions", "thaali_takhmeens"
 end
