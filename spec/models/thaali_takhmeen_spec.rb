@@ -34,7 +34,7 @@ RSpec.describe ThaaliTakhmeen, type: :model do
         context "year" do
             it { should validate_presence_of(:year) }
             it { should validate_numericality_of(:year).only_integer }
-            it { should validate_numericality_of(:year).is_greater_than_or_equal_to(current_year) }
+            it { should validate_numericality_of(:year).is_less_than_or_equal_to(current_year) }
         end
 
         context "total" do
@@ -104,7 +104,7 @@ RSpec.describe ThaaliTakhmeen, type: :model do
 
     context "scope" do
         let!(:current_year_takhmeen) { create(:thaali_takhmeen_of_current_year) }
-        let!(:next_year_takhmeen) { create(:thaali_takhmeen_of_next_year) }
+        let!(:previous_year_takhmeen) { create(:thaali_takhmeen_of_previous_year) }
 
         context ".in_the_year" do
             it "should return all the thaalis of current year" do
@@ -112,7 +112,7 @@ RSpec.describe ThaaliTakhmeen, type: :model do
             end
 
             it "should NOT return thaalis of other years" do
-                expect(described_class.in_the_year(current_year)).not_to contain_exactly(next_year_takhmeen)
+                expect(described_class.in_the_year(current_year)).not_to contain_exactly(previous_year_takhmeen)
             end
         end
 
@@ -120,7 +120,7 @@ RSpec.describe ThaaliTakhmeen, type: :model do
             let!(:completed_takhmeen) { create(:thaali_takhmeen_is_complete) }
 
             it "should return all the thaalis for whos takhmeen is pending" do
-                expect(described_class.all_pending_takhmeens_till_date).to contain_exactly(current_year_takhmeen, next_year_takhmeen)
+                expect(described_class.all_pending_takhmeens_till_date).to contain_exactly(current_year_takhmeen, previous_year_takhmeen)
             end
 
             it "should NOT return thaalis whose takhmeen is complete for any year" do
@@ -134,7 +134,7 @@ RSpec.describe ThaaliTakhmeen, type: :model do
             end
 
             it "should NOT return thaalis whos takhmeen is pending for the other years" do
-                expect(described_class.all_pending_takhmeens_for_the_year(current_year)).not_to contain_exactly(next_year_takhmeen)
+                expect(described_class.all_pending_takhmeens_for_the_year(current_year)).not_to contain_exactly(previous_year_takhmeen)
             end
         end
     end

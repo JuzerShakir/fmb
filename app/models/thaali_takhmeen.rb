@@ -16,7 +16,7 @@ class ThaaliTakhmeen < ApplicationRecord
   #sabeel_id
   validates_uniqueness_of :sabeel_id, { scope: :year}
   #year
-  validates_numericality_of :year, only_integer: true, greater_than_or_equal_to: Date.today.year
+  validates_numericality_of :year, only_integer: true, less_than_or_equal_to: Date.today.year
   #paid
   validates_numericality_of :paid, only_integer: true, greater_than_or_equal_to: 0
 
