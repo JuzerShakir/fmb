@@ -46,6 +46,8 @@ class Sabeel < ApplicationRecord
 
     scope :who_doesnt_takes_thaali, -> { where(takes_thaali: false) }
 
+    scope :thaalis_of_the_size, -> size { joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
+
     scope :phase_1_thaali_size, -> size { in_phase_1.joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
 
     scope :phase_2_thaali_size, -> size { in_phase_2.joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }

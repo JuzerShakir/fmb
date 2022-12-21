@@ -93,6 +93,7 @@ RSpec.describe Sabeel, :type => :model do
         let(:phase_1) { create_list(:sabeels_in_phase_1, 5) }
         let(:phase_2) { create_list(:sabeels_in_phase_2, 5) }
         let(:phase_3) { create_list(:sabeels_in_phase_3, 5) }
+        let(:all_sabeels) { [*phase_1, *phase_2, *phase_3] }
 
         context "Phases" do
             context ".in_phase_1" do
@@ -126,28 +127,46 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "for thaali" do
-            let!(:sabeels_who_takes_thaali) { create_list(:sabeel_with_thaali, 2) }
-            let!(:sabeels_who_doesnt_take_thaali) { create_list(:sabeel, 2) }
+            available_sizes = ThaaliTakhmeen.sizes.keys
+            let!(:sabeels_with_thaali) { create_list(:sabeel_with_thaali, 2) }
 
             context ".who_takes_thaali" do
                 it "should ONLY return all sabeels who takes thaali" do
-                    expect(described_class.who_takes_thaali).to contain_exactly(*sabeels_who_takes_thaali)
+                    expect(described_class.who_takes_thaali).to contain_exactly(*sabeels_with_thaali)
                 end
             end
 
             context ".who_doesnt_takes_thaali" do
                 it "should ONLY return all sabeels who DOES NOT takes thaali" do
-                    expect(described_class.who_doesnt_takes_thaali).to contain_exactly(*sabeels_who_doesnt_take_thaali)
+                    expect(described_class.who_doesnt_takes_thaali).to contain_exactly(*phase_1)
+                end
+            end
+
+            context ".thaalis_of_the_size" do
+                it "should ONLY return all sabeels for the thaali size specified" do
+                    size = available_sizes.sample
+                    other_size = available_sizes.difference([size]).sample
+
+                    n = Random.rand(1..all_sabeels.count)
+
+                    sabeels_with_size = all_sabeels.first(n)
+
+                    sabeels_with_size.each do | sabeel |
+                        create(:thaali_takhmeen, sabeel: sabeel, size: size)
+                    end
+
+                    output = described_class.thaalis_of_the_size(size)
+
+                    expect(output).to contain_exactly(*sabeels_with_size)
+                    expect(output).not_to contain_exactly(*sabeels_with_thaali)
                 end
             end
 
             context "from different Phases" do
-                available_sizes = ThaaliTakhmeen.sizes.keys
-
                 context ".phase_1_thaali_size" do
                     it "should return all the thaalis of Phase 1 of the size specified" do
                         size = available_sizes.sample
-                        n = Random.rand(1..5)
+                        n = Random.rand(1..phase_1.count)
                         sabeels = phase_1.first(n)
 
                         sabeels.each do | sabeel |
@@ -164,7 +183,7 @@ RSpec.describe Sabeel, :type => :model do
                 context ".phase_2_thaali_size" do
                     it "should return all the thaalis of Phase 2 of the size specified" do
                         size = available_sizes.sample
-                        n = Random.rand(1..5)
+                        n = Random.rand(1..phase_2.count)
                         sabeels = phase_2.first(n)
 
                         sabeels.each do | sabeel |
@@ -181,7 +200,7 @@ RSpec.describe Sabeel, :type => :model do
                 context ".phase_3_thaali_size" do
                     it "should return all the thaalis of Phase 3 of the size specified" do
                         size = available_sizes.sample
-                        n = Random.rand(1..5)
+                        n = Random.rand(1..phase_3.count)
                         sabeels = phase_3.first(n)
 
                         sabeels.each do | sabeel |
