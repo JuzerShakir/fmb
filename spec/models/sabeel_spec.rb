@@ -170,10 +170,12 @@ RSpec.describe Sabeel, :type => :model do
                             create(:thaali_takhmeen, sabeel: sabeel, size: size)
                         end
 
+                        sabeel_with_other_size = create(:thaali_takhmeen, sabeel: phase_1.last, size: other_size)
+
                         output = described_class.phase_1_thaali_size(size)
 
                         expect(output).to contain_exactly(*sabeels)
-                        expect(output).not_to contain_exactly(*sabeels_with_thaali)
+                        expect(output).not_to contain_exactly(*sabeel_with_other_size)
                     end
                 end
 
@@ -185,10 +187,12 @@ RSpec.describe Sabeel, :type => :model do
                             create(:thaali_takhmeen, sabeel: sabeel, size: size)
                         end
 
+                        sabeel_with_other_size = create(:thaali_takhmeen, sabeel: phase_2.last, size: other_size)
+
                         output = described_class.phase_2_thaali_size(size)
 
                         expect(output).to contain_exactly(*sabeels)
-                        expect(output).not_to contain_exactly(*sabeels_with_thaali)
+                        expect(output).not_to contain_exactly(*sabeel_with_other_size)
                     end
                 end
 
@@ -200,10 +204,12 @@ RSpec.describe Sabeel, :type => :model do
                             create(:thaali_takhmeen, sabeel: sabeel, size: size)
                         end
 
+                        sabeel_with_other_size = create(:thaali_takhmeen, sabeel: phase_3.last, size: other_size)
+
                         output = described_class.phase_3_thaali_size(size)
 
                         expect(output).to contain_exactly(*sabeels)
-                        expect(output).not_to contain_exactly(*sabeels_with_thaali)
+                        expect(output).not_to contain_exactly(*sabeel_with_other_size)
                     end
                 end
             end
