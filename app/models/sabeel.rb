@@ -1,7 +1,5 @@
 class Sabeel < ApplicationRecord
     # * Associations
-    has_one :thaali, dependent: :destroy
-    has_many :takhmeens, through: :thaali
     has_many :thaali_takhmeens, dependent: :destroy
 
     # * Callbacks
@@ -47,11 +45,11 @@ class Sabeel < ApplicationRecord
 
     scope :who_doesnt_takes_thaali, -> { where(takes_thaali: false) }
 
-    scope :phase_1_thaali_size, -> size { in_phase_1.joins(:thaali).where(thaalis: {size: size}) }
+    scope :phase_1_thaali_size, -> size { in_phase_1.joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
 
-    scope :phase_2_thaali_size, -> size { in_phase_2.joins(:thaali).where(thaalis: {size: size}) }
+    scope :phase_2_thaali_size, -> size { in_phase_2.joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
 
-    scope :phase_3_thaali_size, -> size { in_phase_3.joins(:thaali).where(thaalis: {size: size}) }
+    scope :phase_3_thaali_size, -> size { in_phase_3.joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
 
     private
 

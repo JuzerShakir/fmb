@@ -5,10 +5,7 @@ RSpec.describe Sabeel, :type => :model do
     subject { build(:sabeel) }
 
     context "assocaition" do
-        it { should have_one(:thaali).dependent(:destroy) }
-        it { should have_many(:takhmeens).through(:thaali) }
         it { should have_many(:thaali_takhmeens).dependent(:destroy) }
-
     end
 
     context "validations of attribute" do
@@ -144,7 +141,7 @@ RSpec.describe Sabeel, :type => :model do
             end
 
             context "from different Phases" do
-                available_sizes = Thaali.sizes.keys
+                available_sizes = ThaaliTakhmeen.sizes.keys
 
                 context ".phase_1_thaali_size" do
                     it "should return all the thaalis of Phase 1 of the size specified" do
@@ -153,7 +150,7 @@ RSpec.describe Sabeel, :type => :model do
                         sabeels = phase_1.first(n)
 
                         sabeels.each do | sabeel |
-                            create(:thaali, sabeel: sabeel, size: size)
+                            create(:thaali_takhmeen, sabeel: sabeel, size: size)
                         end
 
                         output = described_class.phase_1_thaali_size(size)
@@ -170,7 +167,7 @@ RSpec.describe Sabeel, :type => :model do
                         sabeels = phase_2.first(n)
 
                         sabeels.each do | sabeel |
-                            create(:thaali, sabeel: sabeel, size: size)
+                            create(:thaali_takhmeen, sabeel: sabeel, size: size)
                         end
 
                         output = described_class.phase_2_thaali_size(size)
@@ -187,7 +184,7 @@ RSpec.describe Sabeel, :type => :model do
                         sabeels = phase_3.first(n)
 
                         sabeels.each do | sabeel |
-                            create(:thaali, sabeel: sabeel, size: size)
+                            create(:thaali_takhmeen, sabeel: sabeel, size: size)
                         end
 
                         output = described_class.phase_3_thaali_size(size)
