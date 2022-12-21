@@ -34,5 +34,11 @@ RSpec.describe ThaaliTakhmeen, type: :model do
             it { should validate_numericality_of(:year).only_integer }
             it { should validate_numericality_of(:year).is_greater_than_or_equal_to(current_year) }
         end
+
+        context "total" do
+            it { should validate_presence_of(:total) }
+            it { should validate_numericality_of(:total).only_integer }
+            it { should validate_numericality_of(:total).is_greater_than(0) }
+        end
     end
 end

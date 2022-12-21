@@ -3,8 +3,8 @@ class ThaaliTakhmeen < ApplicationRecord
 
   # * Validations
   # number
-  validates_numericality_of :number, only_integer: true, greater_than: 0
-  validates_presence_of :number, :size, :year
+  validates_numericality_of :number, :total, only_integer: true, greater_than: 0
+  validates_presence_of :number, :size, :year, :total
   validates_uniqueness_of :number, { scope: :year}
   #sabeel_id
   validates_uniqueness_of :sabeel_id, { scope: :year}
