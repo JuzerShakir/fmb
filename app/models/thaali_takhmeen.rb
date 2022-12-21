@@ -5,6 +5,7 @@ class ThaaliTakhmeen < ApplicationRecord
   # * Callbacks
   before_save :update_balance, :check_if_balance_is_zero
   after_create :set_takes_thaali_true
+  after_destroy :set_takes_thaali_false
 
   # * Validations
   # number
@@ -33,5 +34,9 @@ class ThaaliTakhmeen < ApplicationRecord
 
     def set_takes_thaali_true
       self.sabeel.update_attribute(:takes_thaali, true)
+    end
+
+    def set_takes_thaali_false
+      self.sabeel.update_attribute(:takes_thaali, false)
     end
 end
