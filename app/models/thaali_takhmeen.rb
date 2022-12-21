@@ -3,7 +3,7 @@ class ThaaliTakhmeen < ApplicationRecord
   belongs_to :sabeel
 
   # * Callbacks
-  before_save :update_balance
+  before_save :update_balance, :check_if_balance_is_zero
 
   # * Validations
   # number
@@ -24,5 +24,9 @@ class ThaaliTakhmeen < ApplicationRecord
 
     def update_balance
       self.balance = self.total - self.paid
+    end
+
+    def check_if_balance_is_zero
+      self.is_complete = true if self.balance.zero? && !self.is_complete
     end
 end

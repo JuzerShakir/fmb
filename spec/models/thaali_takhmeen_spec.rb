@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe ThaaliTakhmeen, type: :model do
+    subject { build(:thaali_takhmeen) }
+
     today = Date.today
     yesterday = Date.today.prev_day
     current_year = today.year
@@ -11,7 +13,6 @@ RSpec.describe ThaaliTakhmeen, type: :model do
     end
 
     context "validations of attribute" do
-        subject { build(:thaali_takhmeen) }
 
         context "number" do
             it { should validate_numericality_of(:number).only_integer }
@@ -64,6 +65,16 @@ RSpec.describe ThaaliTakhmeen, type: :model do
             it "must instantiate balance attribute with same amount as total attribute amount" do
                 subject.save
                 expect(subject.balance).to eq(subject.total)
+            end
+        end
+
+        context "#check_if_balance_is_zero" do
+            it { is_expected.to callback(:check_if_balance_is_zero).before(:save) }
+
+            it "must set is_complete attribute to truthy" do
+                subject.paid = subject.total = Faker::Number.number(digits: 5)
+                subject.save
+                expect(subject.is_complete).to be_truthy
             end
         end
     end
