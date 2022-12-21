@@ -25,6 +25,8 @@ class ThaaliTakhmeen < ApplicationRecord
   # * Scopes
   scope :in_the_year, -> year { where(year: year) }
 
+  scope :all_pending_takhmeens_till_date, -> { where(is_complete: false) }
+
 
   private
 
