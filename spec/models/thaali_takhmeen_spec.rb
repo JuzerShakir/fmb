@@ -28,5 +28,11 @@ RSpec.describe ThaaliTakhmeen, type: :model do
         context "sabeel_id" do
             it { should validate_uniqueness_of(:sabeel_id).scoped_to(:year) }
         end
+
+        context "year" do
+            it { should validate_presence_of(:year) }
+            it { should validate_numericality_of(:year).only_integer }
+            it { should validate_numericality_of(:year).is_greater_than_or_equal_to(current_year) }
+        end
     end
 end
