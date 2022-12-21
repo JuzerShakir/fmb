@@ -1,6 +1,6 @@
 class Transaction < ApplicationRecord
   # * Associations
-  belongs_to :takhmeen
+  belongs_to :thaali_takhmeen
 
   # * Callbacks
   after_commit :add_all_transaction_amounts_to_paid_amount
@@ -22,7 +22,7 @@ class Transaction < ApplicationRecord
   end
 
   def amount_should_be_less_than_the_balance
-    if self.amount > self.takhmeen.balance
+    if self.amount > self.thaali_takhmeen.balance
       errors.add(:amount, "cannot be greater than the balance")
     end
   end
@@ -37,8 +37,8 @@ class Transaction < ApplicationRecord
   private
 
     def add_all_transaction_amounts_to_paid_amount
-      unless self.takhmeen.is_complete
-        takhmeen = self.takhmeen
+      unless self.thaali_takhmeen.is_complete
+        takhmeen = self.thaali_takhmeen
         all_transactions_of_a_takhmeen = takhmeen.transactions
 
         if all_transactions_of_a_takhmeen.exists?

@@ -1,6 +1,7 @@
 class ThaaliTakhmeen < ApplicationRecord
   # * Associtions
   belongs_to :sabeel
+  has_many :transactions, dependent: :destroy
 
   # * Callbacks
   before_save :update_balance, :check_if_balance_is_zero

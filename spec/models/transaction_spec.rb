@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe Transaction, type: :model do
     subject { build(:transaction) }
+
     today = Date.today
     yesterday = Date.today.prev_day
     current_year = today.year
@@ -9,7 +10,7 @@ RSpec.describe Transaction, type: :model do
 
     context "assocaition" do
         subject { create(:transaction) }
-        it { should belong_to(:takhmeen) }
+        it { should belong_to(:thaali_takhmeen) }
     end
 
     context "validation of attribute" do
@@ -51,13 +52,13 @@ RSpec.describe Transaction, type: :model do
 
         context "#amount_should_be_less_than_the_balance" do
             it "must raise an error if amount value is greater than balance value" do
-                subject.amount = subject.takhmeen.balance + Faker::Number.non_zero_digit
+                subject.amount = subject.thaali_takhmeen.balance + Faker::Number.non_zero_digit
                 subject.validate
                 expect(subject.errors[:amount]).to include("cannot be greater than the balance")
             end
 
             it "must NOT raise an error if amount value is less than balance value" do
-                subject.amount = subject.takhmeen.balance - Faker::Number.non_zero_digit
+                subject.amount = subject.thaali_takhmeen.balance - Faker::Number.non_zero_digit
                 subject.validate
                 expect(subject.errors[:amount]).to_not include("cannot be greater than the balance")
             end
@@ -70,7 +71,7 @@ RSpec.describe Transaction, type: :model do
 
             context "if takhmeen is NOT complete" do
                 subject { create(:transaction) }
-                let!(:takhmeen) { subject.takhmeen }
+                let!(:takhmeen) { subject.thaali_takhmeen }
                 let!(:all_transactions_of_a_takhmeen) { takhmeen.transactions }
 
                 context "with one or more transactions" do
@@ -83,18 +84,18 @@ RSpec.describe Transaction, type: :model do
                 context "with no transactions"  do
                     it "should reset paid amount to zero" do
                         subject.destroy
-                        expect(subject.takhmeen.paid).to eq(0)
+                        expect(subject.thaali_takhmeen.paid).to eq(0)
                     end
                 end
             end
 
             context "if takhmeen IS complete" do
                 it "should NOT update the paid attribute amount" do
-                    takhmeen_paid_amount = subject.takhmeen.paid = subject.takhmeen.total
-                    subject.save # is_complete attribute for takhmeen model will be set to true through callback
+                    takhmeen_paid_amount = subject.thaali_takhmeen.paid = subject.thaali_takhmeen.total
+                    subject.save # is_complete attribute for thaali_takhmeen model will be set to true through callback
                     subject.amount = Faker::Number.non_zero_digit
                     subject.save # will NOT update the paid attribute amount as is_complete is set to true
-                    expect(subject.takhmeen.paid).to eq(takhmeen_paid_amount)
+                    expect(subject.thaali_takhmeen.paid).to eq(takhmeen_paid_amount)
                 end
             end
         end

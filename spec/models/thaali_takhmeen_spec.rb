@@ -10,6 +10,7 @@ RSpec.describe ThaaliTakhmeen, type: :model do
 
     context "association" do
         it { should belong_to(:sabeel) }
+        it { should have_many(:transactions).dependent(:destroy) }
     end
 
     context "validations of attribute" do
