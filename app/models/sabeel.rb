@@ -1,6 +1,7 @@
 class Sabeel < ApplicationRecord
     # * Associations
     has_many :thaali_takhmeens, dependent: :destroy
+    has_many :transactions, through: :thaali_takhmeens
 
     # * Callbacks
     before_save  :set_up_address

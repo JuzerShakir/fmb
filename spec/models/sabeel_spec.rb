@@ -6,6 +6,7 @@ RSpec.describe Sabeel, :type => :model do
 
     context "assocaition" do
         it { should have_many(:thaali_takhmeens).dependent(:destroy) }
+        it { should have_many(:transactions).through(:thaali_takhmeens) }
     end
 
     context "validations of attribute" do
