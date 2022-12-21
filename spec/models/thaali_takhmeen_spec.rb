@@ -126,5 +126,15 @@ RSpec.describe ThaaliTakhmeen, type: :model do
                 expect(described_class.all_pending_takhmeens_till_date).not_to contain_exactly(completed_takhmeen)
             end
         end
+
+        context ".all_pending_takhmeens_for_the_year" do
+            it "should return all the thaalis whos takhmeen is pending for the current year" do
+                expect(described_class.all_pending_takhmeens_for_the_year(current_year)).to contain_exactly(current_year_takhmeen)
+            end
+
+            it "should NOT return thaalis whos takhmeen is pending for the other years" do
+                expect(described_class.all_pending_takhmeens_for_the_year(current_year)).not_to contain_exactly(next_year_takhmeen)
+            end
+        end
     end
 end
