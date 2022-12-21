@@ -5,7 +5,7 @@ RSpec.describe ThaaliTakhmeen, type: :model do
 
     today = Date.today
     yesterday = Date.today.prev_day
-    current_year = today.year
+    current_year = $current_year_takhmeen
     next_year = today.next_year.year
 
     context "association" do
@@ -133,7 +133,7 @@ RSpec.describe ThaaliTakhmeen, type: :model do
                 expect(described_class.all_pending_takhmeens_for_the_year(current_year)).to contain_exactly(current_year_takhmeen)
             end
 
-            it "should NOT return thaalis whos takhmeen is pending for the other years" do
+            it "should NOT return thaalis of current year whos takhmeen is pending for the other years" do
                 expect(described_class.all_pending_takhmeens_for_the_year(current_year)).not_to contain_exactly(previous_year_takhmeen)
             end
         end
