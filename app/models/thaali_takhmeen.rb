@@ -22,6 +22,10 @@ class ThaaliTakhmeen < ApplicationRecord
   # * Enums
   enum :size, { small: 0, medium: 1, large: 2 }
 
+  # * Scopes
+  scope :in_the_year, -> year { where(year: year) }
+
+
   private
 
     def update_balance
