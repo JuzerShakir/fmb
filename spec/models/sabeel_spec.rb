@@ -176,7 +176,7 @@ RSpec.describe Sabeel, :type => :model do
                         output = described_class.phase_1_thaali_size(size)
 
                         expect(output).to contain_exactly(*sabeels)
-                        expect(output.count).to eq(n)
+                        expect(output).not_to contain_exactly(*sabeels_with_thaali)
                     end
                 end
 
@@ -193,7 +193,7 @@ RSpec.describe Sabeel, :type => :model do
                         output = described_class.phase_2_thaali_size(size)
 
                         expect(output).to contain_exactly(*sabeels)
-                        expect(output.count).to eq(n)
+                        expect(output).not_to contain_exactly(*sabeels_with_thaali)
                     end
                 end
 
@@ -210,7 +210,7 @@ RSpec.describe Sabeel, :type => :model do
                         output = described_class.phase_3_thaali_size(size)
 
                         expect(output).to contain_exactly(*sabeels)
-                        expect(output.count).to eq(n)
+                        expect(output).not_to contain_exactly(*sabeels_with_thaali)
                     end
                 end
             end
