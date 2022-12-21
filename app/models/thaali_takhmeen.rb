@@ -1,5 +1,9 @@
 class ThaaliTakhmeen < ApplicationRecord
+  # * Associtions
   belongs_to :sabeel
+
+  # * Callbacks
+  before_save :update_balance
 
   # * Validations
   # number
@@ -15,4 +19,10 @@ class ThaaliTakhmeen < ApplicationRecord
 
   # * Enums
   enum :size, { small: 0, medium: 1, large: 2 }
+
+  private
+
+    def update_balance
+      self.balance = self.total - self.paid
+    end
 end

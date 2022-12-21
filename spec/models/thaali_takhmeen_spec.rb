@@ -56,4 +56,15 @@ RSpec.describe ThaaliTakhmeen, type: :model do
             end
         end
     end
+
+    context "callback method" do
+        context "#update_balance" do
+            it { is_expected.to callback(:update_balance).before(:save) }
+
+            it "must instantiate balance attribute with same amount as total attribute amount" do
+                subject.save
+                expect(subject.balance).to eq(subject.total)
+            end
+        end
+    end
 end
