@@ -81,4 +81,36 @@ RSpec.describe "Sabeels", type: :request do
       expect(response.body).to include("#{valid_attributes.fetch(:apartment)}")
     end
   end
+
+  # * UPDATE
+  context "PATCH update" do
+    context "with valid attributes" do
+      before do
+        sabeel = Sabeel.create(valid_attributes)
+        valid_attributes[:apartment] = "mohammedi"
+        patch sabeel_path(id: sabeel.id), params: { sabeel: valid_attributes }
+      end
+
+      it "should redirect to updated sabeel" do
+        expect(response).to redirect_to sabeel_path
+      end
+
+      it "should show the updated value" do
+        get sabeel_path(id: Sabeel.last.id)
+        expect(response.body).to include("mohammedi")
+      end
+    end
+
+    context "with invalid attributes" do
+      before do
+        sabeel = Sabeel.create(valid_attributes)
+        valid_attributes[:apartment] = ""
+        patch sabeel_path(id: sabeel.id), params: { sabeel: valid_attributes }
+      end
+
+      it "should render an edit template" do
+        expect(response).to render_template(:edit)
+      end
+    end
+  end
 end

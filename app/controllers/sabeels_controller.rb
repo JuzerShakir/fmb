@@ -20,6 +20,15 @@ class SabeelsController < ApplicationController
         @sabeel = Sabeel.find(params[:id])
     end
 
+    def update
+        @sabeel = Sabeel.find(params[:id])
+        if @sabeel.update(sabeel_params)
+            redirect_to sabeel_path
+        else
+            render :edit
+        end
+    end
+
     private
         def sabeel_params
             params.require(:sabeel).permit(:its, :hof_name, :apartment, :flat_no, :mobile, :email)
