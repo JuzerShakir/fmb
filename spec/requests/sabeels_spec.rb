@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Sabeels", type: :request do
-  valid_attributes = { its: 12345678, hof_name: "Juzer", apartment: "maimoon_b", flat_no: 101, mobile: 1234567890, email: nil }
-  invalid_attributes = { its: nil, hof_name: "Juzer", apartment: nil, flat_no: nil, mobile: nil, email: nil}
+  valid_attributes =  FactoryBot.attributes_for(:sabeel)
+  invalid_attributes = FactoryBot.attributes_for(:sabeel, its: nil)
 
   before(:all) do
     Sabeel.destroy_all
