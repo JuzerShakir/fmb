@@ -16,8 +16,6 @@ RSpec.describe "Sabeels", type: :request do
   end
 
   context "POST create" do
-    subject { build(:sabeel) }
-
     context "with valid attributes" do
       it "creates a new Sabeel" do
         expect {
@@ -33,8 +31,6 @@ RSpec.describe "Sabeels", type: :request do
     end
 
     it "with invalid attributes" do
-      subject { build(:sabeel) }
-
       expect {
         post sabeel_path, params: { sabeel: invalid_attributes }
       }.to_not change { Sabeel.count }
