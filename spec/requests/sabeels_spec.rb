@@ -4,6 +4,7 @@ RSpec.describe "Sabeels", type: :request do
   valid_attributes = { its: 12345678, hof_name: "Juzer", apartment: "maimoon_b", flat_no: 101, mobile: 1234567890, email: nil }
   invalid_attributes = { its: nil, hof_name: "Juzer", apartment: nil, flat_no: nil, mobile: nil, email: nil}
 
+  # * NEW
   context "GET new" do
     before { get new_sabeel_path }
 
@@ -15,6 +16,7 @@ RSpec.describe "Sabeels", type: :request do
     it { should render_template(:new) }
   end
 
+  # * CREATE
   context "POST create" do
     context "with valid attributes" do
       it "creates a new Sabeel" do
