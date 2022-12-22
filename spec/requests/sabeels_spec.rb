@@ -65,7 +65,7 @@ RSpec.describe "Sabeels", type: :request do
     end
   end
 
-  # * edit
+  # * EDIT
   context "GET edit" do
     before do
       sabeel = Sabeel.create(valid_attributes)
