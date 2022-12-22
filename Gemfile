@@ -73,6 +73,7 @@ group :test do
   gem 'simplecov', require: false
   gem "shoulda-matchers", git: 'https://github.com/thoughtbot/shoulda-matchers.git'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
+  gem 'rails-controller-testing'
 end
 
 gem 'validates_email_format_of'
