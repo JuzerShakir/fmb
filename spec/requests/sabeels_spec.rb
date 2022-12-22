@@ -5,7 +5,8 @@ RSpec.describe "Sabeels", type: :request do
   invalid_attributes = FactoryBot.attributes_for(:sabeel, its: nil)
 
   before(:all) do
-    Sabeel.destroy_all
+    recent_sabeel = Sabeel.last
+    recent_sabeel.destroy unless recent_sabeel.nil?
   end
 
   # * NEW
