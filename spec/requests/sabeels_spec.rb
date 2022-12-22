@@ -30,13 +30,18 @@ RSpec.describe "Sabeels", type: :request do
       end
     end
 
-    it "with invalid attributes" do
-      expect {
-        post sabeel_path, params: { sabeel: invalid_attributes }
-      }.to_not change { Sabeel.count }
+    context "with invalid attributes" do
+      it "does not create a new Sabeel" do
+        expect {
+          post sabeel_path, params: { sabeel: invalid_attributes }
+        }.to_not change { Sabeel.count }
+      end
 
-      expect(response).to have_http_status(:ok)
-      expect(subject).to render_template(:new)
+      it "renders a new template" do
+        post sabeel_path, params: { sabeel: invalid_attributes }
+        expect(subject).to render_template(:new)
+        expect(response).to have_http_status(:ok)
+      end
     end
   end
 end
