@@ -18,7 +18,7 @@ RSpec.describe "Sabeels", type: :request do
   context "POST create" do
     subject { build(:sabeel) }
 
-    it "creates new sabeel" do
+    it "with valid attributes" do
       expect {
         post sabeel_path, params: { sabeel: valid_attributes }
       }.to change { Sabeel.count }.from(0).to(1)
@@ -27,7 +27,7 @@ RSpec.describe "Sabeels", type: :request do
       expect(response).to redirect_to sabeel_path
     end
 
-    it "raises validation errors" do
+    it "with invalid attributes" do
       subject { build(:sabeel) }
 
       expect {
