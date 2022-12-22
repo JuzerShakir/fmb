@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_105012) do
 
   create_table "thaali_takhmeens", force: :cascade do |t|
     t.bigint "sabeel_id", null: false
-    t.integer "year", default: 2023, null: false
+    t.integer "year", null: false
     t.integer "total", null: false
     t.integer "paid", default: 0, null: false
     t.integer "balance", null: false

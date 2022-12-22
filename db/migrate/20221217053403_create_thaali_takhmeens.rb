@@ -2,7 +2,7 @@ class CreateThaaliTakhmeens < ActiveRecord::Migration[7.0]
   def change
     create_table :thaali_takhmeens do |t|
       t.references :sabeel, null: false, foreign_key: true
-      t.integer :year, null: false, default: 2023
+      t.integer :year, null: false
       t.integer :total, null: false
       t.integer :paid, null: false, default: 0
       t.integer :balance, null: false
