@@ -25,10 +25,10 @@ RSpec.describe "Sabeels", type: :request do
 
       it "should create a new Sabeel" do
         expect(Sabeel.count).to eq 1
-        expect(response).to have_http_status(:found)
       end
 
       it "should redirect to created sabeel" do
+        expect(response).to have_http_status(:found)
         expect(response).to redirect_to sabeel_path
       end
     end
