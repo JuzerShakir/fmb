@@ -4,6 +4,10 @@ RSpec.describe "Sabeels", type: :request do
   valid_attributes = { its: 12345678, hof_name: "Juzer", apartment: "maimoon_b", flat_no: 101, mobile: 1234567890, email: nil }
   invalid_attributes = { its: nil, hof_name: "Juzer", apartment: nil, flat_no: nil, mobile: nil, email: nil}
 
+  before(:all) do
+    Sabeel.destroy_all
+  end
+
   # * NEW
   context "GET new" do
     before { get new_sabeel_path }
@@ -104,12 +108,7 @@ RSpec.describe "Sabeels", type: :request do
     context "with invalid attributes" do
       before do
         sabeel = Sabeel.create(valid_attributes)
-        valid_attributes[:apartment] = ""
-        patch sabeel_path(id: sabeel.id), params: { sabeel: valid_attributes }
-      end
-
-      after do
-        valid_attributes[:apartment] = "maimoon_b"
+        patch sabeel_path(id: sabeel.id), params: { sabeel: invalid_attributes }
       end
 
       it "should render an edit template" do
