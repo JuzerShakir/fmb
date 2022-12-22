@@ -8,7 +8,7 @@ RSpec.describe "Sabeels", type: :request do
   context "GET new" do
     before { get new_sabeel_path }
 
-    it "should return an 200 (OK) status code" do
+    it "should return a 200 (OK) status code" do
       expect(response).to be_successful
       expect(response).to have_http_status(:ok)
     end
@@ -23,12 +23,12 @@ RSpec.describe "Sabeels", type: :request do
         post sabeel_path, params: { sabeel: valid_attributes }
       end
 
-      it "creates a new Sabeel" do
+      it "should create a new Sabeel" do
         expect(Sabeel.count).to eq 1
         expect(response).to have_http_status(:found)
       end
 
-      it "redirects to created sabeel" do
+      it "should redirect to created sabeel" do
         expect(response).to redirect_to sabeel_path
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe "Sabeels", type: :request do
         expect(Sabeel.count).to eq 0
       end
 
-      it "renders a new template" do
+      it "should render a new template" do
         expect(response).to render_template(:new)
         expect(response).to have_http_status(:ok)
       end
