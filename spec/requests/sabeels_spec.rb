@@ -11,4 +11,44 @@ RSpec.describe "Sabeels", type: :request do
 
     it { should render_template(:new) }
   end
+
+  context "POST create" do
+    subject { build(:sabeel) }
+
+    it "creates new sabeel" do
+      expect {
+        post sabeel_path, params: {
+          sabeel: {
+            its: subject.its,
+            hof_name: subject.hof_name,
+            apartment: subject.apartment,
+            flat_no: subject.flat_no,
+            mobile: subject.mobile,
+            email: nil
+          }
+        }
+      }.to change { Sabeel.count }.from(0).to(1)
+
+      expect(response).to have_http_status(:found)
+      expect(response).to redirect_to sabeel_path
+    end
+
+    it "raises validation errors" do
+      subject { build(:sabeel) }
+
+      expect {
+        post sabeel_path, params: {
+          sabeel: {
+            hof_name: subject.hof_name,
+            apartment: subject.apartment,
+            flat_no: subject.flat_no,
+            mobile: subject.mobile,
+          }
+        }
+      }.to_not change { Sabeel.count }
+
+      expect(response).to have_http_status(:ok)
+      expect(subject).to render_template(:new)
+    end
+  end
 end
