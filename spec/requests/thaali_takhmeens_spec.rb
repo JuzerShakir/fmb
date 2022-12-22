@@ -36,13 +36,15 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         post sabeel_thaali_takhmeens_path, params: { thaali_takhmeen: valid_attributes }
       end
 
+      let!(:thaali) { ThaaliTakhmeen.find_by(number: valid_attributes[:number]) }
+
       it "should create a new Thaali" do
-        expect(ThaaliTakhmeen.count).to eq 1
+        expect(thaali).to be_truthy
       end
 
       it "should redirect to created thaali" do
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to sabeel_thaali_takhmeen_path(id: ThaaliTakhmeen.last.id)
+        expect(response).to redirect_to sabeel_thaali_takhmeen_path(id: thaali.id)
       end
     end
 
@@ -51,8 +53,10 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         post sabeel_thaali_takhmeens_path, params: { thaali_takhmeen: invalid_attributes }
       end
 
+      let!(:thaali) { ThaaliTakhmeen.find_by(number: invalid_attributes[:number]) }
+
       it "does not create a new Thaali" do
-        expect(ThaaliTakhmeen.count).to eq 0
+        expect(thaali).to be_nil
       end
 
       it "should render a new template" do
