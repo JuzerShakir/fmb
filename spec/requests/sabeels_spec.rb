@@ -64,4 +64,21 @@ RSpec.describe "Sabeels", type: :request do
       expect(response.body).to include("#{valid_attributes.fetch(:its)}")
     end
   end
+
+  # * edit
+  context "GET edit" do
+    before do
+      sabeel = Sabeel.create(valid_attributes)
+      get edit_sabeel_path(id: sabeel.id)
+    end
+
+    it "should render render an edit template" do
+      expect(response).to render_template(:edit)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "should render the apartment of the sabeel" do
+      expect(response.body).to include("#{valid_attributes.fetch(:apartment)}")
+    end
+  end
 end
