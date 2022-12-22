@@ -108,9 +108,26 @@ RSpec.describe "Sabeels", type: :request do
         patch sabeel_path(id: sabeel.id), params: { sabeel: valid_attributes }
       end
 
+      after do
+        valid_attributes[:apartment] = "maimoon_b"
+      end
+
       it "should render an edit template" do
         expect(response).to render_template(:edit)
       end
     end
+  end
+
+  # * DESTROY
+  context "DELETE destroy" do
+    before do
+      sabeel = Sabeel.create(valid_attributes)
+      delete sabeel_path(id: sabeel.id)
+    end
+    it "should destroy the sabeel" do
+      expect(Sabeel.count).to eq 0
+    end
+
+    it "should redirect to the homepage"
   end
 end
