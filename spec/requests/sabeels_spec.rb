@@ -28,8 +28,10 @@ RSpec.describe "Sabeels", type: :request do
         post sabeel_path, params: { sabeel: valid_attributes }
       end
 
+      let!(:sabeel) { Sabeel.find_by(its: valid_attributes[:its]) }
+
       it "should create a new Sabeel" do
-        expect(Sabeel.count).to eq 1
+        expect(sabeel).to be_truthy
       end
 
       it "should redirect to created sabeel" do
@@ -43,8 +45,10 @@ RSpec.describe "Sabeels", type: :request do
         post sabeel_path, params: { sabeel: invalid_attributes }
       end
 
+      let!(:invalid_sabeel) { Sabeel.find_by(its: invalid_attributes[:its]) }
+
       it "does not create a new Sabeel" do
-        expect(Sabeel.count).to eq 0
+        expect(invalid_sabeel).to be_nil
       end
 
       it "should render a new template" do
@@ -96,12 +100,14 @@ RSpec.describe "Sabeels", type: :request do
         patch sabeel_path(id: sabeel.id), params: { sabeel: valid_attributes }
       end
 
+      let!(:sabeel) { Sabeel.find_by(its: valid_attributes[:its]) }
+
       it "should redirect to updated sabeel" do
         expect(response).to redirect_to sabeel_path
       end
 
       it "should show the updated value" do
-        get sabeel_path(id: Sabeel.last.id)
+        get sabeel_path(id: sabeel.id)
         expect(response.body).to include("mohammedi")
       end
     end
@@ -124,8 +130,11 @@ RSpec.describe "Sabeels", type: :request do
       sabeel = Sabeel.create(valid_attributes)
       delete sabeel_path(id: sabeel.id)
     end
+
+    let!(:sabeel) { Sabeel.find_by(its: valid_attributes[:its]) }
+
     it "should destroy the sabeel" do
-      expect(Sabeel.count).to eq 0
+      expect(sabeel).to be_nil
     end
 
     it "should redirect to the homepage"
