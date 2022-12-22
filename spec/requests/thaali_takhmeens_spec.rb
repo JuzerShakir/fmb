@@ -41,7 +41,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         post sabeel_thaali_takhmeens_path, params: { thaali_takhmeen: invalid_attributes }
       end
 
-      it "does not create a new Sabeel" do
+      it "does not create a new Thaali" do
         expect(ThaaliTakhmeen.count).to eq 0
       end
 
