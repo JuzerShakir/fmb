@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "ThaaliTakhmeens", type: :request do
   sabeel = FactoryBot.create(:sabeel)
   valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: sabeel.id)
-  invalid_attributes = FactoryBot.attributes_for(:sabeel, size: nil, sabeel_id: sabeel.id)
+  invalid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, size: nil, sabeel_id: sabeel.id)
 
   # destroys thaalis before running each context
   before(:all) do
