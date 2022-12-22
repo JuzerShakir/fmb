@@ -18,13 +18,18 @@ RSpec.describe "Sabeels", type: :request do
   context "POST create" do
     subject { build(:sabeel) }
 
-    it "with valid attributes" do
-      expect {
-        post sabeel_path, params: { sabeel: valid_attributes }
-      }.to change { Sabeel.count }.from(0).to(1)
+    context "with valid attributes" do
+      it "creates a new Sabeel" do
+        expect {
+          post sabeel_path, params: { sabeel: valid_attributes }
+        }.to change { Sabeel.count }.by 1
+        expect(response).to have_http_status(:found)
+      end
 
-      expect(response).to have_http_status(:found)
-      expect(response).to redirect_to sabeel_path
+      it "redirects to created sabeel" do
+        post sabeel_path, params: { sabeel: valid_attributes }
+        expect(response).to redirect_to sabeel_path
+      end
     end
 
     it "with invalid attributes" do
