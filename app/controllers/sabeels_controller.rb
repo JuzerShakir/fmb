@@ -12,6 +12,10 @@ class SabeelsController < ApplicationController
         end
     end
 
+    def show
+        @sabeel = Sabeel.find(params[:id])
+    end
+
     private
         def sabeel_params
             params.require(:sabeel).permit(:its, :hof_name, :apartment, :flat_no, :mobile, :email)

@@ -41,9 +41,25 @@ RSpec.describe "Sabeels", type: :request do
 
       it "renders a new template" do
         post sabeel_path, params: { sabeel: invalid_attributes }
-        expect(subject).to render_template(:new)
+        expect(response).to render_template(:new)
         expect(response).to have_http_status(:ok)
       end
+    end
+  end
+
+  # * SHOW
+  context "GET show" do
+    before do
+      sabeel = Sabeel.create(valid_attributes)
+      get sabeel_path(id: sabeel.id)
+    end
+
+    it "should render a show template" do
+      expect(response).to render_template(:show)
+      expect(response).to have_http_status(:ok)
+    end
+    it "should render the ITS of the sabeel" do
+      expect(response.body).to include("#{valid_attributes.fetch(:its)}")
     end
   end
 end
