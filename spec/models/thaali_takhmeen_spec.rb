@@ -34,7 +34,7 @@ RSpec.describe ThaaliTakhmeen, type: :model do
         context "year" do
             it { should validate_presence_of(:year) }
             it { should validate_numericality_of(:year).only_integer }
-            it { should validate_numericality_of(:year).is_less_than_or_equal_to(current_year) }
+            it { should validate_numericality_of(:year).is_less_than_or_equal_to($CURRENT_YEAR) }
         end
 
         context "total" do
@@ -108,11 +108,11 @@ RSpec.describe ThaaliTakhmeen, type: :model do
 
         context ".in_the_year" do
             it "should return all the thaalis of current year" do
-                expect(described_class.in_the_year(current_year)).to contain_exactly(current_year_takhmeen)
+                expect(described_class.in_the_year($CURRENT_YEAR)).to contain_exactly(current_year_takhmeen)
             end
 
             it "should NOT return thaalis of other years" do
-                expect(described_class.in_the_year(current_year)).not_to contain_exactly(previous_year_takhmeen)
+                expect(described_class.in_the_year($CURRENT_YEAR)).not_to contain_exactly(previous_year_takhmeen)
             end
         end
 
@@ -130,11 +130,11 @@ RSpec.describe ThaaliTakhmeen, type: :model do
 
         context ".all_pending_takhmeens_for_the_year" do
             it "should return all the thaalis whos takhmeen is pending for the current year" do
-                expect(described_class.all_pending_takhmeens_for_the_year(current_year)).to contain_exactly(current_year_takhmeen)
+                expect(described_class.all_pending_takhmeens_for_the_year($CURRENT_YEAR)).to contain_exactly(current_year_takhmeen)
             end
 
             it "should NOT return thaalis of current year whos takhmeen is pending for the other years" do
-                expect(described_class.all_pending_takhmeens_for_the_year(current_year)).not_to contain_exactly(previous_year_takhmeen)
+                expect(described_class.all_pending_takhmeens_for_the_year($CURRENT_YEAR)).not_to contain_exactly(previous_year_takhmeen)
             end
         end
     end
