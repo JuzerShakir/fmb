@@ -34,5 +34,20 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         expect(response).to redirect_to sabeel_thaali_takhmeen_path(id: ThaaliTakhmeen.last.id)
       end
     end
+
+    context "with invalid attributes" do
+      before do
+        post sabeel_thaali_takhmeens_path, params: { thaali_takhmeen: invalid_attributes }
+      end
+
+      it "does not create a new Sabeel" do
+        expect(ThaaliTakhmeen.count).to eq 0
+      end
+
+      it "should render a new template" do
+        expect(response).to render_template(:new)
+        expect(response).to have_http_status(:ok)
+      end
+    end
   end
 end

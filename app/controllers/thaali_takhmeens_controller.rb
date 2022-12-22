@@ -5,8 +5,12 @@ class ThaaliTakhmeensController < ApplicationController
 
     def create
         @thaali_takhmeen = ThaaliTakhmeen.new(thaali_takhmeen_params)
-        @thaali_takhmeen.save
-        redirect_to sabeel_thaali_takhmeen_path(@thaali_takhmeen)
+        if @thaali_takhmeen.valid?
+            @thaali_takhmeen.save
+            redirect_to sabeel_thaali_takhmeen_path(@thaali_takhmeen)
+        else
+            render :new
+        end
     end
 
     private
