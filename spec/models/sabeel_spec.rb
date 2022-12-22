@@ -38,7 +38,7 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "apartment" do
-            let(:all_apartments) { Array.new.push(*$apt_list_phase_1, *$apt_list_phase_2, *$apt_list_phase_3) }
+            let(:all_apartments) { Array.new.push(*$PHASE_1, *$PHASE_2, *$PHASE_3) }
             it { should validate_presence_of(:apartment) }
 
             it { should define_enum_for(:apartment).with_values(all_apartments) }
