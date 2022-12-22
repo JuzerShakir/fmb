@@ -5,10 +5,12 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
   valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: sabeel.id)
   invalid_attributes = FactoryBot.attributes_for(:sabeel, size: nil, sabeel_id: sabeel.id)
 
+  # destroys thaalis before running each context
   before(:all) do
     ThaaliTakhmeen.destroy_all
   end
 
+  # destroys sabeel instance after all test suites have finished
   after(:all) do
     Sabeel.destroy_all
   end
