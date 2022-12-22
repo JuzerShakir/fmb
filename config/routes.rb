@@ -3,11 +3,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root "thaali_takhmeen#index"
+  root "thaali_takhmeens#index"
 
   resource :sabeel do
-    resources :thaali_takhmeen, except: [:index, :create]
+    resources :thaali_takhmeens, except: [:index, :create]
   end
 
-  post 'sabeel_thaali_takhmeen', to: 'thaali_takhmeen#create'
+  post 'sabeel_thaali_takhmeen', to: 'thaali_takhmeens#create'
 end
