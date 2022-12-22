@@ -1,2 +1,2 @@
-module SabeelHelper
+module SabeelsHelper
 end
