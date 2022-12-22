@@ -1,4 +1,6 @@
 class SabeelsController < ApplicationController
+    before_action :set_sabeel, only: [:edit, :update, :show, :destroy]
+
     def new
     end
 
@@ -13,15 +15,12 @@ class SabeelsController < ApplicationController
     end
 
     def show
-        @sabeel = Sabeel.find(params[:id])
     end
 
     def edit
-        @sabeel = Sabeel.find(params[:id])
     end
 
     def update
-        @sabeel = Sabeel.find(params[:id])
         if @sabeel.update(sabeel_params)
             redirect_to sabeel_path
         else
@@ -30,7 +29,6 @@ class SabeelsController < ApplicationController
     end
 
     def destroy
-        @sabeel = Sabeel.find(params[:id])
         @sabeel.destroy
         # redirect_to root_path
     end
@@ -38,5 +36,9 @@ class SabeelsController < ApplicationController
     private
         def sabeel_params
             params.require(:sabeel).permit(:its, :hof_name, :apartment, :flat_no, :mobile, :email)
+        end
+
+        def set_sabeel
+            @sabeel = Sabeel.find(params[:id])
         end
 end
