@@ -19,6 +19,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     it { should render_template(:new) }
   end
 
+# * CREATE
   context "POST create" do
     context "with valid attributes" do
       before do
