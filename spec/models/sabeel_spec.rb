@@ -3,9 +3,9 @@ require "validates_email_format_of/rspec_matcher"
 
 RSpec.describe Sabeel, :type => :model do
     subject { build(:sabeel) }
-    let(:phase_1) { create_list(:sabeels_in_phase_1, 5) }
-    let(:phase_2) { create_list(:sabeels_in_phase_2, 5) }
-    let(:phase_3) { create_list(:sabeels_in_phase_3, 5) }
+    let(:phase_1) { create_list(:sabeel_in_phase_1, 5) }
+    let(:phase_2) { create_list(:sabeel_in_phase_2, 5) }
+    let(:phase_3) { create_list(:sabeel_in_phase_3, 5) }
     let(:all_sabeels) { [*phase_1, *phase_2, *phase_3] }
     let(:sabeels_with_thaali) { create_list(:sabeel_with_thaali, 2) }
     available_sizes = ThaaliTakhmeen.sizes.keys
