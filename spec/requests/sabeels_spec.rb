@@ -19,28 +19,30 @@ RSpec.describe "Sabeels", type: :request do
   # * CREATE
   context "POST create" do
     context "with valid attributes" do
+      before do
+        post sabeel_path, params: { sabeel: valid_attributes }
+      end
+
       it "creates a new Sabeel" do
-        expect {
-          post sabeel_path, params: { sabeel: valid_attributes }
-        }.to change { Sabeel.count }.by 1
+        expect(Sabeel.count).to eq 1
         expect(response).to have_http_status(:found)
       end
 
       it "redirects to created sabeel" do
-        post sabeel_path, params: { sabeel: valid_attributes }
         expect(response).to redirect_to sabeel_path
       end
     end
 
     context "with invalid attributes" do
+      before do
+        post sabeel_path, params: { sabeel: invalid_attributes }
+      end
+
       it "does not create a new Sabeel" do
-        expect {
-          post sabeel_path, params: { sabeel: invalid_attributes }
-        }.to_not change { Sabeel.count }
+        expect(Sabeel.count).to eq 0
       end
 
       it "renders a new template" do
-        post sabeel_path, params: { sabeel: invalid_attributes }
         expect(response).to render_template(:new)
         expect(response).to have_http_status(:ok)
       end
