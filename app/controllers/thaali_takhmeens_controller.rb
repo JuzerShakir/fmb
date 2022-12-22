@@ -1,0 +1,2 @@
+class ThaaliTakhmeensController < ApplicationController
+end
