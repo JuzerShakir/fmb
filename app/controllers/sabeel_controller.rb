@@ -1,0 +1,2 @@
+class SabeelController < ApplicationController
+end
