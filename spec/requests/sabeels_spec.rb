@@ -8,6 +8,7 @@ RSpec.describe "Sabeels", type: :request do
     before { get new_sabeel_path }
 
     it "should return an 200 (OK) status code" do
+      expect(response).to be_successful
       expect(response).to have_http_status(:ok)
     end
 
