@@ -12,7 +12,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
   # destroys sabeel instance after all test suites have finished
   after(:all) do
-    Sabeel.destroy_all
+    sabeel.destroy
   end
 
   # * NEW
