@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Sabeels", type: :request do
+  valid_attributes = { its: 12345678, hof_name: "Juzer", apartment: "maimoon_b", flat_no: 101, mobile: 1234567890, email: nil }
+  invalid_attributes = { its: nil, hof_name: "Juzer", apartment: nil, flat_no: nil, mobile: nil, email: nil}
 
   context "GET new" do
     before { get new_sabeel_path }
@@ -17,16 +19,7 @@ RSpec.describe "Sabeels", type: :request do
 
     it "creates new sabeel" do
       expect {
-        post sabeel_path, params: {
-          sabeel: {
-            its: subject.its,
-            hof_name: subject.hof_name,
-            apartment: subject.apartment,
-            flat_no: subject.flat_no,
-            mobile: subject.mobile,
-            email: nil
-          }
-        }
+        post sabeel_path, params: { sabeel: valid_attributes }
       }.to change { Sabeel.count }.from(0).to(1)
 
       expect(response).to have_http_status(:found)
@@ -37,14 +30,7 @@ RSpec.describe "Sabeels", type: :request do
       subject { build(:sabeel) }
 
       expect {
-        post sabeel_path, params: {
-          sabeel: {
-            hof_name: subject.hof_name,
-            apartment: subject.apartment,
-            flat_no: subject.flat_no,
-            mobile: subject.mobile,
-          }
-        }
+        post sabeel_path, params: { sabeel: invalid_attributes }
       }.to_not change { Sabeel.count }
 
       expect(response).to have_http_status(:ok)
