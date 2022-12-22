@@ -3,6 +3,7 @@ FactoryBot.define do
     sabeel
     year { Random.rand($CURRENT_YEAR - 30..Date.today.year) }
     total  { Faker::Number.number(digits: 5) }
+    paid { 0 }
     balance { total - paid }
     is_complete { false }
     number { Random.rand(1..1000) }

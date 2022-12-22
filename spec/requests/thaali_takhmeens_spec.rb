@@ -2,8 +2,16 @@ require 'rails_helper'
 
 RSpec.describe "ThaaliTakhmeens", type: :request do
   sabeel = FactoryBot.create(:sabeel)
-  valid_attributes = { number: 1, size: "small", year: 2022, total: 10000, sabeel_id: sabeel.id }
-  invalid_attributes = { number: nil, size: "medium", year: 2022, total: 20000, sabeel_id: sabeel.id }
+  valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: sabeel.id)
+  invalid_attributes = FactoryBot.attributes_for(:sabeel, size: nil, sabeel_id: sabeel.id)
+
+  before(:all) do
+    ThaaliTakhmeen.destroy_all
+  end
+
+  after(:all) do
+    Sabeel.destroy_all
+  end
 
   # * NEW
   context "GET new" do
