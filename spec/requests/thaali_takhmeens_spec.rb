@@ -26,9 +26,11 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
 # * CREATE
     context "POST create" do
+        before do
+            @sabeel = FactoryBot.create(:sabeel)
+        end
         context "with valid attributes" do
             before do
-              @sabeel = FactoryBot.create(:sabeel)
               @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
               post sabeel_thaali_takhmeens_path, params: { thaali_takhmeen: @valid_attributes }
               @thaali = ThaaliTakhmeen.find_by(number: @valid_attributes[:number])
