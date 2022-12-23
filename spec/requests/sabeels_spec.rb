@@ -28,9 +28,8 @@ RSpec.describe "Sabeels", type: :request do
         post sabeel_path, params: { sabeel: valid_attributes }
       end
 
-      let!(:sabeel) { Sabeel.find_by(its: valid_attributes[:its]) }
-
       it "should create a new Sabeel" do
+        sabeel = Sabeel.find_by(its: valid_attributes[:its])
         expect(sabeel).to be_truthy
       end
 
@@ -45,9 +44,8 @@ RSpec.describe "Sabeels", type: :request do
         post sabeel_path, params: { sabeel: invalid_attributes }
       end
 
-      let!(:invalid_sabeel) { Sabeel.find_by(its: invalid_attributes[:its]) }
-
       it "does not create a new Sabeel" do
+        invalid_sabeel = Sabeel.find_by(its: invalid_attributes[:its])
         expect(invalid_sabeel).to be_nil
       end
 
@@ -110,13 +108,12 @@ RSpec.describe "Sabeels", type: :request do
         patch sabeel_path(id: sabeel.id), params: { sabeel: valid_attributes }
       end
 
-      let!(:sabeel) { Sabeel.find_by(its: valid_attributes[:its]) }
-
       it "should redirect to updated sabeel" do
         expect(response).to redirect_to sabeel_path
       end
 
       it "should show the updated value" do
+        sabeel = Sabeel.find_by(its: valid_attributes[:its])
         get sabeel_path(id: sabeel.id)
         expect(response.body).to include("mohammedi")
       end
