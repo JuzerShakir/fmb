@@ -26,6 +26,9 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
       expect(response).to have_http_status(:ok)
     end
 
+    # add a test suite to check whether the sabeel has any thaali of previuos year..
+    # ..if they were taking thaali, extract that instance to show on form
+    # ..if they weren't taking the thaali, render empty form
     it { should render_template(:new) }
   end
 
