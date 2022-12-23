@@ -1,4 +1,6 @@
 class ThaaliTakhmeensController < ApplicationController
+    before_action :set_thaali_takhmeen, only: [:show, :edit, :update, :destroy]
+
     def new
         @sabeel = Sabeel.find(params[:id])
     end
@@ -14,15 +16,12 @@ class ThaaliTakhmeensController < ApplicationController
     end
 
     def show
-        @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
     end
 
     def edit
-        @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
     end
 
     def update
-        @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
         if @thaali_takhmeen.update(thaali_takhmeen_params)
             redirect_to sabeel_thaali_takhmeen_path(@thaali_takhmeen)
         else
@@ -31,7 +30,6 @@ class ThaaliTakhmeensController < ApplicationController
     end
 
     def destroy
-        @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
         @thaali_takhmeen.destroy
         redirect_to sabeel_path
     end
@@ -40,5 +38,9 @@ class ThaaliTakhmeensController < ApplicationController
 
         def thaali_takhmeen_params
             params.require(:thaali_takhmeen).permit(:number, :size, :sabeel_id, :total, :year)
+        end
+
+        def set_thaali_takhmeen
+            @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
         end
 end
