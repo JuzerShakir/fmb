@@ -18,15 +18,22 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
   # * NEW
   context "GET new" do
     before do
+      valid_attributes[:year] = $PREV_YEAR_TAKHMEEN
+      ThaaliTakhmeen.create(valid_attributes)
       get new_sabeel_thaali_takhmeen_path, params: { id: sabeel.id }
     end
 
     it "should return a 200 (OK) status code" do
-      expect(response).to be_successful
       expect(response).to have_http_status(:ok)
+      expect(response).to render_template(:new)
     end
 
-    it { should render_template(:new) }
+    context "for previous year thaali" do
+      it "should extract that instance" do
+        thaali = sabeel.thaali_takhmeens.where(year: $PREV_YEAR_TAKHMEEN).first
+        expect(response.body).to include("#{thaali.number}")
+      end
+    end
   end
 
 # * CREATE
