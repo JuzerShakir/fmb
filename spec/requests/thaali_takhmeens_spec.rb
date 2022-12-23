@@ -131,4 +131,22 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
       end
     end
   end
+
+    # * DESTROY
+    context "DELETE destroy" do
+      before do
+        thaali = ThaaliTakhmeen.create(valid_attributes)
+        delete sabeel_thaali_takhmeen_path(id: thaali.id)
+      end
+
+      let!(:thaali) { ThaaliTakhmeen.find_by(number: valid_attributes[:number]) }
+
+      it "should destroy the sabeel" do
+        expect(thaali).to be_nil
+      end
+
+      it "should redirect to its sabeel page" do
+        expect(response).to redirect_to sabeel_path
+      end
+    end
 end

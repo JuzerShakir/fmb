@@ -29,6 +29,13 @@ class ThaaliTakhmeensController < ApplicationController
             render :edit
         end
     end
+
+    def destroy
+        @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
+        @thaali_takhmeen.destroy
+        redirect_to sabeel_path
+    end
+
     private
 
         def thaali_takhmeen_params
