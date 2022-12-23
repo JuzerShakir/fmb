@@ -1,6 +1,6 @@
 class ThaaliTakhmeen < ApplicationRecord
   # * Global Variables
-  $CURRENT_YEAR = 2022
+  $CURRENT_YEAR_TAKHMEEN = 2022
 
   # * Associtions
   belongs_to :sabeel
@@ -19,7 +19,7 @@ class ThaaliTakhmeen < ApplicationRecord
   #sabeel_id
   validates_uniqueness_of :sabeel_id, { scope: :year}
   #year
-  validates_numericality_of :year, only_integer: true, less_than_or_equal_to: $CURRENT_YEAR
+  validates_numericality_of :year, only_integer: true, less_than_or_equal_to: $CURRENT_YEAR_TAKHMEEN
   #paid
   validates_numericality_of :paid, only_integer: true, greater_than_or_equal_to: 0
 
