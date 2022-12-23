@@ -14,7 +14,7 @@ FactoryBot.define do
     end
 
     trait :previous_year do
-      year { Date.today.prev_year.year }
+      year { $PREV_YEAR_TAKHMEEN }
     end
 
     trait :complete do

@@ -1,6 +1,7 @@
 class ThaaliTakhmeen < ApplicationRecord
   # * Global Variables
   $CURRENT_YEAR_TAKHMEEN = 2022
+  $PREV_YEAR_TAKHMEEN = $CURRENT_YEAR_TAKHMEEN - 1
 
   # * Associtions
   belongs_to :sabeel
