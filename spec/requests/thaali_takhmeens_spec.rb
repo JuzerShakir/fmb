@@ -119,5 +119,16 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         expect(response).to redirect_to sabeel_thaali_takhmeen_path
       end
     end
+
+    context "with invalid attributes" do
+      before do
+        thaali = ThaaliTakhmeen.create(valid_attributes)
+        patch sabeel_thaali_takhmeen_path(id: thaali.id), params: { thaali_takhmeen: invalid_attributes }
+      end
+
+      it "should render an edit template" do
+        expect(response).to render_template(:edit)
+      end
+    end
   end
 end
