@@ -69,7 +69,8 @@ RSpec.describe "Sabeels", type: :request do
       expect(response).to render_template(:show)
       expect(response).to have_http_status(:ok)
     end
-    it "should render the ITS of the sabeel" do
+    it "should render the instance that was passed in the params" do
+      # it could be any attribute, not only ITS
       expect(response.body).to include("#{valid_attributes.fetch(:its)}")
     end
   end
@@ -86,7 +87,8 @@ RSpec.describe "Sabeels", type: :request do
       expect(response).to have_http_status(:ok)
     end
 
-    it "should render the apartment of the sabeel" do
+    it "should render the instance that was passed in the params" do
+      # it could be any attribute, not only apartment
       expect(response.body).to include("#{valid_attributes.fetch(:apartment)}")
     end
   end

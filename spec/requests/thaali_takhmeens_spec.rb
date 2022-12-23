@@ -78,7 +78,8 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
       expect(response).to have_http_status(:ok)
     end
 
-    it "should render the thaali number of the thaali" do
+    it "should render the instance that was passed in the params" do
+      # it could be any attribute, not only number
       expect(response.body).to include("#{valid_attributes.fetch(:number)}")
     end
   end
