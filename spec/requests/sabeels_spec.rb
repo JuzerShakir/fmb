@@ -62,6 +62,9 @@ RSpec.describe "Sabeels", type: :request do
   context "GET show" do
     before do
       sabeel = Sabeel.create(valid_attributes)
+      3.times do |i|
+        FactoryBot.create(:thaali_takhmeen, sabeel_id: sabeel.id, year: i)
+      end
       get sabeel_path(id: sabeel.id)
     end
 
@@ -69,9 +72,14 @@ RSpec.describe "Sabeels", type: :request do
       expect(response).to render_template(:show)
       expect(response).to have_http_status(:ok)
     end
+
     it "should render the instance that was passed in the params" do
       # it could be any attribute, not only ITS
       expect(response.body).to include("#{valid_attributes.fetch(:its)}")
+    end
+
+    it "total count of takhmeens of a sabeel" do
+      expect(response.body).to include("Total Takhmeens 3")
     end
   end
 

@@ -15,6 +15,7 @@ class SabeelsController < ApplicationController
     end
 
     def show
+        @thaalis = @sabeel.thaali_takhmeens
     end
 
     def edit
