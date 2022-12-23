@@ -13,6 +13,9 @@ class ThaaliTakhmeensController < ApplicationController
         end
     end
 
+    def show
+        @thaali = ThaaliTakhmeen.find(params[:id])
+    end
     private
 
         def thaali_takhmeen_params

@@ -65,4 +65,21 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
       end
     end
   end
+
+  # * SHOW
+  context "GET show" do
+    before do
+      thaali = ThaaliTakhmeen.create(valid_attributes)
+      get sabeel_thaali_takhmeen_path(id: thaali.id)
+    end
+
+    it "should render a show template" do
+      expect(response).to render_template(:show)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "should render the thaali number of the thaali" do
+      expect(response.body).to include("#{valid_attributes.fetch(:number)}")
+    end
+  end
 end
