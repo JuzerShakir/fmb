@@ -14,11 +14,11 @@ class ThaaliTakhmeensController < ApplicationController
     end
 
     def show
-        @thaali = ThaaliTakhmeen.find(params[:id])
+        @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
     end
 
     def edit
-        @thaali = ThaaliTakhmeen.find(params[:id])
+        @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
     end
     private
 
