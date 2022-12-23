@@ -83,4 +83,22 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
       expect(response.body).to include("#{valid_attributes.fetch(:number)}")
     end
   end
+
+  # * EDIT
+  context "GET edit" do
+    before do
+      thaali = ThaaliTakhmeen.create(valid_attributes)
+      get edit_sabeel_thaali_takhmeen_path(id: thaali.id)
+    end
+
+    it "should render render an edit template" do
+      expect(response).to render_template(:edit)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "should render the instance that was passed in the params" do
+      # it could be any attribute, not only size
+      expect(response.body).to include("#{valid_attributes.fetch(:size)}")
+    end
+  end
 end

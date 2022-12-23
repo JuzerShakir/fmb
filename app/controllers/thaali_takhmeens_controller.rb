@@ -16,6 +16,10 @@ class ThaaliTakhmeensController < ApplicationController
     def show
         @thaali = ThaaliTakhmeen.find(params[:id])
     end
+
+    def edit
+        @thaali = ThaaliTakhmeen.find(params[:id])
+    end
     private
 
         def thaali_takhmeen_params
