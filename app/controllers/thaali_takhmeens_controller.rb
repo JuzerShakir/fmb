@@ -20,6 +20,12 @@ class ThaaliTakhmeensController < ApplicationController
     def edit
         @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
     end
+
+    def update
+        @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
+        @thaali_takhmeen.update(thaali_takhmeen_params)
+        redirect_to sabeel_thaali_takhmeen_path(@thaali_takhmeen)
+    end
     private
 
         def thaali_takhmeen_params

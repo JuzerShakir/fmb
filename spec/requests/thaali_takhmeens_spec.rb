@@ -104,4 +104,20 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
       expect(response.body).to include("#{valid_attributes.fetch(:size)}")
     end
   end
+
+  context "PATCH update" do
+    context "valid attributes" do
+      before do
+        thaali = ThaaliTakhmeen.create(valid_attributes)
+        valid_attributes[:number] = Random.rand(1..100)
+        patch sabeel_thaali_takhmeen_path(id: thaali.id), params: { thaali_takhmeen: valid_attributes }
+      end
+
+      let!(:thaali) { ThaaliTakhmeen.find_by(number: valid_attributes[:number]) }
+
+      it "should redirect to updated thaali page" do
+        expect(response).to redirect_to sabeel_thaali_takhmeen_path
+      end
+    end
+  end
 end
