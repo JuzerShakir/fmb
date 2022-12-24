@@ -1,6 +1,10 @@
 class TransactionsController < ApplicationController
     before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
+    def all
+        @transactions = Transaction.all
+    end
+
     def new
         @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
     end

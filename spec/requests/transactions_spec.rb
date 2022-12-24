@@ -13,7 +13,11 @@ RSpec.describe "Transactions", type: :request do
             expect(response).to have_http_status(:ok)
         end
 
-        it "should show all transactions of all sabeels" # Possible to test with feature spec
+        it "should show all transactions of all thaalis" do
+            @transactions.each do |transaction|
+                expect(response.body).to  include("#{transaction.recipe_no}")
+            end
+        end
     end
 
     # * NEW
