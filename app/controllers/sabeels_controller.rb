@@ -5,10 +5,10 @@ class SabeelsController < ApplicationController
     end
 
     def create
-        sabeel = Sabeel.new(sabeel_params)
-        if sabeel.valid?
-            sabeel.save
-            redirect_to sabeel_path
+        @sabeel = Sabeel.new(sabeel_params)
+        if @sabeel.valid?
+            @sabeel.save
+            redirect_to @sabeel
         else
             render :new
         end
@@ -23,7 +23,7 @@ class SabeelsController < ApplicationController
 
     def update
         if @sabeel.update(sabeel_params)
-            redirect_to sabeel_path
+            redirect_to @sabeel
         else
             render :edit
         end

@@ -32,7 +32,7 @@ RSpec.describe "Sabeels", type: :request do
 
             it "should redirect to created sabeel" do
               expect(response).to have_http_status(:found)
-              expect(response).to redirect_to sabeel_path
+              expect(response).to redirect_to @sabeel
             end
         end
 
