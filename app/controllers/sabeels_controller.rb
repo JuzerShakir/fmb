@@ -1,6 +1,10 @@
 class SabeelsController < ApplicationController
     before_action :set_sabeel, only: [:edit, :update, :show, :destroy]
 
+    def index
+        @sabeels = Sabeel.all
+    end
+
     def new
     end
 

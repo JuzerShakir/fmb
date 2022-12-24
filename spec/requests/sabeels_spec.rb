@@ -1,16 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe "Sabeels", type: :request do
+    # * INDEX
+    context "GET index" do
+        before do
+            @sabeels = FactoryBot.create_list(:sabeel, 5)
+            get all_sabeels_path
+        end
+
+        it "should render an index template with 200 status code" do
+            expect(response).to render_template(:index)
+            expect(response).to have_http_status(:ok)
+        end
+
+        it "should display all the sabeels on the index template" do
+            @sabeels.each do |sabeel|
+                expect(response.body).to include("#{sabeel.hof_name}")
+            end
+        end
+    end
+
     # * NEW
     context "GET new" do
         before { get new_sabeel_path }
 
-        it "should return a 200 (OK) status code" do
-            expect(response).to be_successful
+        it "should render a new template with 200 status code" do
+            expect(response).to render_template(:new)
             expect(response).to have_http_status(:ok)
         end
-
-        it { should render_template(:new) }
     end
 
     # * CREATE
