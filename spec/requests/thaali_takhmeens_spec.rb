@@ -43,7 +43,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
             it "should redirect to created thaali" do
               expect(response).to have_http_status(:found)
-              expect(response).to redirect_to thaali_takhmeen_path(id: @thaali.id)
+              expect(response).to redirect_to @thaali
             end
         end
 
@@ -71,7 +71,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             @sabeel = FactoryBot.create(:sabeel)
             @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
             @thaali = ThaaliTakhmeen.create(@valid_attributes)
-            get thaali_takhmeen_path(id: @thaali.id)
+            get thaali_takhmeen_path(@thaali)
         end
 
         it "should render a show template" do
@@ -91,7 +91,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             @sabeel = FactoryBot.create(:sabeel)
             @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
             @thaali = ThaaliTakhmeen.create(@valid_attributes)
-            get edit_thaali_takhmeen_path(id: @thaali.id)
+            get edit_thaali_takhmeen_path(@thaali)
         end
 
         it "should render render an edit template" do
@@ -115,20 +115,19 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         context "with valid attributes" do
             before do
                 @valid_attributes[:number] = Random.rand(1..100)
-                patch thaali_takhmeen_path(id: @thaali.id), params: { thaali_takhmeen: @valid_attributes }
-                # let!(:thaali) { ThaaliTakhmeen.find(@ta) }
+                patch thaali_takhmeen_path(@thaali), params: { thaali_takhmeen: @valid_attributes }
             end
 
 
             it "should redirect to updated thaali page" do
-                expect(response).to redirect_to thaali_takhmeen_path
+                expect(response).to redirect_to @thaali
             end
         end
 
         context "with invalid attributes" do
             before do
                 @invalid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, total: 0)
-                patch thaali_takhmeen_path(id: @thaali.id), params: { thaali_takhmeen: @invalid_attributes }
+                patch thaali_takhmeen_path(@thaali), params: { thaali_takhmeen: @invalid_attributes }
             end
 
           it "should render an edit template" do
@@ -143,7 +142,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             @sabeel = FactoryBot.create(:sabeel)
             @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
             thaali = ThaaliTakhmeen.create(@valid_attributes)
-            delete thaali_takhmeen_path(id: thaali.id)
+            delete thaali_takhmeen_path(thaali)
             @thaali = ThaaliTakhmeen.find_by(id: thaali.id)
         end
 
