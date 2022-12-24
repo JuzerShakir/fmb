@@ -1,4 +1,6 @@
 class TransactionsController < ApplicationController
+    before_action :set_transaction, only: [:show, :edit, :update, :destroy]
+
     def new
         @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
     end
@@ -14,16 +16,12 @@ class TransactionsController < ApplicationController
     end
 
     def show
-        @transaction = Transaction.find(params[:id])
     end
 
     def edit
-        @transaction = Transaction.find(params[:id])
     end
 
     def update
-        @transaction = Transaction.find(params[:id])
-
         if @transaction.update(transaction_params)
             redirect_to @transaction
         else
@@ -32,7 +30,6 @@ class TransactionsController < ApplicationController
     end
 
     def destroy
-        @transaction = Transaction.find(params[:id])
         @transaction.destroy
         redirect_to thaali_takhmeen_path
     end
@@ -40,5 +37,9 @@ class TransactionsController < ApplicationController
     private
         def transaction_params
             params.require(:transaction).permit(:amount, :on_date, :mode, :thaali_takhmeen_id)
+        end
+
+        def set_transaction
+            @transaction = Transaction.find(params[:id])
         end
 end
