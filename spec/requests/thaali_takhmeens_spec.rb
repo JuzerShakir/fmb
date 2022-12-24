@@ -103,6 +103,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         end
     end
 
+    # * UPDATE
     context "PATCH update" do
         before do
             @sabeel = FactoryBot.create(:sabeel)
