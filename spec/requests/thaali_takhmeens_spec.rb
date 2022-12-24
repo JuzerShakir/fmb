@@ -68,9 +68,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     # * SHOW
     context "GET show" do
         before do
-            @sabeel = FactoryBot.create(:sabeel)
-            @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
-            @thaali = ThaaliTakhmeen.create(@valid_attributes)
+            @thaali = FactoryBot.create(:thaali_takhmeen)
             get thaali_takhmeen_path(@thaali)
         end
 
@@ -81,7 +79,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
         it "should render the instance that was passed in the params" do
             # it could be any attribute, not only number
-            expect(response.body).to include("#{@valid_attributes.fetch(:number)}")
+            expect(response.body).to include("#{@thaali.number}")
         end
     end
 
