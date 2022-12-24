@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "thaali_takhmeens#index"
 
-  resource :sabeel do
+  resource :sabeel, shallow: true do
     resources :thaali_takhmeens, except: [:index] do
       resources :transactions, except: [:index]
     end
