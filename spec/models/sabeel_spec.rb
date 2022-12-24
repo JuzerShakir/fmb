@@ -102,7 +102,7 @@ RSpec.describe Sabeel, :type => :model do
         context "Phases" do
             context ".in_phase_1" do
                 it "should ONLY return all the sabeels of Phase 1 apartments" do
-                    expect(described_class.in_phase_1).to include(*phase_1)
+                    expect(described_class.in_phase_1).to contain_exactly(*phase_1)
                 end
 
                 it "should NOT return sabeels of other Phases, except for Phase 1" do
@@ -112,7 +112,7 @@ RSpec.describe Sabeel, :type => :model do
 
             context ".in_phase_2" do
                 it "should ONLY return all the sabeels of Phase 2 apartments" do
-                    expect(described_class.in_phase_2).to include(*phase_2)
+                    expect(described_class.in_phase_2).to contain_exactly(*phase_2)
                 end
                 it "should NOT return sabeels of other Phases, except for Phase 2" do
                     expect(described_class.in_phase_2).not_to contain_exactly(*phase_1, *phase_3)
@@ -121,7 +121,7 @@ RSpec.describe Sabeel, :type => :model do
 
             context ".in_phase_3" do
                 it "should ONLY return all the sabeels of Phase 3 apartments" do
-                    expect(described_class.in_phase_3).to include(*phase_3)
+                    expect(described_class.in_phase_3).to contain_exactly(*phase_3)
                 end
 
                 it "should NOT return sabeels of other Phases, except for Phase 3" do
