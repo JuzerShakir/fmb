@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   root "thaali_takhmeens#index"
 
   get "/transactions/all", to: "transactions#all", as: :transactions_all
-  get "/sabeels/all", to: "sabeels#all", as: :all_sabeels
+  get "/sabeels", to: "sabeels#index", as: :all_sabeels
 
   resource :sabeel, shallow: true do
     resources :thaali_takhmeens, except: [:index] do

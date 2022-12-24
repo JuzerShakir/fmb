@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Sabeel, type: :routing do
 
-    context "all" do
-        it "routes /sabeels/all to the all action of sabeels controller" do
-            expect(get("/sabeels/all")).to route_to("sabeels#all")
+    context "index" do
+        it "routes /sabeels to the index action of sabeels controller" do
+            expect(get("/sabeels")).to route_to("sabeels#index")
         end
 
-        it "routes all_sabeels to the all action of sabeels controller" do
-            expect(get: all_sabeels_path).to route_to(controller: "sabeels", action: "all")
+        it "routes all_sabeels to the index action of sabeels controller" do
+            expect(get: all_sabeels_path).to route_to(controller: "sabeels", action: "index")
         end
     end
 
