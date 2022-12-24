@@ -69,6 +69,9 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     context "GET show" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen)
+            3.times do |i|
+                FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id, amount: Random.rand(10..100))
+            end
             get thaali_takhmeen_path(@thaali)
         end
 
@@ -80,6 +83,11 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         it "should render the instance that was passed in the params" do
             # it could be any attribute, not only number
             expect(response.body).to include("#{@thaali.number}")
+        end
+
+        it "total count of transactions of a takhmeen" do
+            trans_count = @thaali.transactions.count
+            expect(response.body).to include("Total Transactions #{trans_count}")
         end
     end
 

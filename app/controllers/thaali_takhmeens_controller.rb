@@ -17,6 +17,7 @@ class ThaaliTakhmeensController < ApplicationController
     end
 
     def show
+        @transactions = @thaali_takhmeen.transactions
     end
 
     def edit
