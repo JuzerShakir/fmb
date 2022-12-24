@@ -24,7 +24,7 @@ RSpec.describe "Transactions", type: :request do
     context "GET new" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen)
-            get "/thaali_takhmeens/#{@thaali.id}/transactions/new"
+            get new_sabeel_takhmeen_transaction_path(id: @thaali.id)
         end
 
         it "should return a 200 (OK) status code" do
@@ -42,7 +42,7 @@ RSpec.describe "Transactions", type: :request do
         context "with valid attributes" do
             before do
                 @valid_attributes = FactoryBot.attributes_for(:transaction, thaali_takhmeen_id: @thaali.id)
-                post "/thaali_takhmeens/#{@thaali.id}/transactions", params: { transaction: @valid_attributes }
+                post sabeel_takhmeen_transaction_path, params: { transaction: @valid_attributes }
                 @transaction = Transaction.find_by(recipe_no: @valid_attributes[:recipe_no])
             end
 
@@ -52,14 +52,14 @@ RSpec.describe "Transactions", type: :request do
 
             it "should redirect to created Transaction" do
               expect(response).to have_http_status(:found)
-              expect(response).to redirect_to @transaction
+              expect(response).to redirect_to sabeel_takhmeen_transaction_path(id: @transaction.id)
             end
         end
 
         context "with invalid attributes" do
             before do
                 @invalid_attributes = FactoryBot.attributes_for(:transaction, amount: nil)
-                post "/thaali_takhmeens/#{@thaali.id}/transactions", params: { transaction: @invalid_attributes }
+                post sabeel_takhmeen_transaction_path, params: { transaction: @invalid_attributes }
                 @transaction = Transaction.find_by(recipe_no: @invalid_attributes[:recipe_no])
             end
 
@@ -78,7 +78,7 @@ RSpec.describe "Transactions", type: :request do
     context "GET show" do
         before do
             @transaction = FactoryBot.create(:transaction)
-            get transaction_path(@transaction)
+            get sabeel_takhmeen_transaction_path(id: @transaction.id)
         end
 
         it "should render a show template" do
@@ -96,7 +96,7 @@ RSpec.describe "Transactions", type: :request do
     context "GET edit" do
       before do
           @transaction = FactoryBot.create(:transaction)
-          get edit_transaction_path(@transaction)
+          get edit_sabeel_takhmeen_transaction_path(id: @transaction.id)
       end
 
       it "should render render an edit template" do
@@ -118,24 +118,25 @@ RSpec.describe "Transactions", type: :request do
 
         context "with valid attributes" do
             before do
-                @transaction.amount = Faker::Number.number(digits: 4)
-                patch transaction_path(@transaction), params: { transaction: @transaction.attributes }
+                @transaction.recipe_no = Random.rand(1..100000)
+                patch sabeel_takhmeen_transaction_path(id: @transaction.id), params: { transaction: @transaction.attributes }
             end
 
 
             it "should redirect to updated Transaction page" do
-                expect(response).to redirect_to @transaction
+                expect(response).to redirect_to sabeel_takhmeen_transaction_path(id: @transaction.id)
             end
         end
 
         context "with invalid attributes" do
             before do
-                @transaction.on_date = Date.tomorrow
-                patch transaction_path(@transaction), params: { transaction: @transaction.attributes }
+                @transaction.recipe_no = -123
+                patch sabeel_takhmeen_transaction_path(id: @transaction.id), params: { transaction: @transaction.attributes }
             end
 
           it "should render an edit template" do
                 expect(response).to render_template(:edit)
+                expect(response).to have_http_status(:ok)
           end
         end
     end
@@ -144,7 +145,7 @@ RSpec.describe "Transactions", type: :request do
     context "DELETE destroy" do
         before do
             transaction = FactoryBot.create(:transaction)
-            delete transaction_path(transaction)
+            delete sabeel_takhmeen_transaction_path(id: transaction.id)
             # find method will raise an error
             @transaction = Transaction.find_by(id: transaction.id)
         end
@@ -154,7 +155,7 @@ RSpec.describe "Transactions", type: :request do
         end
 
         it "should redirect to its parent Thaali Takhmeen page" do
-            expect(response).to redirect_to thaali_takhmeen_path
+            expect(response).to redirect_to sabeel_takhmeen_path
         end
     end
 end

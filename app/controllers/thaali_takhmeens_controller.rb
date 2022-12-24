@@ -14,7 +14,7 @@ class ThaaliTakhmeensController < ApplicationController
         @thaali_takhmeen = ThaaliTakhmeen.new(thaali_takhmeen_params)
         if @thaali_takhmeen.valid?
             @thaali_takhmeen.save
-            redirect_to @thaali_takhmeen
+            redirect_to sabeel_takhmeen_path(id: @thaali_takhmeen.id)
         else
             render :new
         end
@@ -29,7 +29,7 @@ class ThaaliTakhmeensController < ApplicationController
 
     def update
         if @thaali_takhmeen.update(thaali_takhmeen_params)
-            redirect_to @thaali_takhmeen
+            redirect_to sabeel_takhmeen_path(id: @thaali_takhmeen.id)
         else
             render :edit
         end
