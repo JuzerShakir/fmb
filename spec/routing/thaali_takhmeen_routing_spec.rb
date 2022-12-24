@@ -2,6 +2,16 @@ require "rails_helper"
 
 RSpec.describe ThaaliTakhmeen, type: :routing do
 
+    context "index action" do
+        it "routes / to the index action of thaali_takhmeens controller" do
+            expect(get("/")).to route_to("thaali_takhmeens#index")
+        end
+
+        it "routes root to the index action of thaali_takhmeens controller" do
+            expect(get: root_path).to route_to(controller: "thaali_takhmeens", action: "index")
+        end
+    end
+
     context "new action" do
         it "routes /sabeel/thaali_takhmeens/new to the new action of thaali_takhmeens controller" do
             expect(get("/sabeel/thaali_takhmeens/new")).to route_to("thaali_takhmeens#new")

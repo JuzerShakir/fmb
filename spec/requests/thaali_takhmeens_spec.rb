@@ -1,6 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe "ThaaliTakhmeens", type: :request do
+    # * INDEX
+    context "GET index" do
+        before do
+            @thaalis = FactoryBot.create_list(:thaali_takhmeen_of_current_year, 5)
+            get root_path
+        end
+
+        it "should render an index template with 200 status code" do
+            expect(response).to have_http_status(:ok)
+            expect(response).to render_template(:index)
+        end
+
+        it "should display all the Thaalis for current takhmeen year" do
+            @thaalis.each do |thaali|
+                expect(response.body).to include("#{thaali.number}")
+            end
+        end
+    end
+
     # * NEW
     context "GET new" do
         before do
@@ -11,7 +30,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             get new_sabeel_thaali_takhmeen_path, params: { id: @sabeel.id }
         end
 
-        it "should return a 200 (OK) status code" do
+        it "should render a new template with 200 status code" do
           expect(response).to have_http_status(:ok)
           expect(response).to render_template(:new)
         end
