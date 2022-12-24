@@ -33,7 +33,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             before do
               @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
               post sabeel_thaali_takhmeens_path, params: { thaali_takhmeen: @valid_attributes }
-              @thaali = ThaaliTakhmeen.find_by(number: @valid_attributes[:number])
+              @thaali = @sabeel.thaali_takhmeens.first
             end
 
 
@@ -51,7 +51,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             before do
               @invalid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: nil)
               post sabeel_thaali_takhmeens_path, params: { thaali_takhmeen: @invalid_attributes }
-              @thaali = ThaaliTakhmeen.find_by(number: @invalid_attributes[:number])
+              @thaali =  @sabeel.thaali_takhmeens.first
             end
 
             it "does not create a new Thaali" do
@@ -86,9 +86,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     # * EDIT
     context "GET edit" do
         before do
-            @sabeel = FactoryBot.create(:sabeel)
-            @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
-            @thaali = ThaaliTakhmeen.create(@valid_attributes)
+            @thaali = FactoryBot.create(:thaali_takhmeen)
             get edit_thaali_takhmeen_path(@thaali)
         end
 
@@ -99,22 +97,20 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
         it "should render the instance that was passed in the params" do
             # it could be any attribute, not only size
-            expect(response.body).to include("#{@valid_attributes.fetch(:size)}")
+            expect(response.body).to include("#{@thaali.size}")
         end
     end
 
     # * UPDATE
     context "PATCH update" do
         before do
-            @sabeel = FactoryBot.create(:sabeel)
-            @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
-            @thaali = ThaaliTakhmeen.create(@valid_attributes)
+            @thaali = FactoryBot.create(:thaali_takhmeen)
         end
 
         context "with valid attributes" do
             before do
-                @valid_attributes[:number] = Random.rand(1..100)
-                patch thaali_takhmeen_path(@thaali), params: { thaali_takhmeen: @valid_attributes }
+                @thaali.number = Random.rand(1..100)
+                patch thaali_takhmeen_path(@thaali), params: { thaali_takhmeen: @thaali.attributes }
             end
 
 
@@ -125,8 +121,8 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
         context "with invalid attributes" do
             before do
-                @invalid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, total: 0)
-                patch thaali_takhmeen_path(@thaali), params: { thaali_takhmeen: @invalid_attributes }
+                @thaali.total = 0
+                patch thaali_takhmeen_path(@thaali), params: { thaali_takhmeen: @thaali.attributes }
             end
 
           it "should render an edit template" do
@@ -138,16 +134,14 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     # * DESTROY
     context "DELETE destroy" do
         before do
-            @sabeel = FactoryBot.create(:sabeel)
-            @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
-            thaali = ThaaliTakhmeen.create(@valid_attributes)
+            thaali = FactoryBot.create(:thaali_takhmeen)
             delete thaali_takhmeen_path(thaali)
             # find method will raise an error
             @thaali = ThaaliTakhmeen.find_by(id: thaali.id)
         end
 
 
-        it "should destroy the sabeel" do
+        it "should destroy the thaali" do
             expect(@thaali).to be_nil
         end
 
