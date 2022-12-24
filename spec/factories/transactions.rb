@@ -6,5 +6,6 @@ FactoryBot.define do
     sequence :mode, mode_of_payments.cycle
     amount { Faker::Number.number(digits: 4) }
     on_date { Faker::Date.backward }
+    recipe_no { Random.rand(1000..100000) }
   end
 end

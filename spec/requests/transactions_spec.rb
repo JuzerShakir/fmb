@@ -30,7 +30,7 @@ RSpec.describe "Transactions", type: :request do
     end
 
     # * CREATE
-    context "GET create" do
+    context "POST create" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen)
         end
@@ -39,7 +39,7 @@ RSpec.describe "Transactions", type: :request do
             before do
                 @valid_attributes = FactoryBot.attributes_for(:transaction, thaali_takhmeen_id: @thaali.id)
                 post "/thaali_takhmeens/#{@thaali.id}/transactions", params: { transaction: @valid_attributes }
-                @transaction = Transaction.find_by(amount: @valid_attributes[:amount])
+                @transaction = Transaction.find_by(recipe_no: @valid_attributes[:recipe_no])
             end
 
             it "should create a new Transaction" do
@@ -56,7 +56,7 @@ RSpec.describe "Transactions", type: :request do
             before do
                 @invalid_attributes = FactoryBot.attributes_for(:transaction, amount: nil)
                 post "/thaali_takhmeens/#{@thaali.id}/transactions", params: { transaction: @invalid_attributes }
-                @transaction = Transaction.find_by(on_date: @invalid_attributes[:on_date])
+                @transaction = Transaction.find_by(recipe_no: @invalid_attributes[:recipe_no])
             end
 
             it "does not create a new Transaction" do

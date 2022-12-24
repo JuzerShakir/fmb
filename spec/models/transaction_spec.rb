@@ -33,6 +33,16 @@ RSpec.describe Transaction, type: :model do
                 expect(subject.on_date).to be_an_instance_of(Date)
             end
         end
+
+        context "recipe_no" do
+            it { should validate_presence_of(:recipe_no) }
+
+            it { should validate_numericality_of(:recipe_no).only_integer }
+
+            it { should validate_numericality_of(:recipe_no).is_greater_than(0) }
+
+            it { should validate_uniqueness_of(:recipe_no)}
+        end
     end
 
     context "custom validation method" do

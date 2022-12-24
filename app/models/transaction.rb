@@ -6,9 +6,11 @@ class Transaction < ApplicationRecord
   after_commit :add_all_transaction_amounts_to_paid_amount
 
   # * Validations
-  validates_presence_of :mode, :amount, :on_date
+  validates_presence_of :mode, :amount, :on_date, :recipe_no
 
-  validates_numericality_of :amount, only_integer: true, greater_than: 0
+  validates_numericality_of :amount, :recipe_no, only_integer: true, greater_than: 0
+
+  validates_uniqueness_of :recipe_no
 
   # * Custom Validations
   validate :amount_should_be_less_than_the_balance, if: :will_save_change_to_amount?
