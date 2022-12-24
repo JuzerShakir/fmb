@@ -1,6 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe "Transactions", type: :request do
+    # * ALL
+    context "GET all" do
+        before do
+            @transactions = FactoryBot.create_list(:transaction, 5)
+            get transactions_all_path
+        end
+
+        it "should render a 'all' template" do
+            expect(response).to render_template(:all)
+            expect(response).to have_http_status(:ok)
+        end
+
+        it "should show all transactions of all sabeels" # Possible to test with feature spec
+    end
+
     # * NEW
     context "GET new" do
         before do
