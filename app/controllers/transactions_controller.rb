@@ -7,7 +7,7 @@ class TransactionsController < ApplicationController
         @transaction = Transaction.new(transaction_params)
         if @transaction.valid?
             @transaction.save
-            redirect_to thaali_takhmeen_path
+            redirect_to @transaction
         else
             render :new
         end

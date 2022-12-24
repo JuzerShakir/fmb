@@ -31,9 +31,9 @@ RSpec.describe "Transactions", type: :request do
                 expect(@transaction).to be_truthy
             end
 
-            it "should redirect to created thaali" do
+            it "should redirect to created Transaction" do
               expect(response).to have_http_status(:found)
-              expect(response).to redirect_to thaali_takhmeen_path
+              expect(response).to redirect_to @transaction
             end
         end
 
@@ -44,7 +44,7 @@ RSpec.describe "Transactions", type: :request do
                 @transaction = Transaction.find_by(on_date: @invalid_attributes[:on_date])
             end
 
-            it "does not create a new Thaali" do
+            it "does not create a new Transaction" do
                 expect(@transaction).to be_nil
             end
 
@@ -104,7 +104,7 @@ RSpec.describe "Transactions", type: :request do
             end
 
 
-            it "should redirect to updated thaali page" do
+            it "should redirect to updated Transaction page" do
                 expect(response).to redirect_to @transaction
             end
         end
@@ -130,12 +130,11 @@ RSpec.describe "Transactions", type: :request do
             @transaction = Transaction.find_by(id: transaction.id)
         end
 
-
-        it "should destroy the sabeel" do
+        it "should destroy the Transaction" do
             expect(@transaction).to be_nil
         end
 
-        it "should redirect to its sabeel page" do
+        it "should redirect to its parent Thaali Takhmeen page" do
             expect(response).to redirect_to thaali_takhmeen_path
         end
     end
