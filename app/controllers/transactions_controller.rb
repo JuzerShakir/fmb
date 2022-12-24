@@ -17,6 +17,10 @@ class TransactionsController < ApplicationController
         @transaction = Transaction.find(params[:id])
     end
 
+    def edit
+        @transaction = Transaction.find(params[:id])
+    end
+
     private
         def transaction_params
             params.require(:transaction).permit(:amount, :on_date, :mode, :thaali_takhmeen_id)

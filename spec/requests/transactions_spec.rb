@@ -72,4 +72,22 @@ RSpec.describe "Transactions", type: :request do
             expect(response.body).to include("#{@transaction.amount}")
         end
     end
+
+    # * EDIT
+    context "GET edit" do
+      before do
+          @transaction = FactoryBot.create(:transaction)
+          get edit_transaction_path(@transaction)
+      end
+
+      it "should render render an edit template" do
+          expect(response).to render_template(:edit)
+          expect(response).to have_http_status(:ok)
+      end
+
+      it "should render the instance that was passed in the params" do
+          # it could be any attribute, not only on_date
+          expect(response.body).to include("#{@transaction.on_date}")
+      end
+  end
 end
