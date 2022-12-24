@@ -7,7 +7,10 @@ Rails.application.routes.draw do
 
   resource :sabeel, shallow: true do
     resources :thaali_takhmeens, except: [:index] do
-      resources :transactions, except: [:index]
+      resources :transactions, except: [:index, :new, :create]
     end
   end
+
+  get "/thaali_takhmeens/:id/transactions/new", to: "transactions#new", as: :new_thaali_takhmeen_transaction
+  post "/thaali_takhmeens/:id/transactions", to: "transactions#create", as: :thaali_takhmeen_transactions
 end
