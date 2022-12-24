@@ -7,7 +7,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             @sabeel = FactoryBot.create(:sabeel)
             @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
             @valid_attributes[:year] = $PREV_YEAR_TAKHMEEN
-            ThaaliTakhmeen.create(@valid_attributes)
+            @thaali = ThaaliTakhmeen.create(@valid_attributes)
             get new_sabeel_thaali_takhmeen_path, params: { id: @sabeel.id }
         end
 
@@ -18,8 +18,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
         context "for previous year thaali" do
             it "should extract that instance" do
-              thaali = @sabeel.thaali_takhmeens.where(year: $PREV_YEAR_TAKHMEEN).first
-              expect(response.body).to include("#{thaali.number}")
+              expect(response.body).to include("#{@thaali.number}")
             end
         end
     end
@@ -29,6 +28,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         before do
             @sabeel = FactoryBot.create(:sabeel)
         end
+
         context "with valid attributes" do
             before do
               @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
