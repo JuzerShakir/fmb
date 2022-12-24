@@ -90,4 +90,36 @@ RSpec.describe "Transactions", type: :request do
           expect(response.body).to include("#{@transaction.on_date}")
       end
   end
+
+  # * UPDATE
+  context "PATCH update" do
+        before do
+            @transaction = FactoryBot.create(:transaction)
+        end
+
+        context "with valid attributes" do
+            before do
+                @transaction.amount = Faker::Number.number(digits: 4)
+                patch transaction_path(@transaction), params: { transaction: @transaction.attributes }
+            end
+
+
+            it "should redirect to updated thaali page" do
+                expect(response).to redirect_to @transaction
+            end
+        end
+
+        context "with invalid attributes" do
+            before do
+                @transaction.on_date = Date.tomorrow
+                patch transaction_path(@transaction), params: { transaction: @transaction.attributes }
+            end
+
+          it "should render an edit template" do
+                expect(response).to render_template(:edit)
+          end
+        end
+    end
 end
+
+
