@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "thaali_takhmeens#index"
 
-  get "/transactions/all", to: "transactions#all", as: :transactions_all
+  get "/transactions/all", to: "transactions#index", as: :all_transactions
   get "/sabeels", to: "sabeels#index", as: :all_sabeels
 
   resource :sabeel, shallow: true do

@@ -5,11 +5,11 @@ RSpec.describe "Transactions", type: :request do
     context "GET all" do
         before do
             @transactions = FactoryBot.create_list(:transaction, 5)
-            get transactions_all_path
+            get all_transactions_path
         end
 
-        it "should render a 'all' template" do
-            expect(response).to render_template(:all)
+        it "should render a 'index' template" do
+            expect(response).to render_template(:index)
             expect(response).to have_http_status(:ok)
         end
 
