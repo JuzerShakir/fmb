@@ -56,8 +56,7 @@ RSpec.describe "Sabeels", type: :request do
     # * SHOW
     context "GET show" do
         before do
-            @valid_attributes =  FactoryBot.attributes_for(:sabeel)
-            @sabeel = Sabeel.create(@valid_attributes)
+            @sabeel = FactoryBot.create(:sabeel)
             3.times do |i|
               FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: i)
             end
@@ -71,7 +70,7 @@ RSpec.describe "Sabeels", type: :request do
 
         it "should render the instance that was passed in the params" do
             # it could be any attribute, not only ITS
-            expect(response.body).to include("#{@valid_attributes.fetch(:its)}")
+            expect(response.body).to include("#{@sabeel.its}")
         end
 
         it "total count of takhmeens of a sabeel" do
@@ -82,8 +81,7 @@ RSpec.describe "Sabeels", type: :request do
     # * EDIT
     context "GET edit" do
         before do
-            @valid_attributes =  FactoryBot.attributes_for(:sabeel)
-            @sabeel = Sabeel.create(@valid_attributes)
+            @sabeel = FactoryBot.create(:sabeel)
             get edit_sabeel_path(id: @sabeel.id)
         end
 
@@ -94,27 +92,24 @@ RSpec.describe "Sabeels", type: :request do
 
         it "should render the instance that was passed in the params" do
             # it could be any attribute, not only apartment
-            expect(response.body).to include("#{@valid_attributes.fetch(:apartment)}")
+            expect(response.body).to include("#{@sabeel.apartment}")
         end
     end
 
     # * UPDATE
     context "PATCH update" do
         before do
-          @valid_attributes =  FactoryBot.attributes_for(:sabeel)
-          @invalid_attributes = FactoryBot.attributes_for(:sabeel, its: nil)
+            @sabeel = FactoryBot.create(:sabeel)
         end
 
         context "with valid attributes" do
             before do
-                @sabeel = Sabeel.create(@valid_attributes)
-                @valid_attributes[:apartment] = "mohammedi"
-                patch sabeel_path(id: @sabeel.id), params: { sabeel: @valid_attributes }
-                @sabeel = Sabeel.find_by(its: @valid_attributes[:its])
+                @sabeel.apartment = "mohammedi"
+                patch sabeel_path(id: @sabeel.id), params: { sabeel: @sabeel.attributes }
             end
 
             it "should redirect to updated sabeel" do
-                expect(response).to redirect_to sabeel_path
+                expect(response).to redirect_to @sabeel
             end
 
             it "should show the updated value" do
@@ -125,7 +120,7 @@ RSpec.describe "Sabeels", type: :request do
 
         context "with invalid attributes" do
             before do
-                @sabeel = Sabeel.create(@valid_attributes)
+                @invalid_attributes = FactoryBot.attributes_for(:sabeel, its: nil)
                 patch sabeel_path(id: @sabeel.id), params: { sabeel: @invalid_attributes }
             end
 
@@ -138,10 +133,9 @@ RSpec.describe "Sabeels", type: :request do
     # * DESTROY
     context "DELETE destroy" do
         before do
-            @valid_attributes =  FactoryBot.attributes_for(:sabeel)
-            sabeel = Sabeel.create(@valid_attributes)
+            sabeel = FactoryBot.create(:sabeel)
             delete sabeel_path(id: sabeel.id)
-            @sabeel = Sabeel.find_by(its: @valid_attributes[:its])
+            @sabeel = Sabeel.find_by(id: sabeel.id)
         end
 
 
