@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root "thaali_takhmeens#index"
 
   resource :sabeel do
-    resources :thaali_takhmeens, except: [:index]
+    resources :thaali_takhmeens, except: [:index] do
+      resources :transactions, except: [:index]
+    end
   end
 end
