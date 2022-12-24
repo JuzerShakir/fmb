@@ -13,6 +13,10 @@ class TransactionsController < ApplicationController
         end
     end
 
+    def show
+        @transaction = Transaction.find(params[:id])
+    end
+
     private
         def transaction_params
             params.require(:transaction).permit(:amount, :on_date, :mode, :thaali_takhmeen_id)

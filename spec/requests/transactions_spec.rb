@@ -52,6 +52,24 @@ RSpec.describe "Transactions", type: :request do
                 expect(response).to render_template(:new)
                 expect(response).to have_http_status(:ok)
             end
-      end
+        end
+    end
+
+    # * SHOW
+    context "GET show" do
+        before do
+            @transaction = FactoryBot.create(:transaction)
+            get transaction_path(@transaction)
+        end
+
+        it "should render a show template" do
+            expect(response).to render_template(:show)
+            expect(response).to have_http_status(:ok)
+        end
+
+        it "should render the instance that was passed in the params" do
+            # it could be any attribute, not only amount
+            expect(response.body).to include("#{@transaction.amount}")
+        end
     end
 end
