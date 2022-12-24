@@ -37,6 +37,10 @@ RSpec.describe Transaction, type: :model do
 
     context "custom validation method" do
         context "#on_date_must_not_be_in_future" do
+            it "on_date value should not be nil" do
+                expect(subject.on_date.present?).to be_truthy
+            end
+
             it "must raise error for future dates" do
                 subject.on_date = Faker::Date.forward
                 subject.validate
@@ -51,6 +55,10 @@ RSpec.describe Transaction, type: :model do
         end
 
         context "#amount_should_be_less_than_the_balance" do
+            it "amount value should not be nil" do
+                expect(subject.amount.present?).to be_truthy
+            end
+
             it "must raise an error if amount value is greater than balance value" do
                 subject.amount = subject.thaali_takhmeen.balance + Faker::Number.non_zero_digit
                 subject.validate

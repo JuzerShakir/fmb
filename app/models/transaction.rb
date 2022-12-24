@@ -22,7 +22,7 @@ class Transaction < ApplicationRecord
   end
 
   def amount_should_be_less_than_the_balance
-    if self.amount > self.thaali_takhmeen.balance
+    if self.amount.present? && (self.amount > self.thaali_takhmeen.balance)
       errors.add(:amount, "cannot be greater than the balance")
     end
   end
