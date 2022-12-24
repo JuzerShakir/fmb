@@ -5,8 +5,7 @@ RSpec.describe "Transactions", type: :request do
     context "GET new" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen)
-            debugger
-            get new_sabeel_thaali_takhmeen_transaction_path, params: { id: @thaali.sabeel.id, thaali_takhmeen_id: @thaali.id }
+            get "/thaali_takhmeens/#{@thaali.id}/transactions/new"
         end
 
         it "should return a 200 (OK) status code" do
