@@ -31,6 +31,12 @@ class TransactionsController < ApplicationController
         end
     end
 
+    def destroy
+        @transaction = Transaction.find(params[:id])
+        @transaction.destroy
+        redirect_to thaali_takhmeen_path
+    end
+
     private
         def transaction_params
             params.require(:transaction).permit(:amount, :on_date, :mode, :thaali_takhmeen_id)

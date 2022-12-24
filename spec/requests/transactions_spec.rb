@@ -120,6 +120,25 @@ RSpec.describe "Transactions", type: :request do
           end
         end
     end
+
+    # * DESTROY
+    context "DELETE destroy" do
+        before do
+            transaction = FactoryBot.create(:transaction)
+            delete transaction_path(transaction)
+            # find method will raise an error
+            @transaction = Transaction.find_by(id: transaction.id)
+        end
+
+
+        it "should destroy the sabeel" do
+            expect(@transaction).to be_nil
+        end
+
+        it "should redirect to its sabeel page" do
+            expect(response).to redirect_to thaali_takhmeen_path
+        end
+    end
 end
 
 

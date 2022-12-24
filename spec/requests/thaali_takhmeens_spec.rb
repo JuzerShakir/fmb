@@ -142,6 +142,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
             thaali = ThaaliTakhmeen.create(@valid_attributes)
             delete thaali_takhmeen_path(thaali)
+            # find method will raise an error
             @thaali = ThaaliTakhmeen.find_by(id: thaali.id)
         end
 
