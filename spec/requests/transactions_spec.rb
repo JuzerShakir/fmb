@@ -24,7 +24,7 @@ RSpec.describe "Transactions", type: :request do
     context "GET new" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen)
-            get new_sabeel_takhmeen_transaction_path(id: @thaali.id)
+            get new_takhmeen_transaction_path(id: @thaali.id)
         end
 
         it "should return a 200 (OK) status code" do
@@ -96,7 +96,7 @@ RSpec.describe "Transactions", type: :request do
     context "GET edit" do
       before do
           @transaction = FactoryBot.create(:transaction)
-          get edit_sabeel_takhmeen_transaction_path(id: @transaction.id)
+          get edit_takhmeen_transaction_path(id: @transaction.id)
       end
 
       it "should render render an edit template" do

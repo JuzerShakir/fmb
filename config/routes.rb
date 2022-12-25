@@ -9,8 +9,11 @@ Rails.application.routes.draw do
   get "/sabeels", to: "sabeels#index", as: :all_sabeels
 
   resource :sabeel do
-    resource :takhmeen, controller: "thaali_takhmeens", except: [:index] do
-      resource :transaction, except: [:index]
+    resource :takhmeen, controller: "thaali_takhmeens" do
+      resource :transaction, except: [:new, :edit]
     end
   end
+
+  get "/sabeel/takhmeen/transaction/new", to: "transactions#new", as: :new_takhmeen_transaction
+  get "/sabeel/takhmeen/transaction/edit", to: "transactions#edit", as: :edit_takhmeen_transaction
 end

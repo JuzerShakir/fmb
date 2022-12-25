@@ -17,8 +17,8 @@ RSpec.describe Transaction, type: :routing do
             expect(get("/sabeel/takhmeen/transaction/new")).to route_to("transactions#new")
         end
 
-        it "routes new_sabeel_takhmeen_transaction_path to the new action of transactions controller" do
-            expect(get: new_sabeel_takhmeen_transaction_path).to route_to(controller: "transactions", action: "new")
+        it "routes new_takhmeen_transaction_path to the new action of transactions controller" do
+            expect(get: new_takhmeen_transaction_path).to route_to(controller: "transactions", action: "new")
         end
     end
 
@@ -47,8 +47,8 @@ RSpec.describe Transaction, type: :routing do
             expect(get("/sabeel/takhmeen/transaction/edit")).to route_to("transactions#edit")
         end
 
-        it "routes sabeel_takhmeen_transaction to the edit action of transactions controller" do
-            expect(get: edit_sabeel_takhmeen_transaction_path).to route_to(controller: "transactions", action: "edit")
+        it "routes edit_takhmeen_transaction to the edit action of transactions controller" do
+            expect(get: edit_takhmeen_transaction_path).to route_to(controller: "transactions", action: "edit")
         end
     end
 
