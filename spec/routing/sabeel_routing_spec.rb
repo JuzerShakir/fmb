@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Sabeel, type: :routing do
 
     context "index action" do
-        it "is accessible by /" do
+        it "is accessible by /sabeels route" do
             expect(get("/sabeels")).to route_to("sabeels#index")
         end
 

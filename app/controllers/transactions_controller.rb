@@ -13,7 +13,7 @@ class TransactionsController < ApplicationController
         @transaction = Transaction.new(transaction_params)
         if @transaction.valid?
             @transaction.save
-            redirect_to sabeel_takhmeen_transaction_path(id: @transaction.id)
+            redirect_to @transaction
         else
             render :new
         end
@@ -27,7 +27,7 @@ class TransactionsController < ApplicationController
 
     def update
         if @transaction.update(transaction_params)
-            redirect_to sabeel_takhmeen_transaction_path(id: @transaction.id)
+            redirect_to @transaction
         else
             render :edit
         end
