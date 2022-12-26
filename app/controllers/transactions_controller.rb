@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
     end
 
     def new
-        @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
+        @thaali_takhmeen = ThaaliTakhmeen.find(params[:takhmeen_id])
     end
 
     def create
@@ -35,7 +35,7 @@ class TransactionsController < ApplicationController
 
     def destroy
         @transaction.destroy
-        redirect_to sabeel_takhmeen_path
+        redirect_to takhmeen_path
     end
 
     private

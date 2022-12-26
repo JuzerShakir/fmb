@@ -13,22 +13,22 @@ RSpec.describe Transaction, type: :routing do
     end
 
     context "new action" do
-        it "is accessible by /sabeel/takhmeen/transaction/new route" do
-            expect(get("/sabeel/takhmeen/transaction/new")).to route_to("transactions#new")
+        it "is accessible by /takhmeens/:takhmeen_id/transactions/new route" do
+            expect(get("/takhmeens/1/transactions/new")).to route_to("transactions#new", takhmeen_id: "1")
         end
 
         it "is accessible by new_takhmeen_transaction_path url helper" do
-            expect(get: new_takhmeen_transaction_path).to route_to(controller: "transactions", action: "new")
+            expect(get: new_takhmeen_transaction_path(1)).to route_to(controller: "transactions", action: "new", takhmeen_id: "1")
         end
     end
 
     context "create action" do
         it "is accessible by /sabeel/takhmeen/transactions route" do
-            expect(post("/sabeel/takhmeen/transactions")).to route_to("transactions#create")
+            expect(post("/takhmeens/1/transactions")).to route_to("transactions#create",  takhmeen_id: "1")
         end
 
-        it "is accessible by sabeel_takhmeen_transactions_path url helper" do
-            expect(post: sabeel_takhmeen_transactions_path).to route_to(controller: "transactions", action: "create")
+        it "is accessible by takhmeen_transactions_path url helper" do
+            expect(post: takhmeen_transactions_path(1)).to route_to(controller: "transactions", action: "create",  takhmeen_id: "1")
         end
     end
 
