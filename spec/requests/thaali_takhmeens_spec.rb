@@ -27,7 +27,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
             @valid_attributes[:year] = $PREV_YEAR_TAKHMEEN
             @thaali = ThaaliTakhmeen.create(@valid_attributes)
-            get new_sabeel_takhmeen_path, params: { id: @sabeel.id }
+            get new_sabeel_takhmeen_path(sabeel_id: @sabeel.id)
         end
 
         it "should render a new template with 200 status code" do
@@ -51,7 +51,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         context "with valid attributes" do
             before do
               @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
-              post sabeel_takhmeens_path, params: { thaali_takhmeen: @valid_attributes }
+              post sabeel_takhmeens_path(sabeel_id: @sabeel.id), params: { thaali_takhmeen: @valid_attributes }
               @thaali = @sabeel.thaali_takhmeens.first
             end
 
@@ -69,7 +69,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         context "with invalid attributes" do
             before do
               @invalid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: nil)
-              post sabeel_takhmeens_path, params: { thaali_takhmeen: @invalid_attributes }
+              post sabeel_takhmeens_path(sabeel_id: @sabeel.id), params: { thaali_takhmeen: @invalid_attributes }
               @thaali =  @sabeel.thaali_takhmeens.first
             end
 

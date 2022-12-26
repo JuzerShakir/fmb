@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get "/transactions/all", to: "transactions#index", as: :all_transactions
 
   # * RESOURCEFUL ROUTES
-  resource :sabeel, shallow: true  do
+  resources :sabeels, shallow: true, except: [:index]  do
     resources :takhmeens, controller: "thaali_takhmeens", except: [:index] do
       resources :transactions, except: [:index]
     end

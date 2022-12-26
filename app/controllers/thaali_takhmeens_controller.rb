@@ -6,7 +6,7 @@ class ThaaliTakhmeensController < ApplicationController
     end
 
     def new
-        @sabeel = Sabeel.find(params[:id])
+        @sabeel = Sabeel.find(params[:sabeel_id])
         @prev_thaali = @sabeel.thaali_takhmeens.where(year: $PREV_YEAR_TAKHMEEN).first
     end
 

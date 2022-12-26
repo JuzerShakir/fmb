@@ -13,22 +13,22 @@ RSpec.describe ThaaliTakhmeen, type: :routing do
     end
 
     context "new action" do
-        it "is accessible by /sabeel/takhmeens/new route" do
-            expect(get("/sabeel/takhmeens/new")).to route_to("thaali_takhmeens#new")
+        it "is accessible by /sabeels/1/takhmeens/new route" do
+            expect(get("/sabeels/1/takhmeens/new")).to route_to("thaali_takhmeens#new", sabeel_id: "1")
         end
 
         it "is accessible by new_sabeel_takhmeen_path url helper" do
-            expect(get: new_sabeel_takhmeen_path).to route_to(controller: "thaali_takhmeens", action: "new")
+            expect(get: new_sabeel_takhmeen_path(1)).to route_to(controller: "thaali_takhmeens", action: "new",  sabeel_id: "1")
         end
     end
 
     context "create action" do
-        it "is accessible by /sabeel/takhmeens route" do
-            expect(post("/sabeel/takhmeens")).to route_to("thaali_takhmeens#create")
+        it "is accessible by /sabeels/1/takhmeens route" do
+            expect(post("/sabeels/1/takhmeens")).to route_to("thaali_takhmeens#create",  sabeel_id: "1")
         end
 
         it "is accessible by sabeel_takhmeens_path url helper" do
-            expect(post: sabeel_takhmeens_path).to route_to(controller: "thaali_takhmeens", action: "create")
+            expect(post: sabeel_takhmeens_path(1)).to route_to(controller: "thaali_takhmeens", action: "create",  sabeel_id: "1")
         end
     end
 
