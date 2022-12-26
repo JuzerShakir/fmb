@@ -13,8 +13,8 @@ RSpec.describe Sabeel, type: :routing do
     end
 
     context "new action" do
-        it "is accessible by /sabeel route" do
-            expect(get("/sabeel/new")).to route_to("sabeels#new")
+        it "is accessible by /sabeels route" do
+            expect(get("/sabeels/new")).to route_to("sabeels#new")
         end
 
         it "is accessible by new_sabeel route" do
@@ -23,52 +23,52 @@ RSpec.describe Sabeel, type: :routing do
     end
 
     context "create action" do
-        it "is accessible by /sabeel route" do
-            expect(post("/sabeel")).to route_to("sabeels#create")
+        it "is accessible by /sabeels route" do
+            expect(post("/sabeels")).to route_to("sabeels#create")
         end
 
         it "is accessible by sabeel_path route" do
-            expect(post: sabeel_path).to route_to(controller: "sabeels", action: "create")
+            expect(post: sabeels_path).to route_to(controller: "sabeels", action: "create")
         end
     end
 
     context "show action" do
-        it "is accessible by /sabeel route" do
-            expect(get("/sabeel")).to route_to("sabeels#show")
+        it "is accessible by /sabeels route" do
+            expect(get("/sabeels/1")).to route_to("sabeels#show", id: "1")
         end
 
         it "is accessible by sabeel_path route" do
-            expect(get: sabeel_path).to route_to(controller: "sabeels", action: "show")
+            expect(get: sabeel_path(1)).to route_to(controller: "sabeels", action: "show", id: "1")
         end
     end
 
     context "edit action" do
-        it "is accessible by /sabeel route" do
-            expect(get("/sabeel/edit")).to route_to("sabeels#edit")
+        it "is accessible by /sabeels/:id/edit route" do
+            expect(get("/sabeels/1/edit")).to route_to("sabeels#edit", id: "1")
         end
 
         it "is accessible by edit_sabeel_path route" do
-            expect(get: edit_sabeel_path).to route_to(controller: "sabeels", action: "edit")
+            expect(get: edit_sabeel_path(1)).to route_to(controller: "sabeels", action: "edit", id: "1")
         end
     end
 
     context "update action" do
-        it "is accessible by /sabeel route" do
-            expect(patch("/sabeel")).to route_to("sabeels#update")
+        it "is accessible by /sabeels/:id route" do
+            expect(patch("/sabeels/1")).to route_to("sabeels#update", id: "1")
         end
 
         it "is accessible by sabeel_path route" do
-            expect(patch: sabeel_path).to route_to(controller: "sabeels", action: "update")
+            expect(patch: sabeel_path(1)).to route_to(controller: "sabeels", action: "update", id: "1")
         end
     end
 
     context "destroy action" do
-        it "is accessible by /sabeel route" do
-            expect(delete("/sabeel")).to route_to("sabeels#destroy")
+        it "is accessible by /sabeels/:id route" do
+            expect(delete("/sabeels/1")).to route_to("sabeels#destroy", id: "1")
         end
 
         it "is accessible by sabeel_path route" do
-            expect(delete: sabeel_path).to route_to(controller: "sabeels", action: "destroy")
+            expect(delete: sabeel_path(1)).to route_to(controller: "sabeels", action: "destroy", id: "1")
         end
     end
 end
