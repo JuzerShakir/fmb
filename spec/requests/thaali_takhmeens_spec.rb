@@ -51,7 +51,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         context "with valid attributes" do
             before do
               @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
-              post sabeel_takhmeen_path, params: { thaali_takhmeen: @valid_attributes }
+              post sabeel_takhmeens_path, params: { thaali_takhmeen: @valid_attributes }
               @thaali = @sabeel.thaali_takhmeens.first
             end
 
@@ -62,14 +62,14 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
             it "should redirect to created thaali" do
               expect(response).to have_http_status(:found)
-              expect(response).to redirect_to sabeel_takhmeen_path(id: @thaali.id)
+              expect(response).to redirect_to takhmeen_path(@thaali)
             end
         end
 
         context "with invalid attributes" do
             before do
               @invalid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: nil)
-              post sabeel_takhmeen_path, params: { thaali_takhmeen: @invalid_attributes }
+              post sabeel_takhmeens_path, params: { thaali_takhmeen: @invalid_attributes }
               @thaali =  @sabeel.thaali_takhmeens.first
             end
 
@@ -91,7 +91,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             3.times do |i|
                 FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id, amount: Random.rand(10..100))
             end
-            get sabeel_takhmeen_path(id: @thaali.id)
+            get takhmeen_path(@thaali.id)
         end
 
         it "should render a show template" do
@@ -114,7 +114,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     context "GET edit" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen)
-            get edit_sabeel_takhmeen_path(id: @thaali.id)
+            get edit_takhmeen_path(@thaali.id)
         end
 
         it "should render render an edit template" do
@@ -137,19 +137,19 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         context "with valid attributes" do
             before do
                 @thaali.number = Random.rand(1..100)
-                patch sabeel_takhmeen_path(id: @thaali.id), params: { thaali_takhmeen: @thaali.attributes }
+                patch takhmeen_path(@thaali), params: { thaali_takhmeen: @thaali.attributes }
             end
 
 
             it "should redirect to updated thaali page" do
-                expect(response).to redirect_to sabeel_takhmeen_path(id: @thaali.id)
+                expect(response).to redirect_to takhmeen_path(@thaali)
             end
         end
 
         context "with invalid attributes" do
             before do
                 @thaali.total = 0
-                patch sabeel_takhmeen_path(id: @thaali.id), params: { thaali_takhmeen: @thaali.attributes }
+                patch takhmeen_path(@thaali), params: { thaali_takhmeen: @thaali.attributes }
             end
 
           it "should render an edit template" do
@@ -162,7 +162,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     context "DELETE destroy" do
         before do
             thaali = FactoryBot.create(:thaali_takhmeen)
-            delete sabeel_takhmeen_path(id: thaali.id)
+            delete takhmeen_path(thaali)
             # find method will raise an error
             @thaali = ThaaliTakhmeen.find_by(id: thaali.id)
         end

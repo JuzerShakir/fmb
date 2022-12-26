@@ -7,68 +7,68 @@ RSpec.describe ThaaliTakhmeen, type: :routing do
             expect(get("/")).to route_to("thaali_takhmeens#index")
         end
 
-        it "is accessible by root route" do
+        it "is accessible by root url helper" do
             expect(get: root_path).to route_to(controller: "thaali_takhmeens", action: "index")
         end
     end
 
     context "new action" do
-        it "is accessible by /sabeel/takhmeen/new route" do
-            expect(get("/sabeel/takhmeen/new")).to route_to("thaali_takhmeens#new")
+        it "is accessible by /sabeel/takhmeens/new route" do
+            expect(get("/sabeel/takhmeens/new")).to route_to("thaali_takhmeens#new")
         end
 
-        it "is accessible by new_sabeel_takhmeen_path route" do
+        it "is accessible by new_sabeel_takhmeen_path url helper" do
             expect(get: new_sabeel_takhmeen_path).to route_to(controller: "thaali_takhmeens", action: "new")
         end
     end
 
     context "create action" do
-        it "is accessible by /sabeel/takhmeen route" do
-            expect(post("/sabeel/takhmeen")).to route_to("thaali_takhmeens#create")
+        it "is accessible by /sabeel/takhmeens route" do
+            expect(post("/sabeel/takhmeens")).to route_to("thaali_takhmeens#create")
         end
 
-        it "is accessible by sabeel_takhmeen route" do
-            expect(post: sabeel_takhmeen_path).to route_to(controller: "thaali_takhmeens", action: "create")
+        it "is accessible by sabeel_takhmeens_path url helper" do
+            expect(post: sabeel_takhmeens_path).to route_to(controller: "thaali_takhmeens", action: "create")
         end
     end
 
     context "show action" do
-        it "is accessible by /sabeel/takhmeen route" do
-            expect(get("/sabeel/takhmeen")).to route_to("thaali_takhmeens#show")
+        it "is accessible by /takhmeen route" do
+            expect(get("/takhmeens/1")).to route_to("thaali_takhmeens#show", id: "1")
         end
 
-        it "is accessible by sabeel_takhmeen_path route" do
-            expect(get: sabeel_takhmeen_path).to route_to(controller: "thaali_takhmeens", action: "show")
+        it "is accessible by takhmeen_path url helper" do
+            expect(get: takhmeen_path(1)).to route_to(controller: "thaali_takhmeens", action: "show", id: "1")
         end
     end
 
     context "edit action" do
-        it "is accessible by /sabeel/takhmeen/edit route" do
-            expect(get("/sabeel/takhmeen/edit")).to route_to("thaali_takhmeens#edit")
+        it "is accessible by /takhmeens/1/edit route" do
+            expect(get("/takhmeens/1/edit")).to route_to("thaali_takhmeens#edit", id: "1")
         end
 
-        it "is accessible by edit_thaali_takhmeen_path route" do
-            expect(get: edit_sabeel_takhmeen_path).to route_to(controller: "thaali_takhmeens", action: "edit")
+        it "is accessible by edit_takhmeen_path url helper" do
+            expect(get: edit_takhmeen_path(1)).to route_to(controller: "thaali_takhmeens", action: "edit", id: "1")
         end
     end
 
     context "update action" do
-        it "is accessible by /sabeel/takhmeen route" do
-            expect(patch("/sabeel/takhmeen")).to route_to("thaali_takhmeens#update")
+        it "is accessible by /takhmeens/1 route" do
+            expect(patch("/takhmeens/1")).to route_to("thaali_takhmeens#update", id: "1")
         end
 
-        it "is accessible by sabeel_takhmeen_path route" do
-            expect(patch: sabeel_takhmeen_path).to route_to(controller: "thaali_takhmeens", action: "update")
+        it "is accessible by takhmeen_path url helper" do
+            expect(patch: takhmeen_path(1)).to route_to(controller: "thaali_takhmeens", action: "update", id: "1")
         end
     end
 
     context "destroy action" do
-        it "is accessible by /sabeel/takhmeen route" do
-            expect(delete("/sabeel/takhmeen")).to route_to("thaali_takhmeens#destroy")
+        it "is accessible by /takhmeens/1 route" do
+            expect(delete("/takhmeens/1")).to route_to("thaali_takhmeens#destroy", id: "1")
         end
 
-        it "is accessible by sabeel_takhmeen_path route" do
-            expect(delete: sabeel_takhmeen_path).to route_to(controller: "thaali_takhmeens", action: "destroy")
+        it "is accessible by takhmeen_path url helper" do
+            expect(delete: takhmeen_path(1)).to route_to(controller: "thaali_takhmeens", action: "destroy", id: "1")
         end
     end
 end
