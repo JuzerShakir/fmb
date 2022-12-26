@@ -118,7 +118,7 @@ RSpec.describe "Transactions", type: :request do
 
         context "with valid attributes" do
             before do
-                @transaction.recipe_no = Random.rand(1..100000)
+                @transaction.amount = Random.rand(1..100)
                 patch transaction_path(@transaction), params: { transaction: @transaction.attributes }
             end
 
