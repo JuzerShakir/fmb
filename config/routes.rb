@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   # * RESOURCEFUL ROUTES
   resource :sabeel do
     resource :takhmeen, controller: "thaali_takhmeens" do
-      resource :transaction
+      resource :transaction, except [:new, :edit]
     end
   end
 end
