@@ -9,19 +9,19 @@ class Sabeel < ApplicationRecord
 
     # * Validations
     # ITS
-    validates :its, :mobile, numericality: { only_integer: true }, presence: true
-    validates_numericality_of :its, in: 10000000..99999999
-    validates_uniqueness_of :its
+    validates_numericality_of :its, only_integer: true, message: "should be a number"
+    validates_numericality_of :its, in: 10000000..99999999, message: "is out of range"
+    validates_uniqueness_of :its, message: "has already been registered"
     # Email
     validates_email_format_of :email, allow_blank: true
     # hof_name
     validates :hof_name, uniqueness: { scope: :its }, presence: true
     # apartment
-    validates_presence_of :apartment, :flat_no
+    validates_presence_of :apartment, :flat_no, :its, :mobile, message: "cannot be blank"
     # Flat No
     validates_numericality_of :flat_no, only_integer: true, greater_than: 0
     # mobile
-    validates_numericality_of :mobile, in: 1000000000..9999999999
+    validates_numericality_of :mobile, only_integer: true, in: 1000000000..9999999999
     # takes_thaali
     validates :takes_thaali, inclusion: [true, false]
 

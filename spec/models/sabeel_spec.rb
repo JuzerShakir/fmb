@@ -12,13 +12,13 @@ RSpec.describe Sabeel, :type => :model do
 
     context "validations of attribute" do
         context "ITS" do
-            it { should validate_numericality_of(:its).only_integer }
+            it { should validate_numericality_of(:its).only_integer.with_message("should be a number") }
 
-            it { should validate_numericality_of(:its).is_in(10000000..99999999) }
+            it { should validate_numericality_of(:its).is_in(10000000..99999999).with_message("is out of range") }
 
-            it { should validate_uniqueness_of(:its) }
+            it { should validate_uniqueness_of(:its).with_message("has already been registered") }
 
-            it { should validate_presence_of(:its) }
+            it { should validate_presence_of(:its).with_message("cannot be blank") }
         end
 
         context "email" do
@@ -34,7 +34,7 @@ RSpec.describe Sabeel, :type => :model do
 
         context "apartment" do
             let(:all_apartments) { Array.new.push(*$PHASE_1, *$PHASE_2, *$PHASE_3) }
-            it { should validate_presence_of(:apartment) }
+            it { should validate_presence_of(:apartment).with_message("cannot be blank") }
 
             it { should define_enum_for(:apartment).with_values(all_apartments) }
         end
@@ -42,7 +42,7 @@ RSpec.describe Sabeel, :type => :model do
         context "flat_no" do
             it { should validate_numericality_of(:flat_no).only_integer }
 
-            it { should validate_presence_of(:flat_no) }
+            it { should validate_presence_of(:flat_no).with_message("cannot be blank") }
 
             it { should validate_numericality_of(:flat_no).is_greater_than(0) }
         end
@@ -52,7 +52,7 @@ RSpec.describe Sabeel, :type => :model do
 
             it { should validate_numericality_of(:mobile).is_in(1000000000..9999999999) }
 
-            it { should validate_presence_of(:mobile) }
+            it { should validate_presence_of(:mobile).with_message("cannot be blank") }
 
         end
 
