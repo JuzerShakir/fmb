@@ -78,7 +78,7 @@ RSpec.describe "Transactions", type: :request do
     context "GET show" do
         before do
             @transaction = FactoryBot.create(:transaction)
-            get transaction_path(id: @transaction.id)
+            get transaction_path(@transaction)
         end
 
         it "should render a show template" do
@@ -96,7 +96,7 @@ RSpec.describe "Transactions", type: :request do
     context "GET edit" do
       before do
           @transaction = FactoryBot.create(:transaction)
-          get edit_transaction_path(id: @transaction.id)
+          get edit_transaction_path(@transaction)
       end
 
       it "should render render an edit template" do
@@ -119,7 +119,7 @@ RSpec.describe "Transactions", type: :request do
         context "with valid attributes" do
             before do
                 @transaction.recipe_no = Random.rand(1..100000)
-                patch transaction_path(id: @transaction.id), params: { transaction: @transaction.attributes }
+                patch transaction_path(@transaction), params: { transaction: @transaction.attributes }
             end
 
 
@@ -131,7 +131,7 @@ RSpec.describe "Transactions", type: :request do
         context "with invalid attributes" do
             before do
                 @transaction.recipe_no = -123
-                patch transaction_path(id: @transaction.id), params: { transaction: @transaction.attributes }
+                patch transaction_path(@transaction), params: { transaction: @transaction.attributes }
             end
 
           it "should render an edit template" do
@@ -145,7 +145,7 @@ RSpec.describe "Transactions", type: :request do
     context "DELETE destroy" do
         before do
             transaction = FactoryBot.create(:transaction)
-            delete transaction_path(id: transaction.id)
+            delete transaction_path(transaction)
             # find method will raise an error
             @transaction = Transaction.find_by(id: transaction.id)
         end

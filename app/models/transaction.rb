@@ -5,6 +5,14 @@ class Transaction < ApplicationRecord
   # * Callbacks
   after_commit :add_all_transaction_amounts_to_paid_amount
 
+  # * FRIENDLY_ID
+  extend FriendlyId
+  friendly_id :recipe_no, use: [:slugged, :finders]
+
+  def should_generate_new_friendly_id?
+    recipe_no_changed?
+  end
+
   # * Validations
   #mode
   validates_presence_of :mode, message: "must be selected"
