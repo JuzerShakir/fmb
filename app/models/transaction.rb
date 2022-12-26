@@ -7,7 +7,7 @@ class Transaction < ApplicationRecord
 
   # * FRIENDLY_ID
   extend FriendlyId
-  friendly_id :recipe_no, use: [:slugged, :finders]
+  friendly_id :recipe_no, use: [:slugged, :finders, :history]
 
   def should_generate_new_friendly_id?
     recipe_no_changed?
