@@ -14,9 +14,10 @@ class ThaaliTakhmeen < ApplicationRecord
 
   # * Validations
   # number
-  validates_numericality_of :number, :total, only_integer: true, greater_than: 0
-  validates_presence_of :number, :size, :year, :total, :paid
-  validates_uniqueness_of :number, { scope: :year}
+  validates_numericality_of :number, :total, only_integer: true, message: "must be a number"
+  validates_numericality_of :number, :total, greater_than: 0, message: "must be greater than 0"
+  validates_presence_of :number, :size, :year, :total, :paid, message: "cannot be blank"
+  validates_uniqueness_of :number, scope: :year, message: "has already been taken for the selected year"
   #sabeel_id
   validates_uniqueness_of :sabeel_id, { scope: :year}
   #year
