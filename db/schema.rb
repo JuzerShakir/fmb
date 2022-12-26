@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_24_135808) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_26_121311) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,7 +53,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_24_135808) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "recipe_no", null: false
+    t.string "slug"
     t.index ["recipe_no"], name: "index_transactions_on_recipe_no"
+    t.index ["slug"], name: "index_transactions_on_slug", unique: true
     t.index ["thaali_takhmeen_id"], name: "index_transactions_on_thaali_takhmeen_id"
   end
 
