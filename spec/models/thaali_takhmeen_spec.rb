@@ -29,9 +29,9 @@ RSpec.describe ThaaliTakhmeen, type: :model do
 
         context "year" do
             it { should validate_presence_of(:year).with_message("cannot be blank") }
-            it { should validate_numericality_of(:year).only_integer }
-            it { should validate_numericality_of(:year).is_less_than_or_equal_to($CURRENT_YEAR_TAKHMEEN) }
-            it { should validate_uniqueness_of(:year).scoped_to(:sabeel_id) }
+            it { should validate_numericality_of(:year).only_integer.with_message("must be a number") }
+            it { should validate_numericality_of(:year).is_less_than_or_equal_to($CURRENT_YEAR_TAKHMEEN).with_message("must be less than or equal to #{$CURRENT_YEAR_TAKHMEEN}") }
+            it { should validate_uniqueness_of(:year).scoped_to(:sabeel_id).with_message("sabeel is already taking thaali for selected year") }
         end
 
         context "total" do
