@@ -48,12 +48,11 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "mobile" do
-            it { should validate_numericality_of(:mobile).only_integer }
+            it { should validate_numericality_of(:mobile).only_integer.with_message("must be a number") }
 
-            it { should validate_numericality_of(:mobile).is_in(1000000000..9999999999) }
+            it { should validate_numericality_of(:mobile).is_in(1000000000..9999999999).with_message("is in invalid format") }
 
             it { should validate_presence_of(:mobile).with_message("cannot be blank") }
-
         end
 
         context "takes_thaali" do

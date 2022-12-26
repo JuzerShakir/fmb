@@ -22,7 +22,8 @@ class Sabeel < ApplicationRecord
     validates_numericality_of :flat_no, only_integer: true, message: "must be a number"
     validates_numericality_of :flat_no, greater_than: 0, message: "must be greater than 0"
     # mobile
-    validates_numericality_of :mobile, only_integer: true, in: 1000000000..9999999999
+    validates_numericality_of :mobile, only_integer: true, message: "must be a number"
+    validates_numericality_of :mobile, in: 1000000000..9999999999, message: "is in invalid format"
     # takes_thaali
     validates :takes_thaali, inclusion: [true, false]
 
