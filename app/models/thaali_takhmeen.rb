@@ -13,14 +13,14 @@ class ThaaliTakhmeen < ApplicationRecord
   after_destroy :set_takes_thaali_false
 
   # * Validations
-  # number
+  # number & total
   validates_numericality_of :number, :total, only_integer: true, message: "must be a number"
   validates_numericality_of :number, :total, greater_than: 0, message: "must be greater than 0"
-  validates_presence_of :number, :size, :year, :total, :paid, message: "cannot be blank"
+  #number
   validates_uniqueness_of :number, scope: :year, message: "has already been taken for the selected year"
-  #sabeel_id
-  validates_uniqueness_of :sabeel_id, { scope: :year}
+  validates_presence_of :number, :size, :year, :total, :paid, message: "cannot be blank"
   #year
+  validates_uniqueness_of :year, { scope: :sabeel_id}
   validates_numericality_of :year, only_integer: true, less_than_or_equal_to: $CURRENT_YEAR_TAKHMEEN
   #paid
   validates_numericality_of :paid, only_integer: true, greater_than_or_equal_to: 0

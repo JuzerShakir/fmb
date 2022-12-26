@@ -27,14 +27,11 @@ RSpec.describe ThaaliTakhmeen, type: :model do
             it { should validate_presence_of(:size).with_message("cannot be blank") }
         end
 
-        context "sabeel_id" do
-            it { should validate_uniqueness_of(:sabeel_id).scoped_to(:year) }
-        end
-
         context "year" do
             it { should validate_presence_of(:year).with_message("cannot be blank") }
             it { should validate_numericality_of(:year).only_integer }
             it { should validate_numericality_of(:year).is_less_than_or_equal_to($CURRENT_YEAR_TAKHMEEN) }
+            it { should validate_uniqueness_of(:year).scoped_to(:sabeel_id) }
         end
 
         context "total" do
