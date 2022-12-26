@@ -12,6 +12,21 @@ class ThaaliTakhmeen < ApplicationRecord
   after_create :set_takes_thaali_true
   after_destroy :set_takes_thaali_false
 
+  # * FRIENDLY_ID
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders, :history]
+
+  def slug_candidates
+    [
+      :year,
+      [:year, :number]
+    ]
+  end
+
+  def should_generate_new_friendly_id?
+    number_changed?
+  end
+
   # * Validations
   validates_numericality_of :number, :total, :year, :paid, only_integer: true, message: "must be a number"
 

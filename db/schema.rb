@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_26_130742) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_26_151329) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,7 +51,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_130742) do
     t.integer "size", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["sabeel_id"], name: "index_thaali_takhmeens_on_sabeel_id"
+    t.index ["slug"], name: "index_thaali_takhmeens_on_slug", unique: true
     t.index ["year", "number"], name: "index_thaali_takhmeens_on_year_and_number", unique: true
     t.index ["year", "sabeel_id"], name: "index_thaali_takhmeens_on_year_and_sabeel_id", unique: true
   end
