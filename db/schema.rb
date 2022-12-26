@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_26_151329) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_26_175028) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,8 +36,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_151329) do
     t.boolean "takes_thaali", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["hof_name", "its"], name: "index_sabeels_on_hof_name_and_its", unique: true
     t.index ["its"], name: "index_sabeels_on_its", unique: true
+    t.index ["slug"], name: "index_sabeels_on_slug", unique: true
   end
 
   create_table "thaali_takhmeens", force: :cascade do |t|
