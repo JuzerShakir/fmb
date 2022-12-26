@@ -5,15 +5,19 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "thaali_takhmeens#index"
 
-  get "/transactions/all", to: "transactions#index", as: :all_transactions
+  # * CUSTOM ROUTES
+  # sabeels
   get "/sabeels", to: "sabeels#index", as: :all_sabeels
 
-  resource :sabeel do
-    resource :takhmeen, controller: "thaali_takhmeens" do
-      resource :transaction, except: [:new, :edit]
-    end
-  end
-
+  # transactions
+  get "/transactions/all", to: "transactions#index", as: :all_transactions
   get "/sabeel/takhmeen/transaction/new", to: "transactions#new", as: :new_takhmeen_transaction
   get "/sabeel/takhmeen/transaction/edit", to: "transactions#edit", as: :edit_takhmeen_transaction
+
+  # * RESOURCEFUL ROUTES
+  resource :sabeel do
+    resource :takhmeen, controller: "thaali_takhmeens" do
+      resource :transaction
+    end
+  end
 end
