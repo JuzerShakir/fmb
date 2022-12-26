@@ -13,10 +13,9 @@ class Transaction < ApplicationRecord
   #amount
   validates_presence_of :amount, :recipe_no, message: "cannot be blank"
   validates_numericality_of :amount, :recipe_no, only_integer: true, message: "must be a number"
-  validates_numericality_of :amount, greater_than: 0, message: "must be greater than 0"
+  validates_numericality_of :amount, :recipe_no, greater_than: 0, message: "must be greater than 0"
   # recipe no
-  validates_uniqueness_of :recipe_no
-  validates_numericality_of :recipe_no, greater_than: 0
+  validates_uniqueness_of :recipe_no, message: "has already been registered"
 
   # * Custom Validations
   validate :amount_should_be_less_than_the_balance, if: :will_save_change_to_amount?

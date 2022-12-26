@@ -37,8 +37,8 @@ RSpec.describe Transaction, type: :model do
         context "recipe_no" do
             it { should validate_presence_of(:recipe_no).with_message("cannot be blank") }
             it { should validate_numericality_of(:recipe_no).only_integer.with_message("must be a number") }
-            it { should validate_numericality_of(:recipe_no).is_greater_than(0) }
-            it { should validate_uniqueness_of(:recipe_no)}
+            it { should validate_numericality_of(:recipe_no).is_greater_than(0).with_message("must be greater than 0") }
+            it { should validate_uniqueness_of(:recipe_no).with_message("has already been registered") }
         end
     end
 
