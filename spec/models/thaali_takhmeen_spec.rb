@@ -42,7 +42,7 @@ RSpec.describe ThaaliTakhmeen, type: :model do
 
         context "paid" do
             it { should validate_presence_of(:paid).with_message("cannot be blank") }
-            it { should validate_numericality_of(:paid).only_integer }
+            it { should validate_numericality_of(:paid).only_integer.with_message("must be a number") }
             it { should validate_numericality_of(:paid).is_greater_than_or_equal_to(0) }
             it "is set to 0 by default after instance is instantiated" do
                 expect(subject.paid).to be_eql(0)

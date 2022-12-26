@@ -13,8 +13,9 @@ class ThaaliTakhmeen < ApplicationRecord
   after_destroy :set_takes_thaali_false
 
   # * Validations
+  validates_numericality_of :number, :total, :year, :paid, only_integer: true, message: "must be a number"
+
   # number & total
-  validates_numericality_of :number, :total, :year, only_integer: true, message: "must be a number"
   validates_numericality_of :number, :total, greater_than: 0, message: "must be greater than 0"
   #number
   validates_uniqueness_of :number, scope: :year, message: "has already been taken for the selected year"
@@ -23,7 +24,7 @@ class ThaaliTakhmeen < ApplicationRecord
   validates_uniqueness_of :year, scope: :sabeel_id, message: "sabeel is already taking thaali for selected year"
   validates_numericality_of :year, less_than_or_equal_to: $CURRENT_YEAR_TAKHMEEN, message: "must be less than or equal to #{$CURRENT_YEAR_TAKHMEEN}"
   #paid
-  validates_numericality_of :paid, only_integer: true, greater_than_or_equal_to: 0
+  validates_numericality_of :paid, greater_than_or_equal_to: 0
 
   # * Enums
   enum :size, { small: 0, medium: 1, large: 2 }
