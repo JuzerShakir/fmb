@@ -22,7 +22,7 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "email" do
-            it { should validate_email_format_of(:email) }
+            it { should validate_email_format_of(:email).with_message("is in invalid format") }
             it { should allow_value(nil).for(:email) }
         end
 

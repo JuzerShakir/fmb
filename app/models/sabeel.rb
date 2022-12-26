@@ -13,7 +13,7 @@ class Sabeel < ApplicationRecord
     validates_numericality_of :its, in: 10000000..99999999, message: "is out of range"
     validates_uniqueness_of :its, message: "has already been registered"
     # Email
-    validates_email_format_of :email, allow_blank: true
+    validates_email_format_of :email, allow_blank: true, message: "is in invalid format"
     # hof_name
     validates :hof_name, uniqueness: { scope: :its }, presence: true
     # apartment
