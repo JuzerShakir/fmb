@@ -12,7 +12,7 @@ RSpec.describe Sabeel, :type => :model do
 
     context "validations of attribute" do
         context "ITS" do
-            it { should validate_numericality_of(:its).only_integer.with_message("should be a number") }
+            it { should validate_numericality_of(:its).only_integer.with_message("must be a number") }
 
             it { should validate_numericality_of(:its).is_in(10000000..99999999).with_message("is out of range") }
 
@@ -40,11 +40,11 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "flat_no" do
-            it { should validate_numericality_of(:flat_no).only_integer }
+            it { should validate_numericality_of(:flat_no).only_integer.with_message("must be a number") }
 
             it { should validate_presence_of(:flat_no).with_message("cannot be blank") }
 
-            it { should validate_numericality_of(:flat_no).is_greater_than(0) }
+            it { should validate_numericality_of(:flat_no).is_greater_than(0).with_message("must be greater than 0") }
         end
 
         context "mobile" do
