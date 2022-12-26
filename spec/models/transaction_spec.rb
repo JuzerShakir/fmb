@@ -16,18 +16,18 @@ RSpec.describe Transaction, type: :model do
     context "validation of attribute" do
         context "mode" do
             let(:mode_of_payments) { %i(cash cheque bank) }
-            it { should validate_presence_of(:mode) }
+            it { should validate_presence_of(:mode).with_message("must be selected") }
             it { should define_enum_for(:mode).with_values(mode_of_payments) }
         end
 
         context "amount" do
-            it { should validate_presence_of(:amount) }
-            it { should validate_numericality_of(:amount).only_integer }
-            it { should validate_numericality_of(:amount).is_greater_than(0) }
+            it { should validate_presence_of(:amount).with_message("cannot be blank") }
+            it { should validate_numericality_of(:amount).only_integer.with_message("must be a number") }
+            it { should validate_numericality_of(:amount).is_greater_than(0).with_message("must be greater than 0") }
         end
 
         context "on_date" do
-            it { should validate_presence_of(:on_date) }
+            it { should validate_presence_of(:on_date).with_message("must be selected") }
 
             it "must have a valid date" do
                 expect(subject.on_date).to be_an_instance_of(Date)
@@ -35,12 +35,9 @@ RSpec.describe Transaction, type: :model do
         end
 
         context "recipe_no" do
-            it { should validate_presence_of(:recipe_no) }
-
-            it { should validate_numericality_of(:recipe_no).only_integer }
-
+            it { should validate_presence_of(:recipe_no).with_message("cannot be blank") }
+            it { should validate_numericality_of(:recipe_no).only_integer.with_message("must be a number") }
             it { should validate_numericality_of(:recipe_no).is_greater_than(0) }
-
             it { should validate_uniqueness_of(:recipe_no)}
         end
     end
