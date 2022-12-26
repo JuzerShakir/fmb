@@ -15,9 +15,9 @@ class Sabeel < ApplicationRecord
     # Email
     validates_email_format_of :email, allow_blank: true, message: "is in invalid format"
     # hof_name
-    validates :hof_name, uniqueness: { scope: :its }, presence: true
+    validates_uniqueness_of :hof_name, scope: :its, message: "has already been registered with this ITS number"
     # apartment
-    validates_presence_of :apartment, :flat_no, :its, :mobile, message: "cannot be blank"
+    validates_presence_of :apartment, :flat_no, :its, :mobile, :hof_name, message: "cannot be blank"
     # Flat No
     validates_numericality_of :flat_no, only_integer: true, greater_than: 0
     # mobile
