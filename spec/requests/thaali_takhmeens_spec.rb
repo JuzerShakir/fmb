@@ -4,7 +4,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     # * INDEX
     context "GET index" do
         before do
-            @thaalis = FactoryBot.create_list(:thaali_takhmeen_of_current_year, 5)
+            @thaalis = FactoryBot.create_list(:thaali_takhmeen_of_current_year, 3)
             get root_path
         end
 
