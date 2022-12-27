@@ -24,7 +24,7 @@ RSpec.describe "Sabeel features" do
             click_button "Create Sabeel"
 
             sabeel = Sabeel.last
-            expect(current_path).to eql("/sabeels/#{sabeel.its}")
+            expect(current_path).to eql("/sabeels/#{sabeel.slug}")
             expect(page).to have_content("Sabeel created successfully")
         end
 
