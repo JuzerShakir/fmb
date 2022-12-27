@@ -7,11 +7,11 @@ RSpec.describe "ThaaliTakhmeen features" do
             visit sabeel_path(sabeel.slug)
             click_on "New Takhmeen"
             expect(current_path).to eql("/sabeels/#{sabeel.slug}/takhmeens/new")
+            expect(page).to have_css('h1', text: "New Takhmeen")
             @attributes = FactoryBot.attributes_for(:thaali_takhmeen).extract!(:year,:number, :total, :size)
         end
 
         scenario "with valid values" do
-            expect(page).to have_css('h1', text: "New Takhmeen")
             s = @attributes.extract!(:size)
 
             @attributes.each do |k, v|
@@ -27,8 +27,17 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(page).to have_content("Thaali Takhmeen created successfully")
         end
 
-        # scenario "with invalid values" do
 
-        # end
+        scenario "with invalid values" do
+            @attributes.except!(:apartment).each do |k, v|
+                fill_in "sabeel_#{k}",	with: "#{v}"
+            end
+
+            click_button "Create Sabeel"
+
+            # we haven't selected any apartment, which is required, hence sabeel will not be saved
+            expect(page).to have_content("Please review the problems below:")
+            expect(page).to have_content("Apartment cannot be blank")
+        end
     end
 end
