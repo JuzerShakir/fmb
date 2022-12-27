@@ -9,7 +9,7 @@ RSpec.describe "Sabeel features" do
         expect(page).to have_css('h1', text: "New Sabeel")
     end
 
-    scenario "creates sabeel" do
+    context "creates sabeel" do
         scenario "with valid values" do
             attributes = FactoryBot.attributes_for(:sabeel)
             apt = attributes.extract!(:apartment)
