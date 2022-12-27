@@ -82,3 +82,4 @@ gem 'validates_email_format_of'
 gem 'faker'
 
 gem 'friendly_id'
+gem "simple_form", "~> 5.1"

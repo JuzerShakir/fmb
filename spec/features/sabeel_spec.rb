@@ -7,17 +7,19 @@ RSpec.describe "Sabeel features" do
         expect(current_path).to eql('/sabeels/new')
 
         expect(page).to have_css('h1', text: "New Sabeel")
+
+        @attributes = FactoryBot.attributes_for(:sabeel)
     end
 
     context "creates sabeel" do
         scenario "with valid values" do
-            attributes = FactoryBot.attributes_for(:sabeel)
-            apt = attributes.extract!(:apartment)
+            apt = @attributes.extract!(:apartment)
 
-            attributes.each do |k, v|
-                fill_in k,	with: "#{v}"
+            @attributes.each do |k, v|
+                fill_in "sabeel_#{k}",	with: "#{v}"
             end
-            select apt.fetch(:apartment).titleize, from: :apartment
+
+            select apt.fetch(:apartment).titleize, from: :sabeel_apartment
 
             click_button "Create Sabeel"
 
@@ -27,18 +29,15 @@ RSpec.describe "Sabeel features" do
         end
 
         scenario "with invalid values" do
-            attributes = FactoryBot.attributes_for(:sabeel)
-            attributes[:its] = 123
-            apt = attributes.extract!(:apartment)
-
-            attributes.each do |k, v|
-                fill_in k,	with: "#{v}"
+            @attributes.except!(:apartment).each do |k, v|
+                fill_in "sabeel_#{k}",	with: "#{v}"
             end
-            select apt.fetch(:apartment).titleize, from: :apartment
 
             click_button "Create Sabeel"
 
-            expect(page).to have_content("prohibited from the sabeel being saved!")
+            # we haven't selected any apartment, which is required, hence sabeel will not be saved
+            expect(page).to have_content("Please review the problems below:")
+            expect(page).to have_content("Apartment cannot be blank")
         end
     end
 end
