@@ -18,7 +18,7 @@ class Sabeel < ApplicationRecord
     # * Validations
     # ITS
     validates_numericality_of :its, only_integer: true, message: "must be a number"
-    validates_numericality_of :its, in: 10000000..99999999, message: "is out of range"
+    validates_numericality_of :its, in: 10000000..99999999, message: "is invalid"
     validates_uniqueness_of :its, message: "has already been registered"
     # Email
     validates_email_format_of :email, allow_blank: true, message: "is in invalid format"

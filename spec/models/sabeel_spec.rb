@@ -14,7 +14,7 @@ RSpec.describe Sabeel, :type => :model do
         context "ITS" do
             it { should validate_numericality_of(:its).only_integer.with_message("must be a number") }
 
-            it { should validate_numericality_of(:its).is_in(10000000..99999999).with_message("is out of range") }
+            it { should validate_numericality_of(:its).is_in(10000000..99999999).with_message("is invalid") }
 
             it { should validate_uniqueness_of(:its).with_message("has already been registered") }
 
