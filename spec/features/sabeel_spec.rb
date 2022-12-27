@@ -47,15 +47,42 @@ RSpec.describe "Sabeel features" do
             expect(page).to have_no_link("New Transaction")
         end
 
-        scenario "should BE shown if it exists" do
-            3.times do |i|
-                FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: $CURRENT_YEAR_TAKHMEEN - i)
+        context "if it exists" do
+            before do
+                2.times do |i|
+                    FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: $CURRENT_YEAR_TAKHMEEN - i)
+                end
             end
 
-            visit(sabeel_path(@sabeel.slug))
+            scenario "it should BE shown" do
+                visit(sabeel_path(@sabeel.slug))
 
-            3.times do |i|
-                expect(page).to have_content($CURRENT_YEAR_TAKHMEEN - i)
+                2.times do |i|
+                    expect(page).to have_content($CURRENT_YEAR_TAKHMEEN - i)
+                end
+            end
+
+            context "'New Transaction' button" do
+                before do
+                    @thaali_1 = @sabeel.thaali_takhmeens.first
+                    @thaali_2 = @sabeel.thaali_takhmeens.last
+
+                    # we will set thaali_1 as completed takhmeen and another as pending
+                    FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali_1.id, amount: @thaali_1.total)
+                    visit(sabeel_path(@sabeel.slug))
+                end
+
+                scenario "should BE shown whos takhmeen isn't complete" do
+                    within "#thaali_#{@thaali_2.year}" do
+                        expect(page).to have_link("New Transaction")
+                    end
+                end
+
+                scenario "should NOT BE shown whos takhmeen isn't complete" do
+                    within "#thaali_#{@thaali_1.year}" do
+                        expect(page).to have_no_link("New Transaction")
+                    end
+                end
             end
         end
     end

@@ -9,6 +9,13 @@
 
 <% if @thaalis.any? %>
     <% @thaalis.each do | thaali | %>
-        <%= thaali.year %>
+        <div id="thaali_<%= thaali.year %>">
+            <%= thaali.year %>
+            <%= thaali.total %>
+            <%= thaali.paid %>
+            <%= thaali.balance %>
+
+            <%= link_to "New Transaction", new_takhmeen_transaction_path(thaali.slug) unless thaali.is_complete %>
+        </div>
     <% end %>
 <% end %>
