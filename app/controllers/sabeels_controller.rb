@@ -22,6 +22,7 @@ class SabeelsController < ApplicationController
 
     def show
         @thaalis = @sabeel.thaali_takhmeens
+        @thaali_inactive = @thaalis.in_the_year($CURRENT_YEAR_TAKHMEEN).empty?
     end
 
     def edit

@@ -3,4 +3,6 @@
 
 <p>Total Takhmeens <%= @thaalis.count %></p>
 
-<%= link_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel.slug) %>
+<% if @thaali_inactive %>
+    <%= link_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel.slug) %>
+<% end %>
