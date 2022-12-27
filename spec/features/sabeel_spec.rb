@@ -25,5 +25,20 @@ RSpec.describe "Sabeel features" do
             expect(current_path).to eql("/sabeels/#{sabeel.its}")
             expect(page).to have_content("Sabeel created successfully")
         end
+
+        scenario "with invalid values" do
+            attributes = FactoryBot.attributes_for(:sabeel)
+            attributes[:its] = 123
+            apt = attributes.extract!(:apartment)
+
+            attributes.each do |k, v|
+                fill_in k,	with: "#{v}"
+            end
+            select apt.fetch(:apartment).titleize, from: :apartment
+
+            click_button "Create Sabeel"
+
+            expect(page).to have_content("prohibited from the sabeel being saved!")
+        end
     end
 end

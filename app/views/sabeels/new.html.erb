@@ -1,5 +1,9 @@
 <h1>New Sabeel</h1>
 
+<% if @sabeel.errors.any? %>
+    <%= "#{pluralize(@sabeel.errors.count, "error")} prohibited from the sabeel being saved!" %>
+<% end %>
+
 <%= form_with model: @sabeel do |f| %>
     <%= f.number_field :its, id: :its %>
 
