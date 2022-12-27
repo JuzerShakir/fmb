@@ -10,10 +10,8 @@ FactoryBot.define do
     hof_name { Faker::Name.name }
     apartment { Array.new.push(*$PHASE_1, *$PHASE_2, *$PHASE_3).sample }
     flat_no { Faker::Number.within(range: 1..9999) }
-    address { "#{apartment} #{flat_no}" }
     mobile { Faker::Number.number(digits: 10) }
     email { Faker::Internet.free_email }
-    takes_thaali { false }
 
     trait :with_thaali do
       takes_thaali { true }

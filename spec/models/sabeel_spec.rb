@@ -83,8 +83,8 @@ RSpec.describe Sabeel, :type => :model do
             it { is_expected.to callback(:set_up_address).before(:save) }
 
             it "must be in a specific format" do
-                expect(subject).to receive(:set_up_address).and_return(/\A[a-z]+ [a-z]{1} \d+\z/i)
                 subject.save
+                expect(subject.address).to match(/\A[a-z]+ [a-z]{1} \d+\z/i)
             end
         end
     end
