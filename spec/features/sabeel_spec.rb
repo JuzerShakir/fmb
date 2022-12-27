@@ -1,17 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe "Sabeel features" do
-    before do
-        visit root_path
-        click_on "New Sabeel"
-        expect(current_path).to eql('/sabeels/new')
-
-        expect(page).to have_css('h1', text: "New Sabeel")
-
-        @attributes = FactoryBot.attributes_for(:sabeel)
-    end
-
     context "creates sabeel" do
+        before do
+            visit root_path
+            click_on "New Sabeel"
+            expect(current_path).to eql('/sabeels/new')
+
+            expect(page).to have_css('h1', text: "New Sabeel")
+
+            @attributes = FactoryBot.attributes_for(:sabeel)
+        end
         scenario "with valid values" do
             apt = @attributes.extract!(:apartment)
 
