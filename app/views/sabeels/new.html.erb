@@ -1,0 +1,18 @@
+<h1>New Sabeel</h1>
+
+<%= form_with model: @sabeel do |f| %>
+    <%= f.number_field :its, id: :its %>
+
+    <%= f.text_field :hof_name, id:  :hof_name%>
+
+    <%= f.collection_select :apartment, Sabeel.apartments.keys.map{ |apartment| [apartment, apartment.titleize]},
+                :first, :second, {prompt: "Choose"}, id: :apartment %>
+
+    <%= f.number_field :flat_no, id: :flat_no %>
+
+    <%= f.telephone_field :mobile, id: :mobile %>
+
+    <%= f.email_field :email, id: :email %>
+
+    <%= f.submit %>
+<% end %>

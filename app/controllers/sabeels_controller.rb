@@ -6,12 +6,14 @@ class SabeelsController < ApplicationController
     end
 
     def new
+        @sabeel = Sabeel.new
     end
 
     def create
         @sabeel = Sabeel.new(sabeel_params)
         if @sabeel.valid?
             @sabeel.save
+            flash[:success] = "Sabeel created successfully"
             redirect_to @sabeel
         else
             render :new
