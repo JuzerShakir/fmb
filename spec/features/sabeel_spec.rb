@@ -35,4 +35,28 @@ RSpec.describe "Sabeel features" do
             expect(page).to have_content("Apartment cannot be blank")
         end
     end
+
+    context "takhmeen details of a sabeel" do
+        before do
+            @sabeel = FactoryBot.create(:sabeel)
+        end
+
+        scenario "should NOT be shown if they haven't done any takhmeen yet" do
+            visit(sabeel_path(@sabeel.slug))
+            expect(page).to have_no_link("Show Transaction")
+            expect(page).to have_no_link("New Transaction")
+        end
+
+        scenario "should BE shown if it exists" do
+            3.times do |i|
+                FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: $CURRENT_YEAR_TAKHMEEN - i)
+            end
+
+            visit(sabeel_path(@sabeel.slug))
+
+            3.times do |i|
+                expect(page).to have_content($CURRENT_YEAR_TAKHMEEN - i)
+            end
+        end
+    end
 end

@@ -6,3 +6,9 @@
 <% if @thaali_inactive %>
     <%= link_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel.slug) %>
 <% end %>
+
+<% if @thaalis.any? %>
+    <% @thaalis.each do | thaali | %>
+        <%= thaali.year %>
+    <% end %>
+<% end %>
