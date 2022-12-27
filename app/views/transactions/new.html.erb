@@ -1,0 +1,10 @@
+<h1>New Transaction</h1>
+
+<%= simple_form_for @transaction, url: takhmeen_transactions_path do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :recipe_no %>
+    <%= f.input :amount %>
+    <%= f.input :mode, collection: Transaction.modes.keys.map{ |mode| [mode.titleize, mode] } %>
+    <%= f.input :on_date %>
+    <%= f.submit %>
+<% end %>

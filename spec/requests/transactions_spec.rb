@@ -24,7 +24,7 @@ RSpec.describe "Transactions", type: :request do
     context "GET new" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen)
-            get new_takhmeen_transaction_path(takhmeen_id: @thaali.id)
+            get new_takhmeen_transaction_path(@thaali.slug)
         end
 
         it "should return a 200 (OK) status code" do
@@ -41,8 +41,8 @@ RSpec.describe "Transactions", type: :request do
 
         context "with valid attributes" do
             before do
-                @valid_attributes = FactoryBot.attributes_for(:transaction, thaali_takhmeen_id: @thaali.id)
-                post takhmeen_transactions_path(takhmeen_id: @thaali.id), params: { transaction: @valid_attributes }
+                @valid_attributes = FactoryBot.attributes_for(:transaction)
+                post takhmeen_transactions_path(@thaali.slug), params: { transaction: @valid_attributes }
                 @transaction = Transaction.find_by(recipe_no: @valid_attributes[:recipe_no])
             end
 
@@ -59,7 +59,7 @@ RSpec.describe "Transactions", type: :request do
         context "with invalid attributes" do
             before do
                 @invalid_attributes = FactoryBot.attributes_for(:transaction, amount: nil)
-                post takhmeen_transactions_path(takhmeen_id: @thaali.id), params: { transaction: @invalid_attributes }
+                post takhmeen_transactions_path(@thaali.slug), params: { transaction: @invalid_attributes }
                 @transaction = Transaction.find_by(recipe_no: @invalid_attributes[:recipe_no])
             end
 

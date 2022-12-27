@@ -6,13 +6,16 @@ class TransactionsController < ApplicationController
     end
 
     def new
-        @thaali_takhmeen = ThaaliTakhmeen.find(params[:takhmeen_id])
+        @transaction = Transaction.new
     end
 
     def create
-        @transaction = Transaction.new(transaction_params)
+        @thaali_takhmeen = ThaaliTakhmeen.find(params[:takhmeen_id])
+        @transaction = @thaali_takhmeen.transactions.new(transaction_params)
+
         if @transaction.valid?
             @transaction.save
+            flash[:success] = "Transaction created successfully"
             redirect_to @transaction
         else
             render :new
@@ -40,7 +43,7 @@ class TransactionsController < ApplicationController
 
     private
         def transaction_params
-            params.require(:transaction).permit(:amount, :on_date, :mode, :thaali_takhmeen_id, :recipe_no)
+            params.require(:transaction).permit(:amount, :on_date, :mode, :recipe_no)
         end
 
         def set_transaction
