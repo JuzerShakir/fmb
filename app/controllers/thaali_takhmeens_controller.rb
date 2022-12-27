@@ -8,12 +8,15 @@ class ThaaliTakhmeensController < ApplicationController
     def new
         @sabeel = Sabeel.find(params[:sabeel_id])
         @prev_thaali = @sabeel.thaali_takhmeens.where(year: $PREV_YEAR_TAKHMEEN).first
+        @thaali_takhmeen = @sabeel.thaali_takhmeens.new if @prev_thaali.nil?
     end
 
     def create
-        @thaali_takhmeen = ThaaliTakhmeen.new(thaali_takhmeen_params)
+        @sabeel = Sabeel.find(params[:sabeel_id])
+        @thaali_takhmeen = @sabeel.thaali_takhmeens.new(thaali_takhmeen_params)
         if @thaali_takhmeen.valid?
             @thaali_takhmeen.save
+            flash[:success] = "Thaali Takhmeen created successfully"
             redirect_to takhmeen_path(@thaali_takhmeen)
         else
             render :new

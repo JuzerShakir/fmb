@@ -2,3 +2,5 @@
 <p><%= @sabeel.apartment %></p>
 
 <p>Total Takhmeens <%= @thaalis.count %></p>
+
+<%= link_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel.slug) %>
