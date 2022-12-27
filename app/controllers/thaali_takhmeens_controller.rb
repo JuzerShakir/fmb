@@ -43,7 +43,7 @@ class ThaaliTakhmeensController < ApplicationController
     private
 
         def thaali_takhmeen_params
-            params.require(:thaali_takhmeen).permit(:number, :size, :sabeel_id, :total, :year)
+            params.require(:thaali_takhmeen).permit(:number, :size, :total, :year)
         end
 
         def set_thaali_takhmeen

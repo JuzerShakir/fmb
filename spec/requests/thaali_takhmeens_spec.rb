@@ -50,7 +50,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
         context "with valid attributes" do
             before do
-              @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
+              @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen)
               post sabeel_takhmeens_path(sabeel_id: @sabeel.id), params: { thaali_takhmeen: @valid_attributes }
               @thaali = @sabeel.thaali_takhmeens.first
             end
@@ -68,7 +68,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
         context "with invalid attributes" do
             before do
-              @invalid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: nil)
+              @invalid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, year: nil)
               post sabeel_takhmeens_path(sabeel_id: @sabeel.id), params: { thaali_takhmeen: @invalid_attributes }
               @thaali =  @sabeel.thaali_takhmeens.first
             end
