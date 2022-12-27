@@ -84,7 +84,7 @@ RSpec.describe Sabeel, :type => :model do
 
             it "must be in a specific format" do
                 subject.save
-                expect(subject.address).to match(/\A[a-z]+ [a-z]{1} \d+\z/i)
+                expect(subject.address).to match(/\A[a-z]+\s[a-z]?\s{1}?\d+\z/i)
             end
         end
     end
