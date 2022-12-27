@@ -8,7 +8,9 @@ class ThaaliTakhmeensController < ApplicationController
     def new
         @sabeel = Sabeel.find(params[:sabeel_id])
         @prev_thaali = @sabeel.thaali_takhmeens.where(year: $PREV_YEAR_TAKHMEEN).first
-        @thaali_takhmeen = @sabeel.thaali_takhmeens.new if @prev_thaali.nil?
+        if @prev_thaali.nil?
+            @thaali_takhmeen = @sabeel.thaali_takhmeens.new
+        end
     end
 
     def create
