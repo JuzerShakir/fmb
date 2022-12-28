@@ -7,10 +7,15 @@ class ThaaliTakhmeensController < ApplicationController
     end
 
     def new
-        @prev_thaali = @sabeel.thaali_takhmeens.where(year: $PREV_YEAR_TAKHMEEN).first
+        prev_takhmeen = @sabeel.thaali_takhmeens.where(year: $PREV_YEAR_TAKHMEEN).first
 
-        if @prev_thaali.nil?
+        if prev_takhmeen.nil?
             @thaali_takhmeen = @sabeel.thaali_takhmeens.new
+        else
+            prev_takhmeen = prev_takhmeen.slice(:number, :size)
+            @thaali_takhmeen = @sabeel.thaali_takhmeens.new
+            @thaali_takhmeen.number = prev_takhmeen[:number]
+            @thaali_takhmeen.size = prev_takhmeen[:size]
         end
     end
 
