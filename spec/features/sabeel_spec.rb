@@ -119,4 +119,16 @@ RSpec.describe "Sabeel features" do
             expect(page).to have_content("Sabeel updated successfully")
         end
     end
+
+    scenario "Showing a Sabeel details" do
+        sabeel = FactoryBot.create(:sabeel)
+
+        visit sabeel_path(sabeel)
+
+        attrbs = FactoryBot.attributes_for(:sabeel).except!(:apartment, :flat_no)
+
+        attrbs.keys.each do | attrb |
+            expect(page).to have_content("#{sabeel.send(attrb)}")
+        end
+    end
 end
