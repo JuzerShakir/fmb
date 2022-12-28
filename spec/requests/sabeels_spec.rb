@@ -131,7 +131,7 @@ RSpec.describe "Sabeels", type: :request do
 
             it "should show the updated value" do
                 get sabeel_path(@sabeel.id)
-                expect(response.body).to include("mohammedi")
+                expect(response.body).to include("Mohammedi")
             end
         end
 
