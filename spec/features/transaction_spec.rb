@@ -4,6 +4,7 @@ RSpec.describe "Transaction features"do
     before do
         @sabeel = FactoryBot.create(:sabeel)
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+        @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
     end
 
     context "create a Transaction" do
@@ -44,7 +45,6 @@ RSpec.describe "Transaction features"do
 
     context "Editing Transaction" do
         before do
-            @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
             visit transaction_path(@transaction)
         end
 
@@ -60,5 +60,13 @@ RSpec.describe "Transaction features"do
             expect(current_path).to eql(transaction_path(@transaction))
             expect(page).to have_content("Transaction updated successfully")
         end
+    end
+
+    scenario "Showing transaction" do
+        visit transaction_path(@transaction)
+        expect(page).to have_content("#{@transaction.recipe_no}")
+        expect(page).to have_content("#{@transaction.amount}")
+        expect(page).to have_content("#{@transaction.on_date}")
+        expect(page).to have_content("#{@transaction.mode}")
     end
 end
