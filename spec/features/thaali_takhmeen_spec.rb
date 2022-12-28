@@ -57,10 +57,4 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(page).to have_content("Size cannot be blank")
         end
     end
-
-    scenario "if thaali-takhmeen payment IS COMPLETE then it should NOT be able to edit the transaction" do
-        @thaali = FactoryBot.create(:thaali_takhmeen_is_complete, sabeel_id: @sabeel.id)
-        visit takhmeen_path(@thaali)
-        expect(page).to have_no_link("Edit Takhmeen")
-    end
 end
