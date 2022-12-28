@@ -1,10 +1,13 @@
 require "rails_helper"
 
 RSpec.describe "Transaction features"do
+    before do
+        @sabeel = FactoryBot.create(:sabeel)
+        @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+    end
+
     context "create a Transaction" do
         before do
-            @sabeel = FactoryBot.create(:sabeel)
-            @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
             @attributes = FactoryBot.attributes_for(:transaction)
 
             visit(sabeel_path(@sabeel.slug))
@@ -36,6 +39,26 @@ RSpec.describe "Transaction features"do
 
             expect(page).to have_content("Please review the problems below:")
             expect(page).to have_content("Mode must be selected")
+        end
+    end
+
+    context "Editing Transaction" do
+        before do
+            @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
+            visit transaction_path(@transaction)
+        end
+
+        it "should have an edit link" do
+            expect(page).to have_link("Edit Transaction")
+        end
+
+        scenario "should BE able to update with valid values" do
+            click_link "Edit Transaction"
+            fill_in "transaction_amount", with: Faker::Number.number(digits: 4)
+
+            click_on "Update Transaction"
+            expect(current_path).to eql(transaction_path(@transaction))
+            expect(page).to have_content("Transaction updated successfully")
         end
     end
 end

@@ -31,6 +31,7 @@ class TransactionsController < ApplicationController
 
     def update
         if @transaction.update(transaction_params)
+            flash[:success] = "Transaction updated successfully"
             redirect_to @transaction
         else
             render :edit
