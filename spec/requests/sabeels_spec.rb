@@ -160,6 +160,8 @@ RSpec.describe "Sabeels", type: :request do
             expect(@sabeel).to be_nil
         end
 
-        it "should redirect to the homepage"
+        it "should redirect to the homepage" do
+            expect(response).to redirect_to root_path
+        end
     end
 end

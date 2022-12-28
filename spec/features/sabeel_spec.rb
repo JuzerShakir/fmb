@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Sabeel features" do
+    before do
+        @sabeel = FactoryBot.create(:sabeel)
+    end
+
     context "creating sabeel" do
         before do
             visit root_path
@@ -50,10 +54,6 @@ RSpec.describe "Sabeel features" do
     end
 
     context "takhmeen details of a sabeel" do
-        before do
-            @sabeel = FactoryBot.create(:sabeel)
-        end
-
         scenario "should NOT be shown if they haven't done any takhmeen yet" do
             visit sabeel_path(@sabeel)
             expect(page).to have_no_link("New Transaction")
@@ -102,7 +102,6 @@ RSpec.describe "Sabeel features" do
 
     context "Editing Sabeel" do
         before do
-            @sabeel = FactoryBot.create(:sabeel)
             visit sabeel_path(@sabeel)
         end
 
@@ -121,14 +120,22 @@ RSpec.describe "Sabeel features" do
     end
 
     scenario "Showing a Sabeel details" do
-        sabeel = FactoryBot.create(:sabeel)
-
-        visit sabeel_path(sabeel)
+        visit sabeel_path(@sabeel)
 
         attrbs = FactoryBot.attributes_for(:sabeel).except!(:apartment, :flat_no)
 
         attrbs.keys.each do | attrb |
-            expect(page).to have_content("#{sabeel.send(attrb)}")
+            expect(page).to have_content("#{@sabeel.send(attrb)}")
         end
+    end
+
+    scenario "Deleting a Sabeel" do
+        visit sabeel_path(@sabeel)
+
+        expect(page).to have_button('Delete Sabeel')
+
+        click_on "Delete Sabeel"
+        expect(current_path).to eql(root_path)
+        expect(page).to have_content("Sabeel deleted successfully")
     end
 end

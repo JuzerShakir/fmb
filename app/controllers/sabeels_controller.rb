@@ -39,7 +39,8 @@ class SabeelsController < ApplicationController
 
     def destroy
         @sabeel.destroy
-        # redirect_to root_path
+        flash[:success] = "Sabeel deleted successfully"
+        redirect_to root_path
     end
 
     private
