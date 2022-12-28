@@ -174,7 +174,8 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     # * DESTROY
     context "DELETE destroy" do
         before do
-            thaali = FactoryBot.create(:thaali_takhmeen)
+            @sabeel = FactoryBot.create(:sabeel)
+            thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
             delete takhmeen_path(thaali)
             # find method will raise an error
             @thaali = ThaaliTakhmeen.find_by(id: thaali.id)
@@ -186,7 +187,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         end
 
         it "should redirect to its sabeel page" do
-            expect(response).to redirect_to sabeel_path
+            expect(response).to redirect_to sabeel_path(@sabeel)
         end
     end
 end

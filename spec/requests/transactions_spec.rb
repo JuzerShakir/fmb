@@ -160,7 +160,8 @@ RSpec.describe "Transactions", type: :request do
     # * DESTROY
     context "DELETE destroy" do
         before do
-            transaction = FactoryBot.create(:transaction)
+            @thaali = FactoryBot.create(:thaali_takhmeen)
+            transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
             delete transaction_path(transaction)
             # find method will raise an error
             @transaction = Transaction.find_by(id: transaction.id)
@@ -171,7 +172,7 @@ RSpec.describe "Transactions", type: :request do
         end
 
         it "should redirect to its parent Thaali Takhmeen page" do
-            expect(response).to redirect_to takhmeen_path
+            expect(response).to redirect_to takhmeen_path(@thaali)
         end
     end
 end

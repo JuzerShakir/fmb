@@ -69,4 +69,13 @@ RSpec.describe "Transaction features"do
         expect(page).to have_content("#{@transaction.on_date}")
         expect(page).to have_content("#{@transaction.mode}")
     end
+
+    scenario "Deleting transaction" do
+        visit transaction_path(@transaction)
+        expect(page).to have_button("Delete Transaction")
+
+        click_on "Delete Transaction"
+        expect(current_path).to eql(takhmeen_path(@thaali))
+        expect(page).to have_content("Transaction destroyed successfully")
+    end
 end

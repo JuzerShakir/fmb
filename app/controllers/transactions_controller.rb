@@ -40,7 +40,8 @@ class TransactionsController < ApplicationController
 
     def destroy
         @transaction.destroy
-        redirect_to takhmeen_path
+        flash[:success] = "Transaction destroyed successfully"
+        redirect_to takhmeen_path(@transaction.thaali_takhmeen)
     end
 
     private
