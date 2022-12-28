@@ -12,12 +12,12 @@
 <% if @thaalis.any? %>
     <% @thaalis.each do | thaali | %>
         <div id="thaali_<%= thaali.year %>">
-            <%= thaali.year %>
+            <span id="<%= thaali.year %>"> <%= link_to thaali.year, takhmeen_path(thaali) %> </span>
             <%= thaali.total %>
             <%= thaali.paid %>
             <%= thaali.balance %>
 
-            <%= link_to "Show Takhmeen", takhmeen_path(thaali) %>
+            <%# <%= link_to "Show Takhmeen", takhmeen_path(thaali) %> %>
             <%= link_to "New Transaction", new_takhmeen_transaction_path(thaali) unless thaali.is_complete %>
         </div>
     <% end %>

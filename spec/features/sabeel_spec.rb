@@ -56,8 +56,8 @@ RSpec.describe "Sabeel features" do
 
         scenario "should NOT be shown if they haven't done any takhmeen yet" do
             visit sabeel_path(@sabeel)
-            expect(page).to have_no_link("Show Takhmeen")
             expect(page).to have_no_link("New Transaction")
+            expect(page).to have_content("Total Takhmeens 0")
         end
 
         context "if it exists" do
@@ -73,12 +73,6 @@ RSpec.describe "Sabeel features" do
                 2.times do |i|
                     expect(page).to have_content($CURRENT_YEAR_TAKHMEEN - i)
                 end
-            end
-
-            it "should have a 'Show Takhmeen' button" do
-                visit sabeel_path(@sabeel)
-
-                expect(page).to have_link("Show Takhmeen")
             end
 
             context "should have a 'New Transaction' button" do
