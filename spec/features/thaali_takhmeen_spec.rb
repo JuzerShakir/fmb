@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "ThaaliTakhmeen features" do
-    context "Create Takhmeen link to be" do
+    context "'Create Takhmeen' link to be" do
         before do
             @sabeel = FactoryBot.create(:sabeel)
         end
@@ -24,7 +24,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
     end
 
-    context "creates ThaaliTakhmeen" do
+    context "creating ThaaliTakhmeen" do
         before do
             sabeel = FactoryBot.create(:sabeel)
             visit sabeel_path(sabeel.slug)
@@ -40,7 +40,7 @@ RSpec.describe "ThaaliTakhmeen features" do
             end
         end
 
-        scenario "with valid values" do
+        scenario "should BE able to create with valid values" do
             select @size.fetch(:size).to_s.titleize, from: :thaali_takhmeen_size
 
             click_button "Create Thaali takhmeen"
@@ -51,7 +51,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
 
 
-        scenario "with invalid values" do
+        scenario "should NOT BE able to create with invalid values" do
             click_button "Create Thaali takhmeen"
 
             # we haven't selected any apartment, which is required, hence sabeel will not be saved
