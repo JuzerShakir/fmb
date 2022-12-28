@@ -24,20 +24,33 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     context "GET new" do
         before do
             @sabeel = FactoryBot.create(:sabeel)
-            @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, sabeel_id: @sabeel.id)
-            @valid_attributes[:year] = $PREV_YEAR_TAKHMEEN
-            @thaali = ThaaliTakhmeen.create(@valid_attributes)
-            get new_sabeel_takhmeen_path(sabeel_id: @sabeel.id)
         end
 
-        it "should render a new template with 200 status code" do
-          expect(response).to have_http_status(:ok)
-          expect(response).to render_template(:new)
+        context "if sabeel HAS NOT registered for currrent-year thaali" do
+            it "SHOULD RENDER a new template with 200 status code" do
+                get new_sabeel_takhmeen_path(sabeel_id: @sabeel.id)
+                expect(response).to have_http_status(:ok)
+                expect(response).to render_template(:new)
+            end
+
+            context "and if sabeel has taken previous year thaali" do
+                before do
+                    @prev_thaali = FactoryBot.create(:thaali_takhmeen_of_previous_year, sabeel_id: @sabeel.id)
+                    get new_sabeel_takhmeen_path(sabeel_id: @sabeel.id)
+                end
+                it "should show that instance values in the form" do
+                    expect(response.body).to include("#{@prev_thaali.number}")
+                end
+            end
         end
 
-        context "for previous year thaali" do
-            it "should extract that instance" do
-              expect(response.body).to include("#{@thaali.number}")
+        context "if sabeel HAS registered for currrent-year thaali" do
+            before do
+                @cur_thaali = FactoryBot.create(:thaali_takhmeen_of_current_year, sabeel_id: @sabeel.id)
+            end
+            it "SHOULD NOT render new tempelate" do
+                get new_sabeel_takhmeen_path(sabeel_id: @sabeel.id)
+                expect(response).to redirect_to sabeel_path(@sabeel)
             end
         end
     end
