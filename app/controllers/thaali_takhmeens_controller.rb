@@ -1,6 +1,6 @@
 class ThaaliTakhmeensController < ApplicationController
     before_action :set_thaali_takhmeen, only: [:show, :edit, :update, :destroy]
-    before_action :check_current_year_takhmeen, only: [:new]
+    before_action :check_for_current_year_takhmeen, only: [:new]
 
     def index
         @thaalis = ThaaliTakhmeen.in_the_year($CURRENT_YEAR_TAKHMEEN)
@@ -57,7 +57,7 @@ class ThaaliTakhmeensController < ApplicationController
             @thaali_takhmeen = ThaaliTakhmeen.find(params[:id])
         end
 
-        def check_current_year_takhmeen
+        def check_for_current_year_takhmeen
             @sabeel = Sabeel.find(params[:sabeel_id])
             @cur_takhmeen = @sabeel.thaali_takhmeens.where(year: $CURRENT_YEAR_TAKHMEEN).first
 
