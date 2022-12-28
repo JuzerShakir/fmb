@@ -1,2 +1,4 @@
 <p><%= @thaali_takhmeen.number %></p>
 <p>Total Transactions <%= @transactions.count %></p>
+
+<%= link_to "Edit Takhmeen", edit_takhmeen_path(@thaali_takhmeen) unless @thaali_takhmeen.is_complete %>

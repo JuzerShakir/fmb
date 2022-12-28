@@ -1,24 +1,23 @@
 require "rails_helper"
 
 RSpec.describe "ThaaliTakhmeen features" do
-    context "'Create Takhmeen' link to be" do
-        before do
-            @sabeel = FactoryBot.create(:sabeel)
-        end
+    before do
+        @sabeel = FactoryBot.create(:sabeel)
+    end
 
+    context "'Create Takhmeen' link to be" do
         scenario "visible if sabeel is NOT taking thaali for current year" do
             thaali = FactoryBot.create(:thaali_takhmeen_of_previous_year, sabeel_id: @sabeel.id)
 
-            visit sabeel_path(@sabeel.slug)
+            visit sabeel_path(@sabeel)
 
             expect(page).to have_link('New Takhmeen')
         end
 
         scenario "NOT visible if sabeel is ALREADY taking thaali for current year" do
-            @sabeel = FactoryBot.create(:sabeel)
             thaali = FactoryBot.create(:thaali_takhmeen_of_current_year, sabeel_id: @sabeel.id)
 
-            visit sabeel_path(@sabeel.slug)
+            visit sabeel_path(@sabeel)
 
             expect(page).to have_no_link('New Takhmeen')
         end
@@ -26,11 +25,10 @@ RSpec.describe "ThaaliTakhmeen features" do
 
     context "creating ThaaliTakhmeen" do
         before do
-            sabeel = FactoryBot.create(:sabeel)
-            visit sabeel_path(sabeel.slug)
+            visit sabeel_path(@sabeel)
 
             click_on "New Takhmeen"
-            expect(current_path).to eql("/sabeels/#{sabeel.slug}/takhmeens/new")
+            expect(current_path).to eql("/sabeels/#{@sabeel.slug}/takhmeens/new")
             expect(page).to have_css('h1', text: "New Takhmeen")
 
             attributes = FactoryBot.attributes_for(:thaali_takhmeen).extract!(:year,:number, :total, :size)
@@ -58,5 +56,11 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(page).to have_content("Please review the problems below:")
             expect(page).to have_content("Size cannot be blank")
         end
+    end
+
+    scenario "if thaali-takhmeen payment IS COMPLETE then it should NOT be able to edit the transaction" do
+        @thaali = FactoryBot.create(:thaali_takhmeen_is_complete, sabeel_id: @sabeel.id)
+        visit takhmeen_path(@thaali)
+        expect(page).to have_no_link("Edit Takhmeen")
     end
 end
