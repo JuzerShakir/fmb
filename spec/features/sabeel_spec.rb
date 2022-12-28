@@ -56,7 +56,7 @@ RSpec.describe "Sabeel features" do
 
         scenario "should NOT be shown if they haven't done any takhmeen yet" do
             visit sabeel_path(@sabeel)
-            expect(page).to have_no_link("Show Transaction")
+            expect(page).to have_no_link("Show Takhmeen")
             expect(page).to have_no_link("New Transaction")
         end
 
@@ -67,7 +67,7 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
-            scenario "it should BE shown" do
+            it "should BE shown" do
                 visit sabeel_path(@sabeel)
 
                 2.times do |i|
@@ -75,14 +75,20 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
-            context "'New Transaction' button" do
+            it "should have a 'Show Takhmeen' button" do
+                visit sabeel_path(@sabeel)
+
+                expect(page).to have_link("Show Takhmeen")
+            end
+
+            context "should have a 'New Transaction' button" do
                 before do
                     @thaali_1 = @sabeel.thaali_takhmeens.first
                     @thaali_2 = @sabeel.thaali_takhmeens.last
 
                     # we will set thaali_1 as completed takhmeen and another as pending
                     FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali_1.id, amount: @thaali_1.total)
-                    visit(sabeel_path(@sabeel.slug))
+                    visit sabeel_path (@sabeel)
                 end
 
                 scenario "should BE shown whos takhmeen isn't complete" do
