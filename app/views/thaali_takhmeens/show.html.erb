@@ -1,4 +1,16 @@
 <p><%= @thaali_takhmeen.number %></p>
-<p>Total Transactions <%= @transactions.count %></p>
 
 <%= link_to "Edit Takhmeen", edit_takhmeen_path(@thaali_takhmeen) %>
+
+<p>Total Transactions <%= @transactions.count %></p>
+
+<% if @transactions.any? %>
+    <% @transactions.each do | transaction | %>
+        <div id="transaction_<%= transaction.recipe_no %>">
+            <span id="<%= transaction.recipe_no %>"> <%= link_to transaction.recipe_no, transaction_path(transaction) %> </span>
+            <%= transaction.amount %>
+            <%= transaction.mode %>
+            <%= transaction.on_date %>
+        </div>
+    <% end %>
+<% end %>
