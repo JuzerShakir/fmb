@@ -18,7 +18,8 @@ FactoryBot.define do
     end
 
     trait :complete do
-      is_complete { true }
+      total { Faker::Number.number(digits: 5) }
+      paid { total }
     end
 
     factory :thaali_takhmeen_of_current_year, traits: [:current_year]
