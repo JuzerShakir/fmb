@@ -36,13 +36,26 @@ RSpec.describe "Sabeel features" do
         end
     end
 
+    context "show all sabeels" do
+        before do
+            @sabeels = FactoryBot.create_list(:sabeel, 3)
+            visit all_sabeels_path
+        end
+
+        it "should have a link to ITS text that renders sabeel:show page after clicking it" do
+            its = @sabeels.first.its
+            click_link "#{its}"
+            expect(current_path).to eql("/sabeels/#{its}")
+        end
+    end
+
     context "takhmeen details of a sabeel" do
         before do
             @sabeel = FactoryBot.create(:sabeel)
         end
 
         scenario "should NOT be shown if they haven't done any takhmeen yet" do
-            visit(sabeel_path(@sabeel.slug))
+            visit sabeel_path(@sabeel)
             expect(page).to have_no_link("Show Transaction")
             expect(page).to have_no_link("New Transaction")
         end
