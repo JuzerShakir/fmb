@@ -74,4 +74,14 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(page).to have_content("Successfully updated Takhmeen")
         end
     end
+
+    scenario "Showing ThaaliTakhmeen" do
+        @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+
+        visit takhmeen_path(@thaali)
+
+        FactoryBot.attributes_for(:thaali_takhmeen).keys.each do | attrb |
+            expect(page).to have_content("#{@thaali.send(attrb)}")
+        end
+    end
 end
