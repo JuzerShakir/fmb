@@ -66,13 +66,24 @@ RSpec.describe Transaction, type: :model do
                 expect(subject.amount.present?).to be_truthy
             end
 
-            it "must raise an error if amount value is greater than balance value" do
-                subject.amount = subject.thaali_takhmeen.balance + Faker::Number.non_zero_digit
-                subject.validate
-                expect(subject.errors[:amount]).to include("cannot be greater than the balance")
+            context "must raise an error" do
+                it "for new transactions" do
+                    subject.amount = subject.thaali_takhmeen.balance + Faker::Number.non_zero_digit
+                    subject.validate
+                    expect(subject.errors[:amount]).to include("cannot be greater than the balance")
+                end
+
+                it "for editing existing transaction" do
+                    takhmeen = FactoryBot.create(:thaali_takhmeen)
+                    trans = FactoryBot.create(:transaction, thaali_takhmeen_id: takhmeen.id)
+
+                    trans.amount += takhmeen.balance + Random.rand(1..10)
+                    trans.validate
+                    expect(trans.errors[:amount]).to include("cannot be greater than the balance")
+                end
             end
 
-            it "must NOT raise an error if amount value is less than balance value" do
+            it "must NOT raise an error" do
                 subject.amount = subject.thaali_takhmeen.balance - Faker::Number.non_zero_digit
                 subject.validate
                 expect(subject.errors[:amount]).to_not include("cannot be greater than the balance")
@@ -84,33 +95,21 @@ RSpec.describe Transaction, type: :model do
         context "#add_all_transaction_amounts_to_paid_amount" do
             it { is_expected.to callback(:add_all_transaction_amounts_to_paid_amount).after(:commit) }
 
-            context "if takhmeen is NOT complete" do
+            context "if takhmeen has ONE OR MORE transactions" do
                 subject { create(:transaction) }
                 let!(:takhmeen) { subject.thaali_takhmeen }
                 let!(:all_transactions_of_a_takhmeen) { takhmeen.transactions }
 
-                context "with one or more transactions" do
-                    it "should add all the transaction amounts" do
-                        total_takhmeen = all_transactions_of_a_takhmeen.pluck(:amount).sum(0)
-                        expect(takhmeen.paid).to eq(total_takhmeen)
-                    end
-                end
-
-                context "with no transactions"  do
-                    it "should reset paid amount to zero" do
-                        subject.destroy
-                        expect(subject.thaali_takhmeen.paid).to eq(0)
-                    end
+                it "should add all the transaction amounts" do
+                    total_takhmeen = all_transactions_of_a_takhmeen.pluck(:amount).sum(0)
+                    expect(takhmeen.paid).to eq(total_takhmeen)
                 end
             end
 
-            context "if takhmeen IS complete" do
-                it "should NOT update the paid attribute amount" do
-                    takhmeen_paid_amount = subject.thaali_takhmeen.paid = subject.thaali_takhmeen.total
-                    subject.save # is_complete attribute for thaali_takhmeen model will be set to true through callback
-                    subject.amount = Faker::Number.non_zero_digit
-                    subject.save # will NOT update the paid attribute amount as is_complete is set to true
-                    expect(subject.thaali_takhmeen.paid).to eq(takhmeen_paid_amount)
+            context "if takhmeen has NO transactions"  do
+                it "should reset paid amount to zero" do
+                    subject.destroy
+                    expect(subject.thaali_takhmeen.paid).to eq(0)
                 end
             end
         end

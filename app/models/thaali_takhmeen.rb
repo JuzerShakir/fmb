@@ -58,7 +58,7 @@ class ThaaliTakhmeen < ApplicationRecord
     end
 
     def check_if_balance_is_zero
-      self.is_complete = true if self.balance.zero? && !self.is_complete
+      self.is_complete = self.balance.zero?
     end
 
     def set_takes_thaali_true
