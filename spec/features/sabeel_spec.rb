@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Sabeel features" do
-    context "creates sabeel" do
+    context "creating sabeel" do
         before do
             visit root_path
             click_on "New Sabeel"
@@ -16,7 +16,7 @@ RSpec.describe "Sabeel features" do
                 fill_in "sabeel_#{k}",	with: "#{v}"
             end
         end
-        scenario "with valid values" do
+        scenario "should be able to create with valid values" do
             select @apt.fetch(:apartment).titleize, from: :sabeel_apartment
 
             click_button "Create Sabeel"
@@ -26,7 +26,7 @@ RSpec.describe "Sabeel features" do
             expect(page).to have_content("Sabeel created successfully")
         end
 
-        scenario "with invalid values" do
+        scenario "should NOT be able to create with invalid values" do
             # we haven't selected any apartment, which is required, hence sabeel will not be saved
 
             click_button "Create Sabeel"
@@ -42,7 +42,7 @@ RSpec.describe "Sabeel features" do
             visit all_sabeels_path
         end
 
-        it "should have a link to ITS text that renders sabeel:show page after clicking it" do
+        scenario "should have a link to ITS text that renders sabeel:show page after clicking it" do
             its = @sabeels.first.its
             click_link "#{its}"
             expect(current_path).to eql("/sabeels/#{its}")
