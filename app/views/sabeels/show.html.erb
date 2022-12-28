@@ -1,5 +1,8 @@
 <p><%= @sabeel.its %></p>
 <p><%= @sabeel.apartment %></p>
+<p><%= @sabeel.hof_name %></p>
+
+<%= link_to "Edit Sabeel", edit_sabeel_path(@sabeel) %>
 
 <p>Total Takhmeens <%= @thaalis.count %></p>
 
@@ -7,7 +10,6 @@
     <%= link_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel) %>
 <% end %>
 
-<%= link_to "Edit Sabeel", edit_sabeel_path(@sabeel) %>
 
 <% if @thaalis.any? %>
     <% @thaalis.each do | thaali | %>
