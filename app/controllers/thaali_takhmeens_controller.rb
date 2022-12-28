@@ -37,7 +37,7 @@ class ThaaliTakhmeensController < ApplicationController
 
     def update
         if @thaali_takhmeen.update(thaali_takhmeen_params)
-            flash[:success] = "Successfully updated Takhmeen"
+            flash[:success] = "Thaali Takhmeen updated successfully"
             redirect_to takhmeen_path(@thaali_takhmeen)
         else
             render :edit
@@ -46,7 +46,7 @@ class ThaaliTakhmeensController < ApplicationController
 
     def destroy
         @thaali_takhmeen.destroy
-        flash[:success] = "Successfully destroyed takhmeen"
+        flash[:success] = "Thaali Takhmeen destroyed successfully"
         redirect_to sabeel_path(@thaali_takhmeen.sabeel)
     end
 

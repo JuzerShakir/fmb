@@ -71,7 +71,7 @@ RSpec.describe "ThaaliTakhmeen features" do
             fill_in "thaali_takhmeen_number", with: "#{Random.rand(1..400)}"
             click_on "Update Thaali takhmeen"
 
-            expect(page).to have_content("Successfully updated Takhmeen")
+            expect(page).to have_content("Thaali Takhmeen updated successfully")
         end
     end
 
@@ -92,6 +92,6 @@ RSpec.describe "ThaaliTakhmeen features" do
 
         click_on "Delete Takhmeen"
         expect(current_path).to eql sabeel_path(@sabeel)
-        expect(page).to have_content("Successfully destroyed takhmeen")
+        expect(page).to have_content("Thaali Takhmeen destroyed successfully")
     end
 end
