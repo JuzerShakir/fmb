@@ -31,8 +31,9 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(current_path).to eql("/sabeels/#{@sabeel.slug}/takhmeens/new")
             expect(page).to have_css('h1', text: "New Takhmeen")
 
-            attributes = FactoryBot.attributes_for(:thaali_takhmeen).extract!(:year,:number, :total, :size)
+            attributes = FactoryBot.attributes_for(:thaali_takhmeen).extract!(:number, :total, :size)
             @size = attributes.extract!(:size)
+
             attributes.each do |k, v|
                 fill_in "thaali_takhmeen_#{k}",	with: "#{v}"
             end

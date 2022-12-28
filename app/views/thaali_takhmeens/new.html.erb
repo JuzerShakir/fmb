@@ -6,7 +6,7 @@
     <%= simple_form_for @thaali_takhmeen, url: sabeel_takhmeens_path do |f| %>
         <%= f.error_notification %>
 
-        <%= f.input :year, disabled: true, hint: 'You cannot change this field' %>
+        <%= f.input :year, disabled: true, hint: 'You cannot change this field', input_html: { value: $CURRENT_YEAR_TAKHMEEN } %>
 
         <%= f.input :number %>
 

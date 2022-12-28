@@ -10,13 +10,14 @@ class ThaaliTakhmeensController < ApplicationController
         @prev_thaali = @sabeel.thaali_takhmeens.where(year: $PREV_YEAR_TAKHMEEN).first
 
         if @prev_thaali.nil?
-            @thaali_takhmeen = @sabeel.thaali_takhmeens.new(year: $CURRENT_YEAR_TAKHMEEN)
+            @thaali_takhmeen = @sabeel.thaali_takhmeens.new
         end
     end
 
     def create
         @sabeel = Sabeel.find(params[:sabeel_id])
         @thaali_takhmeen = @sabeel.thaali_takhmeens.new(thaali_takhmeen_params)
+        @thaali_takhmeen.year = $CURRENT_YEAR_TAKHMEEN
 
         if @thaali_takhmeen.valid?
             @thaali_takhmeen.save
@@ -50,7 +51,7 @@ class ThaaliTakhmeensController < ApplicationController
     private
 
         def thaali_takhmeen_params
-            params.require(:thaali_takhmeen).permit(:number, :size, :total, :year)
+            params.require(:thaali_takhmeen).permit(:number, :size, :total)
         end
 
         def set_thaali_takhmeen
