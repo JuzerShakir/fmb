@@ -58,4 +58,20 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(page).to have_content("Size cannot be blank")
         end
     end
+
+    context "Editing ThaaliTakhmneens" do
+        before do
+            @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+            visit takhmeen_path(@thaali)
+        end
+        scenario "should BE able to update with valid values" do
+            click_on "Edit Takhmeen"
+            expect(current_path).to eq(edit_takhmeen_path(@thaali))
+
+            fill_in "thaali_takhmeen_number", with: "#{Random.rand(1..400)}"
+            click_on "Update Thaali takhmeen"
+
+            expect(page).to have_content("Successfully updated Takhmeen")
+        end
+    end
 end

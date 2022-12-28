@@ -37,6 +37,7 @@ class ThaaliTakhmeensController < ApplicationController
 
     def update
         if @thaali_takhmeen.update(thaali_takhmeen_params)
+            flash[:success] = "Successfully updated Takhmeen"
             redirect_to takhmeen_path(@thaali_takhmeen)
         else
             render :edit

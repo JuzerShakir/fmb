@@ -1,1 +1,8 @@
-<p><%= @thaali_takhmeen.size %></p>
+<%= simple_form_for @thaali_takhmeen, url: takhmeen_path do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :year, disabled: true, hint: 'You cannot change this field' %>
+    <%= f.input :number %>
+    <%= f.input :size, collection: ThaaliTakhmeen.sizes.keys.map{ |size| [size.titleize, size] } %>
+    <%= f.input :total %>
+    <%= f.submit %>
+<% end %>
