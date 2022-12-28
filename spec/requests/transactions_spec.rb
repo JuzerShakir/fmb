@@ -29,17 +29,17 @@ RSpec.describe "Transactions", type: :request do
         context "if thaali_takhmeen IS COMPLETED" do
             before do
                 @thaali = FactoryBot.create(:thaali_takhmeen_is_complete, sabeel_id: @sabeel.id)
-                get new_takhmeen_transaction_path(@thaali.slug)
+                get new_takhmeen_transaction_path(@thaali)
             end
             it "SHOULD NOT render new tempelate" do
-                expect(response).to redirect_to takhmeen_path(@thaali.slug)
+                expect(response).to redirect_to takhmeen_path(@thaali)
             end
         end
 
         context "if thaali_takhmeen IS NOT COMPLETED" do
             before do
                 @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
-                get new_takhmeen_transaction_path(@thaali.slug)
+                get new_takhmeen_transaction_path(@thaali)
             end
 
             it "should return a 200 (OK) status code" do
@@ -58,7 +58,7 @@ RSpec.describe "Transactions", type: :request do
         context "with valid attributes" do
             before do
                 @valid_attributes = FactoryBot.attributes_for(:transaction)
-                post takhmeen_transactions_path(@thaali.slug), params: { transaction: @valid_attributes }
+                post takhmeen_transactions_path(@thaali), params: { transaction: @valid_attributes }
                 @transaction = Transaction.find_by(recipe_no: @valid_attributes[:recipe_no])
             end
 
@@ -75,7 +75,7 @@ RSpec.describe "Transactions", type: :request do
         context "with invalid attributes" do
             before do
                 @invalid_attributes = FactoryBot.attributes_for(:transaction, amount: nil)
-                post takhmeen_transactions_path(@thaali.slug), params: { transaction: @invalid_attributes }
+                post takhmeen_transactions_path(@thaali), params: { transaction: @invalid_attributes }
                 @transaction = Transaction.find_by(recipe_no: @invalid_attributes[:recipe_no])
             end
 

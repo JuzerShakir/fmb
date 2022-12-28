@@ -11,10 +11,10 @@ RSpec.describe "Transaction features"do
         before do
             @attributes = FactoryBot.attributes_for(:transaction)
 
-            visit(sabeel_path(@sabeel.slug))
+            visit sabeel_path(@sabeel)
 
             click_link "New Transaction"
-            expect(current_path).to eql(new_takhmeen_transaction_path(@thaali.slug))
+            expect(current_path).to eql new_takhmeen_transaction_path(@thaali)
 
             expect(page).to have_css('h1', text: "New Transaction")
             @select_atr = @attributes.extract!(:mode, :on_date)
@@ -31,7 +31,7 @@ RSpec.describe "Transaction features"do
 
             trans = Transaction.last
 
-            expect(current_path).to eql("/transactions/#{trans.slug}")
+            expect(current_path).to eql transaction_path(trans)
             expect(page).to have_content("Transaction created successfully")
         end
 
@@ -57,7 +57,7 @@ RSpec.describe "Transaction features"do
             fill_in "transaction_amount", with: Faker::Number.number(digits: 4)
 
             click_on "Update Transaction"
-            expect(current_path).to eql(transaction_path(@transaction))
+            expect(current_path).to eql transaction_path(@transaction)
             expect(page).to have_content("Transaction updated successfully")
         end
     end
@@ -75,7 +75,7 @@ RSpec.describe "Transaction features"do
         expect(page).to have_button("Delete Transaction")
 
         click_on "Delete Transaction"
-        expect(current_path).to eql(takhmeen_path(@thaali))
+        expect(current_path).to eql takhmeen_path(@thaali)
         expect(page).to have_content("Transaction destroyed successfully")
     end
 end

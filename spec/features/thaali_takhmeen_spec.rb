@@ -28,7 +28,7 @@ RSpec.describe "ThaaliTakhmeen features" do
             visit sabeel_path(@sabeel)
 
             click_on "New Takhmeen"
-            expect(current_path).to eql("/sabeels/#{@sabeel.slug}/takhmeens/new")
+            expect(current_path).to eql new_sabeel_takhmeen_path(@sabeel)
             expect(page).to have_css('h1', text: "New Takhmeen")
 
             attributes = FactoryBot.attributes_for(:thaali_takhmeen).extract!(:number, :total, :size)
@@ -45,7 +45,7 @@ RSpec.describe "ThaaliTakhmeen features" do
             click_button "Create Thaali takhmeen"
 
             thaali_takhmeen = ThaaliTakhmeen.last
-            expect(current_path).to eql("/takhmeens/#{thaali_takhmeen.slug}")
+            expect(current_path).to eql takhmeen_path(thaali_takhmeen)
             expect(page).to have_content("Thaali Takhmeen created successfully")
         end
 
@@ -66,7 +66,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
         scenario "should BE able to update with valid values" do
             click_on "Edit Takhmeen"
-            expect(current_path).to eq(edit_takhmeen_path(@thaali))
+            expect(current_path).to eql edit_takhmeen_path(@thaali)
 
             fill_in "thaali_takhmeen_number", with: "#{Random.rand(1..400)}"
             click_on "Update Thaali takhmeen"
@@ -91,7 +91,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         expect(page).to have_button("Delete Takhmeen")
 
         click_on "Delete Takhmeen"
-        expect(current_path).to eql(sabeel_path(@sabeel))
+        expect(current_path).to eql sabeel_path(@sabeel)
         expect(page).to have_content("Successfully destroyed takhmeen")
     end
 end

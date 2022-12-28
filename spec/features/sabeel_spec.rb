@@ -9,7 +9,7 @@ RSpec.describe "Sabeel features" do
         before do
             visit root_path
             click_on "New Sabeel"
-            expect(current_path).to eql('/sabeels/new')
+            expect(current_path).to eql new_sabeel_path
 
             expect(page).to have_css('h1', text: "New Sabeel")
 
@@ -26,7 +26,7 @@ RSpec.describe "Sabeel features" do
             click_button "Create Sabeel"
 
             sabeel = Sabeel.last
-            expect(current_path).to eql("/sabeels/#{sabeel.slug}")
+            expect(current_path).to eql sabeel_path(sabeel)
             expect(page).to have_content("Sabeel created successfully")
         end
 
@@ -49,7 +49,7 @@ RSpec.describe "Sabeel features" do
         scenario "should have a link to ITS text that renders sabeel:show page after clicking it" do
             its = @sabeels.first.its
             click_link "#{its}"
-            expect(current_path).to eql("/sabeels/#{its}")
+            expect(current_path).to eql sabeel_path(its)
         end
     end
 
@@ -82,7 +82,7 @@ RSpec.describe "Sabeel features" do
 
                     # we will set thaali_1 as completed takhmeen and another as pending
                     FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali_1.id, amount: @thaali_1.total)
-                    visit sabeel_path (@sabeel)
+                    visit sabeel_path @sabeel
                 end
 
                 scenario "should BE shown whos takhmeen isn't complete" do
@@ -114,7 +114,7 @@ RSpec.describe "Sabeel features" do
             fill_in "sabeel_mobile", with: Faker::Number.number(digits: 10)
 
             click_on "Update Sabeel"
-            expect(current_path).to eql("/sabeels/#{@sabeel.slug}")
+            expect(current_path).to eql sabeel_path(@sabeel)
             expect(page).to have_content("Sabeel updated successfully")
         end
     end
@@ -135,7 +135,7 @@ RSpec.describe "Sabeel features" do
         expect(page).to have_button('Delete Sabeel')
 
         click_on "Delete Sabeel"
-        expect(current_path).to eql(root_path)
+        expect(current_path).to eql root_path
         expect(page).to have_content("Sabeel deleted successfully")
     end
 end
