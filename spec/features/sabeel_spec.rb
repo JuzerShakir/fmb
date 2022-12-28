@@ -99,4 +99,24 @@ RSpec.describe "Sabeel features" do
             end
         end
     end
+
+    context "Editing Sabeel" do
+        before do
+            @sabeel = FactoryBot.create(:sabeel)
+            visit sabeel_path(@sabeel)
+        end
+
+        it "should have an edit link" do
+            expect(page).to have_link("Edit Sabeel")
+        end
+
+        scenario "should BE able to update with valid values" do
+            click_link "Edit Sabeel"
+            fill_in "sabeel_mobile", with: Faker::Number.number(digits: 10)
+
+            click_on "Update Sabeel"
+            expect(current_path).to eql("/sabeels/#{@sabeel.slug}")
+            expect(page).to have_content("Sabeel updated successfully")
+        end
+    end
 end

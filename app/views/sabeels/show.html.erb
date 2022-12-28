@@ -7,6 +7,8 @@
     <%= link_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel) %>
 <% end %>
 
+<%= link_to "Edit Sabeel", edit_sabeel_path(@sabeel) %>
+
 <% if @thaalis.any? %>
     <% @thaalis.each do | thaali | %>
         <div id="thaali_<%= thaali.year %>">

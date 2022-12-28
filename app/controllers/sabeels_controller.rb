@@ -30,6 +30,7 @@ class SabeelsController < ApplicationController
 
     def update
         if @sabeel.update(sabeel_params)
+            flash[:success] = "Sabeel updated successfully"
             redirect_to @sabeel
         else
             render :edit
