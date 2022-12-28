@@ -1,12 +1,13 @@
 class TransactionsController < ApplicationController
     before_action :set_transaction, only: [:show, :edit, :update, :destroy]
+    before_action :check_if_takhmeen_is_complete, only: [:new]
 
     def index
         @transactions = Transaction.all
     end
 
     def new
-        @transaction = Transaction.new
+        @transaction = @thaali_takhmeen.transactions.new
     end
 
     def create
@@ -48,5 +49,15 @@ class TransactionsController < ApplicationController
 
         def set_transaction
             @transaction = Transaction.find(params[:id])
+        end
+
+        def check_if_takhmeen_is_complete
+            @thaali_takhmeen = ThaaliTakhmeen.find(params[:takhmeen_id])
+
+            if @thaali_takhmeen.is_complete
+                message = "Takhmeen has been paid in full for the thaali number: #{@thaali_takhmeen.number}, for the year: #{@thaali_takhmeen.year}"
+                flash[:notice] = message
+                redirect_back fallback_location: takhmeen_path(@thaali_takhmeen.slug)
+            end
         end
 end

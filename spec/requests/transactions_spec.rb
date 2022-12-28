@@ -23,13 +23,29 @@ RSpec.describe "Transactions", type: :request do
     # * NEW
     context "GET new" do
         before do
-            @thaali = FactoryBot.create(:thaali_takhmeen)
-            get new_takhmeen_transaction_path(@thaali.slug)
+            @sabeel = FactoryBot.create(:sabeel)
         end
 
-        it "should return a 200 (OK) status code" do
-            expect(response).to have_http_status(:ok)
-            expect(response).to render_template(:new)
+        context "if thaali_takhmeen IS COMPLETED" do
+            before do
+                @thaali = FactoryBot.create(:thaali_takhmeen_is_complete, sabeel_id: @sabeel.id)
+                get new_takhmeen_transaction_path(@thaali.slug)
+            end
+            it "SHOULD NOT render new tempelate" do
+                expect(response).to redirect_to takhmeen_path(@thaali.slug)
+            end
+        end
+
+        context "if thaali_takhmeen IS NOT COMPLETED" do
+            before do
+                @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+                get new_takhmeen_transaction_path(@thaali.slug)
+            end
+
+            it "should return a 200 (OK) status code" do
+                expect(response).to have_http_status(:ok)
+                expect(response).to render_template(:new)
+            end
         end
     end
 
