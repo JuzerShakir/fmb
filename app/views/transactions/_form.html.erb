@@ -1,0 +1,8 @@
+<%= simple_form_for @transaction, url: url_helper do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :recipe_no %>
+    <%= f.input :amount %>
+    <%= f.input :mode, collection: Transaction.modes.keys.map{ |mode| [mode.titleize, mode] } %>
+    <%= f.input :on_date %>
+    <%= f.submit %>
+<% end %>
