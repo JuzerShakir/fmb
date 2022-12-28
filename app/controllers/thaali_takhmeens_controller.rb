@@ -10,7 +10,7 @@ class ThaaliTakhmeensController < ApplicationController
         @prev_thaali = @sabeel.thaali_takhmeens.where(year: $PREV_YEAR_TAKHMEEN).first
 
         if @prev_thaali.nil?
-            @thaali_takhmeen = @sabeel.thaali_takhmeens.new
+            @thaali_takhmeen = @sabeel.thaali_takhmeens.new(year: $CURRENT_YEAR_TAKHMEEN)
         end
     end
 
