@@ -1,10 +1,3 @@
 <h1>New Takhmeen</h1>
 
-<%= simple_form_for @thaali_takhmeen, url: sabeel_takhmeens_path do |f| %>
-    <%= f.error_notification %>
-    <%= f.input :year, disabled: true, hint: 'You cannot change this field', input_html: { value: $CURRENT_YEAR_TAKHMEEN } %>
-    <%= f.input :number %>
-    <%= f.input :size, collection: ThaaliTakhmeen.sizes.keys.map{ |size| [size.titleize, size] } %>
-    <%= f.input :total %>
-    <%= f.submit %>
-<% end %>
+<%= render partial: "form", locals: { url_helper: sabeel_takhmeens_path } %>

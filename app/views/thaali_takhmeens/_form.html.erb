@@ -1,0 +1,17 @@
+<%= simple_form_for @thaali_takhmeen, url: url_helper do |f| %>
+    <%= f.error_notification %>
+
+    <%# for new takhmeen it will show current year %>
+    <% if @thaali_takhmeen.year.nil? %>
+        <%= f.input :year, disabled: true, hint: 'You cannot change this field', input_html: { value: $CURRENT_YEAR_TAKHMEEN } %>
+
+    <%# for existing takhmeen it will its year %>
+    <% else %>
+        <%= f.input :year, disabled: true, hint: 'You cannot change this field' %>
+    <% end %>
+
+    <%= f.input :number %>
+    <%= f.input :size, collection: ThaaliTakhmeen.sizes.keys.map{ |size| [size.titleize, size] } %>
+    <%= f.input :total %>
+    <%= f.submit %>
+<% end %>
