@@ -28,7 +28,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
         context "if sabeel HAS NOT registered for currrent-year thaali" do
             it "SHOULD RENDER a new template with 200 status code" do
-                get new_sabeel_takhmeen_path(sabeel_id: @sabeel.id)
+                get new_sabeel_takhmeen_path(sabeel_id: @sabeel.slug)
                 expect(response).to have_http_status(:ok)
                 expect(response).to render_template(:new)
             end
@@ -36,7 +36,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             context "and if sabeel has taken previous year thaali" do
                 before do
                     @prev_thaali = FactoryBot.create(:thaali_takhmeen_of_previous_year, sabeel_id: @sabeel.id)
-                    get new_sabeel_takhmeen_path(sabeel_id: @sabeel.id)
+                    get new_sabeel_takhmeen_path(sabeel_id: @sabeel.slug)
                 end
                 it "should show that instance values in the form" do
                     expect(response.body).to include("#{@prev_thaali.number}")
@@ -49,7 +49,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
                 @cur_thaali = FactoryBot.create(:thaali_takhmeen_of_current_year, sabeel_id: @sabeel.id)
             end
             it "SHOULD NOT render new tempelate" do
-                get new_sabeel_takhmeen_path(sabeel_id: @sabeel.id)
+                get new_sabeel_takhmeen_path(sabeel_id: @sabeel.slug)
                 expect(response).to redirect_to sabeel_path(@sabeel)
             end
         end
