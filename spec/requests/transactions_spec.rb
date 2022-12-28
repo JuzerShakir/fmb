@@ -122,7 +122,7 @@ RSpec.describe "Transactions", type: :request do
 
       it "should render the instance that was passed in the params" do
           # it could be any attribute, not only on_date
-          expect(response.body).to include("#{@transaction.on_date}")
+          expect(response.body).to include("#{@transaction.recipe_no}")
       end
   end
 
