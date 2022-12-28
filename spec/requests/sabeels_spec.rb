@@ -4,7 +4,7 @@ RSpec.describe "Sabeels", type: :request do
     # * INDEX
     context "GET index" do
         before do
-            @sabeels = FactoryBot.create_list(:sabeel, 5)
+            @sabeels = FactoryBot.create_list(:sabeel, 2)
             get all_sabeels_path
         end
 
