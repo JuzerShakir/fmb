@@ -7,6 +7,8 @@
 
 
 <%= link_to "Edit Takhmeen", edit_takhmeen_path(@thaali_takhmeen) %>
+<%= button_to "Delete Takhmeen", takhmeen_path(@thaali_takhmeen),
+     data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete Thaali number: #{@thaali_takhmeen.number} for the year: #{@thaali_takhmeen.year}" }, method: :delete %>
 
 <p>Total Transactions <%= @transactions.count %></p>
 

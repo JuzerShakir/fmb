@@ -46,7 +46,8 @@ class ThaaliTakhmeensController < ApplicationController
 
     def destroy
         @thaali_takhmeen.destroy
-        redirect_to sabeel_path
+        flash[:success] = "Successfully destroyed takhmeen"
+        redirect_to sabeel_path(@thaali_takhmeen.sabeel)
     end
 
     private
