@@ -4,7 +4,7 @@
 <p>Total Takhmeens <%= @thaalis.count %></p>
 
 <% if @thaali_inactive %>
-    <%= link_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel.slug) %>
+    <%= link_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel) %>
 <% end %>
 
 <% if @thaalis.any? %>
@@ -15,7 +15,7 @@
             <%= thaali.paid %>
             <%= thaali.balance %>
 
-            <%= link_to "New Transaction", new_takhmeen_transaction_path(thaali.slug) unless thaali.is_complete %>
+            <%= link_to "New Transaction", new_takhmeen_transaction_path(thaali) unless thaali.is_complete %>
         </div>
     <% end %>
 <% end %>

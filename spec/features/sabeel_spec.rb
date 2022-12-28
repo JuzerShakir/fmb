@@ -68,7 +68,7 @@ RSpec.describe "Sabeel features" do
             end
 
             scenario "it should BE shown" do
-                visit(sabeel_path(@sabeel.slug))
+                visit sabeel_path(@sabeel)
 
                 2.times do |i|
                     expect(page).to have_content($CURRENT_YEAR_TAKHMEEN - i)
