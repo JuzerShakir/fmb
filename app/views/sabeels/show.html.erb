@@ -8,8 +8,14 @@
 
 <%# * action buttons for sabeel %>
 <%= link_to "Edit Sabeel", edit_sabeel_path(@sabeel) %>
-<%= link_to "Delete Sabeel", @sabeel, class: "button",
-     data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete Sabeel #{@sabeel.its}?" } %>
+<!-- DESTROY Button trigger modal -->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
+  Delete Sabeel
+</button>
+
+<%= render partial: "shared/destroy_modal",
+     locals: {destroy_path: @sabeel, message: "delete Sabeel ITS no: #{@sabeel.its}?" } %>
+
 
 <p>Total Takhmeens <%= @thaalis.count %></p>
 

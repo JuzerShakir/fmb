@@ -88,9 +88,11 @@ RSpec.describe "ThaaliTakhmeen features" do
     scenario "Deleting ThaaliTakhmeen" do
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         visit takhmeen_path(@thaali)
-        expect(page).to have_link("Delete Takhmeen")
+        expect(page).to have_button("Delete Takhmeen")
 
-        click_on "Delete Takhmeen"
+        click_on "Delete Thaali Takhmeen"
+        click_on "Yes, delete it!"
+
         expect(current_path).to eql sabeel_path(@sabeel)
         expect(page).to have_content("Thaali Takhmeen destroyed successfully")
     end
