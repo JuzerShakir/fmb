@@ -66,7 +66,7 @@ RSpec.describe "Transaction features"do
         visit transaction_path(@transaction)
         expect(page).to have_content("#{@transaction.recipe_no}")
         expect(page).to have_content("#{@transaction.amount}")
-        expect(page).to have_content("#{@transaction.on_date}")
+        expect(page).to have_content("#{@transaction.on_date.to_time.strftime('%A, %b %d %Y')}")
         expect(page).to have_content("#{@transaction.mode}")
     end
 
