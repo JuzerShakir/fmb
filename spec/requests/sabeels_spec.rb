@@ -164,19 +164,4 @@ RSpec.describe "Sabeels", type: :request do
             expect(response).to redirect_to root_path
         end
     end
-
-    # * TRANSACTION
-    context "GET transaction" do
-        before do
-            @sabeel = FactoryBot.create(:sabeel)
-            @thaali_takhmeen = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
-            @transactions = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali_takhmeen.id)
-            get sabeel_transactions_path(@sabeel)
-        end
-
-        it "should render a transaction template" do
-            expect(response).to render_template(:transaction)
-            expect(response).to have_http_status(:ok)
-        end
-    end
 end

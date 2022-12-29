@@ -5,10 +5,6 @@ class SabeelsController < ApplicationController
         @sabeels = Sabeel.all.order(created_at: :DESC)
     end
 
-    def transaction
-        @transactions = @sabeel.transactions
-    end
-
     def new
         @sabeel = Sabeel.new
     end
