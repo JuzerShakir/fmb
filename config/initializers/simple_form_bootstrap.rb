@@ -15,7 +15,7 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Default class for buttons
-  config.button_class = 'btn'
+  config.button_class = 'btn btn-primary col-md-4 offset-md-4'
 
   # Define the default class of the input wrapper of the boolean input.
   config.boolean_label_class = 'form-check-label'
@@ -49,7 +49,7 @@ SimpleForm.setup do |config|
   # vertical forms
   #
   # vertical default_wrapper
-  config.wrappers :vertical_form, tag: 'div', class: 'form-group', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
+  config.wrappers :vertical_form, tag: 'div', class: 'form-group col-md-4 offset-md-4 mb-3', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
