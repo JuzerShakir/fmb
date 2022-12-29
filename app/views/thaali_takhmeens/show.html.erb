@@ -17,6 +17,8 @@
 
 <p>Total Transactions <%= @transactions.count %></p>
 
+<%= link_to "New Transaction", new_takhmeen_transaction_path(@thaali_takhmeen) unless @thaali_takhmeen.is_complete %>
+
 <% if @transactions.any? %>
     <% @transactions.each do | transaction | %>
         <div id="transaction_<%= transaction.recipe_no %>">
