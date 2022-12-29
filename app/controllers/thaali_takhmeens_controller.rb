@@ -69,8 +69,7 @@ class ThaaliTakhmeensController < ApplicationController
 
             unless @cur_takhmeen.nil?
                 message = "Takhmeen has already been done for the Sabeel with ITS No: #{@sabeel.its} for the year: #{$CURRENT_YEAR_TAKHMEEN}"
-                flash[:notice] = message
-                redirect_back fallback_location: sabeel_path(@sabeel)
+                redirect_back fallback_location: sabeel_path(@sabeel), notice: message
             end
         end
 end
