@@ -6,7 +6,7 @@
 <p><%= link_to @sabeel.hof_name, sabeel_path(@sabeel) %></p>
 <p><%= @transaction.amount %></p>
 <p><%= @transaction.mode %></p>
-<p><%= @transaction.on_date %></p>
+<p><%= @transaction.on_date.to_time.strftime('%A, %b %d %Y') %></p>
 
 <%= link_to "Edit Transaction", edit_transaction_path(@transaction) %>
 <%= link_to "Delete Transaction", @transaction, class: "button",
