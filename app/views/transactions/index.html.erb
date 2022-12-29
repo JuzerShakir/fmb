@@ -1,4 +1,4 @@
-<h1>All Transactions</h1>
+<h1 class= "text-center">All Transactions</h1>
 
 <% @transactions.each do |transaction| %>
     <%= link_to transaction.recipe_no, transaction_path(transaction) %>
