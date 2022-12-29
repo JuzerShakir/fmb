@@ -17,8 +17,7 @@ class SabeelsController < ApplicationController
         @sabeel = Sabeel.new(sabeel_params)
         if @sabeel.valid?
             @sabeel.save
-            flash[:success] = "Sabeel created successfully"
-            redirect_to @sabeel
+            redirect_to @sabeel, success: "Sabeel created successfully"
         else
             render :new
         end
@@ -34,8 +33,7 @@ class SabeelsController < ApplicationController
 
     def update
         if @sabeel.update(sabeel_params)
-            flash[:success] = "Sabeel updated successfully"
-            redirect_to @sabeel
+            redirect_to @sabeel, success: "Sabeel updated successfully"
         else
             render :edit
         end
@@ -43,8 +41,7 @@ class SabeelsController < ApplicationController
 
     def destroy
         @sabeel.destroy
-        flash[:success] = "Sabeel deleted successfully"
-        redirect_to root_path
+        redirect_to root_path, success: "Sabeel deleted successfully"
     end
 
     private

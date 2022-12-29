@@ -26,8 +26,7 @@ class ThaaliTakhmeensController < ApplicationController
 
         if @thaali_takhmeen.valid?
             @thaali_takhmeen.save
-            flash[:success] = "Thaali Takhmeen created successfully"
-            redirect_to takhmeen_path(@thaali_takhmeen)
+            redirect_to takhmeen_path(@thaali_takhmeen), success: "Thaali Takhmeen created successfully"
         else
             render :new
         end
@@ -43,8 +42,7 @@ class ThaaliTakhmeensController < ApplicationController
 
     def update
         if @thaali_takhmeen.update(thaali_takhmeen_params)
-            flash[:success] = "Thaali Takhmeen updated successfully"
-            redirect_to takhmeen_path(@thaali_takhmeen)
+            redirect_to takhmeen_path(@thaali_takhmeen), success: "Thaali Takhmeen updated successfully"
         else
             render :edit
         end
@@ -52,8 +50,7 @@ class ThaaliTakhmeensController < ApplicationController
 
     def destroy
         @thaali_takhmeen.destroy
-        flash[:success] = "Thaali Takhmeen destroyed successfully"
-        redirect_to sabeel_path(@thaali_takhmeen.sabeel)
+        redirect_to sabeel_path(@thaali_takhmeen.sabeel), success: "Thaali Takhmeen destroyed successfully"
     end
 
     private

@@ -16,8 +16,7 @@ class TransactionsController < ApplicationController
 
         if @transaction.valid?
             @transaction.save
-            flash[:success] = "Transaction created successfully"
-            redirect_to @transaction
+            redirect_to @transaction, success: "Transaction created successfully"
         else
             render :new
         end
@@ -33,17 +32,16 @@ class TransactionsController < ApplicationController
 
     def update
         if @transaction.update(transaction_params)
-            flash[:success] = "Transaction updated successfully"
-            redirect_to @transaction
+            redirect_to @transaction, success: "Transaction updated successfully"
         else
             render :edit
         end
     end
 
     def destroy
+        thaali_takhmeen = @transaction.thaali_takhmeen
         @transaction.destroy
-        flash[:success] = "Transaction destroyed successfully"
-        redirect_to takhmeen_path(@transaction.thaali_takhmeen)
+        redirect_to takhmeen_path(thaali_takhmeen), success: "Transaction destroyed successfully"
     end
 
     private
@@ -60,8 +58,7 @@ class TransactionsController < ApplicationController
 
             if @thaali_takhmeen.is_complete
                 message = "Takhmeen has been paid in full for the thaali number: #{@thaali_takhmeen.number}, for the year: #{@thaali_takhmeen.year}"
-                flash[:notice] = message
-                redirect_back fallback_location: takhmeen_path(@thaali_takhmeen.slug)
+                redirect_back fallback_location: takhmeen_path(@thaali_takhmeen), notice: message
             end
         end
 end
