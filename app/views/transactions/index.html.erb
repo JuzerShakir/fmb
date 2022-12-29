@@ -1,5 +1,9 @@
 <h1>All Transactions</h1>
 
 <% @transactions.each do |transaction| %>
-    <%= transaction.recipe_no %>
+    <%= link_to transaction.recipe_no, transaction_path(transaction) %>
+    <%= transaction.amount %>
+    <%= transaction.mode %>
+    <%= transaction.on_date %>
+    <br>
 <% end %>
