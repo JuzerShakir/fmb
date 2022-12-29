@@ -17,10 +17,7 @@ class ThaaliTakhmeen < ApplicationRecord
   friendly_id :slug_candidates, use: [:slugged, :finders, :history]
 
   def slug_candidates
-    [
-      :year,
-      [:year, :number]
-    ]
+      "#{year}-#{number}"
   end
 
   def should_generate_new_friendly_id?
