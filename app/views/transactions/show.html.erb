@@ -1,10 +1,9 @@
-<h1>Show Transaction</h1>
+<h1>Show Transaction #<%= @transaction.recipe_no %> </h1>
 <h3>of the thaali number
      <%= link_to @thaali_takhmeen.number, takhmeen_path(@thaali_takhmeen) %>
      (<%= @transaction.thaali_takhmeen.year %>)</h3>
 
 <p><%= link_to @sabeel.hof_name, sabeel_path(@sabeel) %></p>
-<p><%= @transaction.recipe_no %></p>
 <p><%= @transaction.amount %></p>
 <p><%= @transaction.mode %></p>
 <p><%= @transaction.on_date %></p>
