@@ -7,7 +7,7 @@
 <p><%= @sabeel.email %></p>
 
 <%# * action buttons for sabeel %>
-<%= link_to "Edit Sabeel", edit_sabeel_path(@sabeel) %>
+<%= link_to "Edit Sabeel", edit_sabeel_path(@sabeel), class: "btn btn-outline-info" %>
 <!-- DESTROY Button trigger modal -->
 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
   Delete Sabeel

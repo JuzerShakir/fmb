@@ -65,7 +65,7 @@ RSpec.describe "ThaaliTakhmeen features" do
             visit takhmeen_path(@thaali)
         end
         scenario "should BE able to update with valid values" do
-            click_on "Edit Takhmeen"
+            click_on "Edit Thaali Takhmeen"
             expect(current_path).to eql edit_takhmeen_path(@thaali)
 
             fill_in "thaali_takhmeen_number", with: "#{Random.rand(1..400)}"
