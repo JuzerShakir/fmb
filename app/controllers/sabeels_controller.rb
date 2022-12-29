@@ -2,7 +2,7 @@ class SabeelsController < ApplicationController
     before_action :set_sabeel, except: [:index, :new, :create]
 
     def index
-        @sabeels = Sabeel.all
+        @sabeels = Sabeel.all.order(created_at: :DESC)
     end
 
     def transaction

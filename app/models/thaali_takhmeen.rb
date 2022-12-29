@@ -45,7 +45,7 @@ class ThaaliTakhmeen < ApplicationRecord
   enum :size, { small: 0, medium: 1, large: 2 }
 
   # * Scopes
-  scope :in_the_year, -> year { where(year: year) }
+  scope :in_the_year, -> year { where(year: year).order(number: :ASC) }
 
   scope :all_pending_takhmeens_till_date, -> { where(is_complete: false) }
 
