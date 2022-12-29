@@ -7,15 +7,11 @@
 <p><%= @sabeel.email %></p>
 
 <%# * action buttons for sabeel %>
-<%= link_to "Edit Sabeel", edit_sabeel_path(@sabeel), class: "btn btn-outline-info" %>
-<!-- DESTROY Button trigger modal -->
-<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
-  Delete Sabeel
-</button>
+<%= render partial: "shared/actions",
+    locals: { edit_path: edit_sabeel_path(@sabeel), model: "Sabeel" } %>
 
 <%= render partial: "shared/destroy_modal",
      locals: {destroy_path: @sabeel, message: "delete Sabeel ITS no: #{@sabeel.its}?" } %>
-
 
 <p>Total Takhmeens <%= @thaalis.count %></p>
 

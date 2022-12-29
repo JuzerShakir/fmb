@@ -8,12 +8,8 @@
 <p><%= @transaction.mode %></p>
 <p><%= @transaction.on_date.to_time.strftime('%A, %b %d %Y') %></p>
 
-<%= link_to "Edit Transaction", edit_transaction_path(@transaction), class: "btn btn-outline-info" %>
-
-<!-- DESTROY Button trigger modal -->
-<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
-  Delete Transaction
-</button>
+<%= render partial: "shared/actions",
+    locals: { edit_path: edit_transaction_path(@transaction), model: "Transaction" } %>
 
 <%= render partial: "shared/destroy_modal",
      locals: {destroy_path: @transaction, message: "delete Transaction reciepe no: #{@transaction.recipe_no}?" } %>

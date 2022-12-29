@@ -9,12 +9,9 @@
 <p><%= @thaali_takhmeen.balance %></p>
 <p><%= @thaali_takhmeen.is_complete %></p>
 
+<%= render partial: "shared/actions",
+    locals: { edit_path: edit_takhmeen_path(@thaali_takhmeen), model: "Thaali Takhmeen" } %>
 
-<%= link_to "Edit Thaali Takhmeen", edit_takhmeen_path(@thaali_takhmeen), class: "btn btn-outline-info" %>
-<!-- DESTROY Button trigger modal -->
-<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
-  Delete Thaali Takhmeen
-</button>
 
 <%= render partial: "shared/destroy_modal",
      locals: {destroy_path: takhmeen_path(@thaali_takhmeen), message: "delete Thaali no: #{@thaali_takhmeen.number}?" } %>
