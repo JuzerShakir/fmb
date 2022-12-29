@@ -23,8 +23,8 @@
         <div id="thaali_<%= thaali.year %>">
             <span id="<%= thaali.year %>"> <%= link_to thaali.year, takhmeen_path(thaali) %> </span>
             <%= thaali.total %>
-            <%= thaali.paid %>
             <%= thaali.balance %>
+            <%= thaali.is_complete %>
 
             <%= link_to "New Transaction", new_takhmeen_transaction_path(thaali) unless thaali.is_complete %>
         </div>

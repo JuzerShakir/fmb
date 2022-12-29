@@ -35,6 +35,7 @@ class ThaaliTakhmeensController < ApplicationController
 
     def show
         @transactions = @thaali_takhmeen.transactions
+        @sabeel = @thaali_takhmeen.sabeel
     end
 
     def edit
