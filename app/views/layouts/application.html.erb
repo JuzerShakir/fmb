@@ -11,11 +11,9 @@
   </head>
 
   <body class="container">
-  <% if flash.any? %>
-    <% flash.each do |k,v| %>
-      <%= v %>
-    <% end %>
-  <% end %>
+
+    <%= render "shared/flash_messages" %>
+
     <%= yield %>
   </body>
 </html>
