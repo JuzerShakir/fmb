@@ -1,5 +1,8 @@
 <% if flash.any? %>
-  <% flash.each do |k,v| %>
-    <%= v %>
-  <% end %>
+    <div id="flash" data-controller= "autohide">
+      <% flash.each do |k,v| %>
+        <% v.prepend(k.to_s.capitalize.concat("! ")) %>
+        <%= content_tag :div, v, id: k %>
+      <% end %>
+    </div>
 <% end %>

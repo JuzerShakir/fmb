@@ -1,2 +1,13 @@
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons";
+
+#flash {
+    position: absolute;
+    z-index: 2;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.737);
+    color: rgb(0, 255, 0);
+    font-size: larger;
+    padding: 15px;
+    border-radius: 25px;
+}
