@@ -156,7 +156,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
 
             it "should redirect to updated thaali page" do
-                expect(response).to redirect_to takhmeen_path(@thaali)
+                expect(response).to redirect_to takhmeen_path("#{@thaali.year}-#{@thaali.number}")
             end
         end
 

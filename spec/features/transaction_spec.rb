@@ -72,7 +72,7 @@ RSpec.describe "Transaction features"do
 
     scenario "Deleting transaction" do
         visit transaction_path(@transaction)
-        expect(page).to have_button("Delete Transaction")
+        expect(page).to have_link("Delete Transaction")
 
         click_on "Delete Transaction"
         expect(current_path).to eql takhmeen_path(@thaali)

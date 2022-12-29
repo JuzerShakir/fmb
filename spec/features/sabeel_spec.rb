@@ -132,7 +132,7 @@ RSpec.describe "Sabeel features" do
     scenario "Deleting a Sabeel" do
         visit sabeel_path(@sabeel)
 
-        expect(page).to have_button('Delete Sabeel')
+        expect(page).to have_link('Delete Sabeel')
 
         click_on "Delete Sabeel"
         expect(current_path).to eql root_path
