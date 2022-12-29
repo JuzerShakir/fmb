@@ -1,17 +1,12 @@
 <%= simple_form_for @sabeel do |f| %>
-    <%= f.error_notification %>
-
-    <%= f.input :its, label: "ITS", hint: "must be exactly 8 characters long" %>
-
-    <%= f.input :hof_name, label: "HOF Name" %>
-
-    <%= f.input :apartment, collection: Sabeel.apartments.keys.map{ |apartment| [apartment.titleize, apartment] } %>
-
-    <%= f.input :flat_no %>
-
-    <%= f.input :mobile, hint: "without the country code" %>
-
-    <%= f.input :email %>
-
-    <%= f.submit %>
+    <div class="form-inputs">
+        <%= f.error_notification %>
+        <%= f.input :its, label: "ITS", hint: "must be exactly 8 characters long" %>
+        <%= f.input :hof_name, label: "HOF Name" %>
+        <%= f.input :apartment, collection: Sabeel.apartments.keys.map{ |apartment| [apartment.titleize, apartment] }, include_blank: false %>
+        <%= f.input :flat_no %>
+        <%= f.input :mobile, hint: "without the country code" %>
+        <%= f.input :email %>
+        <%= f.submit %>
+    </div>
 <% end %>
