@@ -29,4 +29,6 @@
             <%= link_to "New Transaction", new_takhmeen_transaction_path(thaali) unless thaali.is_complete %>
         </div>
     <% end %>
+
+    <%= link_to "All Transactions", sabeel_transactions_path(@sabeel) %>
 <% end %>

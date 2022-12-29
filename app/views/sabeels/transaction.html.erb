@@ -1,0 +1,10 @@
+<h1>All Transactions</h1>
+<h3>for the ITS No: <%= link_to @sabeel.its, sabeel_path(@sabeel) %></h3>
+
+<% @transactions.each do | transaction | %>
+    <%= link_to transaction.recipe_no, transaction_path(transaction) %>
+    <%= transaction.amount %>
+    <%= transaction.mode %>
+    <%= transaction.on_date %>
+    <br>
+<% end %>

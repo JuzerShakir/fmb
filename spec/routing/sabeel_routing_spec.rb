@@ -12,6 +12,16 @@ RSpec.describe Sabeel, type: :routing do
         end
     end
 
+    context "transaction action" do
+        it "is accessible by /sabeels/:id/transactions" do
+            expect(get("/sabeels/1/transactions")).to route_to("sabeels#transaction", id: "1")
+        end
+
+        it "is accessible by sabeel_transactions route" do
+            expect(get: sabeel_transactions_path(1)).to route_to(controller: "sabeels", action: "transaction", id: "1")
+        end
+    end
+
     context "new action" do
         it "is accessible by /sabeels route" do
             expect(get("/sabeels/new")).to route_to("sabeels#new")

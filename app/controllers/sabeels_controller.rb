@@ -1,8 +1,12 @@
 class SabeelsController < ApplicationController
-    before_action :set_sabeel, only: [:edit, :update, :show, :destroy]
+    before_action :set_sabeel, except: [:index, :new, :create]
 
     def index
         @sabeels = Sabeel.all
+    end
+
+    def transaction
+        @transactions = @sabeel.transactions
     end
 
     def new

@@ -138,4 +138,35 @@ RSpec.describe "Sabeel features" do
         expect(current_path).to eql root_path
         expect(page).to have_content("Sabeel deleted successfully")
     end
+
+    context "'All Transactions' button should be" do
+        scenario "VISIBLE if any thaali_takhmeen has been registered" do
+            @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+
+            visit sabeel_path(@sabeel)
+            expect(page).to have_link('All Transactions')
+        end
+
+        scenario "NOT VISIBLE if NO thaali_takhmeen has been registered" do
+            visit sabeel_path(@sabeel)
+            expect(page).to have_no_link('All Transactions')
+        end
+    end
+
+    context "visits transaction page" do
+        scenario "if transactions exists should show sabeels' all transaction" do
+            @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+            @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
+
+            visit sabeel_transactions_path(@sabeel)
+
+            these = %w(recipe_no amount on_date mode)
+
+            atrbs = @transaction.attributes.extract!(*these)
+
+            atrbs.each do | k, v |
+                expect(page).to have_content("#{v}")
+            end
+        end
+    end
 end
