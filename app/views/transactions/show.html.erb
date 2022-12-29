@@ -1,15 +1,23 @@
-<h1>Show Transaction #<%= @transaction.recipe_no %> </h1>
+<%# * Title %>
+<h1>Show Transaction #<%= @transaction.recipe_no %></h1>
+
 <h3>of the thaali number
      <%= link_to @thaali_takhmeen.number, takhmeen_path(@thaali_takhmeen) %>
      (<%= @transaction.thaali_takhmeen.year %>)</h3>
 
+
+<%# * show %>
 <p><%= link_to @sabeel.hof_name, sabeel_path(@sabeel) %></p>
 <p><%= @transaction.amount %></p>
 <p><%= @transaction.mode %></p>
 <p><%= @transaction.on_date.to_time.strftime('%A, %b %d %Y') %></p>
 
+
+<%# * action buttons %>
 <%= render partial: "shared/actions",
     locals: { edit_path: edit_transaction_path(@transaction), model: "Transaction" } %>
 
+
+<%# * destroy Modal %>
 <%= render partial: "shared/destroy_modal",
      locals: {destroy_path: @transaction, message: "delete Transaction reciepe no: #{@transaction.recipe_no}?" } %>

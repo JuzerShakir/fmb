@@ -1,24 +1,30 @@
+<%# * Title %>
 <h1>Show Sabeel #<%= "#{@sabeel.its}" %></h1>
 
-<%# * Show sabeel details %>
+
+<%# * show %>
 <p><%= @sabeel.hof_name %></p>
 <p><%= @sabeel.address %></p>
 <p><%= @sabeel.mobile %></p>
 <p><%= @sabeel.email %></p>
 
-<%# * action buttons for sabeel %>
+
+<%# * action buttons %>
 <%= render partial: "shared/actions",
     locals: { edit_path: edit_sabeel_path(@sabeel), model: "Sabeel" } %>
 
+
+<%# * destroy Modal %>
 <%= render partial: "shared/destroy_modal",
      locals: {destroy_path: @sabeel, message: "delete Sabeel ITS no: #{@sabeel.its}?" } %>
 
+
+<%# * Thaali Takhmeens %>
 <p>Total Takhmeens <%= @thaalis.count %></p>
 
 <% if @thaali_inactive %>
     <%= link_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel) %>
 <% end %>
-
 
 <% if @thaalis.any? %>
     <% @thaalis.each do | thaali | %>
@@ -32,5 +38,8 @@
         </div>
     <% end %>
 
-    <%= link_to "All Transactions", sabeel_transactions_path(@sabeel) %>
 <% end %>
+
+
+<%# * Transactions %>
+<%= link_to "All Transactions", sabeel_transactions_path(@sabeel) %>

@@ -1,21 +1,29 @@
+<%# * Title %>
 <h1>Show Thaali Takhmeen #<%= "#{@thaali_takhmeen.number}" %></h1>
 
 <h3>of ITS <%= link_to @sabeel.its, sabeel_path(@sabeel) %>
     (<%= @thaali_takhmeen.year %>) </h3>
 
+
+<%# * show %>
 <p><%= @thaali_takhmeen.size %></p>
 <p><%= @thaali_takhmeen.total %></p>
 <p><%= @thaali_takhmeen.paid %></p>
 <p><%= @thaali_takhmeen.balance %></p>
 <p><%= @thaali_takhmeen.is_complete %></p>
 
+
+<%# * action buttons %>
 <%= render partial: "shared/actions",
     locals: { edit_path: edit_takhmeen_path(@thaali_takhmeen), model: "Thaali Takhmeen" } %>
 
 
+<%# * destroy Modal %>
 <%= render partial: "shared/destroy_modal",
      locals: {destroy_path: takhmeen_path(@thaali_takhmeen), message: "delete Thaali no: #{@thaali_takhmeen.number}?" } %>
 
+
+<%# * Transactions %>
 <p>Total Transactions <%= @transactions.count %></p>
 
 <%= link_to "New Transaction", new_takhmeen_transaction_path(@thaali_takhmeen) unless @thaali_takhmeen.is_complete %>
