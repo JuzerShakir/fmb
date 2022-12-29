@@ -1,15 +1,12 @@
 <h1>Show all Takhmeens for the year: <%= $CURRENT_YEAR_TAKHMEEN %> </h1>
 
-<%= link_to "New Sabeel", new_sabeel_path %>
+<%= link_to "Add New Sabeel", new_sabeel_path %>
 
 <br>
 
 <% @thaalis.each do |thaali| %>
-    <%= thaali.year %>
-    <%= thaali.number %>
+    <%= link_to thaali.sabeel.hof_name, sabeel_path(thaali.sabeel) %>
+    <%= link_to thaali.number, takhmeen_path(thaali) %>
     <%= thaali.size %>
-    <%= thaali.total %>
-    <%= thaali.paid %>
-    <%= thaali.balance %>
     <%= thaali.is_complete %>
 <% end %>
