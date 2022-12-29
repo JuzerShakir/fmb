@@ -1,14 +1,15 @@
 <h1>Show Sabeel #<%= "#{@sabeel.its}" %></h1>
 
+<%# * Show sabeel details %>
 <p><%= @sabeel.hof_name %></p>
 <p><%= @sabeel.address %></p>
 <p><%= @sabeel.mobile %></p>
 <p><%= @sabeel.email %></p>
 
-
+<%# * action buttons for sabeel %>
 <%= link_to "Edit Sabeel", edit_sabeel_path(@sabeel) %>
-<%= button_to "Delete Sabeel", sabeel_path(@sabeel),
-     data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete Sabeel #{@sabeel.its}?" }, method: :delete %>
+<%= link_to "Delete Sabeel", @sabeel, class: "button",
+     data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete Sabeel #{@sabeel.its}?" } %>
 
 <p>Total Takhmeens <%= @thaalis.count %></p>
 

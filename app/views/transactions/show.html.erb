@@ -9,5 +9,6 @@
 <p><%= @transaction.on_date %></p>
 
 <%= link_to "Edit Transaction", edit_transaction_path(@transaction) %>
-<%= button_to "Delete Transaction", transaction_path(@transaction),
-     data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete Transaction reciepe no: #{@transaction.recipe_no}" }, method: :delete %>
+<%= link_to "Delete Transaction", @transaction, class: "button",
+     data: { turbo_method: :delete,
+     turbo_confirm: "Are you sure you want to delete Transaction reciepe no: #{@transaction.recipe_no}" }%>
