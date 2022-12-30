@@ -1,7 +1,7 @@
 <%# * Title %>
-<h1 class= "text-center">Show Thaali Takhmeen #<%= "#{@thaali_takhmeen.number}" %></h1>
-<h3 class= "text-center">of ITS <%= link_to @sabeel.its, sabeel_path(@sabeel) %>
-    (<%= @thaali_takhmeen.year %>) </h3>
+<h1 class= "text-center">Show Thaali Takhmeen <span class="text-muted">#<%= "#{@thaali_takhmeen.number}" %></span></h1>
+<h3 class= "text-center">of ITS <%= link_to @sabeel.its, sabeel_path(@sabeel), class: "btn btn-outline-primary" %>
+    <span class="text-muted">(<%= @thaali_takhmeen.year %>)</span> </h3>
 
 
 <%# * show %>
