@@ -1,0 +1,32 @@
+<p class="mt-5 fw-bold text-center text-info">Total number of Takhmeens: <%= @thaalis.count %></p>
+
+<div id="show-header-thaali" class="row py-2 fs-5 fw-semibold">
+    <div class="col">
+        <th>Year</th>
+    </div>
+    <div class="col">
+        <th>Balance</th>
+    </div>
+    <div class="col">
+        <th>Paid</th>
+    </div>
+    <div class="col">
+        <th>Fully Paid?</th>
+    </div>
+</div>
+<% @thaalis.each do |thaali| %>
+    <div  id="thaali_<%= thaali.year %>" class="row py-3 fs-5 border-bottom border-light">
+        <div id="<%= thaali.year %>" class="col">
+            <%= button_to thaali.year, takhmeen_path(thaali), method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
+        </div>
+        <div class="col text-danger fw-bold">
+            <%= thaali.show_currency_for(thaali.balance) %>
+        </div>
+        <div class="col text-success fw-bold">
+            <%= thaali.show_currency_for(thaali.paid) %>
+        </div>
+        <div class="col">
+            <%= thaali.is_complete %>
+        </div>
+    </div>
+<% end %>

@@ -20,22 +20,14 @@
 
 
 <%# * Thaali Takhmeens %>
-<p>Total Takhmeens <%= @thaalis.count %></p>
+<%= button_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel), method: :get,  class: "btn btn-outline-success mt-5 vstack mx-auto" if @thaali_inactive %>
 
-<% if @thaali_inactive %>
-    <%= link_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel) %>
-<% end %>
-
-<% if @thaalis.any? %>
-    <% @thaalis.each do | thaali | %>
-        <div id="thaali_<%= thaali.year %>">
-            <span id="<%= thaali.year %>"> <%= link_to thaali.year, takhmeen_path(thaali) %> </span>
-            <%= thaali.total %>
-            <%= thaali.balance %>
-            <%= thaali.is_complete %>
-
-            <%= link_to "New Transaction", new_takhmeen_transaction_path(thaali) unless thaali.is_complete %>
-        </div>
-    <% end %>
-
-<% end %>
+<div id="thaalis" class="mt-5">
+    <div class="container text-center">
+        <% if @thaalis.any? %>
+            <%= render partial: "takhmeens" %>
+        <% else %>
+            <p class="mt-7 fs-4 text-warning">No takhmeens to show</p>
+        <% end %>
+    </div>
+</div>
