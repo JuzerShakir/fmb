@@ -12,16 +12,15 @@
 </div>
 
 
-<%# * Current Year Thaalis %>
+<%# * show - Current Year Thaalis %>
 <%= turbo_frame_tag :results do %>
-    <div id="thaalis"  class="mt-5">
-        <% @thaalis.each do |thaali| %>
-            <%= link_to thaali.number, takhmeen_path(thaali) %>
-            <%= link_to thaali.sabeel.hof_name, sabeel_path(thaali.sabeel) %>
-            <%= thaali.size %>
-            <%= thaali.total %>
-            <%= thaali.is_complete %>
-            <br>
-        <% end %>
+    <div id="thaalis" class="mt-5">
+        <div class="container text-center">
+            <% if @thaalis.any? %>
+                <%= render partial: "show" %>
+            <% else %>
+                <p class="fs-2 text-danger">No Thaalis to show</p>
+            <% end %>
+        </div>
     </div>
 <% end %>
