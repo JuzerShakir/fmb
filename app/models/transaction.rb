@@ -13,6 +13,11 @@ class Transaction < ApplicationRecord
     recipe_no_changed?
   end
 
+  # * RANSACK
+  ransacker :recipe_no do
+      Arel.sql("to_char(\"#{table_name}\".\"recipe_no\", '99999999')")
+  end
+
   # * Validations
   #mode
   validates_presence_of :mode, message: "must be selected"

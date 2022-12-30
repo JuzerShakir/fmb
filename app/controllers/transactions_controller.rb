@@ -3,7 +3,8 @@ class TransactionsController < ApplicationController
     before_action :check_if_takhmeen_is_complete, only: [:new]
 
     def index
-        @transactions = Transaction.all.order(created_at: :DESC)
+        @q = Transaction.ransack(params[:q])
+        @transactions = @q.result(distinct: true).order(created_at: :DESC)
     end
 
     def new

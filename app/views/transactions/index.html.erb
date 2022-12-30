@@ -1,9 +1,24 @@
+<%# * Title %>
 <h1 class= "text-center">All Transactions</h1>
 
-<% @transactions.each do |transaction| %>
-    <%= link_to transaction.recipe_no, transaction_path(transaction) %>
-    <%= transaction.amount %>
-    <%= transaction.mode %>
-    <%= transaction.on_date %>
-    <br>
+
+<%# * search %>
+<div id="search">
+    <%= search_form_for @q, data: { turbo_frame: :results }, url: all_transactions_path do |f| %>
+      <%= f.search_field :recipe_no_cont, oninput: 'this.form.requestSubmit()', placeholder: "Search By Recipe Number" %>
+    <% end %>
+</div>
+
+
+<%# * show %>
+<%= turbo_frame_tag :results do %>
+    <div id="transactions">
+        <% @transactions.each do |transaction| %>
+            <%= link_to transaction.recipe_no, transaction_path(transaction) %>
+            <%= transaction.amount %>
+            <%= transaction.mode %>
+            <%= transaction.on_date %>
+            <br>
+        <% end %>
+    </div>
 <% end %>

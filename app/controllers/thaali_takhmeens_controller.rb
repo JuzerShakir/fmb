@@ -3,7 +3,6 @@ class ThaaliTakhmeensController < ApplicationController
     before_action :check_for_current_year_takhmeen, only: [:new]
 
     def index
-        # @thaalis =
         @q = ThaaliTakhmeen.in_the_year($CURRENT_YEAR_TAKHMEEN).ransack(params[:q])
         @thaalis = @q.result(distinct: true).order(number: :ASC)
     end
