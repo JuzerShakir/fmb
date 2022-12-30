@@ -14,13 +14,5 @@
 
 <%# * show %>
 <%= turbo_frame_tag :results do %>
-    <div id="transactions" class="mt-5">
-        <% @transactions.each do |transaction| %>
-            <%= link_to transaction.recipe_no, transaction_path(transaction) %>
-            <%= transaction.amount %>
-            <%= transaction.mode %>
-            <%= transaction.readable_on_date %>
-            <br>
-        <% end %>
-    </div>
+    <%= render partial: "show" %>
 <% end %>

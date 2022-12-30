@@ -1,0 +1,44 @@
+<div id="transactions" class="mt-5">
+    <div class="container text-center">
+        <% if @transactions.any? %>
+            <div id="show-header" class="row py-2 fs-5 fw-semibold">
+                <div class="col">
+                <th>Recipe No.</th>
+                </div>
+                <div class="col">
+                <th>Amount</th>
+                </div>
+                <div class="col">
+                <th>Thaali No.</th>
+                </div>
+                <div class="col">
+                <th>Paid On</th>
+                </div>
+                <div class="col">
+                <th>Mode</th>
+                </div>
+            </div>
+            <% @transactions.each do |transaction| %>
+                <div class="row py-3 fs-5 border-bottom botder-light">
+                    <div class="col">
+                        <%= button_to transaction.recipe_no, transaction, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
+                    </div>
+                    <div class="col fst-italic fw-bold">
+                        <%= transaction.amount_with_currency %>
+                    </div>
+                    <div class="col">
+                        <%= button_to transaction.thaali_takhmeen.number, takhmeen_path(transaction.thaali_takhmeen), method: :get, class: "btn btn-outline-secondary btn-sm py-1" %>
+                    </div>
+                    <div class="col text-secondary">
+                        <%= time_ago_in_words(transaction.on_date) %>
+                    </div>
+                    <div class="col text-secondary">
+                        <%= transaction.mode.capitalize %>
+                    </div>
+                </div>
+            <% end %>
+        <% else %>
+            <p class="fs-2 text-danger">Ohh! The recipe number your looking for doesn't exist!</p>
+        <% end %>
+    </div>
+</div>
