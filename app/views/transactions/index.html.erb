@@ -14,5 +14,13 @@
 
 <%# * show %>
 <%= turbo_frame_tag :results do %>
-    <%= render partial: "show" %>
+    <div id="transactions" class="mt-5">
+        <div class="container text-center">
+            <% if @transactions.any? %>
+                <%= render partial: "show" %>
+            <% else %>
+                <p class="fs-2 text-danger">Ohh! The recipe number your looking for doesn't exist!</p>
+            <% end %>
+        </div>
+    </div>
 <% end %>

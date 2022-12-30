@@ -1,7 +1,6 @@
 <%# * Title %>
 <h1 class= "text-center">Show Thaali Takhmeen #<%= "#{@thaali_takhmeen.number}" %></h1>
-
-<h3>of ITS <%= link_to @sabeel.its, sabeel_path(@sabeel) %>
+<h3 class= "text-center">of ITS <%= link_to @sabeel.its, sabeel_path(@sabeel) %>
     (<%= @thaali_takhmeen.year %>) </h3>
 
 
@@ -24,17 +23,14 @@
 
 
 <%# * Transactions %>
-<p>Total Transactions <%= @transactions.count %></p>
+<%= button_to "New Transaction", new_takhmeen_transaction_path(@thaali_takhmeen), class: "btn btn-outline-success mt-5 vstack mx-auto" unless @thaali_takhmeen.is_complete %>
 
-<%= link_to "New Transaction", new_takhmeen_transaction_path(@thaali_takhmeen) unless @thaali_takhmeen.is_complete %>
+<p class="mt-5 fw-bold text-center text-info">Total number of Transactions: <%= @transactions.count %></p>
 
 <% if @transactions.any? %>
-    <% @transactions.each do | transaction | %>
-        <div id="transaction_<%= transaction.recipe_no %>">
-            <span id="<%= transaction.recipe_no %>"> <%= link_to transaction.recipe_no, transaction_path(transaction) %> </span>
-            <%= transaction.amount %>
-            <%= transaction.mode %>
-            <%= transaction.readable_on_date %>
+    <div id="transactions" class="mt-3">
+        <div class="container text-center">
+            <%= render partial: "transactions/show" %>
         </div>
-    <% end %>
+    </div>
 <% end %>
