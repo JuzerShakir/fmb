@@ -62,6 +62,10 @@ class Transaction < ApplicationRecord
     self.on_date.to_time.strftime('%A, %b %d %Y')
   end
 
+  def amount_with_currency
+    self.amount.to_s.prepend("₹")
+  end
+
   private
 
     def add_all_transaction_amounts_to_paid_amount
