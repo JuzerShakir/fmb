@@ -3,16 +3,18 @@
 
 
 <%# * search %>
-<div id="search">
+<div id="search" class="col-md-4 offset-md-4 mt-5" role="search">
     <%= search_form_for @q, data: { turbo_frame: :results } do |f| %>
-      <%= f.search_field :hof_name_or_its_cont, oninput: 'this.form.requestSubmit()', placeholder: "Search By HOF Name or ITS Number" %>
+      <%= f.search_field :hof_name_or_its_cont,
+            oninput: 'this.form.requestSubmit()', placeholder: "Search By HOF Name or ITS No.",
+                class: "form-control",  type: "search", autofocus: true, autocomplete: "off"  %>
     <% end %>
 </div>
 
 
 <%# * show %>
 <%= turbo_frame_tag :results do %>
-    <div id="sabeels">
+    <div id="sabeels" class="mt-5">
         <% @sabeels.each do |sabeel| %>
             <%= link_to "#{sabeel.its}", sabeel_path(sabeel) %>
             <%= sabeel.hof_name %>

@@ -3,16 +3,18 @@
 
 
 <%# * search %>
-<div id="search">
+<div id="search" class="col-md-4 offset-md-4 mt-5" role="search">
     <%= search_form_for @q, data: { turbo_frame: :results }, url: all_transactions_path do |f| %>
-      <%= f.search_field :recipe_no_cont, oninput: 'this.form.requestSubmit()', placeholder: "Search By Recipe Number" %>
+      <%= f.search_field :recipe_no_cont,
+            oninput: 'this.form.requestSubmit()', placeholder: "Search By Recipe Number",
+            class: "form-control",  type: "search", autofocus: true, autocomplete: "off" %>
     <% end %>
 </div>
 
 
 <%# * show %>
 <%= turbo_frame_tag :results do %>
-    <div id="transactions">
+    <div id="transactions" class="mt-5">
         <% @transactions.each do |transaction| %>
             <%= link_to transaction.recipe_no, transaction_path(transaction) %>
             <%= transaction.amount %>

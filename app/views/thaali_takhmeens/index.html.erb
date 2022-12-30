@@ -3,16 +3,18 @@
 
 
 <%# * search %>
-<div id="search">
+<div id="search" class="col-md-4 offset-md-4 mt-5" role="search">
     <%= search_form_for @q, data: { turbo_frame: :results }, url: root_path do |f| %>
-      <%= f.search_field :number_cont, oninput: 'this.form.requestSubmit()', placeholder: "Search By Thaali Number" %>
+      <%= f.search_field :number_cont,
+            oninput: 'this.form.requestSubmit()', placeholder: "Search By Thaali Number",
+            class: "form-control",  type: "search", autofocus: true, autocomplete: "off" %>
     <% end %>
 </div>
 
 
 <%# * Current Year Thaalis %>
 <%= turbo_frame_tag :results do %>
-    <div id="thaalis">
+    <div id="thaalis"  class="mt-5">
         <% @thaalis.each do |thaali| %>
             <%= link_to thaali.number, takhmeen_path(thaali) %>
             <%= link_to thaali.sabeel.hof_name, sabeel_path(thaali.sabeel) %>
