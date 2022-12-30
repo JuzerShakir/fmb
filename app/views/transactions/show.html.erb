@@ -10,7 +10,7 @@
 <p><%= link_to @sabeel.hof_name, sabeel_path(@sabeel) %></p>
 <p><%= @transaction.amount %></p>
 <p><%= @transaction.mode %></p>
-<p><%= @transaction.on_date.to_time.strftime('%A, %b %d %Y') %></p>
+<p><%= @transaction.readable_on_date %></p>
 
 
 <%# * action buttons %>

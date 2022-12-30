@@ -34,7 +34,7 @@
             <span id="<%= transaction.recipe_no %>"> <%= link_to transaction.recipe_no, transaction_path(transaction) %> </span>
             <%= transaction.amount %>
             <%= transaction.mode %>
-            <%= transaction.on_date %>
+            <%= transaction.readable_on_date %>
         </div>
     <% end %>
 <% end %>
