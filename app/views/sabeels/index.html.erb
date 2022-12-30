@@ -18,6 +18,9 @@
         <% @sabeels.each do |sabeel| %>
             <%= link_to "#{sabeel.its}", sabeel_path(sabeel) %>
             <%= sabeel.hof_name %>
+            <%= sabeel.takes_thaali %>
+            <%= sabeel.address %>
+            <%= sabeel.mobile %>
             <br>
         <% end %>
     </div>
