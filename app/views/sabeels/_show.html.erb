@@ -1,0 +1,38 @@
+<p class="mt-5 fw-bold text-center text-info">Total number of Sabeels: <%= @sabeels.count %></p>
+
+<div id="show-header-thaali" class="row py-2 fs-5 fw-semibold">
+    <div class="col">
+        <th>ITS No</th>
+    </div>
+    <div class="col">
+        <th>HOF Name</th>
+    </div>
+    <div class="col">
+        <th>Address</th>
+    </div>
+    <div class="col">
+        <th>Mobile</th>
+    </div>
+    <%# <div class="col">
+        <th>Takes Thaali?</th>
+    </div> %>
+</div>
+<% @sabeels.each do |sabeel| %>
+    <div class="row py-3 fs-5 border-bottom border-light">
+        <div class="col">
+            <%= button_to sabeel.its, sabeel, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
+        </div>
+        <div class="col fw-bold">
+            <%= sabeel.hof_name %>
+        </div>
+        <div class="col text-secondary">
+            <%= sabeel.address %>
+        </div>
+        <div class="col text-secondary">
+            <%= sabeel.mobile %>
+        </div>
+        <%# <div class="col text-secondary">
+            <%= thaali.is_complete %>
+        <%# </div> %>
+    </div>
+<% end %>

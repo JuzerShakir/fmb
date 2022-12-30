@@ -15,13 +15,12 @@
 <%# * show %>
 <%= turbo_frame_tag :results do %>
     <div id="sabeels" class="mt-5">
-        <% @sabeels.each do |sabeel| %>
-            <%= link_to "#{sabeel.its}", sabeel_path(sabeel) %>
-            <%= sabeel.hof_name %>
-            <%= sabeel.takes_thaali %>
-            <%= sabeel.address %>
-            <%= sabeel.mobile %>
-            <br>
-        <% end %>
+        <div class="container text-center">
+            <% if @sabeels.any? %>
+                <%= render partial: "show" %>
+            <% else %>
+                <p class="fs-2 text-danger">No Sabeels to show</p>
+            <% end %>
+        </div>
     </div>
 <% end %>
