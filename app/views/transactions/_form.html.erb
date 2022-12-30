@@ -1,7 +1,7 @@
 <%= simple_form_for @transaction, url: url_helper do |f| %>
     <%= f.error_notification %>
     <%= f.input :recipe_no %>
-    <%= f.input :amount %>
+    <%= f.input :amount, hint: "Shouldn't be greater than the balance amount: #{@transaction.thaali_takhmeen.balance}" %>
     <%= f.input :mode, collection: Transaction.modes.keys.map{ |mode| [mode.titleize, mode] }, include_blank: false %>
     <%= f.input :on_date, input_html: { class: "mb-4" }%>
     <%= f.button :submit %>
