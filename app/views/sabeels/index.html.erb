@@ -3,16 +3,20 @@
 
 
 <%# * search %>
-<%= search_form_for @q, data: { turbo_frame: :results } do |f| %>
-  <%= f.search_field :hof_name_or_its_cont, oninput: 'this.form.requestSubmit()', placeholder: "Search By HOF Name or ITS Number" %>
-<% end %>
+<div id="search">
+    <%= search_form_for @q, data: { turbo_frame: :results } do |f| %>
+      <%= f.search_field :hof_name_or_its_cont, oninput: 'this.form.requestSubmit()', placeholder: "Search By HOF Name or ITS Number" %>
+    <% end %>
+</div>
 
 
 <%# * show %>
 <%= turbo_frame_tag :results do %>
-    <% @sabeels.each do |sabeel| %>
-        <%= link_to "#{sabeel.its}", sabeel_path(sabeel) %>
-        <%= sabeel.hof_name %>
-        <br>
-    <% end %>
+    <div id="sabeels">
+        <% @sabeels.each do |sabeel| %>
+            <%= link_to "#{sabeel.its}", sabeel_path(sabeel) %>
+            <%= sabeel.hof_name %>
+            <br>
+        <% end %>
+    </div>
 <% end %>
