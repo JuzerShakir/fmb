@@ -2,11 +2,23 @@
 <h1 class= "text-center">Show all Takhmeens for the year: <%= $CURRENT_YEAR_TAKHMEEN %> </h1>
 
 
+<%# * search %>
+<div id="search">
+    <%= search_form_for @q, data: { turbo_frame: :results }, url: root_path do |f| %>
+      <%= f.search_field :number_cont, oninput: 'this.form.requestSubmit()', placeholder: "Search By Thaali Number" %>
+    <% end %>
+</div>
+
+
 <%# * Current Year Thaalis %>
-<% @thaalis.each do |thaali| %>
-    <%= link_to thaali.sabeel.hof_name, sabeel_path(thaali.sabeel) %>
-    <%= link_to thaali.number, takhmeen_path(thaali) %>
-    <%= thaali.size %>
-    <%= thaali.is_complete %>
-    <br>
+<%= turbo_frame_tag :results do %>
+    <div id="thaalis">
+        <% @thaalis.each do |thaali| %>
+            <%= link_to thaali.number, takhmeen_path(thaali) %>
+            <%= link_to thaali.sabeel.hof_name, sabeel_path(thaali.sabeel) %>
+            <%= thaali.size %>
+            <%= thaali.is_complete %>
+            <br>
+        <% end %>
+    </div>
 <% end %>

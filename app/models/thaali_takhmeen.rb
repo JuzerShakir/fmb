@@ -20,6 +20,11 @@ class ThaaliTakhmeen < ApplicationRecord
       "#{year}-#{number}"
   end
 
+  # * RANSACK
+  ransacker :number do
+      Arel.sql("to_char(\"#{table_name}\".\"number\", '99999999')")
+  end
+
   def should_generate_new_friendly_id?
     number_changed?
   end
