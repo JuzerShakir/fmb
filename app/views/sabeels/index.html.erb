@@ -1,5 +1,20 @@
+<%# * Title %>
 <h1 class= "text-center">All Sabeels</h1>
 
+
+<%# * search %>
+<%= search_form_for @q do |f| %>
+
+  <%# search by HOF Name or ITS number %>
+  <%= f.label :by_hof_name_or_its_cont %>
+  <%= f.search_field :hof_name_or_its_cont %>
+
+
+  <%= f.submit %>
+<% end %>
+
+
+<%# * show %>
 <% @sabeels.each do |sabeel| %>
     <%= link_to "#{sabeel.its}", sabeel_path(sabeel) %>
     <%= sabeel.hof_name %>

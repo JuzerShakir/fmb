@@ -2,7 +2,8 @@ class SabeelsController < ApplicationController
     before_action :set_sabeel, except: [:index, :new, :create]
 
     def index
-        @sabeels = Sabeel.all.order(created_at: :DESC)
+        @q = Sabeel.ransack(params[:q])
+        @sabeels = @q.result(distinct: true).order(created_at: :DESC)
     end
 
     def new

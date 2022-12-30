@@ -15,6 +15,11 @@ class Sabeel < ApplicationRecord
       its_changed?
     end
 
+    # * RANSACK
+    ransacker :its do
+        Arel.sql("to_char(\"#{table_name}\".\"its\", '99999999')")
+    end
+
     # * Validations
     # ITS
     validates_numericality_of :its, only_integer: true, message: "must be a number"
