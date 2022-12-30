@@ -1,9 +1,9 @@
 <%# * Title %>
-<h1 class= "text-center">Show Transaction #<%= @transaction.recipe_no %></h1>
+<h2 class= "text-center">Show Transaction #<%= @transaction.recipe_no %></h2>
 
-<h3 class= "text-center">of the thaali number
+<h4 class= "text-center">of the thaali number
      <%= link_to @thaali_takhmeen.number, takhmeen_path(@thaali_takhmeen) %>
-     (<%= @transaction.thaali_takhmeen.year %>)</h3>
+     (<%= @transaction.thaali_takhmeen.year %>)</h4>
 
 
 <%# * show %>
