@@ -49,7 +49,7 @@ RSpec.describe "Transaction features"do
         end
 
         it "should have an edit link" do
-            expect(page).to have_button("Edit Transaction")
+            expect(page).to have_link("Edit Transaction")
         end
 
         scenario "should BE able to update with valid values" do
