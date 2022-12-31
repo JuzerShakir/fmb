@@ -11,7 +11,7 @@ RSpec.describe "ThaaliTakhmeen features" do
 
             visit sabeel_path(@sabeel)
 
-            expect(page).to have_link('New Takhmeen')
+            expect(page).to have_button('New Takhmeen')
         end
 
         scenario "NOT visible if sabeel is ALREADY taking thaali for current year" do
@@ -29,7 +29,7 @@ RSpec.describe "ThaaliTakhmeen features" do
 
             click_on "New Takhmeen"
             expect(current_path).to eql new_sabeel_takhmeen_path(@sabeel)
-            expect(page).to have_css('h1', text: "New Takhmeen")
+            expect(page).to have_css('h2', text: "New Takhmeen")
 
             attributes = FactoryBot.attributes_for(:thaali_takhmeen).extract!(:number, :total, :size)
             @size = attributes.extract!(:size)
@@ -53,7 +53,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         scenario "should NOT BE able to create with invalid values" do
             click_button "Create Thaali takhmeen"
 
-            # we haven't selected any apartment, which is required, hence sabeel will not be saved
+            # we haven't selected any size, which is required, hence thaali will not be saved
             expect(page).to have_content("Please review the problems below:")
             expect(page).to have_content("Size cannot be blank")
         end
@@ -80,15 +80,19 @@ RSpec.describe "ThaaliTakhmeen features" do
 
         visit takhmeen_path(@thaali)
 
-        FactoryBot.attributes_for(:thaali_takhmeen).keys.each do | attrb |
-            expect(page).to have_content("#{@thaali.send(attrb).humanize}")
+        atrbs = FactoryBot.attributes_for(:thaali_takhmeen).keys - [:size]
+
+        atrbs.each do | attrb |
+            expect(page).to have_content("#{@thaali.send(attrb)}")
         end
+
+        expect(page).to have_content("#{@thaali.size.humanize}")
     end
 
     scenario "Deleting ThaaliTakhmeen" do
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         visit takhmeen_path(@thaali)
-        expect(page).to have_button("Delete Takhmeen")
+        expect(page).to have_button("Delete Thaali Takhmeen")
 
         click_on "Delete Thaali Takhmeen"
         click_on "Yes, delete it!"
