@@ -19,7 +19,7 @@
             <% if @sabeels.any? %>
                 <%= render partial: "all_sabeels" %>
             <% else %>
-                <p class="fs-2 text-danger">No Sabeels to show</p>
+                <%= render partial: "shared/no_results"%>
             <% end %>
         </div>
     </div>

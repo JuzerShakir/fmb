@@ -19,7 +19,7 @@
             <% if @thaalis.any? %>
                 <%= render partial: "all_thaali_takhmeens" %>
             <% else %>
-                <p class="fs-2 text-danger">No Thaalis to show</p>
+                <%= render partial: "shared/no_results"%>
             <% end %>
         </div>
     </div>
