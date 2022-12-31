@@ -17,7 +17,7 @@
     <div id="transactions" class="mt-5">
         <div class="container text-center">
             <% if @transactions.any? %>
-                <%= render partial: "show" %>
+                <%= render partial: "all_transactions" %>
             <% else %>
                 <p class="fs-2 text-danger">No Transactions to show</p>
             <% end %>
