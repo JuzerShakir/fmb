@@ -11,12 +11,12 @@ RSpec.describe "Transaction features"do
         before do
             @attributes = FactoryBot.attributes_for(:transaction)
 
-            visit sabeel_path(@sabeel)
+            visit takhmeen_path(@thaali)
 
-            click_link "New Transaction"
+            click_button "New Transaction"
             expect(current_path).to eql new_takhmeen_transaction_path(@thaali)
 
-            expect(page).to have_css('h1', text: "New Transaction")
+            expect(page).to have_css('h2', text: "New Transaction")
             @select_atr = @attributes.extract!(:mode, :on_date)
 
             @attributes.each do |k, v|
@@ -49,11 +49,11 @@ RSpec.describe "Transaction features"do
         end
 
         it "should have an edit link" do
-            expect(page).to have_link("Edit Transaction")
+            expect(page).to have_button("Edit Transaction")
         end
 
         scenario "should BE able to update with valid values" do
-            click_link "Edit Transaction"
+            click_button "Edit Transaction"
             fill_in "transaction_amount", with: Faker::Number.number(digits: 4)
 
             click_on "Update Transaction"
@@ -67,7 +67,7 @@ RSpec.describe "Transaction features"do
         expect(page).to have_content("#{@transaction.recipe_no}")
         expect(page).to have_content("#{@transaction.amount}")
         expect(page).to have_content("#{@transaction.on_date.to_time.strftime('%A, %b %d %Y')}")
-        expect(page).to have_content("#{@transaction.mode}")
+        expect(page).to have_content("#{@transaction.mode.humanize}")
     end
 
     scenario "Deleting transaction" do
