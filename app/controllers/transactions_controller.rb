@@ -1,6 +1,7 @@
 class TransactionsController < ApplicationController
     before_action :set_transaction, only: [:show, :edit, :update, :destroy]
     before_action :check_if_takhmeen_is_complete, only: [:new]
+    before_action :set_thaali_takhmeen, only: [:show, :edit, :destroy]
 
     def index
         @q = Transaction.ransack(params[:q])
@@ -25,12 +26,11 @@ class TransactionsController < ApplicationController
     end
 
     def show
-        @thaali_takhmeen = @transaction.thaali_takhmeen
         @sabeel = @thaali_takhmeen.sabeel
     end
 
     def edit
-        @thaali_takhmeen = @transaction.thaali_takhmeen
+        # @thaali_takhmeen = @transaction.thaali_takhmeen
         @total_balance = (@thaali_takhmeen.balance + @transaction.amount).humanize
     end
 
@@ -43,9 +43,9 @@ class TransactionsController < ApplicationController
     end
 
     def destroy
-        thaali_takhmeen = @transaction.thaali_takhmeen
+        # thaali_takhmeen = @transaction.thaali_takhmeen
         @transaction.destroy
-        redirect_to takhmeen_path(thaali_takhmeen), success: "Transaction destroyed successfully"
+        redirect_to takhmeen_path(@thaali_takhmeen), success: "Transaction destroyed successfully"
     end
 
     private
@@ -55,6 +55,10 @@ class TransactionsController < ApplicationController
 
         def set_transaction
             @transaction = Transaction.find(params[:id])
+        end
+
+        def set_thaali_takhmeen
+            @thaali_takhmeen = @transaction.thaali_takhmeen
         end
 
         def check_if_takhmeen_is_complete
