@@ -9,6 +9,7 @@ class TransactionsController < ApplicationController
 
     def new
         @transaction = @thaali_takhmeen.transactions.new
+        @total_balance = @thaali_takhmeen.balance.humanize
     end
 
     def create
@@ -29,6 +30,8 @@ class TransactionsController < ApplicationController
     end
 
     def edit
+        @thaali_takhmeen = @transaction.thaali_takhmeen
+        @total_balance = (@thaali_takhmeen.balance + @transaction.amount).humanize
     end
 
     def update
