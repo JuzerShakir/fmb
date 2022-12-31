@@ -57,9 +57,11 @@ class Sabeel < ApplicationRecord
 
     scope :in_phase_3, -> { where(apartment: ["husami_a", "husami_b", "noorani_a", "noorani_b"]) }
 
-    scope :who_takes_thaali, -> { where(takes_thaali: true) }
+    scope :currently_takes_thaali, -> current_year { joins(:thaali_takhmeens).where(thaali_takhmeens: {year: current_year}) }
 
-    scope :who_doesnt_takes_thaali, -> { where(takes_thaali: false) }
+    scope :previously_took_thaali, -> current_year { joins(:thaali_takhmeens).where.not(thaali_takhmeens: {year: current_year}) }
+
+    scope :never_done_takhmeen, ->{ where.missing(:thaali_takhmeens) }
 
     scope :thaalis_of_the_size, -> size { joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
 

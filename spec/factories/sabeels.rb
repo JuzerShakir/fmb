@@ -13,10 +13,6 @@ FactoryBot.define do
     mobile { Faker::Number.number(digits: 10) }
     email { Faker::Internet.free_email }
 
-    trait :with_thaali do
-      takes_thaali { true }
-    end
-
     trait :in_phase_1 do
       apartment { $PHASE_1.sample }
     end
@@ -29,7 +25,7 @@ FactoryBot.define do
       apartment { $PHASE_3.sample }
     end
 
-    factory :sabeel_with_thaali, traits: [:with_thaali]
+    # factory :sabeel_with_thaali, traits: [:with_thaali]
     factory :sabeel_in_phase_1, traits: [:in_phase_1]
     factory :sabeel_in_phase_2, traits: [:in_phase_2]
     factory :sabeel_in_phase_3, traits: [:in_phase_3]

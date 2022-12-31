@@ -131,17 +131,33 @@ RSpec.describe Sabeel, :type => :model do
 
         context "for thaali" do
             let(:all_sabeels) { [*phase_1, *phase_2, *phase_3] }
-            let(:sabeels_with_thaali) { create_list(:sabeel_with_thaali, 2) }
+            let(:current_thaali) { all_sabeels.sample(n) }
+            let(:x_thaali) { all_sabeels - current_thaali }
 
-            context ".who_takes_thaali" do
-                it "should ONLY return all sabeels who takes thaali" do
-                    expect(described_class.who_takes_thaali).to contain_exactly(*sabeels_with_thaali)
+            context ".currently_takes_thaali" do
+                it "should ONLY return all sabeels who TAKES thaali in the CURRENT YEAR" do
+                    current_thaali.each do |sabeel|
+                        FactoryBot.create(:thaali_takhmeen_of_current_year, sabeel_id: sabeel.id)
+                    end
+
+                    expect(described_class.currently_takes_thaali($CURRENT_YEAR_TAKHMEEN)).to contain_exactly(*current_thaali)
                 end
             end
 
-            context ".who_doesnt_takes_thaali" do
-                it "should ONLY return all sabeels who DOES NOT take thaali" do
-                    expect(described_class.who_doesnt_takes_thaali).not_to contain_exactly(*sabeels_with_thaali)
+            context ".previously_took_thaali" do
+                it "should ONLY return all sabeels who DOES NOT take thaali in the CURRENT YEAR" do
+                    x_thaali.each do |sabeel|
+                        FactoryBot.create(:thaali_takhmeen_of_previous_year, sabeel_id: sabeel.id)
+                    end
+
+                    expect(described_class.previously_took_thaali($CURRENT_YEAR_TAKHMEEN)).to contain_exactly(*x_thaali)
+                end
+            end
+
+            context ".never_done_takhmeen" do
+                it "should return ALL the sabeels who has never taken the thaali" do
+                    sabeel = FactoryBot.create(:sabeel)
+                    expect(described_class.never_done_takhmeen).to contain_exactly(sabeel)
                 end
             end
 
