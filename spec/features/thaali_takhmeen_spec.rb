@@ -81,7 +81,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         visit takhmeen_path(@thaali)
 
         FactoryBot.attributes_for(:thaali_takhmeen).keys.each do | attrb |
-            expect(page).to have_content("#{@thaali.send(attrb)}")
+            expect(page).to have_content("#{@thaali.send(attrb).humanize}")
         end
     end
 
