@@ -5,6 +5,6 @@
     <%= f.input :recipe_no %>
     <%= f.input :amount, hint: amount_message %>
     <%= f.input :mode, collection: Transaction.modes.keys.map{ |mode| [mode.titleize, mode] } %>
-    <%= f.input :on_date, input_html: { class: "mb-4" }%>
+    <%= f.input :on_date %>
     <%= f.button :submit %>
 <% end %>

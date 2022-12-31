@@ -14,6 +14,6 @@
 
     <%= f.input :number %>
     <%= f.input :size, collection: ThaaliTakhmeen.sizes.keys.map{ |size| [size.titleize, size] } %>
-    <%= f.input :total, input_html: { class: "mb-5" }%>
+    <%= f.input :total %>
     <%= f.button :submit %>
 <% end %>

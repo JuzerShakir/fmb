@@ -30,7 +30,6 @@ class TransactionsController < ApplicationController
     end
 
     def edit
-        # @thaali_takhmeen = @transaction.thaali_takhmeen
         @total_balance = (@thaali_takhmeen.balance + @transaction.amount).humanize
     end
 
@@ -43,7 +42,6 @@ class TransactionsController < ApplicationController
     end
 
     def destroy
-        # thaali_takhmeen = @transaction.thaali_takhmeen
         @transaction.destroy
         redirect_to takhmeen_path(@thaali_takhmeen), success: "Transaction destroyed successfully"
     end
