@@ -1,16 +1,13 @@
 <%# * Title %>
-<h2 class= "text-center">Show Transaction #<%= @transaction.recipe_no %></h2>
+<h2 class= "text-center">Show Transaction <span class="text-muted">#<%= @transaction.recipe_no %></span></h2>
 
 <h4 class= "text-center">of the thaali number
-     <%= link_to @thaali_takhmeen.number, takhmeen_path(@thaali_takhmeen) %>
-     (<%= @transaction.thaali_takhmeen.year %>)</h4>
+     <%= link_to @thaali_takhmeen.number, takhmeen_path(@thaali_takhmeen), class: "btn btn-outline-primary" %>
+     <span class="text-muted">(<%= @transaction.thaali_takhmeen.year %>)</span></h4>
 
 
 <%# * show %>
-<p><%= link_to @sabeel.hof_name, sabeel_path(@sabeel) %></p>
-<p><%= @transaction.amount %></p>
-<p><%= @transaction.mode %></p>
-<p><%= @transaction.readable_on_date %></p>
+<%= render partial: "show" %>
 
 
 <%# * action buttons %>
