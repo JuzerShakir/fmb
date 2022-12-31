@@ -20,10 +20,6 @@
 
 <div id="thaalis" class="mt-5">
     <div class="container text-center">
-        <% if @thaalis.any? %>
-            <%= render partial: "takhmeens" %>
-        <% else %>
-            <p class="mt-7 fs-4 text-warning">No takhmeens to show</p>
-        <% end %>
+        <%= render partial: "takhmeens" if @thaalis.any? %>
     </div>
 </div>
