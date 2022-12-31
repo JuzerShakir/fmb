@@ -110,6 +110,7 @@ GEM
       activerecord (>= 4.0.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    humanize (2.5.1)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
@@ -263,6 +264,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   friendly_id
+  humanize (~> 2.5)
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
