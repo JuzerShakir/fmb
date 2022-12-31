@@ -54,17 +54,6 @@ RSpec.describe Sabeel, :type => :model do
 
             it { should validate_presence_of(:mobile).with_message("cannot be blank") }
         end
-
-        context "takes_thaali" do
-            # NOT RECOMMENDED BY SHOULDA-MATCHERS GEM
-            # it { should validate_inclusion_of(:takes_thaali).in_array([true, false]) }
-
-            it "should default to false after creating a sabeel instance" do
-                subject.save
-                expect(subject.takes_thaali).not_to be
-            end
-        end
-
     end
 
     context "callback method" do
