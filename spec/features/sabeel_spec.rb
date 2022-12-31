@@ -11,7 +11,7 @@ RSpec.describe "Sabeel features" do
             click_on "New Sabeel"
             expect(current_path).to eql new_sabeel_path
 
-            expect(page).to have_css('h1', text: "New Sabeel")
+            expect(page).to have_css('h2', text: "New Sabeel")
 
             attributes = FactoryBot.attributes_for(:sabeel)
             @apt = attributes.extract!(:apartment)
@@ -54,12 +54,6 @@ RSpec.describe "Sabeel features" do
     end
 
     context "takhmeen details of a sabeel" do
-        scenario "should NOT be shown if they haven't done any takhmeen yet" do
-            visit sabeel_path(@sabeel)
-            expect(page).to have_no_link("New Transaction")
-            expect(page).to have_content("Total Takhmeens 0")
-        end
-
         context "if it exists" do
             before do
                 2.times do |i|
@@ -72,29 +66,6 @@ RSpec.describe "Sabeel features" do
 
                 2.times do |i|
                     expect(page).to have_content($CURRENT_YEAR_TAKHMEEN - i)
-                end
-            end
-
-            context "should have a 'New Transaction' button" do
-                before do
-                    @thaali_1 = @sabeel.thaali_takhmeens.first
-                    @thaali_2 = @sabeel.thaali_takhmeens.last
-
-                    # we will set thaali_1 as completed takhmeen and another as pending
-                    FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali_1.id, amount: @thaali_1.total)
-                    visit sabeel_path @sabeel
-                end
-
-                scenario "should BE shown whos takhmeen isn't complete" do
-                    within "#thaali_#{@thaali_2.year}" do
-                        expect(page).to have_link("New Transaction")
-                    end
-                end
-
-                scenario "should NOT BE shown whos takhmeen isn't complete" do
-                    within "#thaali_#{@thaali_1.year}" do
-                        expect(page).to have_no_link("New Transaction")
-                    end
                 end
             end
         end

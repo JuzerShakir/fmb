@@ -5,7 +5,7 @@
     <%= f.error_notification %>
     <%= f.input :its, hint: its_message %>
     <%= f.input :hof_name, placeholder: "Shk. Fakruddin Nakhudawala" %>
-    <%= f.input :apartment, collection: Sabeel.apartments.keys.map{ |apartment| [apartment.titleize, apartment] }, include_blank: false %>
+    <%= f.input :apartment, collection: Sabeel.apartments.keys.map{ |apartment| [apartment.titleize, apartment] } %>
     <%= f.input :flat_no %>
     <%= f.input :mobile, hint: mobile_message, placeholder: "9876543210" %>
     <%= f.input :email, input_html: { class: "mb-5" }%>
