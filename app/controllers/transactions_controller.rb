@@ -21,7 +21,7 @@ class TransactionsController < ApplicationController
             @transaction.save
             redirect_to @transaction, success: "Transaction created successfully"
         else
-            render :new
+            render :new, status: :unprocessable_entity
         end
     end
 
@@ -38,7 +38,7 @@ class TransactionsController < ApplicationController
         if @transaction.update(transaction_params)
             redirect_to @transaction, success: "Transaction updated successfully"
         else
-            render :edit
+            render :edit, status: :unprocessable_entity
         end
     end
 

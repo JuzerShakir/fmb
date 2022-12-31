@@ -16,7 +16,7 @@ class SabeelsController < ApplicationController
             @sabeel.save
             redirect_to @sabeel, success: "Sabeel created successfully"
         else
-            render :new
+            render :new, status: :unprocessable_entity
         end
     end
 
@@ -32,7 +32,7 @@ class SabeelsController < ApplicationController
         if @sabeel.update(sabeel_params)
             redirect_to @sabeel, success: "Sabeel updated successfully"
         else
-            render :edit
+            render :edit, status: :unprocessable_entity
         end
     end
 

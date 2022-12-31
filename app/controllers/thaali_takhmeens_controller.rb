@@ -29,7 +29,7 @@ class ThaaliTakhmeensController < ApplicationController
             @thaali_takhmeen.save
             redirect_to takhmeen_path(@thaali_takhmeen), success: "Thaali Takhmeen created successfully"
         else
-            render :new
+            render :new, status: :unprocessable_entity
         end
     end
 
@@ -45,7 +45,7 @@ class ThaaliTakhmeensController < ApplicationController
         if @thaali_takhmeen.update(thaali_takhmeen_params)
             redirect_to takhmeen_path(@thaali_takhmeen), success: "Thaali Takhmeen updated successfully"
         else
-            render :edit
+            render :edit, status: :unprocessable_entity
         end
     end
 
