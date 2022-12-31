@@ -1,7 +1,6 @@
 class TransactionsController < ApplicationController
     before_action :set_transaction, only: [:show, :edit, :update, :destroy]
     before_action :check_if_takhmeen_is_complete, only: [:new]
-    before_action :set_thaali_takhmeen, only: [:show, :edit, :destroy]
 
     def index
         @q = Transaction.ransack(params[:q])
@@ -21,6 +20,7 @@ class TransactionsController < ApplicationController
             @transaction.save
             redirect_to @transaction, success: "Transaction created successfully"
         else
+            @total_balance = @thaali_takhmeen.balance.humanize
             render :new, status: :unprocessable_entity
         end
     end
@@ -37,6 +37,7 @@ class TransactionsController < ApplicationController
         if @transaction.update(transaction_params)
             redirect_to @transaction, success: "Transaction updated successfully"
         else
+            @total_balance = (@thaali_takhmeen.balance + @transaction.amount).humanize
             render :edit, status: :unprocessable_entity
         end
     end
@@ -53,9 +54,6 @@ class TransactionsController < ApplicationController
 
         def set_transaction
             @transaction = Transaction.find(params[:id])
-        end
-
-        def set_thaali_takhmeen
             @thaali_takhmeen = @transaction.thaali_takhmeen
         end
 
