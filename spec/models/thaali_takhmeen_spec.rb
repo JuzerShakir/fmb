@@ -75,28 +75,6 @@ RSpec.describe ThaaliTakhmeen, type: :model do
                 expect(subject.is_complete).to be_truthy
             end
         end
-
-
-        context "#set_takes_thaali_true" do
-            subject { create(:thaali_takhmeen) }
-
-            it { is_expected.to callback(:set_takes_thaali_true).after(:create) }
-
-            it "must set parent attribute takes_thaali to true" do
-                expect(subject.sabeel.takes_thaali).to be_truthy
-            end
-        end
-
-        context "#set_takes_thaali_false" do
-            subject { create(:thaali_takhmeen) }
-
-            it { is_expected.to callback(:set_takes_thaali_false).after(:destroy) }
-
-            it "must set parent attribute takes_thaali to false" do
-                subject.destroy
-                expect(subject.sabeel.takes_thaali).to be_falsey
-            end
-        end
     end
 
     context "scope" do

@@ -9,8 +9,6 @@ class ThaaliTakhmeen < ApplicationRecord
 
   # * Callbacks
   before_save :update_balance, :check_if_balance_is_zero
-  after_create :set_takes_thaali_true
-  after_destroy :set_takes_thaali_false
 
   # * FRIENDLY_ID
   extend FriendlyId
@@ -65,13 +63,5 @@ class ThaaliTakhmeen < ApplicationRecord
 
     def check_if_balance_is_zero
       self.is_complete = self.balance.zero?
-    end
-
-    def set_takes_thaali_true
-      self.sabeel.update_attribute(:takes_thaali, true)
-    end
-
-    def set_takes_thaali_false
-      self.sabeel.update_attribute(:takes_thaali, false)
     end
 end
