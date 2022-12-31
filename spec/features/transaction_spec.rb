@@ -53,7 +53,7 @@ RSpec.describe "Transaction features"do
         end
 
         scenario "should BE able to update with valid values" do
-            click_button "Edit Transaction"
+            click_link "Edit Transaction"
             fill_in "transaction_amount", with: Faker::Number.number(digits: 4)
 
             click_on "Update Transaction"
