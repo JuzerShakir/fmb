@@ -3,11 +3,7 @@
 
 
 <%# * show %>
-<p><%= @sabeel.hof_name %></p>
-<p><%= @sabeel.address %></p>
-<p><%= @sabeel.mobile %></p>
-<p><%= @sabeel.email %></p>
-
+<%= render partial: "show" %>
 
 <%# * action buttons %>
 <%= render partial: "shared/actions",

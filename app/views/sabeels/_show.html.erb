@@ -1,0 +1,32 @@
+<div class="col-md-5 mx-auto mt-5 border rounded shadow bg-body-tertiary rounded fs-5">
+    <div class="row text-dark">
+        <div class="col fw-bold py-3 text-end">
+            <span>Name</span>
+        </div>
+        <div class="col py-3">
+            <%= @sabeel.hof_name %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col fw-bold py-3 text-end">
+            <span>Address</span>
+        </div>
+        <div class="col py-3">
+            <%= @sabeel.address %>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col fw-bold py-3 text-end">
+            <span>Contact info:</span>
+        </div>
+        <div class="col py-3 fst-italic text-secondary">
+            <div class="row ps-2">
+                <%= @sabeel.mobile %>
+            </div>
+            <div class="row ps-2 mt-2 fs-6">
+                <%= @sabeel.email %>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
