@@ -65,7 +65,7 @@ RSpec.describe "Sabeels", type: :request do
 
             it "should render a new template" do
                 expect(response).to render_template(:new)
-                expect(response).to have_http_status(:ok)
+                expect(response).to have_http_status(:unprocessable_entity)
             end
         end
     end
@@ -91,7 +91,7 @@ RSpec.describe "Sabeels", type: :request do
         end
 
         it "total count of takhmeens of a sabeel" do
-            expect(response.body).to include("Total Takhmeens 3")
+            expect(response.body).to include("Total number of Takhmeens: 3")
         end
     end
 

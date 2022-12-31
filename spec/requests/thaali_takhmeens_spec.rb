@@ -93,7 +93,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
             it "should render a new template" do
               expect(response).to render_template(:new)
-              expect(response).to have_http_status(:ok)
+              expect(response).to have_http_status(:unprocessable_entity)
             end
         end
     end
@@ -120,7 +120,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
         it "total count of transactions of a takhmeen" do
             trans_count = @thaali.transactions.count
-            expect(response.body).to include("Total Transactions #{trans_count}")
+            expect(response.body).to include("Total number of Transactions: #{trans_count}")
         end
     end
 
