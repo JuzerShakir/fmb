@@ -22,9 +22,9 @@ FactoryBot.define do
       paid { total }
     end
 
-    factory :thaali_takhmeen_of_current_year, traits: [:current_year]
-    factory :thaali_takhmeen_of_previous_year, traits: [:previous_year]
-    factory :thaali_takhmeen_is_complete, traits: [:complete]
-    factory :thaali_takhmeen_complete_previous_year, traits: [:previous_year, :complete]
+    factory :active_takhmeen, traits: [:current_year]
+    factory :previous_takhmeen, traits: [:previous_year]
+    factory :completed_takhmeens, traits: [:complete]
+    factory :prev_completed_takhmeens, traits: [:previous_year, :complete]
   end
 end

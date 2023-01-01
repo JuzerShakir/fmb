@@ -58,6 +58,8 @@ class Transaction < ApplicationRecord
   # * Scopes
   scope :that_occured_on, -> date { where(on_date: date)}
 
+  # * instance methods
+
   def readable_on_date
     self.on_date.to_time.strftime('%A, %b %d %Y')
   end

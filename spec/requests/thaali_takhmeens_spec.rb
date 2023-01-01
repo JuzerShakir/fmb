@@ -4,7 +4,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     # * INDEX
     context "GET index" do
         before do
-            @thaalis = FactoryBot.create_list(:thaali_takhmeen_of_current_year, 3)
+            @thaalis = FactoryBot.create_list(:active_takhmeen, 3)
             get root_path
         end
 
@@ -35,7 +35,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
             context "and if sabeel has taken previous year thaali" do
                 before do
-                    @prev_thaali = FactoryBot.create(:thaali_takhmeen_of_previous_year, sabeel_id: @sabeel.id)
+                    @prev_thaali = FactoryBot.create(:previous_takhmeen, sabeel_id: @sabeel.id)
                     get new_sabeel_takhmeen_path(@sabeel)
                 end
                 it "should show 'number' & 'size' attribute values in the form" do
@@ -47,7 +47,7 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
 
         context "if sabeel HAS registered for currrent-year thaali" do
             before do
-                @cur_thaali = FactoryBot.create(:thaali_takhmeen_of_current_year, sabeel_id: @sabeel.id)
+                @cur_thaali = FactoryBot.create(:active_takhmeen, sabeel_id: @sabeel.id)
             end
             it "SHOULD NOT render new tempelate" do
                 get new_sabeel_takhmeen_path(@sabeel)

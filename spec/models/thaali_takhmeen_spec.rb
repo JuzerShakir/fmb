@@ -78,8 +78,8 @@ RSpec.describe ThaaliTakhmeen, type: :model do
     end
 
     context "scope" do
-        let!(:current_year_takhmeen) { create(:thaali_takhmeen_of_current_year) }
-        let!(:previous_year_takhmeen) { create(:thaali_takhmeen_of_previous_year) }
+        let!(:current_year_takhmeen) { create(:active_takhmeen) }
+        let!(:previous_year_takhmeen) { create(:previous_takhmeen) }
 
         context ".in_the_year" do
             it "should return all the thaalis of current year" do
@@ -91,25 +91,25 @@ RSpec.describe ThaaliTakhmeen, type: :model do
             end
         end
 
-        context ".all_pending_takhmeens_till_date" do
-            let!(:completed_takhmeen) { create(:thaali_takhmeen_is_complete) }
+        context ".pending" do
+            let!(:completed_takhmeen) { create(:completed_takhmeens) }
 
             it "should return all the thaalis for whos takhmeen is pending" do
-                expect(described_class.all_pending_takhmeens_till_date).to contain_exactly(current_year_takhmeen, previous_year_takhmeen)
+                expect(described_class.pending).to contain_exactly(current_year_takhmeen, previous_year_takhmeen)
             end
 
             it "should NOT return thaalis whose takhmeen is complete for any year" do
-                expect(described_class.all_pending_takhmeens_till_date).not_to contain_exactly(completed_takhmeen)
+                expect(described_class.pending).not_to contain_exactly(completed_takhmeen)
             end
         end
 
-        context ".all_pending_takhmeens_for_the_year" do
+        context ".pending_year" do
             it "should return all the thaalis whos takhmeen is pending for the current year" do
-                expect(described_class.all_pending_takhmeens_for_the_year($CURRENT_YEAR_TAKHMEEN)).to contain_exactly(current_year_takhmeen)
+                expect(described_class.pending_year($CURRENT_YEAR_TAKHMEEN)).to contain_exactly(current_year_takhmeen)
             end
 
             it "should NOT return thaalis of current year whos takhmeen is pending for the other years" do
-                expect(described_class.all_pending_takhmeens_for_the_year($CURRENT_YEAR_TAKHMEEN)).not_to contain_exactly(previous_year_takhmeen)
+                expect(described_class.pending_year($CURRENT_YEAR_TAKHMEEN)).not_to contain_exactly(previous_year_takhmeen)
             end
         end
     end

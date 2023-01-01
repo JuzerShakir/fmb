@@ -83,9 +83,9 @@ RSpec.describe Sabeel, :type => :model do
         size = available_sizes.sample
         other_size = available_sizes.difference([size]).sample
 
-        let(:phase_1) { create_list(:sabeel_in_phase_1, 5) }
-        let(:phase_2) { create_list(:sabeel_in_phase_2, 5) }
-        let(:phase_3) { create_list(:sabeel_in_phase_3, 5) }
+        let(:phase_1) { create_list(:sabeel_phase1, 5) }
+        let(:phase_2) { create_list(:sabeel_phase2, 5) }
+        let(:phase_3) { create_list(:sabeel_phase3, 5) }
 
         context "Phases" do
             context ".in_phase_1" do
@@ -123,23 +123,23 @@ RSpec.describe Sabeel, :type => :model do
             let(:current_thaali) { all_sabeels.sample(n) }
             let(:x_thaali) { all_sabeels - current_thaali }
 
-            context ".currently_takes_thaali" do
+            context ".active_takhmeen" do
                 it "should ONLY return all sabeels who TAKES thaali in the CURRENT YEAR" do
                     current_thaali.each do |sabeel|
-                        FactoryBot.create(:thaali_takhmeen_of_current_year, sabeel_id: sabeel.id)
+                        FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id)
                     end
 
-                    expect(described_class.currently_takes_thaali($CURRENT_YEAR_TAKHMEEN)).to contain_exactly(*current_thaali)
+                    expect(described_class.active_takhmeen($CURRENT_YEAR_TAKHMEEN)).to contain_exactly(*current_thaali)
                 end
             end
 
-            context ".previously_took_thaali_other_than" do
+            context ".takhmeens_other_than_the_year" do
                 it "should ONLY return all sabeels who DOES NOT take thaali in the CURRENT YEAR" do
                     x_thaali.each do |sabeel|
-                        FactoryBot.create(:thaali_takhmeen_of_previous_year, sabeel_id: sabeel.id)
+                        FactoryBot.create(:previous_takhmeen, sabeel_id: sabeel.id)
                     end
 
-                    expect(described_class.previously_took_thaali_other_than($CURRENT_YEAR_TAKHMEEN)).to contain_exactly(*x_thaali)
+                    expect(described_class.takhmeens_other_than_the_year($CURRENT_YEAR_TAKHMEEN)).to contain_exactly(*x_thaali)
                 end
             end
 
@@ -150,7 +150,7 @@ RSpec.describe Sabeel, :type => :model do
                 end
             end
 
-            context ".thaalis_of_the_size" do
+            context ".with_the_size" do
                 it "should ONLY return all sabeels for the thaali size specified" do
                     sabeels_with_size = all_sabeels.first(n)
 
@@ -160,7 +160,7 @@ RSpec.describe Sabeel, :type => :model do
 
                     sabeel_with_other_size = create(:thaali_takhmeen, sabeel: all_sabeels.last, size: other_size)
 
-                    output = described_class.thaalis_of_the_size(size)
+                    output = described_class.with_the_size(size)
 
                     expect(output).to contain_exactly(*sabeels_with_size)
                     expect(output).not_to contain_exactly(*sabeel_with_other_size)
@@ -168,7 +168,7 @@ RSpec.describe Sabeel, :type => :model do
             end
 
             context "from different Phases" do
-                context ".phase_1_thaali_size" do
+                context ".phase_1_size" do
                     it "should return all the thaalis of Phase 1 of the size specified" do
                         sabeels = phase_1.first(n)
 
@@ -178,14 +178,14 @@ RSpec.describe Sabeel, :type => :model do
 
                         sabeel_with_other_size = create(:thaali_takhmeen, sabeel: phase_1.last, size: other_size)
 
-                        output = described_class.phase_1_thaali_size(size)
+                        output = described_class.phase_1_size(size)
 
                         expect(output).to contain_exactly(*sabeels)
                         expect(output).not_to contain_exactly(*sabeel_with_other_size)
                     end
                 end
 
-                context ".phase_2_thaali_size" do
+                context ".phase_2_size" do
                     it "should return all the thaalis of Phase 2 of the size specified" do
                         sabeels = phase_2.first(n)
 
@@ -195,14 +195,14 @@ RSpec.describe Sabeel, :type => :model do
 
                         sabeel_with_other_size = create(:thaali_takhmeen, sabeel: phase_2.last, size: other_size)
 
-                        output = described_class.phase_2_thaali_size(size)
+                        output = described_class.phase_2_size(size)
 
                         expect(output).to contain_exactly(*sabeels)
                         expect(output).not_to contain_exactly(*sabeel_with_other_size)
                     end
                 end
 
-                context ".phase_3_thaali_size" do
+                context ".phase_3_size" do
                     it "should return all the thaalis of Phase 3 of the size specified" do
                         sabeels = phase_3.first(n)
 
@@ -212,7 +212,7 @@ RSpec.describe Sabeel, :type => :model do
 
                         sabeel_with_other_size = create(:thaali_takhmeen, sabeel: phase_3.last, size: other_size)
 
-                        output = described_class.phase_3_thaali_size(size)
+                        output = described_class.phase_3_size(size)
 
                         expect(output).to contain_exactly(*sabeels)
                         expect(output).not_to contain_exactly(*sabeel_with_other_size)
@@ -226,11 +226,11 @@ RSpec.describe Sabeel, :type => :model do
         context "#takhmeen_complete_of_last_year" do
             before do
                 @sabeel = FactoryBot.create(:sabeel)
-                FactoryBot.create(:thaali_takhmeen_of_current_year, sabeel_id: @sabeel.id)
+                FactoryBot.create(:active_takhmeen, sabeel_id: @sabeel.id)
             end
 
             it "should return TRUE if takhmeen is complete of previous year with respect to the given year" do
-                FactoryBot.create(:thaali_takhmeen_complete_previous_year, sabeel_id: @sabeel.id)
+                FactoryBot.create(:prev_completed_takhmeens, sabeel_id: @sabeel.id)
                 output = @sabeel.takhmeen_complete_of_last_year($CURRENT_YEAR_TAKHMEEN)
 
                 expect(output).to be_truthy
@@ -238,7 +238,7 @@ RSpec.describe Sabeel, :type => :model do
 
 
             it "should return FALSE if takhmeen is NOT complete of previous year with respect to the given year" do
-                FactoryBot.create(:thaali_takhmeen_of_previous_year, sabeel_id: @sabeel.id)
+                FactoryBot.create(:previous_takhmeen, sabeel_id: @sabeel.id)
                 output = @sabeel.takhmeen_complete_of_last_year($CURRENT_YEAR_TAKHMEEN)
 
                 expect(output).to be_falsy

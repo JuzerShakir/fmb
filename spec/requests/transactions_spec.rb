@@ -28,7 +28,7 @@ RSpec.describe "Transactions", type: :request do
 
         context "if thaali_takhmeen IS COMPLETED" do
             before do
-                @thaali = FactoryBot.create(:thaali_takhmeen_is_complete, sabeel_id: @sabeel.id)
+                @thaali = FactoryBot.create(:completed_takhmeens, sabeel_id: @sabeel.id)
                 get new_takhmeen_transaction_path(@thaali)
             end
             it "SHOULD NOT render new tempelate" do

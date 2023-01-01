@@ -55,19 +55,19 @@ class Sabeel < ApplicationRecord
 
     scope :in_phase_3, -> { where(apartment: ["husami_a", "husami_b", "noorani_a", "noorani_b"]) }
 
-    scope :currently_takes_thaali, -> current_year { joins(:thaali_takhmeens).where(thaali_takhmeens: {year: current_year}) }
+    scope :active_takhmeen, -> current_year { joins(:thaali_takhmeens).where(thaali_takhmeens: {year: current_year}) }
 
-    scope :previously_took_thaali_other_than, -> current_year { joins(:thaali_takhmeens).where.not(thaali_takhmeens: {year: current_year}) }
+    scope :takhmeens_other_than_the_year, -> current_year { joins(:thaali_takhmeens).where.not(thaali_takhmeens: {year: current_year}) }
 
     scope :never_done_takhmeen, ->{ where.missing(:thaali_takhmeens) }
 
-    scope :thaalis_of_the_size, -> size { joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
+    scope :with_the_size, -> size { joins(:thaali_takhmeens).where(thaali_takhmeens: {size: size}) }
 
-    scope :phase_1_thaali_size, -> size { in_phase_1.thaalis_of_the_size(size) }
+    scope :phase_1_size, -> size { in_phase_1.with_the_size(size) }
 
-    scope :phase_2_thaali_size, -> size { in_phase_2.thaalis_of_the_size(size) }
+    scope :phase_2_size, -> size { in_phase_2.with_the_size(size) }
 
-    scope :phase_3_thaali_size, -> size { in_phase_3.thaalis_of_the_size(size) }
+    scope :phase_3_size, -> size { in_phase_3.with_the_size(size) }
 
     def takhmeen_complete_of_last_year(year)
         self.thaali_takhmeens.where(year: year - 1, is_complete: true).any?

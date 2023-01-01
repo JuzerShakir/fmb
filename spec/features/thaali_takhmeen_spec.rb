@@ -7,7 +7,7 @@ RSpec.describe "ThaaliTakhmeen features" do
 
     context "'Create Takhmeen' link to be" do
         scenario "visible if sabeel is NOT taking thaali for current year" do
-            thaali = FactoryBot.create(:thaali_takhmeen_of_previous_year, sabeel_id: @sabeel.id)
+            thaali = FactoryBot.create(:previous_takhmeen, sabeel_id: @sabeel.id)
 
             visit sabeel_path(@sabeel)
 
@@ -15,7 +15,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
 
         scenario "NOT visible if sabeel is ALREADY taking thaali for current year" do
-            thaali = FactoryBot.create(:thaali_takhmeen_of_current_year, sabeel_id: @sabeel.id)
+            thaali = FactoryBot.create(:active_takhmeen, sabeel_id: @sabeel.id)
 
             visit sabeel_path(@sabeel)
 

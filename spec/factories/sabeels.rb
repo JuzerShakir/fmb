@@ -26,9 +26,9 @@ FactoryBot.define do
     end
 
     # factory :sabeel_with_thaali, traits: [:with_thaali]
-    factory :sabeel_in_phase_1, traits: [:in_phase_1]
-    factory :sabeel_in_phase_2, traits: [:in_phase_2]
-    factory :sabeel_in_phase_3, traits: [:in_phase_3]
+    factory :sabeel_phase1, traits: [:in_phase_1]
+    factory :sabeel_phase2, traits: [:in_phase_2]
+    factory :sabeel_phase3, traits: [:in_phase_3]
 
   end
 end
