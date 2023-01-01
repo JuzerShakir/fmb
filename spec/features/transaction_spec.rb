@@ -4,7 +4,6 @@ RSpec.describe "Transaction features"do
     before do
         @sabeel = FactoryBot.create(:sabeel)
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
-        @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
     end
 
     context "create a Transaction" do
@@ -21,6 +20,12 @@ RSpec.describe "Transaction features"do
 
             @attributes.each do |k, v|
                 fill_in "transaction_#{k}",	with: "#{v}"
+            end
+        end
+
+        scenario "should display balance amount of thaali" do
+            within(".transaction_amount") do
+                expect(page).to have_css('small', text: "Amount shouldn't be greater than: #{@thaali.balance.humanize}")
             end
         end
 
@@ -45,15 +50,27 @@ RSpec.describe "Transaction features"do
 
     context "Editing Transaction" do
         before do
-            visit transaction_path(@transaction)
+            @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
+            # manually setting new balance amount since callback methods are not called
+            @thaali.balance -= @transaction.amount
+
+            visit edit_transaction_path(@transaction)
         end
 
         it "should have an edit link" do
+            visit transaction_path(@transaction)
             expect(page).to have_link("Edit Transaction")
         end
 
+        scenario "should display amount of both the balance & current transaction amount" do
+            total = @thaali.balance + @transaction.amount
+
+            within(".transaction_amount") do
+                expect(page).to have_css('small', text: "Amount shouldn't be greater than: #{total.humanize}")
+            end
+        end
+
         scenario "should BE able to update with valid values" do
-            click_link "Edit Transaction"
             fill_in "transaction_amount", with: Faker::Number.number(digits: 4)
 
             click_on "Update Transaction"
@@ -63,6 +80,8 @@ RSpec.describe "Transaction features"do
     end
 
     scenario "Showing transaction" do
+        @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
+
         visit transaction_path(@transaction)
         expect(page).to have_content("#{@transaction.recipe_no}")
         expect(page).to have_content("#{@transaction.amount}")
@@ -71,6 +90,8 @@ RSpec.describe "Transaction features"do
     end
 
     scenario "Deleting transaction" do
+        @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
+
         visit transaction_path(@transaction)
         expect(page).to have_button("Delete Transaction")
 
