@@ -51,6 +51,8 @@ class ThaaliTakhmeen < ApplicationRecord
 
   scope :all_pending_takhmeens_for_the_year, -> year { all_pending_takhmeens_till_date.in_the_year(year) }
 
+  scope :completed_for_the_year, -> year { in_the_year(year).where(is_complete: true) }
+
   # * instance methods
   def show_currency_for(amount)
     "₹#{amount}"

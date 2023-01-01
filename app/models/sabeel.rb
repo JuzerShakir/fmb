@@ -69,6 +69,10 @@ class Sabeel < ApplicationRecord
 
     scope :phase_3_thaali_size, -> size { in_phase_3.thaalis_of_the_size(size) }
 
+    def takhmeen_complete_of_last_year(year)
+        self.thaali_takhmeens.where(year: year - 1, is_complete: true).any?
+    end
+
     private
 
         def titleize_hof_name
