@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :thaali_takhmeen do
     sabeel
-    year { Random.rand($CURRENT_YEAR_TAKHMEEN - 30...Date.today.year) }
+    year { Random.rand($active_takhmeen - 30...Date.today.year) }
     total  { Faker::Number.number(digits: 5) }
     paid { 0 }
     balance { total - paid }
@@ -10,11 +10,11 @@ FactoryBot.define do
     sequence :size, %i[small medium large].cycle
 
     trait :current_year do
-      year { $CURRENT_YEAR_TAKHMEEN }
+      year { $active_takhmeen }
     end
 
     trait :previous_year do
-      year { $PREV_YEAR_TAKHMEEN }
+      year { $prev_takhmeen }
     end
 
     trait :complete do

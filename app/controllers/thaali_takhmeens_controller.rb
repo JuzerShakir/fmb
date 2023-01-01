@@ -3,12 +3,12 @@ class ThaaliTakhmeensController < ApplicationController
     before_action :check_for_current_year_takhmeen, only: [:new]
 
     def index
-        @q = ThaaliTakhmeen.in_the_year($CURRENT_YEAR_TAKHMEEN).ransack(params[:q])
+        @q = ThaaliTakhmeen.in_the_year($active_takhmeen).ransack(params[:q])
         @thaalis = @q.result(distinct: true).order(number: :ASC)
     end
 
     def new
-        prev_takhmeen = @sabeel.thaali_takhmeens.where(year: $PREV_YEAR_TAKHMEEN).first
+        prev_takhmeen = @sabeel.thaali_takhmeens.where(year: $prev_takhmeen).first
 
         if prev_takhmeen.nil?
             @thaali_takhmeen = @sabeel.thaali_takhmeens.new
@@ -23,7 +23,7 @@ class ThaaliTakhmeensController < ApplicationController
     def create
         @sabeel = Sabeel.find(params[:sabeel_id])
         @thaali_takhmeen = @sabeel.thaali_takhmeens.new(thaali_takhmeen_params)
-        @thaali_takhmeen.year = $CURRENT_YEAR_TAKHMEEN
+        @thaali_takhmeen.year = $active_takhmeen
 
         if @thaali_takhmeen.valid?
             @thaali_takhmeen.save
@@ -66,10 +66,10 @@ class ThaaliTakhmeensController < ApplicationController
 
         def check_for_current_year_takhmeen
             @sabeel = Sabeel.find(params[:sabeel_id])
-            @cur_takhmeen = @sabeel.thaali_takhmeens.where(year: $CURRENT_YEAR_TAKHMEEN).first
+            @cur_takhmeen = @sabeel.thaali_takhmeens.where(year: $active_takhmeen).first
 
             unless @cur_takhmeen.nil?
-                message = "Sabeel: #{@sabeel.its} has already done takhmeen niyat for the year: #{$CURRENT_YEAR_TAKHMEEN}"
+                message = "Sabeel: #{@sabeel.its} has already done takhmeen niyat for the year: #{$active_takhmeen}"
                 redirect_back fallback_location: sabeel_path(@sabeel), notice: message
             end
         end

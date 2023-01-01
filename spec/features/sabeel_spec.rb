@@ -57,7 +57,7 @@ RSpec.describe "Sabeel features" do
         context "if it exists" do
             before do
                 2.times do |i|
-                    FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: $CURRENT_YEAR_TAKHMEEN - i)
+                    FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: $active_takhmeen - i)
                 end
             end
 
@@ -65,7 +65,7 @@ RSpec.describe "Sabeel features" do
                 visit sabeel_path(@sabeel)
 
                 2.times do |i|
-                    expect(page).to have_content($CURRENT_YEAR_TAKHMEEN - i)
+                    expect(page).to have_content($active_takhmeen - i)
                 end
             end
         end

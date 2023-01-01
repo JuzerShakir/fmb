@@ -129,7 +129,7 @@ RSpec.describe Sabeel, :type => :model do
                         FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id)
                     end
 
-                    expect(described_class.active_takhmeen($CURRENT_YEAR_TAKHMEEN)).to contain_exactly(*current_thaali)
+                    expect(described_class.active_takhmeen($active_takhmeen)).to contain_exactly(*current_thaali)
                 end
             end
 
@@ -139,7 +139,7 @@ RSpec.describe Sabeel, :type => :model do
                         FactoryBot.create(:previous_takhmeen, sabeel_id: sabeel.id)
                     end
 
-                    expect(described_class.takhmeens_other_than_the_year($CURRENT_YEAR_TAKHMEEN)).to contain_exactly(*x_thaali)
+                    expect(described_class.takhmeens_other_than_the_year($active_takhmeen)).to contain_exactly(*x_thaali)
                 end
             end
 
@@ -231,7 +231,7 @@ RSpec.describe Sabeel, :type => :model do
 
             it "should return TRUE if takhmeen is complete of previous year with respect to the given year" do
                 FactoryBot.create(:prev_completed_takhmeens, sabeel_id: @sabeel.id)
-                output = @sabeel.takhmeen_complete_of_last_year($CURRENT_YEAR_TAKHMEEN)
+                output = @sabeel.takhmeen_complete_of_last_year($active_takhmeen)
 
                 expect(output).to be_truthy
             end
@@ -239,7 +239,7 @@ RSpec.describe Sabeel, :type => :model do
 
             it "should return FALSE if takhmeen is NOT complete of previous year with respect to the given year" do
                 FactoryBot.create(:previous_takhmeen, sabeel_id: @sabeel.id)
-                output = @sabeel.takhmeen_complete_of_last_year($CURRENT_YEAR_TAKHMEEN)
+                output = @sabeel.takhmeen_complete_of_last_year($active_takhmeen)
 
                 expect(output).to be_falsy
             end
