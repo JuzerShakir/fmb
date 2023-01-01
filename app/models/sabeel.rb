@@ -57,7 +57,7 @@ class Sabeel < ApplicationRecord
 
     scope :currently_takes_thaali, -> current_year { joins(:thaali_takhmeens).where(thaali_takhmeens: {year: current_year}) }
 
-    scope :previously_took_thaali, -> current_year { joins(:thaali_takhmeens).where.not(thaali_takhmeens: {year: current_year}) }
+    scope :previously_took_thaali_other_than, -> current_year { joins(:thaali_takhmeens).where.not(thaali_takhmeens: {year: current_year}) }
 
     scope :never_done_takhmeen, ->{ where.missing(:thaali_takhmeens) }
 
