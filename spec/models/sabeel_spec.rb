@@ -224,14 +224,24 @@ RSpec.describe Sabeel, :type => :model do
 
     context "instance methods" do
         context "#takhmeen_complete_of_last_year" do
-            it "should return TRUE if takhmeen is complete of previuos year for the given year" do
-                sabeel = FactoryBot.create(:sabeel)
-                FactoryBot.create(:thaali_takhmeen_complete_previous_year, sabeel_id, sabeel.id)
-                FactoryBot.create(:thaali_takhmeen_of_current_year, sabeel_id, sabeel.id)
+            before do
+                @sabeel = FactoryBot.create(:sabeel)
+                FactoryBot.create(:thaali_takhmeen_of_current_year, sabeel_id: @sabeel.id)
+            end
 
-                output = sabeel.takhmeen_complete_of_last_year($CURRENT_YEAR_TAKHMEEN)
+            it "should return TRUE if takhmeen is complete of previous year with respect to the given year" do
+                FactoryBot.create(:thaali_takhmeen_complete_previous_year, sabeel_id: @sabeel.id)
+                output = @sabeel.takhmeen_complete_of_last_year($CURRENT_YEAR_TAKHMEEN)
 
                 expect(output).to be_truthy
+            end
+
+
+            it "should return FALSE if takhmeen is NOT complete of previous year with respect to the given year" do
+                FactoryBot.create(:thaali_takhmeen_of_previous_year, sabeel_id: @sabeel.id)
+                output = @sabeel.takhmeen_complete_of_last_year($CURRENT_YEAR_TAKHMEEN)
+
+                expect(output).to be_falsy
             end
         end
     end
