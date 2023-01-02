@@ -7,17 +7,6 @@
 <%= render partial: "shared/search", locals: { message: "HOF Name or ITS No." ,
         path: all_sabeels_path, search: :hof_name_or_its_cont } %>
 
-
-<%# * show %>
-<%= turbo_frame_tag :results, data: { turbo_action: "advance" } do %>
-    <div class="container text-center mt-5">
-        <% if @sabeels.any? %>
-            <%= render partial: "theader" %>
-            <div id="sabeels"></div>
-            <%= turbo_frame_tag :pagination, loading: :lazy, src: all_sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) %> %>
-        <% else %>
-            <%= render partial: "shared/no_results" %>
-        <% end %>
-    </div>
-<% end %>
-
+<%# * show all sabeels %>
+<%= render partial: "shared/results",
+    locals: { instances: @sabeels, id: "sabeels", path: all_sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) } %>

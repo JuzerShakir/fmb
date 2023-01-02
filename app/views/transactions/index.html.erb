@@ -7,15 +7,6 @@
 <%= render partial: "shared/search", locals: { message: "Recipe Number",
         path: all_transactions_path, search: :recipe_no_cont } %>
 
-<%# * show %>
-<%= turbo_frame_tag :results, data: { turbo_action: "advance" } do %>
-    <div class="container text-center mt-5">
-        <% if @transactions.any? %>
-            <%= render partial: "theader"%>
-            <div id="transactions"></div>
-            <%= turbo_frame_tag :pagination, loading: :lazy, src: all_transactions_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) %> %>
-        <% else %>
-            <%= render partial: "shared/no_results"%>
-        <% end %>
-    </div>
-<% end %>
+<%# * show all transactions %>
+<%= render partial: "shared/results",
+    locals: { instances: @transactions, id: "transactions", path: all_transactions_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) } %>

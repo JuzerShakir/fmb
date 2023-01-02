@@ -8,15 +8,6 @@
         path: root_path, search: :number_cont } %>
 
 
-<%# * show - Current Year Thaalis %>
-<%= turbo_frame_tag :results, data: { turbo_action: "advance" } do %>
-    <div class="container text-center mt-5">
-        <% if @thaalis.any? %>
-            <%= render partial: "theader" %>
-            <div id="thaalis"></div>
-            <%= turbo_frame_tag :pagination, loading: :lazy, src: root_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) %> %>
-        <% else %>
-            <%= render partial: "shared/no_results"%>
-        <% end %>
-    </div>
-<% end %>
+<%# * show all Current Year Thaalis %>
+<%= render partial: "shared/results",
+    locals: { instances: @thaalis, id: "thaalis", path: root_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) } %>
