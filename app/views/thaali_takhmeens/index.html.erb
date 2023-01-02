@@ -1,6 +1,7 @@
 <%# * Title %>
 <h2 class= "text-center">Show all Takhmeens for the year <span class="text-secondary"><%= $active_takhmeen %></span> </h2>
 
+<p class="mt-3 fw-bold text-center text-info">Total number of Takhmeens: <%= @active_thaalis.count %></p>
 
 <%# * search %>
 <div id="search" class="col-md-4 offset-md-4 mt-5" role="search">
@@ -11,8 +12,6 @@
             data: { action: "input->search#submit" } %>
     <% end %>
 </div>
-
-<p class="mt-5 fw-bold text-center text-info">Total number of Takhmeens: <%= @active_thaalis.count %></p>
 
 <%# * show - Current Year Thaalis %>
 <%= turbo_frame_tag :results, data: { turbo_action: "advance" } do %>

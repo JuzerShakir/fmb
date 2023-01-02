@@ -1,6 +1,7 @@
 <%# * Title %>
 <h2 class= "text-center">All Transactions</h2>
 
+<p class="mt-3 fw-bold text-center text-info">Total number of Transactions: <%= Transaction.count %></p>
 
 <%# * search %>
 <div id="search" class="col-md-4 offset-md-4 mt-5" role="search">
@@ -12,11 +13,9 @@
     <% end %>
 </div>
 
-<p class="mt-5 fw-bold text-center text-info">Total number of Transactions: <%= Transaction.count %></p>
-
 <%# * show %>
 <%= turbo_frame_tag :results, data: { turbo_action: "advance" } do %>
-    <div class="container text-center class="mt-5"">
+    <div class="container text-center mt-5">
         <% if @transactions.any? %>
             <%= render partial: "theader"%>
             <div id="transactions"></div>
