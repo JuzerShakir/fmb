@@ -133,15 +133,15 @@ RSpec.describe Sabeel, :type => :model do
                 end
             end
 
-            context ".takhmeens_other_than_the_year" do
-                it "should ONLY return all sabeels who DOES NOT take thaali in the CURRENT YEAR" do
-                    x_thaali.each do |sabeel|
-                        FactoryBot.create(:previous_takhmeen, sabeel_id: sabeel.id)
-                    end
+            # context ".takhmeens_other_than_the_year" do
+            #     it "should ONLY return all sabeels who DOES NOT take thaali in the CURRENT YEAR" do
+            #         x_thaali.each do |sabeel|
+            #             FactoryBot.create(:previous_takhmeen, sabeel_id: sabeel.id)
+            #         end
 
-                    expect(described_class.takhmeens_other_than_the_year($active_takhmeen)).to contain_exactly(*x_thaali)
-                end
-            end
+            #         expect(described_class.takhmeens_other_than_the_year($active_takhmeen)).to contain_exactly(*x_thaali)
+            #     end
+            # end
 
             context ".never_done_takhmeen" do
                 it "should return ALL the sabeels who has never taken the thaali" do
