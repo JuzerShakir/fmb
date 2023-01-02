@@ -11,16 +11,18 @@
     <% end %>
 </div>
 
+<p class="mt-5 fw-bold text-center text-info">Total number of Sabeels: <%= Sabeel.count %></p>
 
 <%# * show %>
-<%= turbo_frame_tag :results do %>
-    <div id="sabeels" class="mt-5">
-        <div class="container text-center">
-            <% if @sabeels.any? %>
-                <%= render partial: "all_sabeels" %>
-            <% else %>
-                <%= render partial: "shared/no_results"%>
-            <% end %>
-        </div>
+<%= turbo_frame_tag :results, data: { turbo_action: "advance" } do %>
+    <div class="container text-center mt-5">
+        <% if @sabeels.any? %>
+            <%= render partial: "theader" %>
+            <div id="sabeels"></div>
+            <%= turbo_frame_tag :pagination, loading: :lazy, src: all_sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) %> %>
+        <% else %>
+            <%= render partial: "shared/no_results" %>
+        <% end %>
     </div>
 <% end %>
+

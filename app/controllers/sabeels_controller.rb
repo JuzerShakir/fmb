@@ -2,8 +2,10 @@ class SabeelsController < ApplicationController
     before_action :set_sabeel, except: [:index, :new, :create]
 
     def index
-        @q = Sabeel.ransack(params[:q])
-        @pagy, @sabeels = pagy(@q.result(distinct: true).order(created_at: :DESC), items: 10)
+        search_params = params.permit(:format, :page, q: [:hof_name_or_its_cont])
+        @q = Sabeel.ransack(search_params[:q])
+        sabeels = @q.result(distinct: true).order(created_at: :DESC)
+        @pagy, @sabeels = pagy_countless(sabeels, items: 12)
     end
 
     def new
