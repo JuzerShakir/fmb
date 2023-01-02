@@ -3,8 +3,11 @@ class TransactionsController < ApplicationController
     before_action :check_if_takhmeen_is_complete, only: [:new]
 
     def index
+        search_params = params.permit(:format, :page, q: [:recipe_no_cont])
         @q = Transaction.ransack(params[:q])
-        @transactions = @q.result(distinct: true).order(created_at: :DESC)
+
+        trans = @q.result(distinct: true).order(created_at: :DESC)
+        @pagy, @transactions = pagy_countless(trans, items: 12)
     end
 
     def new
