@@ -58,16 +58,6 @@ class Transaction < ApplicationRecord
   # * Scopes
   scope :that_occured_on, -> date { where(on_date: date)}
 
-  # * instance methods
-
-  def readable_on_date
-    self.on_date.to_time.strftime('%A, %b %d %Y')
-  end
-
-  def amount_with_currency
-    self.amount.to_s.prepend("₹")
-  end
-
   private
 
     def add_all_transaction_amounts_to_paid_amount
