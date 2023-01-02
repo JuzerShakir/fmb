@@ -12,7 +12,7 @@
             <span>Niyat</span>
         </div>
         <div class="col text-info">
-            <%= @thaali_takhmeen.show_currency_for(@thaali_takhmeen.total) %>
+            <%= show_currency_for(@thaali_takhmeen.total) %>
         </div>
     </div>
     <div class="row border-bottom border-3 m-0 py-3">
@@ -20,7 +20,7 @@
             <span>Paid</span>
         </div>
         <div class="col text-success">
-            <%= @thaali_takhmeen.show_currency_for(@thaali_takhmeen.paid) %>
+            <%= show_currency_for(@thaali_takhmeen.paid) %>
         </div>
     </div>
     <div class="row border-bottom border-3 m-0 py-3">
@@ -28,7 +28,7 @@
             <span>Balance</span>
         </div>
         <div class="col text-danger">
-            <%= @thaali_takhmeen.show_currency_for(@thaali_takhmeen.balance) %>
+            <%= show_currency_for(@thaali_takhmeen.balance) %>
         </div>
     </div>
     <div class="row pt-3">

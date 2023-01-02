@@ -53,10 +53,6 @@ class ThaaliTakhmeen < ApplicationRecord
 
   scope :completed_year, -> year { in_the_year(year).where(is_complete: true) }
 
-  # * instance methods
-  def show_currency_for(amount)
-    "₹#{amount}"
-  end
   private
 
     def update_balance
