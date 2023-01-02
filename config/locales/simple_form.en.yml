@@ -14,9 +14,9 @@ en:
         labels:
             defaults:
                 on_date: "Paid On"
-                its: "ITS No."
+                its: "HOF ITS No."
                 hof_name: "HOF Name"
-                total: "Total Takhmeen Niyat"
+                total: "Niyat"
         #   user:
         #     new:
         #       email: 'E-mail to sign in.'
