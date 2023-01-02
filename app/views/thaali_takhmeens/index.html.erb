@@ -4,10 +4,11 @@
 
 <%# * search %>
 <div id="search" class="col-md-4 offset-md-4 mt-5" role="search">
-    <%= search_form_for @q, data: { turbo_frame: :results }, url: root_path do |f| %>
+    <%= search_form_for @q, url: root_path, data: { controller: "search", debounce_target: "form", turbo_frame: :results } do |f| %>
       <%= f.search_field :number_cont,
-            oninput: 'this.form.requestSubmit()', placeholder: "Search By Thaali Number",
-            class: "form-control",  type: "search", autofocus: true, autocomplete: "off" %>
+            placeholder: "Search By Thaali Number",
+            class: "form-control",  type: "search", autocomplete: "off",
+            data: { action: "input->search#submit" } %>
     <% end %>
 </div>
 
