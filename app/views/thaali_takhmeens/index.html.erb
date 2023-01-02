@@ -7,7 +7,7 @@
     <%= search_form_for @q, url: root_path, data: { controller: "search", debounce_target: "form", turbo_frame: :results } do |f| %>
       <%= f.search_field :number_cont,
             placeholder: "Search By Thaali Number",
-            class: "form-control",  type: "search", autocomplete: "off",
+            class: "form-control",  type: "search", autocomplete: "off", autofocus: true,
             data: { action: "input->search#submit" } %>
     <% end %>
 </div>
