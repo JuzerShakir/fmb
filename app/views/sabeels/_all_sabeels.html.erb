@@ -13,9 +13,6 @@
     <div class="col">
         <th>Mobile</th>
     </div>
-    <%# <div class="col">
-        <th>Takes Thaali?</th>
-    </div> %>
 </div>
 <% @sabeels.each do |sabeel| %>
     <div class="row py-3 fs-5 border-bottom border-light">
@@ -31,8 +28,5 @@
         <div class="col text-secondary">
             <%= sabeel.mobile %>
         </div>
-        <%# <div class="col text-secondary">
-            <%= thaali.is_complete %>
-        <%# </div> %>
     </div>
 <% end %>
