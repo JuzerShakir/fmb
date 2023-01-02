@@ -87,3 +87,5 @@ gem "simple_form", "~> 5.1"
 
 gem 'ransack'
 gem "humanize", "~> 2.5"
+
+gem "pagy", "~> 6.0"
