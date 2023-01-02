@@ -3,8 +3,13 @@ class ThaaliTakhmeensController < ApplicationController
     before_action :check_for_current_year_takhmeen, only: [:new]
 
     def index
-        @q = ThaaliTakhmeen.in_the_year($active_takhmeen).ransack(params[:q])
-        @thaalis = @q.result(distinct: true).order(number: :ASC)
+        search_params = params.permit(:format, :page, q: [:number_cont])
+
+        @active_thaalis = ThaaliTakhmeen.in_the_year($active_takhmeen)
+        @q = @active_thaalis.ransack(params[:q])
+
+        thaalis = @q.result(distinct: true).order(number: :ASC)
+        @pagy, @thaalis = pagy_countless(thaalis, items: 12)
     end
 
     def new
