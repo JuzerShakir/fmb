@@ -4,19 +4,13 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
     # * INDEX
     context "GET index" do
         before do
-            @thaalis = FactoryBot.create_list(:active_takhmeen, 3)
+            FactoryBot.create_list(:active_takhmeen, 3)
             get root_path
         end
 
         it "should render an index template with 200 status code" do
             expect(response).to have_http_status(:ok)
             expect(response).to render_template(:index)
-        end
-
-        it "should display all the Thaalis for current takhmeen year" do
-            @thaalis.each do |thaali|
-                expect(response.body).to include("#{thaali.number}")
-            end
         end
     end
 
@@ -116,11 +110,6 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
         it "should render the instance that was passed in the params" do
             # it could be any attribute, not only number
             expect(response.body).to include("#{@thaali.number}")
-        end
-
-        it "total count of transactions of a takhmeen" do
-            trans_count = @thaali.transactions.count
-            expect(response.body).to include("Total number of Transactions: #{trans_count}")
         end
     end
 

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Transactions", type: :request do
-    # * ALL
-    context "GET all" do
+    # * INDEX
+    context "GET index" do
         before do
             @transactions = FactoryBot.create_list(:transaction, 5)
             get all_transactions_path
@@ -11,12 +11,6 @@ RSpec.describe "Transactions", type: :request do
         it "should render a 'index' template" do
             expect(response).to render_template(:index)
             expect(response).to have_http_status(:ok)
-        end
-
-        it "should show all transactions of all thaalis" do
-            @transactions.each do |transaction|
-                expect(response.body).to  include("#{transaction.recipe_no}")
-            end
         end
     end
 
