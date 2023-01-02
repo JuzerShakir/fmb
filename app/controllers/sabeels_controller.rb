@@ -3,7 +3,7 @@ class SabeelsController < ApplicationController
 
     def index
         @q = Sabeel.ransack(params[:q])
-        @sabeels = @q.result(distinct: true).order(created_at: :DESC)
+        @pagy, @sabeels = pagy(@q.result(distinct: true).order(created_at: :DESC), items: 10)
     end
 
     def new
