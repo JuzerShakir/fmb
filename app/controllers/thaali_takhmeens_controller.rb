@@ -9,7 +9,7 @@ class ThaaliTakhmeensController < ApplicationController
         @q = @active_thaalis.ransack(params[:q])
 
         thaalis = @q.result(distinct: true).order(number: :ASC)
-        @pagy, @thaalis = pagy_countless(thaalis, items: 12)
+        @pagy, @thaalis = pagy_countless(thaalis, items: 8)
     end
 
     def new

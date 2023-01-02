@@ -5,7 +5,7 @@ class SabeelsController < ApplicationController
         search_params = params.permit(:format, :page, q: [:hof_name_or_its_cont])
         @q = Sabeel.ransack(search_params[:q])
         sabeels = @q.result(distinct: true).order(created_at: :DESC)
-        @pagy, @sabeels = pagy_countless(sabeels, items: 12)
+        @pagy, @sabeels = pagy_countless(sabeels, items: 8)
     end
 
     def new

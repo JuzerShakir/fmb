@@ -7,7 +7,7 @@ class TransactionsController < ApplicationController
         @q = Transaction.ransack(params[:q])
 
         trans = @q.result(distinct: true).order(created_at: :DESC)
-        @pagy, @transactions = pagy_countless(trans, items: 12)
+        @pagy, @transactions = pagy_countless(trans, items: 8)
     end
 
     def new
