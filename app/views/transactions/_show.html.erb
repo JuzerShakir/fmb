@@ -1,33 +1,33 @@
-<div id="show-transaction" class="col-md-5 mx-auto mt-5 shadow bg-body-tertiary border border-1 border-success fs-5 py-4">
+<div id="show-transaction" class="col-md-5 mx-auto mt-5 shadow bg-body-tertiary border border-1 border-success fs-5 py-4 px-4">
     <div class="row py-3">
-        <div class="col-md-3 fw-bold text-end">
+        <div class="col-4 fw-bold text-end">
             <span>Payer</span>
         </div>
-        <div class="col-md-8 border-bottom border-2 border-success fst-italic">
+        <div class="col-8 border-bottom border-2 border-success fst-italic">
             <%= link_to @sabeel.hof_name, @sabeel, class: "btn btn-outline-success" %>
         </div>
     </div>
     <div class="row py-3">
-        <div class="col-md-3 fw-bold text-end">
+        <div class="col-4 fw-bold text-end">
             <span>Amount</span>
         </div>
-        <div class="col-md-8 border-bottom border-2 border-success text-success fst-italic">
+        <div class="col-8 border-bottom border-2 border-success text-success fst-italic">
             <%= amount_with_currency(@transaction.amount) %>
         </div>
     </div>
     <div class="row py-3">
-        <div class="col-md-3 fw-bold text-end">
+        <div class="col-4 fw-bold text-end">
             <span>Type</span>
         </div>
-        <div class="col-md-8 border-bottom border-2 border-success fst-italic">
+        <div class="col-8 border-bottom border-2 border-success fst-italic">
             <%= @transaction.mode.capitalize %>
         </div>
     </div>
     <div class="row py-3">
-        <div class="col-md-3 fw-bold text-end">
+        <div class="col-4 fw-bold text-end">
             <span>Date</span>
         </div>
-        <div class="col-md-8 border-bottom border-2 border-success fst-italic">
+        <div class="col-8 border-bottom border-2 border-success fst-italic">
             <%= readable_on_date(@transaction.on_date) %>
         </div>
     </div>
