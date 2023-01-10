@@ -2,10 +2,10 @@
     <div class="container text-center mt-5">
         <% if instances.any? %>
             <%= render partial: "theader" %>
-            <div id=<%="#{id}"%>></div>
+            <div id=<%="#{id}"%> ></div>
             <%= turbo_frame_tag :pagination, loading: :lazy, src: path %> %>
         <% else %>
-            <%= render partial: "shared/no_results"%>
+            <%= render partial: "shared/no_results" %>
         <% end %>
     </div>
 <% end %>
