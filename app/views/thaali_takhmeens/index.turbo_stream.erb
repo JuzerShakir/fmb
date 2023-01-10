@@ -11,7 +11,7 @@
                 <%= thaali.sabeel.address %>
             </div>
             <div class="col text-secondary">
-                <%= thaali.is_complete %>
+                <%= render partial: "shared/takhmeen_complete", locals: { takhmeen: thaali } %>
             </div>
         </div>
     <% end %>

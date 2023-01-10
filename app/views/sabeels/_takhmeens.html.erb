@@ -26,7 +26,7 @@
             <%= show_currency_for(thaali.balance) %>
         </div>
         <div class="col">
-            <%= thaali.is_complete %>
+            <%= render partial: "shared/takhmeen_complete", locals: { takhmeen: thaali } %>
         </div>
     </div>
 <% end %>

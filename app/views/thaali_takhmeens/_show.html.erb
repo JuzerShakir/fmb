@@ -36,7 +36,7 @@
             <span>TC</span>
         </div>
         <div class="col text-info">
-            <%= @thaali_takhmeen.is_complete %>
+            <%= render partial: "shared/takhmeen_complete", locals: { takhmeen: @thaali_takhmeen } %>
         </div>
     </div>
 </div>
