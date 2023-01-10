@@ -5,7 +5,7 @@ class ThaaliTakhmeensController < ApplicationController
     def index
         search_params = params.permit(:format, :page, q: [:number_cont])
 
-        @active_thaalis = ThaaliTakhmeen.in_the_year($active_takhmeen)
+        @active_thaalis = ThaaliTakhmeen.includes(:sabeel).in_the_year($active_takhmeen)
         @q = @active_thaalis.ransack(params[:q])
 
         thaalis = @q.result(distinct: true).order(number: :ASC)

@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
 
     def index
         search_params = params.permit(:format, :page, q: [:recipe_no_cont])
-        @q = Transaction.ransack(params[:q])
+        @q = Transaction.includes(:thaali_takhmeen).ransack(params[:q])
 
         trans = @q.result(distinct: true).order(created_at: :DESC)
         @pagy, @transactions = pagy_countless(trans, items: 8)
