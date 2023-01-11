@@ -12,7 +12,7 @@
             <span>Amount</span>
         </div>
         <div class="col-8 border-bottom border-2 border-success text-success fst-italic">
-            <%= amount_with_currency(@transaction.amount) %>
+            <i class="fa-solid fa-indian-rupee-sign"></i><%= "#{@transaction.amount}" %>
         </div>
     </div>
     <div class="row py-3">
