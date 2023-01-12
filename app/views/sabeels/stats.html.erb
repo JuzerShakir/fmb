@@ -1,8 +1,10 @@
 <%# * Title %>
 <h2 class= "text-center">Sabeel Statistics for <%= $active_takhmeen %></h2>
 
+<%# * No. of Sabeels %>
 <p class="mt-5 fw-bold text-center text-info fs-4">Total number of Sabeels: <%= Sabeel.count %></p>
 
+<%# * Content %>
 <div class="text-center d-flex justify-content-center">
     <div class="col-12 col-md-7">
         <% @apts.each do |apartment, values| %>
