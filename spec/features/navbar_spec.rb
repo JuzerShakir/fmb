@@ -19,38 +19,45 @@ RSpec.describe "Navbar features" do
         end
     end
 
-    scenario "should have a 'Statistics' link" do
-        within(".navbar-nav") do
-            expect(page).to have_content("Statistics")
-            # click_on "Add New Sabeel"
-            # expect(current_path).to eql
-        end
-    end
-
-    context "should have a dropdown" do
-        before do
-            within(".navbar-nav") do
-                expect(page).to have_content("Resources")
-                click_on "Resources"
+    context "should have a dropdown for Statistics" do
+        scenario "with 'Sabeels' link" do
+            within("#statistics") do
+                expect(page).to have_content("Sabeels")
+                click_on "Sabeels"
+                expect(current_path).to eql sabeels_stats_path
             end
         end
 
+        # scenario "with 'Thaali Takhmeens' link" do
+        #     expect(page).to have_content("Thaali Takhmeens")
+        #     click_on "Thaali Takhmeens"
+        #     expect(current_path).to eql takhmeen_stats_path
+        # end
+    end
+
+    context "should have a dropdown for Resources" do
         scenario "with 'Sabeels' link" do
-            expect(page).to have_content("Sabeels")
-            click_on "Sabeels"
-            expect(current_path).to eql all_sabeels_path
+            within("#resources") do
+                expect(page).to have_content("Sabeels")
+                click_on "Sabeels"
+                expect(current_path).to eql all_sabeels_path
+            end
         end
 
         scenario "with 'Thaali Takhmeens' link" do
-            expect(page).to have_content("Thaali Takhmeens")
-            click_on "Thaali Takhmeens"
-            expect(current_path).to eql root_path
+            within("#resources") do
+                expect(page).to have_content("Thaali Takhmeens")
+                click_on "Thaali Takhmeens"
+                expect(current_path).to eql root_path
+            end
         end
 
         scenario "with 'Transactions' link" do
-            expect(page).to have_content("Transactions")
-            click_on "Transactions"
-            expect(current_path).to eql all_transactions_path
+            within("#resources") do
+                expect(page).to have_content("Transactions")
+                click_on "Transactions"
+                expect(current_path).to eql all_transactions_path
+            end
         end
     end
 end
