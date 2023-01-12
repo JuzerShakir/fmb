@@ -183,4 +183,17 @@ RSpec.describe "Sabeels", type: :request do
             expect(response).to have_http_status(:ok)
         end
     end
+
+    # * TOTAL
+    context "GET total" do
+        before do
+            apts = Sabeel.apartments.keys
+            get sabeels_total_path(apts.sample)
+        end
+
+        it "should render a stats template" do
+            expect(response).to render_template(:total)
+            expect(response).to have_http_status(:ok)
+        end
+    end
 end
