@@ -163,6 +163,13 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#maimoon_a') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("maimoon_a"))
+                end
+            end
+
             scenario "should show total number of sabeels" do
                 within('div#maimoon_a') do
                     expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.maimoon_a.count}")
@@ -194,6 +201,13 @@ RSpec.describe "Sabeel features" do
             scenario "should show number of active takmeen sabeels count" do
                 within('div#maimoon_b') do
                     expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.maimoon_b.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#maimoon_b') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("maimoon_b"))
                 end
             end
 
@@ -231,6 +245,13 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#qutbi_a') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("qutbi_a"))
+                end
+            end
+
             scenario "should show total number of sabeels" do
                 within('div#qutbi_a') do
                     expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.qutbi_a.count}")
@@ -262,6 +283,13 @@ RSpec.describe "Sabeel features" do
             scenario "should show number of active takmeen sabeels count" do
                 within('div#qutbi_b') do
                     expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.qutbi_b.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#qutbi_b') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("qutbi_b"))
                 end
             end
 
@@ -299,6 +327,13 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#najmi') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("najmi"))
+                end
+            end
+
             scenario "should show total number of sabeels" do
                 within('div#najmi') do
                     expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.najmi.count}")
@@ -330,6 +365,13 @@ RSpec.describe "Sabeel features" do
             scenario "should show number of active takmeen sabeels count" do
                 within('div#noorani_a') do
                     expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.noorani_a.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#noorani_a') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("noorani_a"))
                 end
             end
 
@@ -368,6 +410,13 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#noorani_b') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("noorani_b"))
+                end
+            end
+
             scenario "should show total number of sabeels" do
                 within('div#noorani_b') do
                     expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.noorani_b.count}")
@@ -399,6 +448,13 @@ RSpec.describe "Sabeel features" do
             scenario "should show number of active takmeen sabeels count" do
                 within('div#husami_a') do
                     expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.husami_a.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#husami_a') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("husami_a"))
                 end
             end
 
@@ -436,6 +492,13 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#husami_b') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("husami_b"))
+                end
+            end
+
             scenario "should show total number of sabeels" do
                 within('div#husami_b') do
                     expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.husami_b.count}")
@@ -467,6 +530,13 @@ RSpec.describe "Sabeel features" do
             scenario "should show number of active takmeen sabeels count" do
                 within('div#mohammedi') do
                     expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.mohammedi.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#mohammedi') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("mohammedi"))
                 end
             end
 
@@ -504,6 +574,13 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#saifee') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("saifee"))
+                end
+            end
+
             scenario "should show total number of sabeels" do
                 within('div#saifee') do
                     expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.saifee.count}")
@@ -535,6 +612,13 @@ RSpec.describe "Sabeel features" do
             scenario "should show number of active takmeen sabeels count" do
                 within('div#jamali') do
                     expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.jamali.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#jamali') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("jamali"))
                 end
             end
 
@@ -572,6 +656,13 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#taiyebi') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("taiyebi"))
+                end
+            end
+
             scenario "should show total number of sabeels" do
                 within('div#taiyebi') do
                     expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.taiyebi.count}")
@@ -603,6 +694,13 @@ RSpec.describe "Sabeel features" do
             scenario "should show number of active takmeen sabeels count" do
                 within('div#imadi') do
                     expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.imadi.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#imadi') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("imadi"))
                 end
             end
 
@@ -640,6 +738,13 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#burhani') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("burhani"))
+                end
+            end
+
             scenario "should show total number of sabeels" do
                 within('div#burhani') do
                     expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.burhani.count}")
@@ -671,6 +776,13 @@ RSpec.describe "Sabeel features" do
             scenario "should show number of active takmeen sabeels count" do
                 within('div#zaini') do
                     expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.zaini.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#zaini') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("zaini"))
                 end
             end
 
@@ -708,6 +820,13 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#fakhri') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("fakhri"))
+                end
+            end
+
             scenario "should show total number of sabeels" do
                 within('div#fakhri') do
                     expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.fakhri.count}")
@@ -742,6 +861,13 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#badri') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("badri"))
+                end
+            end
+
             scenario "should show total number of sabeels" do
                 within('div#badri') do
                     expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.badri.count}")
@@ -773,6 +899,13 @@ RSpec.describe "Sabeel features" do
             scenario "should show number of active takmeen sabeels count" do
                 within('div#ezzi') do
                     expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.ezzi.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should redirect to active sabeels page by clicking 'active' button" do
+                within('div#ezzi') do
+                    click_on "Active: "
+                    expect(current_path).to eql(sabeels_active_path("ezzi"))
                 end
             end
 
