@@ -1,0 +1,9 @@
+<%# * Title %>
+<h2 class= "text-center">All Sabeels for <%= "#{@apt.titleize}" %></h2>
+
+<%# * No. of Sabeels %>
+<p class="fs-5 mt-5 fw-bold text-info text-center">Total number of Sabeels: <%= @total %></p>
+
+<%# * show all sabeels %>
+<%= render partial: "shared/results",
+    locals: { instances: @sabeels, id: "sabeels", path: sabeels_total_path(format: :turbo_stream) } %>

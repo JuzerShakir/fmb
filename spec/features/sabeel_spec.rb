@@ -134,6 +134,23 @@ RSpec.describe "Sabeel features" do
         # end
     end
 
+    #* Total
+    context "Total" do
+        before do
+            @apt = Sabeel.apartments.keys.sample
+            @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
+            visit sabeels_total_path(@apt)
+        end
+
+        scenario "should have a header" do
+            expect(page).to have_css("h2", text: "All Sabeels for #{@apt.titleize}")
+        end
+
+        # scenario "should list all the active sabeels of an apartment" do
+        #     expect(page).to have_content("#{@sabeels.first.address}")
+        # end
+    end
+
     # * Statistics
     context "Statistics" do
         before do
