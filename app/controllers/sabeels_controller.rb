@@ -60,7 +60,9 @@ class SabeelsController < ApplicationController
     end
 
     def active
-
+        @apt = params[:apt]
+        sabeels = Sabeel.send(@apt)
+        @pagy, @sabeels = pagy_countless(sabeels, items: 8)
     end
 
     private
