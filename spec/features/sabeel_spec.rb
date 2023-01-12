@@ -64,13 +64,13 @@ RSpec.describe "Sabeel features" do
                 visit sabeel_path(@sabeel)
             end
 
-            it "should BE shown" do
+            scenario "should BE shown" do
                 2.times do |i|
                     expect(page).to have_content($active_takhmeen - i)
                 end
             end
 
-            it "should show total number of takhmeens" do
+            scenario "should show total number of takhmeens" do
                 expect(page).to have_content("Total number of Takhmeens: #{@sabeel.thaali_takhmeens.count}")
             end
         end
@@ -81,7 +81,7 @@ RSpec.describe "Sabeel features" do
             visit sabeel_path(@sabeel)
         end
 
-        it "should have an edit link" do
+        scenario "should have an edit link" do
             expect(page).to have_link("Edit Sabeel")
         end
 
