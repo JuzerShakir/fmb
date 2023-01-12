@@ -1,8 +1,3 @@
-# * Global variables
-$phase_1 = %w(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi)
-$phase_2 = %w(maimoon_a maimoon_b qutbi_a qutbi_b najmi)
-$phase_3 = %w(husami_a husami_b noorani_a noorani_b)
-
 FactoryBot.define do
 
   factory :sabeel do
