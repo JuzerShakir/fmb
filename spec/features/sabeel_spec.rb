@@ -116,4 +116,662 @@ RSpec.describe "Sabeel features" do
         expect(current_path).to eql root_path
         expect(page).to have_content("Sabeel deleted successfully")
     end
+
+    # * Statistics
+    context "Statistics" do
+        before do
+            @sizes = ThaaliTakhmeen.sizes.keys
+        end
+
+        scenario "should have a header" do
+            visit sabeels_stats_path
+            expect(page).to have_css("h2", text: "Sabeel Statistics for #{$active_takhmeen}")
+        end
+
+        context "for Maimoon A" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "maimoon_a")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Maimoon A")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#maimoon_a') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.maimoon_a.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#maimoon_a') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.maimoon_a.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#maimoon_a') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_a.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Maimoon B" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "maimoon_b")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Maimoon B")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#maimoon_b') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.maimoon_b.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#maimoon_b') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.maimoon_b.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#maimoon_b') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_b.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Qutbi A" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "qutbi_a")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Qutbi A")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#qutbi_a') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.qutbi_a.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#qutbi_a') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.qutbi_a.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#qutbi_a') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.qutbi_a.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Qutbi B" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "qutbi_b")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Qutbi B")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#qutbi_b') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.qutbi_b.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#qutbi_b') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.qutbi_b.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#qutbi_b') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.qutbi_b.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Najmi" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "najmi")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Najmi")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#najmi') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.najmi.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#najmi') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.najmi.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#najmi') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.najmi.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Noorani A" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "noorani_a")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Noorani A")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#noorani_a') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.noorani_a.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#noorani_a') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.noorani_a.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#noorani_a') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.noorani_a.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Noorani B" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "noorani_b")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Noorani B")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#noorani_b') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.noorani_b.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#noorani_b') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.noorani_b.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#noorani_b') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.noorani_b.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Husami A" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "husami_a")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Husami A")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#husami_a') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.husami_a.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#husami_a') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.husami_a.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#husami_a') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.husami_a.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Husami B" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "husami_b")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Husami B")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#husami_b') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.husami_b.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#husami_b') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.husami_b.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#husami_b') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.husami_b.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Mohammedi" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "mohammedi")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Mohammedi")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#mohammedi') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.mohammedi.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#mohammedi') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.mohammedi.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#mohammedi') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.mohammedi.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Saifee" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "saifee")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Saifee")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#saifee') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.saifee.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#saifee') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.saifee.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#saifee') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.saifee.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Jamali" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "jamali")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Jamali")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#jamali') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.jamali.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#jamali') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.jamali.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#jamali') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.jamali.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Taiyebi" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "taiyebi")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Taiyebi")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#taiyebi') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.taiyebi.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#taiyebi') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.taiyebi.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#taiyebi') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.taiyebi.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Imadi" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "imadi")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Imadi")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#imadi') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.imadi.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#imadi') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.imadi.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#imadi') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.imadi.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Burhani" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "burhani")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Burhani")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#burhani') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.burhani.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#burhani') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.burhani.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#burhani') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.burhani.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Zaini" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "zaini")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Zaini")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#zaini') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.zaini.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#zaini') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.zaini.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#zaini') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.zaini.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Fakhri" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "fakhri")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Fakhri")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#fakhri') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.fakhri.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#fakhri') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.fakhri.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#fakhri') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.fakhri.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Badri" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "badri")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Badri")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#badri') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.badri.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#badri') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.badri.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#badri') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.badri.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+
+        context "for Ezzi" do
+            before do
+                @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "ezzi")
+                @sabeels.first(3).each.with_index do |sabeel, i|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+                end
+                visit sabeels_stats_path
+            end
+
+            scenario "should have a title" do
+                expect(page).to have_css("h3", text: "Ezzi")
+            end
+
+            scenario "should show number of active takmeen sabeels count" do
+                within('div#ezzi') do
+                    expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.ezzi.active_takhmeen($active_takhmeen).count}")
+                end
+            end
+
+            scenario "should show total number of sabeels" do
+                within('div#ezzi') do
+                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.ezzi.count}")
+                end
+            end
+
+            scenario "should show total number of thaali sizes" do
+                within('div#ezzi') do
+                    @sizes.each do |size|
+                        expect(page).to have_content("#{size.humanize}: #{Sabeel.ezzi.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+                    end
+                end
+            end
+        end
+    end
 end

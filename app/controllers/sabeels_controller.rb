@@ -44,7 +44,19 @@ class SabeelsController < ApplicationController
     end
 
     def stats
+        apartments = Array.new.push(*$phase_1, *$phase_2, *$phase_3).map(&:to_sym)
+        @apts = {}
 
+        apartments.each do |apartment|
+            total_sabeels = Sabeel.send(apartment)
+            active_takhmeens = total_sabeels.active_takhmeen($active_takhmeen)
+            @apts[apartment] = {}
+            @apts[apartment].store(:active_takhmeens, active_takhmeens.count)
+            @apts[apartment].store(:total_sabeels, total_sabeels.count)
+            ThaaliTakhmeen.sizes.keys.each do | size |
+                @apts[apartment].store(size.to_sym, active_takhmeens.with_the_size(size).count)
+            end
+        end
     end
 
     private
