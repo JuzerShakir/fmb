@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # * CUSTOM ROUTES
   # sabeels
   get "/sabeels", to: "sabeels#index", as: :all_sabeels
+  get "/sabeels/stats", to: "sabeels#stats", as: :sabeels_stats
 
   # transactions
   get "/transactions/all", to: "transactions#index", as: :all_transactions

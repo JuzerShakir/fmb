@@ -71,4 +71,14 @@ RSpec.describe Sabeel, type: :routing do
             expect(delete: sabeel_path(1)).to route_to(controller: "sabeels", action: "destroy", id: "1")
         end
     end
+
+    context "stats action" do
+        it "is accessible by /sabeels/stats route" do
+            expect(get("/sabeels/stats")).to route_to("sabeels#stats")
+        end
+
+        it "is accessible by sabeel_stats_path route" do
+            expect(get: sabeels_stats_path).to route_to(controller: "sabeels", action: "stats")
+        end
+    end
 end
