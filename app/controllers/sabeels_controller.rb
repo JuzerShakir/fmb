@@ -23,7 +23,7 @@ class SabeelsController < ApplicationController
     end
 
     def show
-        @thaalis = @sabeel.thaali_takhmeens
+        @thaalis = @sabeel.thaali_takhmeens.order(year: :DESC)
         @thaali_inactive = @thaalis.in_the_year($active_takhmeen).empty?
     end
 
