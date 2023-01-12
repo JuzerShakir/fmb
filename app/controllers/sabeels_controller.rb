@@ -1,5 +1,5 @@
 class SabeelsController < ApplicationController
-    before_action :set_sabeel, except: [:index, :new, :create]
+    before_action :set_sabeel, except: [:index, :new, :create, :stats]
 
     def index
         search_params = params.permit(:format, :page, q: [:hof_name_or_its_cont])
@@ -41,6 +41,10 @@ class SabeelsController < ApplicationController
     def destroy
         @sabeel.destroy
         redirect_to root_path, success: "Sabeel deleted successfully"
+    end
+
+    def stats
+
     end
 
     private
