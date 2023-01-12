@@ -75,23 +75,47 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
     end
 
-    scenario "Showing ThaaliTakhmeen" do
-        @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
-
-        visit takhmeen_path(@thaali)
-
-        atrbs = FactoryBot.attributes_for(:thaali_takhmeen).keys - [:size, :is_complete]
-
-        atrbs.each do | attrb |
-            expect(page).to have_content("#{@thaali.send(attrb)}")
+    context "Showing ThaaliTakhmeen" do
+        before do
+            @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         end
 
-        expect(page).to have_content("#{@thaali.size.humanize}")
+        scenario "should show all details of the Takhmeen" do
+            visit takhmeen_path(@thaali)
 
-        if @thaali.is_complete
-            expect(page).to have_css('.fa-check')
-        else
-            expect(page).to have_css('.fa-xmark')
+            atrbs = FactoryBot.attributes_for(:thaali_takhmeen).keys - [:size, :is_complete]
+            atrbs.each do | attrb |
+                expect(page).to have_content("#{@thaali.send(attrb)}")
+            end
+
+            expect(page).to have_content("#{@thaali.size.humanize}")
+
+            if @thaali.is_complete
+                expect(page).to have_css('.fa-check')
+            else
+                expect(page).to have_css('.fa-xmark')
+            end
+        end
+
+        context "transaction details of a takhmeen" do
+            context "if it exists" do
+                before do
+                    2.times do |i|
+                        FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
+                    end
+                    visit takhmeen_path(@thaali)
+                end
+
+                scenario "should BE shown" do
+                    @thaali.transactions do |trans|
+                        expect(page).to have_content(trans.recipe_no)
+                    end
+                end
+
+                scenario "should show total number of transactions" do
+                    expect(page).to have_content("Total number of Transactions: #{@thaali.transactions.count}")
+                end
+            end
         end
     end
 
