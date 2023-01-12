@@ -1,0 +1,5 @@
+<% if @pagy.next.present? %>
+    <%= turbo_stream.replace :pagination do %>
+        <% turbo_frame_tag :pagination, loading: :lazy, src: path %>
+    <% end %>
+<% end %>
