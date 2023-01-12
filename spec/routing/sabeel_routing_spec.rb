@@ -91,4 +91,14 @@ RSpec.describe Sabeel, type: :routing do
             expect(get: sabeels_active_path("mohammedi")).to route_to(controller: "sabeels", action: "active", apt: 'mohammedi')
         end
     end
+
+    context "total action" do
+        it "is accessible by /sabeels/total/mohammedi route" do
+            expect(get("/sabeels/total/mohammedi")).to route_to("sabeels#total", apt: 'mohammedi')
+        end
+
+        it "is accessible by sabeel_total_path route" do
+            expect(get: sabeels_total_path("mohammedi")).to route_to(controller: "sabeels", action: "total", apt: 'mohammedi')
+        end
+    end
 end

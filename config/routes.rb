@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/sabeels", to: "sabeels#index", as: :all_sabeels
   get "/sabeels/stats", to: "sabeels#stats", as: :sabeels_stats
   get "/sabeels/active/:apt", to: "sabeels#active", as: :sabeels_active
+  get "/sabeels/total/:apt", to: "sabeels#total", as: :sabeels_total
 
   # transactions
   get "/transactions/all", to: "transactions#index", as: :all_transactions
