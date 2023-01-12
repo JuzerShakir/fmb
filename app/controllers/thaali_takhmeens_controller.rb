@@ -39,7 +39,7 @@ class ThaaliTakhmeensController < ApplicationController
     end
 
     def show
-        @transactions = @thaali_takhmeen.transactions
+        @transactions = @thaali_takhmeen.transactions.order(on_date: :DESC)
         @sabeel = @thaali_takhmeen.sabeel
     end
 
