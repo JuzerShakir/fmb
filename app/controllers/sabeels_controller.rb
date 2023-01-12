@@ -1,5 +1,5 @@
 class SabeelsController < ApplicationController
-    before_action :set_sabeel, except: [:index, :new, :create, :stats]
+    before_action :set_sabeel, only: [:show, :update, :edit, :destroy]
 
     def index
         search_params = params.permit(:format, :page, q: [:hof_name_or_its_cont])
@@ -57,6 +57,10 @@ class SabeelsController < ApplicationController
                 @apts[apartment].store(size.to_sym, active_takhmeens.with_the_size(size).count)
             end
         end
+    end
+
+    def active
+
     end
 
     private

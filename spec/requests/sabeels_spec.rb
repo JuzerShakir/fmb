@@ -170,4 +170,17 @@ RSpec.describe "Sabeels", type: :request do
             expect(response).to have_http_status(:ok)
         end
     end
+
+    # * ACTIVE
+    context "GET active" do
+        before do
+            apts = Sabeel.apartments.keys
+            get sabeels_active_path(apts.sample)
+        end
+
+        it "should render a stats template" do
+            expect(response).to render_template(:active)
+            expect(response).to have_http_status(:ok)
+        end
+    end
 end
