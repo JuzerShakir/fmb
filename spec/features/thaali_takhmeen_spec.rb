@@ -80,13 +80,19 @@ RSpec.describe "ThaaliTakhmeen features" do
 
         visit takhmeen_path(@thaali)
 
-        atrbs = FactoryBot.attributes_for(:thaali_takhmeen).keys - [:size]
+        atrbs = FactoryBot.attributes_for(:thaali_takhmeen).keys - [:size, :is_complete]
 
         atrbs.each do | attrb |
             expect(page).to have_content("#{@thaali.send(attrb)}")
         end
 
         expect(page).to have_content("#{@thaali.size.humanize}")
+
+        if @thaali.is_complete
+            expect(page).to have_css('.fa-check')
+        else
+            expect(page).to have_css('.fa-xmark')
+        end
     end
 
     scenario "Deleting ThaaliTakhmeen" do
