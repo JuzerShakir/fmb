@@ -122,6 +122,9 @@ RSpec.describe "Sabeel features" do
         before do
             @apt = Sabeel.apartments.keys.sample
             @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
+            @sabeels.each do |sabeel|
+                FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id)
+            end
             visit sabeels_active_path(@apt)
         end
 
