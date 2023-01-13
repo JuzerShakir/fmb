@@ -204,4 +204,16 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             expect(response).to have_http_status(:ok)
         end
     end
+
+    # * PENDING
+    context "GET pending" do
+        before do
+            get takhmeens_pending_path($active_takhmeen)
+        end
+
+        it "should render a pending template" do
+            expect(response).to render_template(:pending)
+            expect(response).to have_http_status(:ok)
+        end
+    end
 end

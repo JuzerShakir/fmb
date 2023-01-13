@@ -84,6 +84,13 @@ class ThaaliTakhmeensController < ApplicationController
         @pagy, @thaalis = pagy_countless(thaalis, items: 8)
     end
 
+    def pending
+        @year = params[:year]
+        thaalis = ThaaliTakhmeen.pending_year(@year).order(balance: :DESC)
+        @total = thaalis.count
+        @pagy, @thaalis = pagy_countless(thaalis, items: 8)
+    end
+
     private
 
         def thaali_takhmeen_params
