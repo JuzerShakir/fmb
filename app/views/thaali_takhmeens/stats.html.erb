@@ -1,0 +1,35 @@
+<%# * Title %>
+<h2 class= "text-center">Takhmeen Statistics over the years</h2>
+
+<%# * Content %>
+<div class="text-center d-flex justify-content-center">
+    <div class="col-12 col-md-7">
+        <% @years.each do |year, values| %>
+            <div id=<%= year %> class = "my-5 py-2 px-2 border rounded-5 shadow">
+                <h3><%= year %> </h3>
+                <div class="row mt-3">
+                    <p class="col fs-5 fw-bold text-success">
+                        Total:
+                        <i class="fa-solid fa-indian-rupee-sign"></i><%= "#{number_with_delimiter(values[:total])}" %>
+                    </p>
+                    <p class="col fs-5 fw-bold text-danger">
+                        Balance:
+                        <i class="fa-solid fa-indian-rupee-sign"></i><%= "#{number_with_delimiter(values[:balance])}" %>
+                    </p>
+                </div>
+                <div class="row mt-3">
+                    <%= link_to "Complete: #{values[:complete]}", "#", class: "btn btn-outline-success col mx-4 fs-5" %>
+                    <%= link_to "Pending: #{values[:pending]}", "#", class: "btn btn-outline-danger col mx-4 fs-5" %>
+                </div>
+                <div class="row mt-4 fw-bold">
+                    <p class= "col mx-4 text-primary">Small: <%= "#{values[:small]}" %></p>
+                    <p class= "col mx-4 text-warning">Medium: <%= "#{values[:medium]}" %></p>
+                    <p class= "col mx-4 text-dark">Large: <%= "#{values[:large]}" %></p>
+                </div>
+                <div class="row mt-2">
+                    <%= link_to "Total Takhmeens: #{values[:count]}", "#", class: "fw-bold text-info fs-5" %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

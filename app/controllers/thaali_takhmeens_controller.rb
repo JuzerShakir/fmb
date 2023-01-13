@@ -60,7 +60,21 @@ class ThaaliTakhmeensController < ApplicationController
     end
 
     def stats
+        years = ThaaliTakhmeen.distinct.pluck(:year)
+        @years = {}
 
+        years.each do | y |
+            takhmeens = ThaaliTakhmeen.in_the_year(y)
+            @years[y] = {}
+            @years[y].store(:total, takhmeens.pluck(:total).sum)
+            @years[y].store(:balance, takhmeens.pluck(:balance).sum)
+            @years[y].store(:count, takhmeens.count)
+            @years[y].store(:pending, ThaaliTakhmeen.pending_year(y).count)
+            @years[y].store(:complete, ThaaliTakhmeen.completed_year(y).count)
+            ThaaliTakhmeen.sizes.keys.each do | size |
+                @years[y].store(size.to_sym, takhmeens.send(size).count)
+            end
+        end
     end
 
     private
