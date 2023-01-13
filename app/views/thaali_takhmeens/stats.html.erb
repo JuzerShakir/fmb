@@ -30,7 +30,7 @@
                     <% if year == $active_takhmeen %>
                         <%= link_to "Total Takhmeens: #{values[:count]}", root_path, class: "fw-bold text-info fs-5" %>
                     <% else %>
-                        <%= link_to "Total Takhmeens: #{values[:count]}", "#", class: "fw-bold text-info fs-5" %>
+                        <%= link_to "Total Takhmeens: #{values[:count]}", takhmeens_all_path(year), class: "fw-bold text-info fs-5" %>
                     <% end %>
                 </div>
             </div>
