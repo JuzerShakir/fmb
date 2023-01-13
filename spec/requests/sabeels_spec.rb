@@ -178,7 +178,7 @@ RSpec.describe "Sabeels", type: :request do
             get sabeels_active_path(apts.sample)
         end
 
-        it "should render a stats template" do
+        it "should render a active template" do
             expect(response).to render_template(:active)
             expect(response).to have_http_status(:ok)
         end
@@ -191,7 +191,7 @@ RSpec.describe "Sabeels", type: :request do
             get sabeels_total_path(apts.sample)
         end
 
-        it "should render a stats template" do
+        it "should render a total template" do
             expect(response).to render_template(:total)
             expect(response).to have_http_status(:ok)
         end
