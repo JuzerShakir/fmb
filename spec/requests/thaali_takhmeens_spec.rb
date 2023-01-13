@@ -216,4 +216,16 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             expect(response).to have_http_status(:ok)
         end
     end
+
+    # * ALL
+    context "GET all" do
+        before do
+            get takhmeens_all_path($prev_takhmeen)
+        end
+
+        it "should render a all template" do
+            expect(response).to render_template(:all)
+            expect(response).to have_http_status(:ok)
+        end
+    end
 end

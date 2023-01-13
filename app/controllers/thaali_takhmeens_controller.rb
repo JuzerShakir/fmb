@@ -91,6 +91,13 @@ class ThaaliTakhmeensController < ApplicationController
         @pagy, @thaalis = pagy_countless(thaalis, items: 8)
     end
 
+    def all
+        @year = params[:year]
+        thaalis = ThaaliTakhmeen.in_the_year(@year).order(number: :ASC)
+        @total = thaalis.count
+        @pagy, @thaalis = pagy_countless(thaalis, items: 8)
+    end
+
     private
 
         def thaali_takhmeen_params
