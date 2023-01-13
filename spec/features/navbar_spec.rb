@@ -29,9 +29,11 @@ RSpec.describe "Navbar features" do
         end
 
         scenario "with 'Thaali Takhmeens' link" do
-            expect(page).to have_content("Thaali Takhmeens")
-            click_on "Thaali Takhmeens"
-            expect(current_path).to eql takhmeens_stats_path
+            within("#statistics") do
+                expect(page).to have_content("Thaali Takhmeens")
+                click_on "Thaali Takhmeens"
+                expect(current_path).to eql takhmeens_stats_path
+            end
         end
     end
 
