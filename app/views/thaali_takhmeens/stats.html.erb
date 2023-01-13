@@ -18,7 +18,7 @@
                     </p>
                 </div>
                 <div class="row mt-3">
-                    <%= link_to "Complete: #{values[:complete]}", "#", class: "btn btn-outline-success col mx-4 fs-5" %>
+                    <%= link_to "Complete: #{values[:complete]}", takhmeens_complete_path(year), class: "btn btn-outline-success col mx-4 fs-5" %>
                     <%= link_to "Pending: #{values[:pending]}", "#", class: "btn btn-outline-danger col mx-4 fs-5" %>
                 </div>
                 <div class="row mt-4 fw-bold">

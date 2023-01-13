@@ -198,6 +198,13 @@ RSpec.describe "ThaaliTakhmeen features" do
                     end
                 end
 
+                scenario "should redirect to completed takhmeens page by clicking 'complete' button" do
+                    within("div##{$active_takhmeen}") do
+                        click_on "Complete: "
+                        expect(current_path).to eql(takhmeens_complete_path($active_takhmeen))
+                    end
+                end
+
                 scenario "pending takhmeens" do
                     within("div##{$active_takhmeen}") do
                         expect(page).to have_selector(:link_or_button, "Pending: #{ThaaliTakhmeen.pending_year($active_takhmeen).count}")
