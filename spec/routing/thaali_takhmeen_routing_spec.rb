@@ -101,4 +101,14 @@ RSpec.describe ThaaliTakhmeen, type: :routing do
             expect(get: takhmeens_pending_path("2022")).to route_to(controller: "thaali_takhmeens", action: "pending", year: '2022')
         end
     end
+
+    context "all action" do
+        it "is accessible by /takhmeens/2022/all route" do
+            expect(get("/takhmeens/2021/all")).to route_to("thaali_takhmeens#all", year: '2021')
+        end
+
+        it "is accessible by takhmeens_all_path route" do
+            expect(get: takhmeens_all_path("2021")).to route_to(controller: "thaali_takhmeens", action: "all", year: '2021')
+        end
+    end
 end

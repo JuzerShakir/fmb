@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "/takhmeens/stats", to: "thaali_takhmeens#stats", as: :takhmeens_stats
   get "/takhmeens/:year/complete", to: "thaali_takhmeens#complete", as: :takhmeens_complete
   get "/takhmeens/:year/pending", to: "thaali_takhmeens#pending", as: :takhmeens_pending
+  get "/takhmeens/:year/all", to: "thaali_takhmeens#all", as: :takhmeens_all
 
   # transactions
   get "/transactions/all", to: "transactions#index", as: :all_transactions
