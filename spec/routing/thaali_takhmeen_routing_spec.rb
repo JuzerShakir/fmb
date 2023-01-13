@@ -71,4 +71,14 @@ RSpec.describe ThaaliTakhmeen, type: :routing do
             expect(delete: takhmeen_path(1)).to route_to(controller: "thaali_takhmeens", action: "destroy", id: "1")
         end
     end
+
+    context "stats action" do
+        it "is accessible by /takhmeens/stats route" do
+            expect(get("/takhmeens/stats")).to route_to("thaali_takhmeens#stats")
+        end
+
+        it "is accessible by takhmeens_stats_path route" do
+            expect(get: takhmeens_stats_path).to route_to(controller: "thaali_takhmeens", action: "stats")
+        end
+    end
 end

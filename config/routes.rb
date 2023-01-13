@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get "/sabeels/active/:apt", to: "sabeels#active", as: :sabeels_active
   get "/sabeels/total/:apt", to: "sabeels#total", as: :sabeels_total
 
+  # thaali-takhmeen
+  get "/takhmeens/stats", to: "thaali_takhmeens#stats", as: :takhmeens_stats
+
   # transactions
   get "/transactions/all", to: "transactions#index", as: :all_transactions
 
