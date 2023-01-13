@@ -59,6 +59,10 @@ class ThaaliTakhmeensController < ApplicationController
         redirect_to sabeel_path(@thaali_takhmeen.sabeel), success: "Thaali Takhmeen destroyed successfully"
     end
 
+    def stats
+
+    end
+
     private
 
         def thaali_takhmeen_params

@@ -180,4 +180,16 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             expect(response).to redirect_to sabeel_path(@sabeel)
         end
     end
+
+    # * STATISTICS
+    context "GET stats" do
+        before do
+            get takhmeens_stats_path
+        end
+
+        it "should render a stats template" do
+            expect(response).to render_template(:stats)
+            expect(response).to have_http_status(:ok)
+        end
+    end
 end
