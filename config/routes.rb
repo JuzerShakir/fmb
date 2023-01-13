@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   # thaali-takhmeen
   get "/takhmeens/stats", to: "thaali_takhmeens#stats", as: :takhmeens_stats
+  get "/takhmeens/:year/complete", to: "thaali_takhmeens#complete", as: :takhmeens_complete
 
   # transactions
   get "/transactions/all", to: "transactions#index", as: :all_transactions

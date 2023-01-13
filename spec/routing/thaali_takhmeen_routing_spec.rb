@@ -81,4 +81,14 @@ RSpec.describe ThaaliTakhmeen, type: :routing do
             expect(get: takhmeens_stats_path).to route_to(controller: "thaali_takhmeens", action: "stats")
         end
     end
+
+    context "complete action" do
+        it "is accessible by /takhmeens/2022/complete route" do
+            expect(get("/takhmeens/2022/complete")).to route_to("thaali_takhmeens#complete", year: '2022')
+        end
+
+        it "is accessible by takhmeens_complete_path route" do
+            expect(get: takhmeens_complete_path("2022")).to route_to(controller: "thaali_takhmeens", action: "complete", year: '2022')
+        end
+    end
 end
