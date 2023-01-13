@@ -26,5 +26,6 @@ FactoryBot.define do
     factory :previous_takhmeen, traits: [:previous_year]
     factory :completed_takhmeens, traits: [:complete]
     factory :prev_completed_takhmeens, traits: [:previous_year, :complete]
+    factory :active_completed_takhmeens, traits: [:current_year, :complete]
   end
 end

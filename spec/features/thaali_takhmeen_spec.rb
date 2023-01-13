@@ -23,6 +23,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
     end
 
+    #  * CREATE
     context "creating ThaaliTakhmeen" do
         before do
             visit sabeel_path(@sabeel)
@@ -59,6 +60,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
     end
 
+    #  * EDUT
     context "Editing ThaaliTakhmneens" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
@@ -75,6 +77,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
     end
 
+    #  * SHOW
     context "Showing ThaaliTakhmeen" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
@@ -119,6 +122,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
     end
 
+    # * DELETE
     scenario "Deleting ThaaliTakhmeen" do
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         visit takhmeen_path(@thaali)
@@ -129,5 +133,75 @@ RSpec.describe "ThaaliTakhmeen features" do
 
         expect(current_path).to eql sabeel_path(@sabeel)
         expect(page).to have_content("Thaali Takhmeen destroyed successfully")
+    end
+
+    # * Statistics
+    context "Statistics" do
+        before do
+            @sizes = ThaaliTakhmeen.sizes.keys
+        end
+
+        scenario "should have a header" do
+            visit takhmeens_stats_path
+            expect(page).to have_css("h2", text: "Takhmeen Statistics over the years")
+        end
+
+        context "for all the years" do
+            context "show details of current year" do
+                before do
+                    @sizes.each do |size|
+                        FactoryBot.create(:active_takhmeen, size: size)
+                    end
+                    FactoryBot.create_list(:active_completed_takhmeens, 2)
+                    visit takhmeens_stats_path
+                end
+
+                scenario "title" do
+                    within("div##{$active_takhmeen}") do
+                        expect(page).to have_css("h3", text: $active_takhmeen)
+                    end
+                end
+
+                # scenario "total amount" do
+                #     within("div##{$active_takhmeen}") do
+                #         total = ThaaliTakhmeen.in_the_year($active_takhmeen).pluck(:total).sum
+                #         expect(page).to have_content(total)
+                #     end
+                # end
+
+                # scenario "Balance amount" do
+                #     within("div##{$active_takhmeen}") do
+                #         balance = ThaaliTakhmeen.in_the_year($active_takhmeen).pluck(:balance).sum
+                #         expect(page).to have_content(balance)
+                #     end
+                # end
+
+                scenario "completed takhmeens" do
+                    within("div##{$active_takhmeen}") do
+                        expect(page).to have_selector(:link_or_button, "Complete: #{ThaaliTakhmeen.completed_year($active_takhmeen).count}")
+                    end
+                end
+
+                scenario "pending takhmeens" do
+                    within("div##{$active_takhmeen}") do
+                        expect(page).to have_selector(:link_or_button, "Pending: #{ThaaliTakhmeen.pending_year($active_takhmeen).count}")
+                    end
+                end
+
+                scenario "total number of thaali sizes" do
+                    within("div##{$active_takhmeen}") do
+                        @sizes.each do |size|
+                            expect(page).to have_content("#{size.humanize}: #{ThaaliTakhmeen.in_the_year($active_takhmeen).send(size).count}")
+                        end
+                    end
+                end
+
+                scenario "total no. of takhmeens" do
+                    within("div##{$active_takhmeen}") do
+                        expect(page).to have_selector(:link_or_button, "Total Takhmeens: #{ThaaliTakhmeen.in_the_year($active_takhmeen).count}")
+                    end
+                end
+            end
+        end
     end
 end
