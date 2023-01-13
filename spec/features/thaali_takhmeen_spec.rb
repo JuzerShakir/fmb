@@ -135,6 +135,22 @@ RSpec.describe "ThaaliTakhmeen features" do
         expect(page).to have_content("Thaali Takhmeen destroyed successfully")
     end
 
+    #* COMPLETE
+    context "Complete" do
+        before do
+            @thaalis = FactoryBot.create_list(:active_completed_takhmeens, 3)
+            visit takhmeens_complete_path($active_takhmeen)
+        end
+
+        scenario "should have a header" do
+            expect(page).to have_css("h2", text: "Completed Takhmeens for the year: #{@year}")
+        end
+
+        # scenario "should list all the Completed Takhmeens for active takhmeen year" do
+        #     expect(page).to have_content("#{@thaalis.first.number}")
+        # end
+    end
+
     # * Statistics
     context "Statistics" do
         before do

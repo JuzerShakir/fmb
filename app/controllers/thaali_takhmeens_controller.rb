@@ -78,7 +78,10 @@ class ThaaliTakhmeensController < ApplicationController
     end
 
     def complete
-
+        @year = params[:year]
+        thaalis = ThaaliTakhmeen.completed_year(@year).order(number: :ASC)
+        @total = thaalis.count
+        @pagy, @thaalis = pagy_countless(thaalis, items: 8)
     end
 
     private
