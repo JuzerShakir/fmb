@@ -1,0 +1,16 @@
+<% @thaalis.each do |thaali| %>
+    <div class="row py-3 fs-5 border-bottom border-light">
+        <div class="col">
+            <%= button_to thaali.number, takhmeen_path(thaali), method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
+        </div>
+        <div class="col fw-bold">
+            <%= thaali.sabeel.hof_name %>
+        </div>
+        <div class="col text-success">
+            <%= thaali.sabeel.address %>
+        </div>
+        <div class="col text-secondary">
+            <%= render partial: "shared/takhmeen_complete", locals: { takhmeen: thaali } %>
+        </div>
+    </div>
+<% end %>
