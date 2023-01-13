@@ -167,6 +167,22 @@ RSpec.describe "ThaaliTakhmeen features" do
         # end
     end
 
+    #* ALL
+    context "All" do
+        before do
+            @thaalis = FactoryBot.create_list(:previous_takhmeen, 3)
+            visit takhmeens_all_path($prev_takhmeen)
+        end
+
+        scenario "should have a header" do
+            expect(page).to have_css("h2", text: "All Takhmeens for the year: #{$prev_takhmeen}")
+        end
+
+        # scenario "should list all the Completed Takhmeens for active takhmeen year" do
+        #     expect(page).to have_content("#{@thaalis.first.number}")
+        # end
+    end
+
     # * Statistics
     context "Statistics" do
         before do
