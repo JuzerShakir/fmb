@@ -143,7 +143,23 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
 
         scenario "should have a header" do
-            expect(page).to have_css("h2", text: "Completed Takhmeens for the year: #{@year}")
+            expect(page).to have_css("h2", text: "Completed Takhmeens for the year: #{$active_takhmeen}")
+        end
+
+        # scenario "should list all the Completed Takhmeens for active takhmeen year" do
+        #     expect(page).to have_content("#{@thaalis.first.number}")
+        # end
+    end
+
+    #* PENDING
+    context "Pending" do
+        before do
+            @thaalis = FactoryBot.create_list(:active_takhmeen, 3)
+            visit takhmeens_pending_path($active_takhmeen)
+        end
+
+        scenario "should have a header" do
+            expect(page).to have_css("h2", text: "Pending Takhmeens for the year: #{$active_takhmeen}")
         end
 
         # scenario "should list all the Completed Takhmeens for active takhmeen year" do
