@@ -192,4 +192,16 @@ RSpec.describe "ThaaliTakhmeens", type: :request do
             expect(response).to have_http_status(:ok)
         end
     end
+
+    # * COMPLETE
+    context "GET complete" do
+        before do
+            get takhmeens_complete_path($active_takhmeen)
+        end
+
+        it "should render a complete template" do
+            expect(response).to render_template(:complete)
+            expect(response).to have_http_status(:ok)
+        end
+    end
 end

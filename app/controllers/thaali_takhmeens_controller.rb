@@ -77,6 +77,10 @@ class ThaaliTakhmeensController < ApplicationController
         end
     end
 
+    def complete
+
+    end
+
     private
 
         def thaali_takhmeen_params
