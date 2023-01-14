@@ -1,5 +1,7 @@
 class SabeelsController < ApplicationController
     before_action :set_sabeel, only: [:show, :update, :edit, :destroy]
+    before_action :set_apt, only: [:active, :total]
+    # after_action :set_pagy_sabeels_total, only: [:active, :total]
 
     def index
         search_params = params.permit(:format, :page, q: [:hof_name_or_its_cont])
@@ -60,17 +62,15 @@ class SabeelsController < ApplicationController
     end
 
     def active
-        @apt = params[:apt]
-        sabeels = Sabeel.send(@apt).active_takhmeen($active_takhmeen)
-        @total = sabeels.count
-        @pagy, @sabeels = pagy_countless(sabeels, items: 8)
+        @s = Sabeel.send(@apt).active_takhmeen($active_takhmeen)
+        @total = @s.count
+        @pagy, @sabeels = pagy_countless(@s, items: 8)
     end
 
     def total
-        @apt = params[:apt]
-        sabeels = Sabeel.send(@apt)
-        @total = sabeels.count
-        @pagy, @sabeels = pagy_countless(sabeels, items: 8)
+        @s = Sabeel.send(@apt)
+        @total = @s.count
+        @pagy, @sabeels = pagy_countless(@s, items: 8)
     end
 
     private
@@ -81,4 +81,13 @@ class SabeelsController < ApplicationController
         def set_sabeel
             @sabeel = Sabeel.find(params[:id])
         end
+
+        def set_apt
+            @apt = params[:apt]
+        end
+
+        # def set_pagy_sabeels_total
+        #     @total = @s.count
+        #     @pagy, @sabeels = pagy_countless(@s, items: 8)
+        # end
 end
