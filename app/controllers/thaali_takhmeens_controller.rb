@@ -8,7 +8,7 @@ class ThaaliTakhmeensController < ApplicationController
         @active_thaalis = ThaaliTakhmeen.includes(:sabeel).in_the_year($active_takhmeen)
         @q = @active_thaalis.ransack(params[:q])
 
-        thaalis = @q.result(distinct: true).order(number: :ASC)
+        thaalis = @q.result(distinct: true)
         @pagy, @thaalis = pagy_countless(thaalis, items: 8)
     end
 
@@ -79,21 +79,21 @@ class ThaaliTakhmeensController < ApplicationController
 
     def complete
         @year = params[:year]
-        thaalis = ThaaliTakhmeen.includes(:sabeel).completed_year(@year).order(number: :ASC)
+        thaalis = ThaaliTakhmeen.includes(:sabeel).completed_year(@year)
         @total = thaalis.count
         @pagy, @thaalis = pagy_countless(thaalis, items: 8)
     end
 
     def pending
         @year = params[:year]
-        thaalis = ThaaliTakhmeen.includes(:sabeel).pending_year(@year).order(balance: :DESC)
+        thaalis = ThaaliTakhmeen.includes(:sabeel).pending_year(@year)
         @total = thaalis.count
         @pagy, @thaalis = pagy_countless(thaalis, items: 8)
     end
 
     def all
         @year = params[:year]
-        thaalis = ThaaliTakhmeen.includes(:sabeel).in_the_year(@year).order(number: :ASC)
+        thaalis = ThaaliTakhmeen.includes(:sabeel).in_the_year(@year)
         @total = thaalis.count
         @pagy, @thaalis = pagy_countless(thaalis, items: 8)
     end

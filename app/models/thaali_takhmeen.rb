@@ -47,7 +47,7 @@ class ThaaliTakhmeen < ApplicationRecord
   # * Scopes
   scope :in_the_year, -> year { where(year: year).order(number: :ASC) }
 
-  scope :pending, -> { where(is_complete: false) }
+  scope :pending, -> { where(is_complete: false).order(balance: :DESC) }
 
   scope :pending_year, -> year { pending.in_the_year(year) }
 
