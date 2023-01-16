@@ -1,5 +1,5 @@
-<div id="show-sabeel" class="col-md-5 mx-auto mt-5 rounded-5 shadow bg-body-tertiary rounded fs-5 py-4 pe-4">
-    <div class="row py-3">
+<div id="show-sabeel" class="col-lg-5 mx-auto mt-5 rounded-5 shadow bg-body-tertiary rounded py-4 px-4">
+    <div class="row pb-3">
         <div class="col fw-bold text-end">
             <span>Name</span>
         </div>
@@ -15,17 +15,13 @@
             <%= @sabeel.address %>
         </div>
     </div>
-    <div class="row align-items-center py-3">
-        <div class="col fw-bold text-end">
-            <span>Contact info:</span>
+    <hr>
+    <div class="row fst-italic text-secondary text-center">
+        <div class="col">
+            <%= @sabeel.mobile %>
         </div>
-        <div class="col fst-italic text-secondary">
-            <div class="row ps-2">
-                <%= @sabeel.mobile %>
-            </div>
-            <div class="row ps-2 mt-2 fs-6">
-                <%= @sabeel.email %>
-            </div>
+        <div class="col">
+            <%= @sabeel.email %>
         </div>
     </div>
 </div>
