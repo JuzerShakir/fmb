@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get "/takhmeens/:year/all", to: "thaali_takhmeens#all", as: :takhmeens_all
 
   # transactions
-  get "/transactions/all", to: "transactions#index", as: :all_transactions
+  get "/transactions", to: "transactions#index", as: :all_transactions
 
   # * RESOURCEFUL ROUTES
   resources :sabeels, shallow: true, except: [:index]  do

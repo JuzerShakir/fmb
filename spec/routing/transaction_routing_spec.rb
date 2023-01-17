@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe Transaction, type: :routing do
 
     context "index action" do
-        it "is accessible by /transactions/all route" do
-            expect(get("/transactions/all")).to route_to("transactions#index")
+        it "is accessible by /transactions route" do
+            expect(get("/transactions")).to route_to("transactions#index")
         end
 
         it "is accessible by all_transactions_path url helper" do
