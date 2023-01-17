@@ -155,7 +155,7 @@ RSpec.describe "Sabeels", type: :request do
         end
 
         it "should redirect to the homepage" do
-            expect(response).to redirect_to root_path
+            expect(response).to redirect_to root_path.concat("?format=html")
         end
     end
 
