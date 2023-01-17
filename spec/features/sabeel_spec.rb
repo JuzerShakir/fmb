@@ -40,20 +40,23 @@ RSpec.describe "Sabeel features" do
         end
     end
 
-    # context "show all sabeels" do
-    #     before do
-    #         @sabeels = FactoryBot.create_list(:sabeel, 3)
-    #         visit all_sabeels_path
-    #     end
+    context "show all sabeels", js: true do
+        before do
+            @sabeels = FactoryBot.create_list(:sabeel, 3)
+            visit all_sabeels_path
+        end
 
-    #     scenario "should have a link to ITS text that renders sabeel:show page after clicking it" do
-    #         its = @sabeels.last.its
-    #         expect(page).to have_content("#{its}")
+        scenario "should have a link to ITS text that renders sabeel:show page after clicking it" do
+            @sabeels.each do |sabeel|
+                its = sabeel.its
+                expect(page).to have_content("#{its}")
 
-            # click_button "#{its}"
-            # expect(current_path).to eql sabeel_path(its)
-    #     end
-    # end
+                click_button "#{its}"
+                expect(current_path).to eql sabeel_path(its)
+                page.driver.go_back
+            end
+        end
+    end
 
     context "takhmeen details of a sabeel" do
         context "if it exists" do
