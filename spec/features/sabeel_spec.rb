@@ -146,7 +146,7 @@ RSpec.describe "Sabeel features" do
     end
 
     #* Active
-    context "Active" do
+    context "Active", js: true do
         before do
             @apt = Sabeel.apartments.keys.sample
             @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
@@ -160,9 +160,15 @@ RSpec.describe "Sabeel features" do
             expect(page).to have_css("h2", text: "Active Sabeels for #{@apt.titleize}")
         end
 
-        # scenario "should list all the active sabeels of an apartment" do
-        #     expect(page).to have_content("#{@sabeels.first.address}")
-        # end
+        scenario "should list all the active sabeels of an apartment" do
+            @sabeels.each do |sabeel|
+                expect(page).to have_content("#{sabeel.flat_no}")
+                expect(page).to have_content("#{sabeel.hof_name}")
+                thaali = sabeel.thaali_takhmeens.first
+                expect(page).to have_content("#{thaali.number}")
+                expect(page).to have_content("#{thaali.size.humanize.chr}")
+            end
+        end
     end
 
     #* Total
