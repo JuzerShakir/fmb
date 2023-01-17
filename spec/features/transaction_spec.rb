@@ -49,6 +49,35 @@ RSpec.describe "Transaction features"do
         end
     end
 
+    # * INDEX
+    # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
+    # context "index template", js: true do
+    #     before do
+    #         @transactions = FactoryBot.create_list(:transaction, 3)
+    #         visit all_transactions_path
+    #     end
+
+    #     scenario "should have a link to recipe_no button that renders transaction:show page after clicking it" do
+    #         @transactions.each do |tran|
+    #             recipe_no = tran.recipe_no
+    #             expect(page).to have_content("#{recipe_no}")
+
+    #             click_button "#{recipe_no}"
+    #             expect(current_path).to eql transaction_path(tran)
+    #             page.driver.go_back
+    #         end
+    #     end
+
+    #     scenario "should show 'amount', 'thaali_number' & 'on_date' of all transactions" do
+    #         @transactions.each do |tran|
+    #             expect(page).to have_content("#{tran.amount}")
+    #             expect(page).to have_content("#{time_ago_in_words(tran.on_date)}")
+    #             thaali = tran.thaali_takhmeen
+    #             expect(page).to have_content("#{thaali.number}")
+    #         end
+    #     end
+    # end
+
     # * EDIT
     context "Editing Transaction" do
         before do
