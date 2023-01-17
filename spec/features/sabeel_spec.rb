@@ -92,6 +92,15 @@ RSpec.describe "Sabeel features" do
                     end
                 end
             end
+
+            scenario "should be able to visit thaali show page after clicking on the year" do
+                @thaalis.each do | thaali |
+                    year = thaali.year
+                    click_button "#{year}"
+                    expect(current_path).to eql takhmeen_path(thaali)
+                    visit sabeel_path(@sabeel)
+                end
+            end
         end
     end
 
