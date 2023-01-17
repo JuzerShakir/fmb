@@ -89,3 +89,5 @@ gem 'ransack'
 gem "humanize", "~> 2.5"
 
 gem "pagy", "~> 6.0"
+
+gem "selenium-webdriver", "~> 4.7"
