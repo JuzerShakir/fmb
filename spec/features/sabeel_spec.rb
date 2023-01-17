@@ -158,7 +158,7 @@ RSpec.describe "Sabeel features" do
             @sabeels.each do |sabeel|
                 FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id)
             end
-            visit sabeels_active_path(@apt)
+            visit active_sabeels_path(@apt)
         end
 
         scenario "should have a header" do
@@ -181,7 +181,7 @@ RSpec.describe "Sabeel features" do
         #         flat_no = sabeel.flat_no
         #         click_button "#{flat_no}"
         #         expect(current_path).to eql sabeel_path(sabeel)
-        #         visit sabeels_active_path(@apt)
+        #         visit active_sabeels_path(@apt)
         #     end
         # end
 
@@ -191,7 +191,7 @@ RSpec.describe "Sabeel features" do
         #         thaali = sabeel.thaali_takhmeens.first
         #         click_button "#{thaali.number}"
         #         expect(current_path).to eql takhmeen_path(thaali)
-        #         visit sabeels_active_path(@apt)
+        #         visit active_sabeels_path(@apt)
         #     end
         # end
     end
@@ -250,7 +250,7 @@ RSpec.describe "Sabeel features" do
             scenario "should redirect to active sabeels page by clicking 'active' button" do
                 within('div#maimoon_a') do
                     click_on "Active: "
-                    expect(current_path).to eql(sabeels_active_path("maimoon_a"))
+                    expect(current_path).to eql(active_sabeels_path("maimoon_a"))
                 end
             end
 
@@ -298,7 +298,7 @@ RSpec.describe "Sabeel features" do
             scenario "should redirect to active sabeels page by clicking 'active' button" do
                 within('div#maimoon_b') do
                     click_on "Active: "
-                    expect(current_path).to eql(sabeels_active_path("maimoon_b"))
+                    expect(current_path).to eql(active_sabeels_path("maimoon_b"))
                 end
             end
 

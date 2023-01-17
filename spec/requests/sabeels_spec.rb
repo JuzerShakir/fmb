@@ -175,7 +175,7 @@ RSpec.describe "Sabeels", type: :request do
     context "GET active" do
         before do
             apts = Sabeel.apartments.keys
-            get sabeels_active_path(apts.sample)
+            get active_sabeels_path(apts.sample)
         end
 
         it "should render a active template" do

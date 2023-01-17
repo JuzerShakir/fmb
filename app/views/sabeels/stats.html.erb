@@ -11,7 +11,7 @@
             <div id=<%= apartment %> class = "my-5 py-2 px-2 border rounded-5 shadow">
                 <h3><%= apartment.to_s.titleize %> </h3>
                 <div class="row mt-3">
-                    <%= link_to "Active: #{values[:active_takhmeens]}", sabeels_active_path(apartment.to_s), class: "btn btn-outline-success rounded-5 col mx-4 fs-5" %>
+                    <%= link_to "Active: #{values[:active_takhmeens]}", active_sabeels_path(apartment.to_s), class: "btn btn-outline-success rounded-5 col mx-4 fs-5" %>
                     <%= link_to "Inactive: #{values[:inactive_takhmeens]}", sabeels_inactive_path(apartment.to_s), class: "btn btn-outline-danger rounded-5 col mx-4 fs-5" %>
                 </div>
                 <div class="row mt-3 fw-bold">
