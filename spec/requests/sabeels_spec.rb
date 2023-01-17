@@ -188,7 +188,7 @@ RSpec.describe "Sabeels", type: :request do
     context "GET inactive" do
         before do
             apts = Sabeel.apartments.keys
-            get sabeels_inactive_path(apts.sample)
+            get inactive_sabeels_path(apts.sample)
         end
 
         it "should render a inactive template" do

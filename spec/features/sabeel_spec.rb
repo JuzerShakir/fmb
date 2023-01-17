@@ -201,7 +201,7 @@ RSpec.describe "Sabeel features" do
         before do
             @apt = Sabeel.apartments.keys.sample
             @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
-            visit sabeels_inactive_path(@apt)
+            visit inactive_sabeels_path(@apt)
         end
 
         scenario "should have a header" do
@@ -257,7 +257,7 @@ RSpec.describe "Sabeel features" do
             scenario "should redirect to inactive sabeels page by clicking 'inactive' button" do
                 within('div#maimoon_a') do
                     click_on "Inactive: "
-                    expect(current_path).to eql(sabeels_inactive_path("maimoon_a"))
+                    expect(current_path).to eql(inactive_sabeels_path("maimoon_a"))
                 end
             end
 
@@ -305,7 +305,7 @@ RSpec.describe "Sabeel features" do
             scenario "should redirect to inactive sabeels page by clicking 'inactive' button" do
                 within('div#maimoon_b') do
                     click_on "Inactive: "
-                    expect(current_path).to eql(sabeels_inactive_path("maimoon_b"))
+                    expect(current_path).to eql(inactive_sabeels_path("maimoon_b"))
                 end
             end
 
