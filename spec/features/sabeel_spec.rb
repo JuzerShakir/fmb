@@ -75,6 +75,10 @@ RSpec.describe "Sabeel features" do
                 visit sabeel_path(@sabeel)
             end
 
+            scenario "should show total number of takhmeens" do
+                expect(page).to have_content("Total number of Takhmeens: #{@sabeel.thaali_takhmeens.count}")
+            end
+
             scenario "should show 'year', 'total', 'balance' values" do
                 @sabeel.thaali_takhmeens.each do |thaali|
                     expect(page).to have_content(thaali.year)
@@ -86,10 +90,6 @@ RSpec.describe "Sabeel features" do
                         expect(page).to have_css('.fa-xmark')
                     end
                 end
-            end
-
-            scenario "should show total number of takhmeens" do
-                expect(page).to have_content("Total number of Takhmeens: #{@sabeel.thaali_takhmeens.count}")
             end
         end
     end
