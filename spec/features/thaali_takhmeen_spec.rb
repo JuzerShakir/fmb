@@ -60,7 +60,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
     end
 
-    #  * EDUT
+    #  * EDIT
     context "Editing ThaaliTakhmneens" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
@@ -136,7 +136,7 @@ RSpec.describe "ThaaliTakhmeen features" do
     end
 
     #* COMPLETE
-    context "Complete" do
+    context "Complete template" do
         before do
             @thaalis = FactoryBot.create_list(:active_completed_takhmeens, 3)
             visit takhmeens_complete_path($active_takhmeen)
@@ -146,13 +146,34 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(page).to have_css("h2", text: "Completed Takhmeens for the year: #{$active_takhmeen}")
         end
 
-        # scenario "should list all the Completed Takhmeens for active takhmeen year" do
-        #     expect(page).to have_content("#{@thaalis.first.number}")
-        # end
+        # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
+        context "should list all the Completed Takhmeens details", js: true do
+            # scenario "such as 'thaali_number', 'name', 'address' & 'is_complete'" do
+            #     @thaalis.each do |thaali|
+            #         expect(page).to have_content("#{thaali.number}")
+            #         sabeel = thaali.sabeel
+            #         expect(page).to have_content("#{sabeel.hof_name}")
+            #         expect(page).to have_content("#{sabeel.address}")
+            #         if thaali.is_complete
+            #             expect(page).to have_css('.fa-check')
+            #         else
+            #             expect(page).to have_css('.fa-xmark')
+            #         end
+            #     end
+            # end
+
+            # scenario "be able to visit thaali show page after clicking on the thaali_number" do
+            #     @thaalis.each do | thaali |
+            #         click_button "#{thaali.number}"
+            #         expect(current_path).to eql takhmeen_path(thaali)
+            #         visit takhmeens_complete_path($active_takhmeen)
+            #     end
+            # end
+        end
     end
 
     #* PENDING
-    context "Pending" do
+    context "Pending template" do
         before do
             @thaalis = FactoryBot.create_list(:active_takhmeen, 3)
             visit takhmeens_pending_path($active_takhmeen)
@@ -162,13 +183,34 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(page).to have_css("h2", text: "Pending Takhmeens for the year: #{$active_takhmeen}")
         end
 
-        # scenario "should list all the Completed Takhmeens for active takhmeen year" do
-        #     expect(page).to have_content("#{@thaalis.first.number}")
-        # end
+        # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
+        context "should list all the Pending Takhmeens details", js: true do
+            # scenario "such as 'thaali_number', 'name', 'address' & 'is_complete'" do
+            #     @thaalis.each do |thaali|
+            #         expect(page).to have_content("#{thaali.number}")
+            #         sabeel = thaali.sabeel
+            #         expect(page).to have_content("#{sabeel.hof_name}")
+            #         expect(page).to have_content("#{sabeel.address}")
+            #         if thaali.is_complete
+            #             expect(page).to have_css('.fa-check')
+            #         else
+            #             expect(page).to have_css('.fa-xmark')
+            #         end
+            #     end
+            # end
+
+            # scenario "be able to visit thaali show page after clicking on the thaali_number" do
+            #     @thaalis.each do | thaali |
+            #         click_button "#{thaali.number}"
+            #         expect(current_path).to eql takhmeen_path(thaali)
+            #         visit takhmeens_pending_path($active_takhmeen)
+            #     end
+            # end
+        end
     end
 
     #* ALL
-    context "All" do
+    context "All template" do
         before do
             @thaalis = FactoryBot.create_list(:previous_takhmeen, 3)
             visit takhmeens_all_path($prev_takhmeen)
@@ -178,9 +220,30 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(page).to have_css("h2", text: "All Takhmeens for the year: #{$prev_takhmeen}")
         end
 
-        # scenario "should list all the Completed Takhmeens for active takhmeen year" do
-        #     expect(page).to have_content("#{@thaalis.first.number}")
-        # end
+        # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
+        context "should list all the Takhmeens details for the year in the params", js: true do
+            # scenario "such as 'thaali_number', 'name', 'address' & 'is_complete'" do
+            #     @thaalis.each do |thaali|
+            #         expect(page).to have_content("#{thaali.number}")
+            #         sabeel = thaali.sabeel
+            #         expect(page).to have_content("#{sabeel.hof_name}")
+            #         expect(page).to have_content("#{sabeel.address}")
+            #         if thaali.is_complete
+            #             expect(page).to have_css('.fa-check')
+            #         else
+            #             expect(page).to have_css('.fa-xmark')
+            #         end
+            #     end
+            # end
+
+            # scenario "should be able to visit thaali show page after clicking on the thaali_number" do
+            #     @thaalis.each do | thaali |
+            #         click_button "#{thaali.number}"
+            #         expect(current_path).to eql takhmeen_path(thaali)
+            #         visit takhmeens_all_path($prev_takhmeen)
+            #     end
+            # end
+        end
     end
 
     # * Statistics
@@ -210,19 +273,19 @@ RSpec.describe "ThaaliTakhmeen features" do
                     end
                 end
 
-                # scenario "total amount" do
-                #     within("div##{$active_takhmeen}") do
-                #         total = ThaaliTakhmeen.in_the_year($active_takhmeen).pluck(:total).sum
-                #         expect(page).to have_content(total)
-                #     end
-                # end
+                scenario "total amount" do
+                    within("div##{$active_takhmeen}") do
+                        total = ThaaliTakhmeen.in_the_year($active_takhmeen).pluck(:total).sum
+                        expect(page).to have_content(number_with_delimiter(total))
+                    end
+                end
 
-                # scenario "Balance amount" do
-                #     within("div##{$active_takhmeen}") do
-                #         balance = ThaaliTakhmeen.in_the_year($active_takhmeen).pluck(:balance).sum
-                #         expect(page).to have_content(balance)
-                #     end
-                # end
+                scenario "Balance amount" do
+                    within("div##{$active_takhmeen}") do
+                        balance = ThaaliTakhmeen.in_the_year($active_takhmeen).pluck(:balance).sum
+                        expect(page).to have_content(number_with_delimiter(balance))
+                    end
+                end
 
                 scenario "completed takhmeens" do
                     within("div##{$active_takhmeen}") do
