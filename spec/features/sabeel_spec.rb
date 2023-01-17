@@ -73,14 +73,15 @@ RSpec.describe "Sabeel features" do
                     FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: $active_takhmeen - i)
                 end
                 visit sabeel_path(@sabeel)
+                @thaalis = @sabeel.thaali_takhmeens
             end
 
             scenario "should show total number of takhmeens" do
-                expect(page).to have_content("Total number of Takhmeens: #{@sabeel.thaali_takhmeens.count}")
+                expect(page).to have_content("Total number of Takhmeens: #{@thaalis.count}")
             end
 
             scenario "should show 'year', 'total', 'balance' values" do
-                @sabeel.thaali_takhmeens.each do |thaali|
+                @thaalis.each do |thaali|
                     expect(page).to have_content(thaali.year)
                     expect(page).to have_content(thaali.total)
                     expect(page).to have_content(thaali.balance)
