@@ -192,14 +192,14 @@ RSpec.describe "Sabeel features" do
 
             scenario "should redirect to total sabeels page by clicking 'total' button" do
                 within('div#maimoon_a') do
-                    click_on "Total: "
+                    click_on "Inactive: "
                     expect(current_path).to eql(sabeels_total_path("maimoon_a"))
                 end
             end
 
-            scenario "should show total number of sabeels" do
+            scenario "should show total number of inactive sabeels" do
                 within('div#maimoon_a') do
-                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.maimoon_a.count}")
+                    expect(page).to have_selector(:link_or_button, "Inactive: 2")
                 end
             end
 
@@ -240,14 +240,14 @@ RSpec.describe "Sabeel features" do
 
             scenario "should redirect to total sabeels page by clicking 'total' button" do
                 within('div#maimoon_b') do
-                    click_on "Total: "
+                    click_on "Inactive: "
                     expect(current_path).to eql(sabeels_total_path("maimoon_b"))
                 end
             end
 
-            scenario "should show total number of sabeels" do
+            scenario "should show total number of inactive sabeels" do
                 within('div#maimoon_b') do
-                    expect(page).to have_selector(:link_or_button, "Total: #{Sabeel.maimoon_b.count}")
+                    expect(page).to have_selector(:link_or_button, "Inactive: 2")
                 end
             end
 
