@@ -56,6 +56,14 @@ RSpec.describe "Sabeel features" do
                 page.driver.go_back
             end
         end
+
+        scenario "should show HOF name, Address & Mobile number of the sabeel" do
+            @sabeels.each do |sabeel|
+                expect(page).to have_content("#{sabeel.hof_name}")
+                expect(page).to have_content("#{sabeel.address}")
+                expect(page).to have_content("#{sabeel.mobile}")
+            end
+        end
     end
 
     context "takhmeen details of a sabeel" do
