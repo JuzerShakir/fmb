@@ -54,9 +54,11 @@ class SabeelsController < ApplicationController
         apartments.each do |apartment|
             total_sabeels = Sabeel.send(apartment)
             active_takhmeens = total_sabeels.active_takhmeen($active_takhmeen)
+            inactive = total_sabeels - active_takhmeens
             @apts[apartment] = {}
             @apts[apartment].store(:active_takhmeens, active_takhmeens.count)
             @apts[apartment].store(:total_sabeels, total_sabeels.count)
+            @apts[apartment].store(:inactive_takhmeens, inactive.count)
             ThaaliTakhmeen.sizes.keys.each do | size |
                 @apts[apartment].store(size.to_sym, active_takhmeens.with_the_size(size).count)
             end
@@ -70,9 +72,10 @@ class SabeelsController < ApplicationController
     end
 
     def total
-        @s = Sabeel.send(@apt)
-        @total = @s.count
-        @pagy, @sabeels = pagy_countless(@s, items: 8)
+        total_sabeels = Sabeel.send(@apt)
+        active_takhmeens = total_sabeels.active_takhmeen($active_takhmeen)
+        @sabeels = total_sabeels - active_takhmeens
+        @total = @sabeels.count
     end
 
     private
