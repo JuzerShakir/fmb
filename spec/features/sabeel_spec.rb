@@ -157,7 +157,7 @@ RSpec.describe "Sabeel features" do
         end
 
         scenario "should have a header" do
-            expect(page).to have_css("h2", text: "Active Sabeels for #{@apt.titleize}")
+            expect(page).to have_css("h2", text: "Active Sabeels of #{@apt.titleize}")
         end
 
         scenario "should list all the active sabeels of an apartment" do
