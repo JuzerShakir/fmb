@@ -113,7 +113,7 @@ RSpec.describe "Sabeel features" do
         click_on "Delete Sabeel"
         click_on "Yes, delete it!"
 
-        expect(current_path).to eql root_path
+        expect(current_path).to eql root_path("format=html")
         expect(page).to have_content("Sabeel deleted successfully")
     end
 
