@@ -5,6 +5,7 @@ RSpec.describe "Sabeel features" do
         @sabeel = FactoryBot.create(:sabeel)
     end
 
+    # * CREATE
     context "creating sabeel" do
         before do
             visit root_path
@@ -40,6 +41,7 @@ RSpec.describe "Sabeel features" do
         end
     end
 
+    # * INDEX
     context "show all sabeels", js: true do
         before do
             @sabeels = FactoryBot.create_list(:sabeel, 3)
@@ -66,8 +68,19 @@ RSpec.describe "Sabeel features" do
         end
     end
 
-    context "takhmeen details of a sabeel" do
-        context "if it exists" do
+    # * SHOW
+    context "Show template" do
+        scenario "Showing a Sabeel details" do
+            visit sabeel_path(@sabeel)
+
+            attrbs = FactoryBot.attributes_for(:sabeel).except!(:apartment, :flat_no)
+
+            attrbs.keys.each do | attrb |
+                expect(page).to have_content("#{@sabeel.send(attrb)}")
+            end
+        end
+
+        context "showing takhmeen details of a sabeel" do
             before do
                 2.times do |i|
                     FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: $active_takhmeen - i)
@@ -104,6 +117,7 @@ RSpec.describe "Sabeel features" do
         end
     end
 
+    # * EDIT
     context "Editing Sabeel" do
         before do
             visit sabeel_path(@sabeel)
@@ -123,16 +137,7 @@ RSpec.describe "Sabeel features" do
         end
     end
 
-    scenario "Showing a Sabeel details" do
-        visit sabeel_path(@sabeel)
-
-        attrbs = FactoryBot.attributes_for(:sabeel).except!(:apartment, :flat_no)
-
-        attrbs.keys.each do | attrb |
-            expect(page).to have_content("#{@sabeel.send(attrb)}")
-        end
-    end
-
+    # * DELETE
     scenario "Deleting a Sabeel" do
         visit sabeel_path(@sabeel)
 
@@ -145,7 +150,7 @@ RSpec.describe "Sabeel features" do
         expect(page).to have_content("Sabeel deleted successfully")
     end
 
-    #* Active
+    #* ACTIVE
     context "Active template", js: true do
         before do
             @apt = Sabeel.apartments.keys.sample
@@ -191,7 +196,7 @@ RSpec.describe "Sabeel features" do
         # end
     end
 
-    #* Inactive
+    #* INACTIVE
     context "Inactive template", js: true do
         before do
             @apt = Sabeel.apartments.keys.sample
