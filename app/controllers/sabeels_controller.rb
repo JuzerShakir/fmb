@@ -64,7 +64,7 @@ class SabeelsController < ApplicationController
     end
 
     def active
-        @s = Sabeel.send(@apt).active_takhmeen($active_takhmeen)
+        @s = Sabeel.send(@apt).active_takhmeen($active_takhmeen).order(flat_no: :ASC).includes(:thaali_takhmeens)
         @total = @s.count
         @pagy, @sabeels = pagy_countless(@s, items: 8)
     end

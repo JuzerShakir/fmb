@@ -1,0 +1,17 @@
+<% @sabeels.each do |sabeel| %>
+    <% t = sabeel.thaali_takhmeens.last %>
+    <div class="row py-3 border-bottom border-light">
+        <div class="col">
+            <%= button_to sabeel.flat_no, sabeel, method: :get, class: "btn btn-outline-primary btn-sm px-2" %>
+        </div>
+        <div class="col text-truncate">
+            <%= sabeel.hof_name %>
+        </div>
+        <div class="col text-secondary">
+            <%= button_to t.number, takhmeen_path(t.id), method: :get, class: "btn btn-outline-secondary btn-sm px-2"  %>
+        </div>
+        <div class="col fw-bold text-info">
+            <%= t.size.humanize.chr %>
+        </div>
+    </div>
+<% end %>
