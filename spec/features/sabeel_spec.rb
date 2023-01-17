@@ -42,7 +42,7 @@ RSpec.describe "Sabeel features" do
     end
 
     # * INDEX
-    context "show all sabeels", js: true do
+    context "index template", js: true do
         before do
             @sabeels = FactoryBot.create_list(:sabeel, 3)
             visit all_sabeels_path
@@ -59,7 +59,7 @@ RSpec.describe "Sabeel features" do
             end
         end
 
-        scenario "should show HOF name, Address & Mobile number of the sabeel" do
+        scenario "should show HOF name, Address & Mobile number of all sabeels" do
             @sabeels.each do |sabeel|
                 expect(page).to have_content("#{sabeel.hof_name}")
                 expect(page).to have_content("#{sabeel.address}")

@@ -62,7 +62,7 @@ RSpec.describe "ThaaliTakhmeen features" do
 
     # * INDEX
     # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
-    # context "show all thaali_takhmeens", js: true do
+    # context "index template", js: true do
     #     before do
     #         @thaalis = FactoryBot.create_list(:thaali_takhmeen, 3)
     #         visit root_path
@@ -79,7 +79,7 @@ RSpec.describe "ThaaliTakhmeen features" do
     #         end
     #     end
 
-    #     scenario "should show 'hof_name', 'address' & 'is_complete' of the thaali" do
+    #     scenario "should show 'hof_name', 'address' & 'is_complete' of all thaalis" do
     #         @thaalis.each do |thaali|
     #             sabeel = thaali.sabeel
     #             expect(page).to have_content("#{sabeel.hof_name}")
