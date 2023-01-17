@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   # * CUSTOM ROUTES
   # sabeels
   get "/sabeels", to: "sabeels#index", as: :all_sabeels
-  get "/sabeels/stats", to: "sabeels#stats", as: :sabeels_stats
   get "/sabeels/active/:apt", to: "sabeels#active", as: :sabeels_active
   get "/sabeels/inactive/:apt", to: "sabeels#inactive", as: :sabeels_inactive
 
@@ -22,6 +21,9 @@ Rails.application.routes.draw do
 
   # * RESOURCEFUL ROUTES
   resources :sabeels, shallow: true, except: [:index]  do
+    collection do
+      get 'stats'
+    end
     resources :takhmeens, controller: "thaali_takhmeens", except: [:index] do
       resources :transactions, except: [:index]
     end

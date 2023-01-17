@@ -225,7 +225,7 @@ RSpec.describe "Sabeel features" do
         end
 
         scenario "should have a header" do
-            visit sabeels_stats_path
+            visit stats_sabeels_path
             expect(page).to have_css("h2", text: "Sabeel Statistics for #{$active_takhmeen}")
         end
 
@@ -235,7 +235,7 @@ RSpec.describe "Sabeel features" do
                 @sabeels.first(3).each.with_index do |sabeel, i|
                     FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
                 end
-                visit sabeels_stats_path
+                visit stats_sabeels_path
             end
             scenario "should have a title" do
                 expect(page).to have_css("h3", text: "Maimoon A")
@@ -282,7 +282,7 @@ RSpec.describe "Sabeel features" do
                 @sabeels.first(3).each.with_index do |sabeel, i|
                     FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
                 end
-                visit sabeels_stats_path
+                visit stats_sabeels_path
             end
 
             scenario "should have a title" do

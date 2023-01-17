@@ -24,7 +24,7 @@ RSpec.describe "Navbar features" do
             within("#statistics") do
                 expect(page).to have_content("Sabeels")
                 click_on "Sabeels"
-                expect(current_path).to eql sabeels_stats_path
+                expect(current_path).to eql stats_sabeels_path
             end
         end
 

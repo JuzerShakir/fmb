@@ -162,7 +162,7 @@ RSpec.describe "Sabeels", type: :request do
     # * STATISTICS
     context "GET stats" do
         before do
-            get sabeels_stats_path
+            get stats_sabeels_path
         end
 
         it "should render a stats template" do
