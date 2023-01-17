@@ -106,18 +106,28 @@ RSpec.describe "ThaaliTakhmeen features" do
                     2.times do |i|
                         FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
                     end
+                    @transactions = @thaali.transactions
                     visit takhmeen_path(@thaali)
                 end
 
                 scenario "should show total number of transactions" do
-                    expect(page).to have_content("Total number of Transactions: #{@thaali.transactions.count}")
+                    expect(page).to have_content("Total number of Transactions: #{@transactions.count}")
                 end
 
                 scenario "should show 'recipe_no', 'amount', 'on_date' values" do
-                    @thaali.transactions do |trans|
+                    @transactions.each do |trans|
                         expect(page).to have_content(trans.recipe_no)
                         expect(page).to have_content(trans.amount)
                         expect(page).to have_content(time_ago_in_words(trans.on_date))
+                    end
+                end
+
+                scenario "should be able to visit transaction show page after clicking on the recipe_no" do
+                    @transactions.each do | trans |
+                        recipe_no = trans.recipe_no
+                        click_button "#{recipe_no}"
+                        expect(current_path).to eql transaction_path(trans)
+                        visit takhmeen_path(@thaali)
                     end
                 end
             end
