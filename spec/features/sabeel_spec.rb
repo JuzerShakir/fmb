@@ -244,10 +244,10 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
-            scenario "should redirect to total sabeels page by clicking 'total' button" do
+            scenario "should redirect to inactive sabeels page by clicking 'inactive' button" do
                 within('div#maimoon_a') do
                     click_on "Inactive: "
-                    expect(current_path).to eql(sabeels_total_path("maimoon_a"))
+                    expect(current_path).to eql(sabeels_inactive_path("maimoon_a"))
                 end
             end
 
@@ -292,10 +292,10 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
-            scenario "should redirect to total sabeels page by clicking 'total' button" do
+            scenario "should redirect to inactive sabeels page by clicking 'inactive' button" do
                 within('div#maimoon_b') do
                     click_on "Inactive: "
-                    expect(current_path).to eql(sabeels_total_path("maimoon_b"))
+                    expect(current_path).to eql(sabeels_inactive_path("maimoon_b"))
                 end
             end
 

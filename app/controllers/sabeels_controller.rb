@@ -1,6 +1,6 @@
 class SabeelsController < ApplicationController
     before_action :set_sabeel, only: [:show, :update, :edit, :destroy]
-    before_action :set_apt, only: [:active, :total]
+    before_action :set_apt, only: [:active, :inactive]
     # after_action :set_pagy_sabeels_total, only: [:active, :total]
 
     def index
@@ -71,7 +71,7 @@ class SabeelsController < ApplicationController
         @pagy, @sabeels = pagy_countless(@s, items: 8)
     end
 
-    def total
+    def inactive
         total_sabeels = Sabeel.send(@apt)
         active_takhmeens = total_sabeels.active_takhmeen($active_takhmeen)
         @sabeels = total_sabeels - active_takhmeens

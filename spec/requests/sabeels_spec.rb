@@ -184,15 +184,15 @@ RSpec.describe "Sabeels", type: :request do
         end
     end
 
-    # * TOTAL
-    context "GET total" do
+    # * INACTIVE
+    context "GET inactive" do
         before do
             apts = Sabeel.apartments.keys
-            get sabeels_total_path(apts.sample)
+            get sabeels_inactive_path(apts.sample)
         end
 
-        it "should render a total template" do
-            expect(response).to render_template(:total)
+        it "should render a inactive template" do
+            expect(response).to render_template(:inactive)
             expect(response).to have_http_status(:ok)
         end
     end
