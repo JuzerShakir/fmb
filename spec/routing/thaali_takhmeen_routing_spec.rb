@@ -103,7 +103,7 @@ RSpec.describe ThaaliTakhmeen, type: :routing do
     end
 
     context "all action" do
-        it "is accessible by /takhmeens/2022/all route" do
+        it "is accessible by /takhmeens/2021/all route" do
             expect(get("/takhmeens/2021/all")).to route_to("thaali_takhmeens#all", year: '2021')
         end
 
