@@ -6,6 +6,7 @@ RSpec.describe "Transaction features"do
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
     end
 
+    # * CREATE
     context "create a Transaction" do
         before do
             @attributes = FactoryBot.attributes_for(:transaction)
@@ -48,6 +49,7 @@ RSpec.describe "Transaction features"do
         end
     end
 
+    # * EDIT
     context "Editing Transaction" do
         before do
             @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
@@ -79,6 +81,7 @@ RSpec.describe "Transaction features"do
         end
     end
 
+    # * SHOW
     scenario "Showing transaction" do
         @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
 
@@ -89,6 +92,7 @@ RSpec.describe "Transaction features"do
         expect(page).to have_content("#{@transaction.mode.humanize}")
     end
 
+    # * DESTROY
     scenario "Deleting transaction" do
         @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
 

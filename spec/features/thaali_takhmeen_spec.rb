@@ -60,6 +60,39 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
     end
 
+    # * INDEX
+    # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
+    # context "show all thaali_takhmeens", js: true do
+    #     before do
+    #         @thaalis = FactoryBot.create_list(:thaali_takhmeen, 3)
+    #         visit root_path
+    #     end
+
+    #     scenario "should have a link to thaali_number button that renders takhmeen:show page after clicking it" do
+    #         @thaalis.each do |thaali|
+    #             number = thaali.number
+    #             expect(page).to have_content("#{number}")
+
+    #             click_button "#{number}"
+    #             expect(current_path).to eql thaali_path(thaali)
+    #             page.driver.go_back
+    #         end
+    #     end
+
+    #     scenario "should show 'hof_name', 'address' & 'is_complete' of the thaali" do
+    #         @thaalis.each do |thaali|
+    #             sabeel = thaali.sabeel
+    #             expect(page).to have_content("#{sabeel.hof_name}")
+    #             expect(page).to have_content("#{sabeel.address}")
+    #             if thaali.is_complete
+    #                 expect(page).to have_css('.fa-check')
+    #             else
+    #                 expect(page).to have_css('.fa-xmark')
+    #             end
+    #         end
+    #     end
+    # end
+
     #  * EDIT
     context "Editing ThaaliTakhmneens" do
         before do
