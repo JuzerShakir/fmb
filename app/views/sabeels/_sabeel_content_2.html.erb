@@ -8,7 +8,7 @@
             <%= sabeel.hof_name %>
         </div>
         <div class="col text-secondary">
-            <%= button_to t.number, takhmeen_path(t.id), method: :get, class: "btn btn-outline-secondary btn-sm px-2"  %>
+            <%= button_to t.number, takhmeen_path(t), method: :get, class: "btn btn-outline-secondary btn-sm px-2"  %>
         </div>
         <div class="col fw-bold text-info">
             <%= t.size.humanize.chr %>
