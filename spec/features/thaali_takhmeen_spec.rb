@@ -109,14 +109,16 @@ RSpec.describe "ThaaliTakhmeen features" do
                     visit takhmeen_path(@thaali)
                 end
 
-                scenario "should BE shown" do
-                    @thaali.transactions do |trans|
-                        expect(page).to have_content(trans.recipe_no)
-                    end
-                end
-
                 scenario "should show total number of transactions" do
                     expect(page).to have_content("Total number of Transactions: #{@thaali.transactions.count}")
+                end
+
+                scenario "should show 'recipe_no', 'amount', 'on_date' values" do
+                    @thaali.transactions do |trans|
+                        expect(page).to have_content(trans.recipe_no)
+                        expect(page).to have_content(trans.amount)
+                        expect(page).to have_content(time_ago_in_words(trans.on_date))
+                    end
                 end
             end
         end
