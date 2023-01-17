@@ -75,9 +75,16 @@ RSpec.describe "Sabeel features" do
                 visit sabeel_path(@sabeel)
             end
 
-            scenario "should BE shown" do
-                2.times do |i|
-                    expect(page).to have_content($active_takhmeen - i)
+            scenario "should show 'year', 'total', 'balance' values" do
+                @sabeel.thaali_takhmeens.each do |thaali|
+                    expect(page).to have_content(thaali.year)
+                    expect(page).to have_content(thaali.total)
+                    expect(page).to have_content(thaali.balance)
+                    if thaali.is_complete
+                        expect(page).to have_css('.fa-check')
+                    else
+                        expect(page).to have_css('.fa-xmark')
+                    end
                 end
             end
 
