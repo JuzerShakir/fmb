@@ -191,21 +191,26 @@ RSpec.describe "Sabeel features" do
         # end
     end
 
-    #* Total
-    context "Total" do
+    #* Inactive
+    context "Inactive template", js: true do
         before do
             @apt = Sabeel.apartments.keys.sample
             @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
-            visit sabeels_total_path(@apt)
+            visit sabeels_inactive_path(@apt)
         end
 
         scenario "should have a header" do
-            expect(page).to have_css("h2", text: "All Sabeels for #{@apt.titleize}")
+            expect(page).to have_css("h2", text: "Inactive Sabeels of #{@apt.titleize}")
         end
 
-        # scenario "should list all the active sabeels of an apartment" do
-        #     expect(page).to have_content("#{@sabeels.first.address}")
-        # end
+        scenario "should list all the inactive sabeels of an apartment" do
+            @sabeels.each do |sabeel|
+                expect(page).to have_content("#{sabeel.its}")
+                expect(page).to have_content("#{sabeel.hof_name}")
+                expect(page).to have_content("#{sabeel.address}")
+                expect(page).to have_content("#{sabeel.mobile}")
+            end
+        end
     end
 
     # * Statistics
