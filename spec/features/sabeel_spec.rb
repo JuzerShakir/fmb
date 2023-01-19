@@ -59,10 +59,10 @@ RSpec.describe "Sabeel features" do
             end
         end
 
-        scenario "should show HOF name, Address & Mobile number of all sabeels" do
+        scenario "should show HOF name & Apartment of all sabeels" do
             @sabeels.each do |sabeel|
                 expect(page).to have_content("#{sabeel.hof_name}")
-                expect(page).to have_content("#{sabeel.address}")
+                expect(page).to have_content("#{sabeel.apartment.titleize}")
             end
         end
     end
@@ -211,7 +211,7 @@ RSpec.describe "Sabeel features" do
             @sabeels.each do |sabeel|
                 expect(page).to have_content("#{sabeel.its}")
                 expect(page).to have_content("#{sabeel.hof_name}")
-                expect(page).to have_content("#{sabeel.address}")
+                expect(page).to have_content("#{sabeel.apartment.titleize}")
             end
         end
     end
