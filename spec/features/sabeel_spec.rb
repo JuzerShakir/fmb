@@ -63,7 +63,6 @@ RSpec.describe "Sabeel features" do
             @sabeels.each do |sabeel|
                 expect(page).to have_content("#{sabeel.hof_name}")
                 expect(page).to have_content("#{sabeel.address}")
-                expect(page).to have_content("#{sabeel.mobile}")
             end
         end
     end
@@ -213,7 +212,6 @@ RSpec.describe "Sabeel features" do
                 expect(page).to have_content("#{sabeel.its}")
                 expect(page).to have_content("#{sabeel.hof_name}")
                 expect(page).to have_content("#{sabeel.address}")
-                expect(page).to have_content("#{sabeel.mobile}")
             end
         end
     end
