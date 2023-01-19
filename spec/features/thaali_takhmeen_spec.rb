@@ -83,7 +83,6 @@ RSpec.describe "ThaaliTakhmeen features" do
     #         @thaalis.each do |thaali|
     #             sabeel = thaali.sabeel
     #             expect(page).to have_content("#{sabeel.hof_name}")
-    #             expect(page).to have_content("#{sabeel.address}")
     #             if thaali.is_complete
     #                 expect(page).to have_css('.fa-check')
     #             else
@@ -198,7 +197,6 @@ RSpec.describe "ThaaliTakhmeen features" do
             #         expect(page).to have_content("#{thaali.number}")
             #         sabeel = thaali.sabeel
             #         expect(page).to have_content("#{sabeel.hof_name}")
-            #         expect(page).to have_content("#{sabeel.address}")
             #         if thaali.is_complete
             #             expect(page).to have_css('.fa-check')
             #         else
@@ -235,7 +233,6 @@ RSpec.describe "ThaaliTakhmeen features" do
             #         expect(page).to have_content("#{thaali.number}")
             #         sabeel = thaali.sabeel
             #         expect(page).to have_content("#{sabeel.hof_name}")
-            #         expect(page).to have_content("#{sabeel.address}")
             #         if thaali.is_complete
             #             expect(page).to have_css('.fa-check')
             #         else
@@ -272,7 +269,6 @@ RSpec.describe "ThaaliTakhmeen features" do
             #         expect(page).to have_content("#{thaali.number}")
             #         sabeel = thaali.sabeel
             #         expect(page).to have_content("#{sabeel.hof_name}")
-            #         expect(page).to have_content("#{sabeel.address}")
             #         if thaali.is_complete
             #             expect(page).to have_css('.fa-check')
             #         else
