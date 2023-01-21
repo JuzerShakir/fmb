@@ -2,7 +2,6 @@ class ThaaliTakhmeensController < ApplicationController
     before_action :set_thaali_takhmeen, only: [:show, :edit, :update, :destroy]
     before_action :check_for_current_year_takhmeen, only: [:new]
     before_action :set_year, only: [:complete, :pending, :all]
-    # after_action :set_pagy_thaalis_total, only: [:complete, :pending, :all]
 
     def index
         search_params = params.permit(:format, :page, q: [:number_cont])
@@ -81,20 +80,17 @@ class ThaaliTakhmeensController < ApplicationController
 
     def complete
         @tt = ThaaliTakhmeen.includes(:sabeel).completed_year(@year)
-        @total = @tt.count
-        @pagy, @thaalis = pagy_countless(@tt, items: 8)
+        set_pagy_thaalis_total
     end
 
     def pending
         @tt = ThaaliTakhmeen.includes(:sabeel).pending_year(@year)
-        @total = @tt.count
-        @pagy, @thaalis = pagy_countless(@tt, items: 8)
+        set_pagy_thaalis_total
     end
 
     def all
         @tt = ThaaliTakhmeen.includes(:sabeel).in_the_year(@year)
-        @total = @tt.count
-        @pagy, @thaalis = pagy_countless(@tt, items: 8)
+        set_pagy_thaalis_total
     end
 
     private
@@ -111,11 +107,10 @@ class ThaaliTakhmeensController < ApplicationController
             @year = params[:year]
         end
 
-        # def set_pagy_thaalis_total
-        #     @total = @tt.count
-        #     @pagy, @thaalis = pagy_countless(@tt, items: 8)
-        #     debugger
-        # end
+        def set_pagy_thaalis_total
+            @total = @tt.count
+            @pagy, @thaalis = pagy_countless(@tt, items: 8)
+        end
 
         def check_for_current_year_takhmeen
             @sabeel = Sabeel.find(params[:sabeel_id])
