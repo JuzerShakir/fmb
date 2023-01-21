@@ -61,36 +61,35 @@ RSpec.describe "ThaaliTakhmeen features" do
     end
 
     # * INDEX
-    # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
-    # context "index template", js: true do
-    #     before do
-    #         @thaalis = FactoryBot.create_list(:thaali_takhmeen, 3)
-    #         visit root_path
-    #     end
+    context "index template", js: true do
+        before do
+            @thaalis = FactoryBot.create_list(:active_takhmeen, 3)
+            visit root_path
+        end
 
-    #     scenario "should have a link to thaali_number button that renders takhmeen:show page after clicking it" do
-    #         @thaalis.each do |thaali|
-    #             number = thaali.number
-    #             expect(page).to have_content("#{number}")
+        scenario "should have a link to thaali_number button that renders takhmeen:show page after clicking it" do
+            @thaalis.each do |thaali|
+                number = thaali.number
+                expect(page).to have_content("#{number}")
 
-    #             click_button "#{number}"
-    #             expect(current_path).to eql thaali_path(thaali)
-    #             page.driver.go_back
-    #         end
-    #     end
+                click_button "#{number}"
+                expect(current_path).to eql takhmeen_path(thaali)
+                page.driver.go_back
+            end
+        end
 
-    #     scenario "should show 'hof_name', 'address' & 'is_complete' of all thaalis" do
-    #         @thaalis.each do |thaali|
-    #             sabeel = thaali.sabeel
-    #             expect(page).to have_content("#{sabeel.hof_name}")
-    #             if thaali.is_complete
-    #                 expect(page).to have_css('.fa-check')
-    #             else
-    #                 expect(page).to have_css('.fa-xmark')
-    #             end
-    #         end
-    #     end
-    # end
+        scenario "should show 'hof_name', 'address' & 'is_complete' of all thaalis" do
+            @thaalis.each do |thaali|
+                sabeel = thaali.sabeel
+                expect(page).to have_content("#{sabeel.hof_name}")
+                if thaali.is_complete
+                    expect(page).to have_css('.fa-check')
+                else
+                    expect(page).to have_css('.fa-xmark')
+                end
+            end
+        end
+    end
 
     #  * EDIT
     context "Editing ThaaliTakhmneens" do
@@ -190,28 +189,27 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(page).to have_css("h2", text: "Completed Takhmeens for the year: #{$active_takhmeen}")
         end
 
-        # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
         context "should list all the Completed Takhmeens details", js: true do
-            # scenario "such as 'thaali_number', 'name', 'address' & 'is_complete'" do
-            #     @thaalis.each do |thaali|
-            #         expect(page).to have_content("#{thaali.number}")
-            #         sabeel = thaali.sabeel
-            #         expect(page).to have_content("#{sabeel.hof_name}")
-            #         if thaali.is_complete
-            #             expect(page).to have_css('.fa-check')
-            #         else
-            #             expect(page).to have_css('.fa-xmark')
-            #         end
-            #     end
-            # end
+            scenario "such as 'thaali_number', 'name', 'address' & 'is_complete'" do
+                @thaalis.each do |thaali|
+                    expect(page).to have_content("#{thaali.number}")
+                    sabeel = thaali.sabeel
+                    expect(page).to have_content("#{sabeel.hof_name}")
+                    if thaali.is_complete
+                        expect(page).to have_css('.fa-check')
+                    else
+                        expect(page).to have_css('.fa-xmark')
+                    end
+                end
+            end
 
-            # scenario "be able to visit thaali show page after clicking on the thaali_number" do
-            #     @thaalis.each do | thaali |
-            #         click_button "#{thaali.number}"
-            #         expect(current_path).to eql takhmeen_path(thaali)
-            #         visit takhmeens_complete_path($active_takhmeen)
-            #     end
-            # end
+            scenario "be able to visit thaali show page after clicking on the thaali_number" do
+                @thaalis.each do | thaali |
+                    click_button "#{thaali.number}"
+                    expect(current_path).to eql takhmeen_path(thaali)
+                    visit takhmeens_complete_path($active_takhmeen)
+                end
+            end
         end
     end
 
@@ -226,28 +224,27 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(page).to have_css("h2", text: "Pending Takhmeens for the year: #{$active_takhmeen}")
         end
 
-        # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
         context "should list all the Pending Takhmeens details", js: true do
-            # scenario "such as 'thaali_number', 'name', 'address' & 'is_complete'" do
-            #     @thaalis.each do |thaali|
-            #         expect(page).to have_content("#{thaali.number}")
-            #         sabeel = thaali.sabeel
-            #         expect(page).to have_content("#{sabeel.hof_name}")
-            #         if thaali.is_complete
-            #             expect(page).to have_css('.fa-check')
-            #         else
-            #             expect(page).to have_css('.fa-xmark')
-            #         end
-            #     end
-            # end
+            scenario "such as 'thaali_number', 'name', 'address' & 'is_complete'" do
+                @thaalis.each do |thaali|
+                    expect(page).to have_content("#{thaali.number}")
+                    sabeel = thaali.sabeel
+                    expect(page).to have_content("#{sabeel.hof_name}")
+                    if thaali.is_complete
+                        expect(page).to have_css('.fa-check')
+                    else
+                        expect(page).to have_css('.fa-xmark')
+                    end
+                end
+            end
 
-            # scenario "be able to visit thaali show page after clicking on the thaali_number" do
-            #     @thaalis.each do | thaali |
-            #         click_button "#{thaali.number}"
-            #         expect(current_path).to eql takhmeen_path(thaali)
-            #         visit takhmeens_pending_path($active_takhmeen)
-            #     end
-            # end
+            scenario "be able to visit thaali show page after clicking on the thaali_number" do
+                @thaalis.each do | thaali |
+                    click_button "#{thaali.number}"
+                    expect(current_path).to eql takhmeen_path(thaali)
+                    visit takhmeens_pending_path($active_takhmeen)
+                end
+            end
         end
     end
 
@@ -262,28 +259,27 @@ RSpec.describe "ThaaliTakhmeen features" do
             expect(page).to have_css("h2", text: "All Takhmeens for the year: #{$prev_takhmeen}")
         end
 
-        # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
         context "should list all the Takhmeens details for the year in the params", js: true do
-            # scenario "such as 'thaali_number', 'name', 'address' & 'is_complete'" do
-            #     @thaalis.each do |thaali|
-            #         expect(page).to have_content("#{thaali.number}")
-            #         sabeel = thaali.sabeel
-            #         expect(page).to have_content("#{sabeel.hof_name}")
-            #         if thaali.is_complete
-            #             expect(page).to have_css('.fa-check')
-            #         else
-            #             expect(page).to have_css('.fa-xmark')
-            #         end
-            #     end
-            # end
+            scenario "such as 'thaali_number', 'name', 'address' & 'is_complete'" do
+                @thaalis.each do |thaali|
+                    expect(page).to have_content("#{thaali.number}")
+                    sabeel = thaali.sabeel
+                    expect(page).to have_content("#{sabeel.hof_name}")
+                    if thaali.is_complete
+                        expect(page).to have_css('.fa-check')
+                    else
+                        expect(page).to have_css('.fa-xmark')
+                    end
+                end
+            end
 
-            # scenario "should be able to visit thaali show page after clicking on the thaali_number" do
-            #     @thaalis.each do | thaali |
-            #         click_button "#{thaali.number}"
-            #         expect(current_path).to eql takhmeen_path(thaali)
-            #         visit takhmeens_all_path($prev_takhmeen)
-            #     end
-            # end
+            scenario "should be able to visit thaali show page after clicking on the thaali_number" do
+                @thaalis.each do | thaali |
+                    click_button "#{thaali.number}"
+                    expect(current_path).to eql takhmeen_path(thaali)
+                    visit takhmeens_all_path($prev_takhmeen)
+                end
+            end
         end
     end
 
