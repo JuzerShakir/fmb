@@ -174,25 +174,23 @@ RSpec.describe "Sabeel features" do
             end
         end
 
-        # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
-        # scenario "should be able to visit sabeel show page after clicking on the flat_no" do
-        #     @sabeels.each do | sabeel |
-        #         flat_no = sabeel.flat_no
-        #         click_button "#{flat_no}"
-        #         expect(current_path).to eql sabeel_path(sabeel)
-        #         visit active_sabeels_path(@apt)
-        #     end
-        # end
+        scenario "should be able to visit sabeel show page after clicking on the flat_no" do
+            @sabeels.each do | sabeel |
+                flat_no = sabeel.flat_no
+                click_button "#{flat_no}"
+                expect(current_path).to eql sabeel_path(sabeel)
+                visit active_sabeels_path(@apt)
+            end
+        end
 
-        # ! No route matches [GET] "/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
-        # scenario "should be able to visit thaali show page after clicking on the thaali_number" do
-        #     @sabeels.each do | sabeel |
-        #         thaali = sabeel.thaali_takhmeens.first
-        #         click_button "#{thaali.number}"
-        #         expect(current_path).to eql takhmeen_path(thaali)
-        #         visit active_sabeels_path(@apt)
-        #     end
-        # end
+        scenario "should be able to visit thaali show page after clicking on the thaali_number" do
+            @sabeels.each do | sabeel |
+                thaali = sabeel.thaali_takhmeens.first
+                click_button "#{thaali.number}"
+                expect(current_path).to eql takhmeen_path(thaali)
+                visit active_sabeels_path(@apt)
+            end
+        end
     end
 
     #* INACTIVE
