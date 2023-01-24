@@ -29,4 +29,8 @@ Rails.application.routes.draw do
       resources :transactions, except: [:index]
     end
   end
+
+  # * ERRORS
+  match '/404', to: "errors#not_found", via: :all
+  match '/500', to: "errors#internal_server", via: :all
 end
