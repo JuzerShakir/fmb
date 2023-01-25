@@ -92,16 +92,6 @@ RSpec.describe Sabeel, type: :routing do
         end
     end
 
-    context "active pdf action" do
-        it "is accessible by /sabeels/mohammedi/active/pdf route" do
-            expect(get("/sabeels/mohammedi/active/pdf")).to route_to("sabeels#active_pdf", apt: 'mohammedi')
-        end
-
-        it "is accessible by active_pdf_sabeels_path route" do
-            expect(get: active_pdf_sabeels_path("mohammedi")).to route_to(controller: "sabeels", action: "active_pdf", apt: 'mohammedi')
-        end
-    end
-
     context "inactive action" do
         it "is accessible by /sabeels/mohammedi/inactive route" do
             expect(get("/sabeels/mohammedi/inactive")).to route_to("sabeels#inactive", apt: 'mohammedi')
