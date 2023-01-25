@@ -13,7 +13,7 @@ class ActiveSabeels < Prawn::Document
     end
 
     def header
-        text "#{@apt.capitalize}", size: 25, style: :bold, align: :center
+        text "#{@apt.titleize}", size: 25, style: :bold, align: :center
     end
 
     def line_items
