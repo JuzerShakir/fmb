@@ -174,12 +174,17 @@ RSpec.describe "Sabeels", type: :request do
     # * ACTIVE
     context "GET active" do
         before do
-            apts = Sabeel.apartments.keys
-            get active_sabeels_path(apts.sample)
+            @apts = Sabeel.apartments.keys
         end
 
         it "should render a active template" do
+            get active_sabeels_path(@apts.sample)
             expect(response).to render_template(:active)
+            expect(response).to have_http_status(:ok)
+        end
+
+        it "should render a pdf response" do
+            get active_sabeels_path(@apts.sample, format: :pdf)
             expect(response).to have_http_status(:ok)
         end
     end
