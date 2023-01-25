@@ -3,12 +3,18 @@ class ActiveSabeels < Prawn::Document
         super(page_size: 'A4', margin: 15)
         @sabeels = sabeels
         @apt = apt
-        repeat(:all) {
+
+        repeat(:all) do
             header
             @repeat_height = 30
-        }
+        end
+
         bounding_box([bounds.left, bounds.top - @repeat_height], width: bounds.width, height: bounds.height - @repeat_height) do
             line_items
+        end
+
+        bounding_box([bounds.left, bounds.bottom + 5], width: bounds.width) do
+            footer
         end
     end
 
@@ -33,5 +39,15 @@ class ActiveSabeels < Prawn::Document
             t = sabeel.thaali_takhmeens.last
             [n, sabeel.flat_no, t.number, sabeel.hof_name, t.size.chr.capitalize, sabeel.mobile]
         end
+    end
+
+    def footer
+        string = "<page>/<total>"
+        options = {
+            align: :center,
+            color: '828385',
+            size: 10
+          }
+        number_pages string, options
     end
 end
