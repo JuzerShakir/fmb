@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     collection do
       get 'stats'
       get "/:apt/active", action: :active, as: :active
+      get "/:apt/active/pdf", action: :active_pdf, as: :active_pdf
       get "/:apt/inactive", action: :inactive, as: :inactive
     end
 
