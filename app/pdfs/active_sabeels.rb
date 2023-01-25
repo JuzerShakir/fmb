@@ -23,6 +23,7 @@ class ActiveSabeels < Prawn::Document
             column([2, 5]).style align: :right
             column(0).style font_style: :italic
             column([0, 5]).style text_color: "828385"
+            column(0..5).style padding_top: 10, padding_bottom: 10
         end
     end
 
