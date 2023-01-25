@@ -21,6 +21,8 @@ class ActiveSabeels < Prawn::Document
             row(0).style font_style: :bold, align: :center, size: 15
             column([1, 4]).style align: :center
             column([2, 5]).style align: :right
+            column(0).style font_style: :italic
+            column([0, 5]).style text_color: "828385"
         end
     end
 
