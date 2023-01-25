@@ -184,6 +184,18 @@ RSpec.describe "Sabeels", type: :request do
         end
     end
 
+    # * ACTIVE PDF
+    context "GET active_pdf" do
+        before do
+            apts = Sabeel.apartments.keys
+            get active_pdf_sabeels_path(apts.sample, format: :pdf)
+        end
+
+        it "should return with 'ok' response" do
+            expect(response).to have_http_status(:ok)
+        end
+    end
+
     # * INACTIVE
     context "GET inactive" do
         before do
