@@ -282,6 +282,7 @@ DEPENDENCIES
   humanize (~> 2.5)
   jbuilder
   jsbundling-rails
+  matrix (~> 0.4.2)
   pagy (~> 6.0)
   pg (~> 1.1)
   prawn (~> 2.4)
