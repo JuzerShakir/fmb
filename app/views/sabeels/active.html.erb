@@ -4,6 +4,14 @@
 <%# * No. of Sabeels %>
 <p class="fs-5 mt-5 fw-bold text-info text-center">Total number of Active Sabeels: <%= @total %></p>
 
+<%# * Generate PDF %>
+<div class="mt-5 text-center">
+    <%= button_to '<i class=" fa-regular fa-file-pdf fa-lg"></i> Generate PDF'.html_safe,
+                    active_sabeels_path(@apt, format: :pdf), method: :get, form: {target: '_blank'},
+                    class: "fs-5 btn btn-outline-primary" %>
+</div>
+
+
 <%# * show all active sabeels %>
 <div class="container text-center mt-5">
     <% if @sabeels.any? %>
