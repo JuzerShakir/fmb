@@ -91,3 +91,5 @@ gem "humanize", "~> 2.5"
 gem "pagy", "~> 6.0"
 
 gem "selenium-webdriver", "~> 4.7"
+
+gem "prawn", "~> 2.4"
