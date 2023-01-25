@@ -160,26 +160,28 @@ RSpec.describe "Sabeel features" do
             visit active_sabeels_path(@apt)
         end
 
-        scenario "should have a header" do
+        scenario "Header" do
             expect(page).to have_css("h2", text: "Active Sabeels of #{@apt.titleize}")
         end
 
-        context "a button to render pdf" do
-            scenario "with the text & font-awesome icon" do
-                expect(page).to have_button('Generate PDF')
-                expect(page).to have_css('.fa-file-pdf')
+        scenario "should have a button with font-awesome icon that renders pdf" do
+            expect(page).to have_button('Generate PDF')
+            expect(page).to have_css('.fa-file-pdf')
+        end
+
+        context "clicking on 'Generate-PDF' button" do
+            before do
+                @pdf_window = window_opened_by { click_on "Generate PDF" }
             end
 
-            scenario "that has a header" do
-                pdf_window = window_opened_by { click_on "Generate PDF" }
-                within_window pdf_window do
+            scenario "should have a header" do
+                within_window @pdf_window do
                     expect(page).to have_content("#{@apt.titleize} - #{$active_takhmeen}")
                 end
             end
 
-            scenario "that lists all the active sabeels of an apartment" do
-                pdf_window = window_opened_by { click_on "Generate PDF" }
-                within_window pdf_window do
+            scenario "should list all the active sabeels of an apartment" do
+                within_window @pdf_window do
                     @sabeels.each do |sabeel|
                         expect(page).to have_content("#{sabeel.flat_no}")
                         expect(page).to have_content("#{sabeel.hof_name}")
