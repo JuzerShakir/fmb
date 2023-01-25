@@ -164,10 +164,31 @@ RSpec.describe "Sabeel features" do
             expect(page).to have_css("h2", text: "Active Sabeels of #{@apt.titleize}")
         end
 
-        context "should have a button to render pdf of active sabeels" do
+        context "a button to render pdf" do
             scenario "with the text & font-awesome icon" do
                 expect(page).to have_button('Generate PDF')
                 expect(page).to have_css('.fa-file-pdf')
+            end
+
+            scenario "that has a header" do
+                pdf_window = window_opened_by { click_on "Generate PDF" }
+                within_window pdf_window do
+                    expect(page).to have_content("#{@apt.titleize} - #{$active_takhmeen}")
+                end
+            end
+
+            scenario "that lists all the active sabeels of an apartment" do
+                pdf_window = window_opened_by { click_on "Generate PDF" }
+                within_window pdf_window do
+                    @sabeels.each do |sabeel|
+                        expect(page).to have_content("#{sabeel.flat_no}")
+                        expect(page).to have_content("#{sabeel.hof_name}")
+                        expect(page).to have_content("#{sabeel.mobile}")
+                        thaali = sabeel.thaali_takhmeens.first
+                        expect(page).to have_content("#{thaali.number}")
+                        expect(page).to have_content("#{thaali.size.humanize.chr}")
+                    end
+                end
             end
         end
 
