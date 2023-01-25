@@ -1,6 +1,6 @@
 class SabeelsController < ApplicationController
     before_action :set_sabeel, only: [:show, :update, :edit, :destroy]
-    before_action :set_apt, only: [:active, :active_pdf,:inactive]
+    before_action :set_apt, only: [:active, :inactive]
     # after_action :set_pagy_sabeels_total, only: [:active, :total]
 
     def index
@@ -69,17 +69,11 @@ class SabeelsController < ApplicationController
         @s = Sabeel.send(@apt).active_takhmeen($active_takhmeen).order(flat_no: :ASC).includes(:thaali_takhmeens)
         @total = @s.count
         @pagy, @sabeels = pagy_countless(@s, items: 8)
-    end
 
-    def active_pdf
-        @s = Sabeel.send(@apt).active_takhmeen($active_takhmeen).order(flat_no: :ASC).includes(:thaali_takhmeens)
-        respond_to do |format|
-            format.html
-            format.pdf do
-                pdf = ActiveSabeels.new(@s, @apt)
-                send_data pdf.render, filename: "#{@apt}-#{$active_takhmeen}.pdf",
-                            type: "application/pdf", disposition: "inline"
-            end
+        if request.format.symbol == :pdf
+            pdf = ActiveSabeels.new(@s, @apt)
+            send_data pdf.render, filename: "#{@apt}-#{$active_takhmeen}.pdf",
+                                type: "application/pdf", disposition: "inline"
         end
     end
 
