@@ -1,11 +1,11 @@
 class ActiveSabeels < Prawn::Document
     def initialize(sabeels, apt)
-        super(page_size: 'A4', page_layout: :landscape)
+        super(page_size: 'A4', margin: 15)
         @sabeels = sabeels
         @apt = apt
         repeat(:all) {
             header
-            @repeat_height = 40
+            @repeat_height = 30
         }
         bounding_box([bounds.left, bounds.top - @repeat_height], width: bounds.width, height: bounds.height - @repeat_height) do
             line_items
@@ -13,17 +13,16 @@ class ActiveSabeels < Prawn::Document
     end
 
     def header
-        text "#{@apt.titleize}", size: 25, style: :bold, align: :center
+        text "#{@apt.titleize} - #{$active_takhmeen}", size: 20, style: :bold, align: :center
     end
 
     def line_items
-        table(line_items_rows, header: true, position: :center, column_widths: { 0 => 25, 3 => 350, 5 => 150 }) do
-            row(0).style font_style: :bold, align: :center, size: 15
+        table(line_items_rows, header: true, position: :center, column_widths: { 3 => 200, 5 => 90 }) do
+            row(0).style font_style: :bold, align: :center, size: 13
             column([1, 4]).style align: :center
             column([2, 5]).style align: :right
             column(0).style font_style: :italic
             column([0, 5]).style text_color: "828385"
-            column(0..5).style padding_top: 10, padding_bottom: 10
         end
     end
 
