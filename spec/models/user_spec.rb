@@ -19,7 +19,7 @@ RSpec.describe User, type: :model do
 
             it { should validate_length_of(:name).is_at_least(3).with_short_message("must be more than 3 characters")  }
 
-            it { should validate_length_of(:name).is_at_most(3).with_long_message("must be less than 35 characters")  }
+            it { should validate_length_of(:name).is_at_most(35).with_long_message("must be less than 35 characters")  }
         end
     end
 end
