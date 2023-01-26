@@ -17,7 +17,7 @@ RSpec.describe Sabeel, type: :routing do
             expect(get("/sabeels/new")).to route_to("sabeels#new")
         end
 
-        it "is accessible by new_sabeel route" do
+        it "is accessible by new_sabeel_path route" do
             expect(get: new_sabeel_path).to route_to(controller: "sabeels", action: "new")
         end
     end
