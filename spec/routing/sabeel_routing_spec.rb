@@ -13,7 +13,7 @@ RSpec.describe Sabeel, type: :routing do
     end
 
     context "new action" do
-        it "is accessible by /sabeels route" do
+        it "is accessible by /sabeels/new route" do
             expect(get("/sabeels/new")).to route_to("sabeels#new")
         end
 
@@ -33,7 +33,7 @@ RSpec.describe Sabeel, type: :routing do
     end
 
     context "show action" do
-        it "is accessible by /sabeels route" do
+        it "is accessible by /sabeels/:id route" do
             expect(get("/sabeels/1")).to route_to("sabeels#show", id: "1")
         end
 
