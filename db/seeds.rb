@@ -40,7 +40,7 @@ prev_takhmeen_comp.each do |thaali|
 end
 
 
-#  have rest of the thaalis created of prev year be pending  ---> (maximum: 1980 from 180 thaalis)
+#  have rest of the thaalis created of prev year be pending  ---> (maximum: 1980 transactions from 180 thaalis)
 prev_takhmeen_pend = ThaaliTakhmeen.pending_year($prev_takhmeen)
 
 prev_takhmeen_pend.each do |thaali|
@@ -56,7 +56,7 @@ prev_takhmeen_pend.each do |thaali|
 end
 
 
-#  95% of sabeels have had taken thaali in previous year are continuing in current year --> (855 thaali, 855 sabeels)
+#  95% of sabeels have had taken thaali in previous year are continuing in current year --> (855 thaali of 855 sabeels)
 active_sabeel = sabeel_prev_thaali.sample(sabeel_prev_thaali.count * 0.95)
 
 active_sabeel.each.with_index do |sabeel, i|
@@ -85,7 +85,7 @@ cur_takhmeen_comp.each do |thaali|
     end
 end
 
-#  have rest (~70%) of the thaalis created of current year be pending
+#  have takhmeen pending for rest (~70%) of the thaalis created of current year
 cur_takhmeen_pend = ThaaliTakhmeen.pending_year($active_takhmeen)
 
 cur_takhmeen_pend.each do |thaali|
@@ -100,6 +100,6 @@ cur_takhmeen_pend.each do |thaali|
     end
 end
 
-# *CREATES TOTAL sabeel --> 1000
+# *CREATES TOTAL Sabeel --> 1000
 # *CREATES TOTAL ThaaliTakhmeens --> 1755 (900 + 855)
-# *CREATES TOTAL sabeel --> ~16k
+# *CREATES TOTAL Transactions --> ~16k
