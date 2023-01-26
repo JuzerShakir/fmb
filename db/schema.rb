@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_26_175028) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_26_231421) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_175028) do
     t.index ["recipe_no"], name: "index_transactions_on_recipe_no"
     t.index ["slug"], name: "index_transactions_on_slug", unique: true
     t.index ["thaali_takhmeen_id"], name: "index_transactions_on_thaali_takhmeen_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.integer "its", null: false
+    t.string "name", null: false
+    t.string "password_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["its"], name: "index_users_on_its", unique: true
   end
 
   add_foreign_key "thaali_takhmeens", "sabeels"
