@@ -10,7 +10,7 @@ class ThaaliTakhmeensController < ApplicationController
         @q = @active_thaalis.ransack(params[:q])
 
         thaalis = @q.result(distinct: true)
-        @pagy, @thaalis = pagy_countless(thaalis, items: 8)
+        @pagy, @thaalis = pagy_countless(thaalis, items: 20)
     end
 
     def new
@@ -109,7 +109,7 @@ class ThaaliTakhmeensController < ApplicationController
 
         def set_pagy_thaalis_total
             @total = @tt.count
-            @pagy, @thaalis = pagy_countless(@tt, items: 8)
+            @pagy, @thaalis = pagy_countless(@tt, items: 20)
         end
 
         def check_for_current_year_takhmeen

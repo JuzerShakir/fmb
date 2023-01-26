@@ -7,7 +7,7 @@ class SabeelsController < ApplicationController
         search_params = params.permit(:format, :page, q: [:hof_name_or_its_cont])
         @q = Sabeel.ransack(search_params[:q])
         sabeels = @q.result(distinct: true).order(created_at: :DESC)
-        @pagy, @sabeels = pagy_countless(sabeels, items: 8)
+        @pagy, @sabeels = pagy_countless(sabeels, items: 20)
     end
 
     def new
@@ -68,7 +68,7 @@ class SabeelsController < ApplicationController
     def active
         @s = Sabeel.send(@apt).active_takhmeen($active_takhmeen).order(flat_no: :ASC).includes(:thaali_takhmeens)
         @total = @s.count
-        @pagy, @sabeels = pagy_countless(@s, items: 8)
+        @pagy, @sabeels = pagy_countless(@s, items: 20)
 
         if request.format.symbol == :pdf
             pdf = ActiveSabeels.new(@s, @apt)
@@ -99,6 +99,6 @@ class SabeelsController < ApplicationController
 
         # def set_pagy_sabeels_total
         #     @total = @s.count
-        #     @pagy, @sabeels = pagy_countless(@s, items: 8)
+        #     @pagy, @sabeels = pagy_countless(@s, items: 20)
         # end
 end

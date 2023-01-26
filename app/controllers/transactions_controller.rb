@@ -7,7 +7,7 @@ class TransactionsController < ApplicationController
         @q = Transaction.includes(:thaali_takhmeen).ransack(params[:q])
 
         trans = @q.result(distinct: true).order(on_date: :DESC)
-        @pagy, @transactions = pagy_countless(trans, items: 8)
+        @pagy, @transactions = pagy_countless(trans, items: 20)
     end
 
     def new
