@@ -34,4 +34,15 @@ RSpec.describe User, type: :routing do
             expect(get: admin_path).to route_to(controller: "users", action: "index")
         end
     end
+
+    # * SHOW
+    context "show action" do
+        it "is accessible by /user/:id route" do
+            expect(get("/users/1")).to route_to("users#show", id: "1")
+        end
+
+        it "is accessible by user_path route" do
+            expect(get: user_path(1)).to route_to(controller: "users", action: "show", id: "1")
+        end
+    end
 end
