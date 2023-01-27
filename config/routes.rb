@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:new, :create, :show, :destroy]
+  resources :users, only: [:new, :create, :show, :edit, :destroy]
 
   # * ERRORS
   match '/404', to: "errors#not_found", via: :all

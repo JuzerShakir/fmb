@@ -46,6 +46,17 @@ RSpec.describe User, type: :routing do
         end
     end
 
+    #  * EDIT
+    context "edit action" do
+        it "is accessible by /users/:id/edit route" do
+            expect(get("/users/1/edit")).to route_to("users#edit", id: "1")
+        end
+
+        it "is accessible by edit_user_path route" do
+            expect(get: edit_user_path(1)).to route_to(controller: "users", action: "edit", id: "1")
+        end
+    end
+
     # * DESTROY
     context "destroy action" do
         it "is accessible by /users/:id route" do
