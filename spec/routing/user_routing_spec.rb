@@ -45,4 +45,15 @@ RSpec.describe User, type: :routing do
             expect(get: user_path(1)).to route_to(controller: "users", action: "show", id: "1")
         end
     end
+
+    # * DESTROY
+    context "destroy action" do
+        it "is accessible by /users/:id route" do
+            expect(delete("/users/1")).to route_to("users#destroy", id: "1")
+        end
+
+        it "is accessible by user_path route" do
+            expect(delete: user_path(1)).to route_to(controller: "users", action: "destroy", id: "1")
+        end
+    end
 end
