@@ -69,14 +69,16 @@ RSpec.describe "Users features" do
 
     # * SHOW
     context "Show template" do
+        before do
+            @user = FactoryBot.create(:user)
+            visit user_path(@user)
+        end
+
         scenario "should have a heading" do
             expect(page).to have_css('h2', text: "Show User")
         end
 
         scenario "Showing a User details" do
-            @user = FactoryBot.create(:user)
-            visit user_path(@user)
-
             attrbs = FactoryBot.attributes_for(:user).except(:password, :password_confirmation)
 
             attrbs.keys.each do | attrb |
