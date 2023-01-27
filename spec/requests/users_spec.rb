@@ -61,4 +61,22 @@ RSpec.describe "Users", type: :request do
             expect(response).to have_http_status(:ok)
         end
     end
+
+    # * SHOW
+    context "GET show" do
+        before do
+            @user = FactoryBot.create(:user)
+            get user_path(@user)
+        end
+
+        it "should render a show template" do
+            expect(response).to render_template(:show)
+            expect(response).to have_http_status(:ok)
+        end
+
+        it "should render the instance that was passed in the params" do
+            # it could be any attribute, not only ITS
+            expect(response.body).to include("#{@user.its}")
+        end
+    end
 end
