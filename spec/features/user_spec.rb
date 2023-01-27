@@ -56,12 +56,14 @@ RSpec.describe "Users features" do
             end
         end
 
-        # scenario "should have a link to 'name' that renders user:show page after clicking it" do
-        #     @users.each do |user|
-        #         click_button "#{user.name}"
-        #         expect(current_path).to eql user_path(user.its)
-        #         page.driver.go_back
-        #     end
-        # end
+        scenario "should have a link to 'name' that renders user:show page after clicking it" do
+            @users.each do |user|
+                expect(page).to have_content("#{user.name}")
+
+                click_on "#{user.name}"
+                expect(current_path).to eql user_path(user)
+                visit admin_path
+            end
+        end
     end
 end
