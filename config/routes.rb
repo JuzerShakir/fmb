@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   root "thaali_takhmeens#index"
 
   # * CUSTOM ROUTES
+  # users
+  get "/admin", to: "users#index"
+
   # sabeels
   get "/sabeels", to: "sabeels#index", as: :all_sabeels
 
