@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe Transaction, type: :routing do
 
+    # * INDEX
     context "index action" do
         it "is accessible by /transactions route" do
             expect(get("/transactions")).to route_to("transactions#index")
@@ -12,6 +13,7 @@ RSpec.describe Transaction, type: :routing do
         end
     end
 
+    # * NEW
     context "new action" do
         it "is accessible by /takhmeens/:takhmeen_id/transactions/new route" do
             expect(get("/takhmeens/1/transactions/new")).to route_to("transactions#new", takhmeen_id: "1")
@@ -22,6 +24,7 @@ RSpec.describe Transaction, type: :routing do
         end
     end
 
+    # * CREATE
     context "create action" do
         it "is accessible by /sabeel/takhmeen/transactions route" do
             expect(post("/takhmeens/1/transactions")).to route_to("transactions#create",  takhmeen_id: "1")
@@ -32,6 +35,7 @@ RSpec.describe Transaction, type: :routing do
         end
     end
 
+    #  * SHOW
     context "show action" do
         it "is accessible by /transactions/1 route" do
             expect(get("/transactions/1")).to route_to("transactions#show", id: "1")
@@ -42,6 +46,7 @@ RSpec.describe Transaction, type: :routing do
         end
     end
 
+    # * EDIT
     context "edit action" do
         it "is accessible by /transactions/1/edit route" do
             expect(get("/transactions/1/edit")).to route_to("transactions#edit", id: "1")
@@ -52,6 +57,7 @@ RSpec.describe Transaction, type: :routing do
         end
     end
 
+    # * UPDATE
     context "update action" do
         it "is accessible by /transactions/1 route" do
             expect(patch("/transactions/1")).to route_to("transactions#update", id: "1")
@@ -62,6 +68,7 @@ RSpec.describe Transaction, type: :routing do
         end
     end
 
+    # * DESTROY
     context "destroy action" do
         it "is accessible by /transactions/1 route" do
             expect(delete("/transactions/1")).to route_to("transactions#destroy", id: "1")

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Sabeel, type: :routing do
-
+    # * INDEX
     context "index action" do
         it "is accessible by /sabeels route" do
             expect(get("/sabeels")).to route_to("sabeels#index")
@@ -12,6 +12,7 @@ RSpec.describe Sabeel, type: :routing do
         end
     end
 
+    # * NEW
     context "new action" do
         it "is accessible by /sabeels/new route" do
             expect(get("/sabeels/new")).to route_to("sabeels#new")
@@ -22,6 +23,7 @@ RSpec.describe Sabeel, type: :routing do
         end
     end
 
+    #  * CREATE
     context "create action" do
         it "is accessible by /sabeels route" do
             expect(post("/sabeels")).to route_to("sabeels#create")
@@ -32,6 +34,7 @@ RSpec.describe Sabeel, type: :routing do
         end
     end
 
+    #  * SHOW
     context "show action" do
         it "is accessible by /sabeels/:id route" do
             expect(get("/sabeels/1")).to route_to("sabeels#show", id: "1")
@@ -42,6 +45,7 @@ RSpec.describe Sabeel, type: :routing do
         end
     end
 
+    #  * EDIT
     context "edit action" do
         it "is accessible by /sabeels/:id/edit route" do
             expect(get("/sabeels/1/edit")).to route_to("sabeels#edit", id: "1")
@@ -52,6 +56,7 @@ RSpec.describe Sabeel, type: :routing do
         end
     end
 
+    # * UPDATE
     context "update action" do
         it "is accessible by /sabeels/:id route" do
             expect(patch("/sabeels/1")).to route_to("sabeels#update", id: "1")
@@ -62,6 +67,7 @@ RSpec.describe Sabeel, type: :routing do
         end
     end
 
+    # * DESTROY
     context "destroy action" do
         it "is accessible by /sabeels/:id route" do
             expect(delete("/sabeels/1")).to route_to("sabeels#destroy", id: "1")
@@ -72,6 +78,7 @@ RSpec.describe Sabeel, type: :routing do
         end
     end
 
+    # * STATS
     context "stats action" do
         it "is accessible by /sabeels/stats route" do
             expect(get("/sabeels/stats")).to route_to("sabeels#stats")
@@ -82,6 +89,7 @@ RSpec.describe Sabeel, type: :routing do
         end
     end
 
+    # * ACTIVE
     context "active action" do
         it "is accessible by /sabeels/mohammedi/active route" do
             expect(get("/sabeels/mohammedi/active")).to route_to("sabeels#active", apt: 'mohammedi')
@@ -92,6 +100,7 @@ RSpec.describe Sabeel, type: :routing do
         end
     end
 
+    #  * INACTIVE
     context "inactive action" do
         it "is accessible by /sabeels/mohammedi/inactive route" do
             expect(get("/sabeels/mohammedi/inactive")).to route_to("sabeels#inactive", apt: 'mohammedi')
