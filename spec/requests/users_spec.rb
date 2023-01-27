@@ -98,6 +98,42 @@ RSpec.describe "Users", type: :request do
         end
     end
 
+    # * UPDATE
+    context "PATCH update" do
+        before do
+            @user = FactoryBot.create(:user)
+        end
+
+        context "with valid attributes" do
+            it "should redirect to updated user" do
+                new_password = Faker::Internet.password(min_length: 6, max_length: 72)
+                @user.password = new_password
+                @user.password_confirmation = new_password
+
+                hash_params = {password: @user.password, password_confirmation: @user.password_confirmation}
+                user_params = @user.attributes.merge(hash_params)
+
+                patch user_path(@user), params: { user: user_params }
+
+                expect(response).to redirect_to @user
+            end
+        end
+
+        context "with invalid attributes" do
+            it "should render an edit template" do
+                @user.password = nil
+                @user.password_confirmation = nil
+
+                hash_params = {password: @user.password, password_confirmation: @user.password_confirmation}
+                user_params = @user.attributes.merge(hash_params)
+
+                patch user_path(@user.id), params: { user: user_params }
+
+                expect(response).to render_template(:edit)
+            end
+        end
+    end
+
     # * DESTROY
     context "DELETE destroy" do
         before do
