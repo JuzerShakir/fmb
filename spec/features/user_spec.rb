@@ -38,4 +38,30 @@ RSpec.describe "Users features" do
             expect(page).to have_content("Password confirmation doesn't match Password")
         end
     end
+
+    # * INDEX
+    context "index template" do
+        before do
+            @users = FactoryBot.create_list(:user, 3)
+            visit admin_path
+        end
+
+        scenario "should hvae a heading" do
+            expect(page).to have_css('h2', text: "All Users")
+        end
+
+        scenario "should show Name & role of all Users" do
+            @users.each do |user|
+                expect(page).to have_content("#{user.name}")
+            end
+        end
+
+        # scenario "should have a link to 'name' that renders user:show page after clicking it" do
+        #     @users.each do |user|
+        #         click_button "#{user.name}"
+        #         expect(current_path).to eql user_path(user.its)
+        #         page.driver.go_back
+        #     end
+        # end
+    end
 end
