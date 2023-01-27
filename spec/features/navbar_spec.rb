@@ -75,5 +75,13 @@ RSpec.describe "Navbar features" do
                 expect(current_path).to eql new_user_path
             end
         end
+
+        scenario "with 'Home' link" do
+            within("#admin") do
+                expect(page).to have_content("Home")
+                click_on "Home"
+                expect(current_path).to eql admin_path
+            end
+        end
     end
 end
