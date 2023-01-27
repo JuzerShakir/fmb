@@ -1,6 +1,15 @@
 class User < ApplicationRecord
     has_secure_password
 
+    # * FRIENDLY_ID
+    extend FriendlyId
+    friendly_id :its, use: [:slugged, :finders, :history]
+
+    def should_generate_new_friendly_id?
+      its_changed?
+    end
+
+    # * Validations
     # ITS
     validates_presence_of :its, :name, :password_confirmation, message: "cannot be blank"
     validates_numericality_of :its, only_integer: true, message: "must be a number"
