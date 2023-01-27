@@ -68,7 +68,7 @@ RSpec.describe "Navbar features" do
 
     # * Admin
     context "should have a dropdown for Admin" do
-        scenario "with 'Admin' link" do
+        scenario "with 'New User' link" do
             within("#admin") do
                 expect(page).to have_content("New User")
                 click_on "New User"
