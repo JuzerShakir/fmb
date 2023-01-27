@@ -17,6 +17,7 @@ en:
                 its: "HOF ITS No."
                 hof_name: "HOF Name"
                 total: "Niyat"
+                password_confirmation: "Password Confirmation"
         #   user:
         #     new:
         #       email: 'E-mail to sign in.'
