@@ -98,3 +98,5 @@ gem "prawn", "~> 2.4"
 gem "prawn-table", "~> 0.2.2"
 
 gem "matrix", "~> 0.4.2"
+
+gem 'rack_session_access'
