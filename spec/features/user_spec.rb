@@ -87,6 +87,40 @@ RSpec.describe "Users features" do
         end
     end
 
+    # * EDIT
+    context "Editing User", js: true do
+        before do
+            @user = FactoryBot.create(:user)
+            visit user_path(@user)
+        end
+
+        scenario "should have an edit link" do
+            expect(page).to have_link("Edit User")
+        end
+
+        scenario "should BE able to update with valid values" do
+            click_link "Edit User"
+            new_password = Faker::Internet.password(min_length: 6, max_length: 72)
+            fill_in "user_password", with: new_password
+            fill_in "user_password_confirmation", with: new_password
+
+            click_on "Update User"
+            expect(current_path).to eql user_path(@user)
+            expect(page).to have_content("User updated successfully")
+        end
+
+        scenario "should NOT BE able to update with invalid values" do
+            click_link "Edit User"
+            fill_in "user_password", with: ""
+            fill_in "user_password_confirmation", with: ""
+
+            click_on "Update User"
+            expect(current_path).to eql edit_user_path(@user)
+            expect(page).to have_content("Password must be more than 6 characters")
+            expect(page).to have_content("Password confirmation cannot be blank")
+        end
+    end
+
     # * DELETE
     scenario "Deleting a User" do
         @user = FactoryBot.create(:user)

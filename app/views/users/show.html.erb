@@ -6,7 +6,7 @@
 
 <%# * action buttons %>
 <%= render partial: "shared/actions",
-    locals: { edit_path: "#", model: "User" } %>
+    locals: { edit_path: edit_user_path(@user), model: "User" } %>
 
 <%# * destroy Modal %>
 <%= render partial: "shared/destroy_modal",
