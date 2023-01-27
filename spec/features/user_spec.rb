@@ -25,17 +25,17 @@ RSpec.describe "Users features" do
             expect(page).to have_content("User created successfully")
         end
 
-        # scenario "should NOT be able to create with invalid values" do
-        #     attributes = FactoryBot.attributes_for(:invalid_user)
+        scenario "should NOT be able to create with invalid values" do
+            attributes = FactoryBot.attributes_for(:invalid_user)
 
-        #     attributes.each do |k, v|
-        #         fill_in "user_#{k}", with: "#{v}"
-        #     end
+            attributes.each do |k, v|
+                fill_in "user_#{k}", with: "#{v}"
+            end
 
-        #     click_button "Create user"
+            click_button "Create User"
 
-        #     expect(page).to have_content("Please review the problems below:")
-        #     expect(page).to have_content("Apartment cannot be blank")
-        # end
+            expect(page).to have_content("Please review the problems below:")
+            expect(page).to have_content("Password confirmation doesn't match Password")
+        end
     end
 end
