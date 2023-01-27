@@ -25,5 +25,9 @@ RSpec.describe User, type: :model do
         context "password" do
             it { should validate_length_of(:password).is_at_least(6).with_short_message("must be more than 6 characters")  }
         end
+
+        context "password_confirmation" do
+            it { should validate_presence_of(:password_confirmation).with_message("cannot be blank")  }
+        end
     end
 end
