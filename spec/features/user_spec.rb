@@ -21,7 +21,7 @@ RSpec.describe "Users features" do
             click_button "Create User"
 
             user = User.last
-            expect(current_path).to eql root_path
+            expect(current_path).to eql admin_path
             expect(page).to have_content("User created successfully")
         end
 
