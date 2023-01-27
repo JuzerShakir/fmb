@@ -7,7 +7,7 @@ FactoryBot.define do
 
 
     trait :wrong_password do
-      password_confirmation { "dsd" }
+      password_confirmation { nil }
     end
 
     factory :invalid_user, traits: [:wrong_password]
