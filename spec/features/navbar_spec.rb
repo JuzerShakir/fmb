@@ -11,6 +11,7 @@ RSpec.describe "Navbar features" do
         end
     end
 
+    # * New Sabeel
     scenario "should have a 'Add New Sabeel' link" do
         within(".navbar-nav") do
             expect(page).to have_content("Add New Sabeel")
@@ -19,6 +20,7 @@ RSpec.describe "Navbar features" do
         end
     end
 
+    # * Statistics
     context "should have a dropdown for Statistics" do
         scenario "with 'Sabeels' link" do
             within("#statistics") do
@@ -37,6 +39,7 @@ RSpec.describe "Navbar features" do
         end
     end
 
+    # * Resources
     context "should have a dropdown for Resources" do
         scenario "with 'Sabeels' link" do
             within("#resources") do
@@ -59,6 +62,17 @@ RSpec.describe "Navbar features" do
                 expect(page).to have_content("Transactions")
                 click_on "Transactions"
                 expect(current_path).to eql all_transactions_path
+            end
+        end
+    end
+
+    # * Admin
+    context "should have a dropdown for Admin" do
+        scenario "with 'Admin' link" do
+            within("#admin") do
+                expect(page).to have_content("New User")
+                click_on "New User"
+                expect(current_path).to eql new_user_path
             end
         end
     end
