@@ -57,6 +57,17 @@ RSpec.describe User, type: :routing do
         end
     end
 
+    # * UPDATE
+    context "update action" do
+        it "is accessible by /users/:id route" do
+            expect(patch("/users/1")).to route_to("users#update", id: "1")
+        end
+
+        it "is accessible by user_path route" do
+            expect(patch: user_path(1)).to route_to(controller: "users", action: "update", id: "1")
+        end
+    end
+
     # * DESTROY
     context "destroy action" do
         it "is accessible by /users/:id route" do
