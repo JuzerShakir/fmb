@@ -22,6 +22,15 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
     end
 
+    def destroy
+        @user = User.find(params[:id])
+        @user.destroy
+        #  if admin deletes other user
+        redirect_to admin_path
+        # if admin or user deletes itself
+        # redirect_to login_path
+    end
+
     private
 
         def user_params

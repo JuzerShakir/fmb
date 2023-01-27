@@ -79,4 +79,28 @@ RSpec.describe "Users", type: :request do
             expect(response.body).to include("#{@user.its}")
         end
     end
+
+    # * DESTROY
+    context "DELETE destroy" do
+        before do
+            user = FactoryBot.create(:user)
+            delete user_path(user.id)
+            @user = User.find_by(id: user.id)
+        end
+
+
+        it "should destroy the user" do
+            expect(@user).to be_nil
+        end
+
+        #  if admin deletes other user
+        it "should redirect to the admin path" do
+            expect(response).to redirect_to admin_path
+        end
+
+        # if admin or user deletes itself
+        # it "should redirect to the login path" do
+        #     expect(response).to redirect_to login_path
+        # end
+    end
 end
