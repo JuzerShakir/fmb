@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   # users
   get "/admin", to: "users#index"
 
+  # session
+  get "/login", to: "sessions#new"
+
   # sabeels
   get "/sabeels", to: "sabeels#index", as: :all_sabeels
 
