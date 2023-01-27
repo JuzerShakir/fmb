@@ -1,3 +1,9 @@
+<%# * Title %>
 <h2 class="text-center">Show User</h2>
 
+<%# * show %>
 <%= render "show" %>
+
+<%# * action buttons %>
+<%= render partial: "shared/actions",
+    locals: { edit_path: "#", model: "User" } %>
