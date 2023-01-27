@@ -68,6 +68,12 @@ RSpec.describe "Navbar features" do
 
     # * Admin
     context "should have a dropdown for Admin" do
+        before do
+            @user = FactoryBot.create(:user)
+            page.set_rack_session(user_id: @user.id)
+            visit root_path
+            click_on "Admin"
+        end
         scenario "with 'New User' link" do
             within("#admin") do
                 expect(page).to have_content("New User")
@@ -82,6 +88,20 @@ RSpec.describe "Navbar features" do
                 click_on "Home"
                 expect(current_path).to eql admin_path
             end
+        end
+    end
+
+    # * Login
+    context "should have a login link" do
+        before do
+            @user = FactoryBot.create(:user)
+            page.set_rack_session(user_id: nil)
+            visit root_path
+        end
+
+        scenario "should redirect to login page" do
+            click_on "Login"
+            expect(current_path).to eql login_path
         end
     end
 end
