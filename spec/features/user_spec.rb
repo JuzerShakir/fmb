@@ -46,7 +46,7 @@ RSpec.describe "Users features" do
             visit admin_path
         end
 
-        scenario "should hvae a heading" do
+        scenario "should have a heading" do
             expect(page).to have_css('h2', text: "All Users")
         end
 
@@ -63,6 +63,24 @@ RSpec.describe "Users features" do
                 click_on "#{user.name}"
                 expect(current_path).to eql user_path(user)
                 visit admin_path
+            end
+        end
+    end
+
+    # * SHOW
+    context "Show template" do
+        scenario "should have a heading" do
+            expect(page).to have_css('h2', text: "Show User")
+        end
+
+        scenario "Showing a User details" do
+            @user = FactoryBot.create(:user)
+            visit user_path(@user)
+
+            attrbs = FactoryBot.attributes_for(:user).except(:password, :password_confirmation)
+
+            attrbs.keys.each do | attrb |
+                expect(page).to have_content("#{@user.send(attrb)}")
             end
         end
     end
