@@ -84,4 +84,19 @@ RSpec.describe "Users features" do
             end
         end
     end
+
+    # * DELETE
+    scenario "Deleting a User" do
+        @user = FactoryBot.create(:user)
+        visit user_path(@user)
+
+        expect(page).to have_button('Delete User')
+
+        click_on "Delete User"
+        click_on "Yes, delete it!"
+
+        expect(current_path).to eql admin_path
+        # expect(current_path).to eql login_path
+        expect(page).to have_content("User deleted successfully")
+    end
 end
