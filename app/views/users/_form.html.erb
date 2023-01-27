@@ -1,0 +1,12 @@
+<% its_message = "must be exactly 8 characters long" %>
+<% password_message = "between 3 to 35 characters long" %>
+
+<%= simple_form_for @user do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :its, hint: its_message %>
+    <%= f.input :name, input_html: { autocomplete: 'off' } %>
+    <%= f.input :password, hint: password_message, input_html: { autocomplete: 'off' } %>
+    <%= f.input :password_confirmation, hint: "should match the password" %>
+
+    <%= f.button :submit %>
+<% end %>
