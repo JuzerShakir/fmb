@@ -21,5 +21,9 @@ RSpec.describe User, type: :model do
 
             it { should validate_length_of(:name).is_at_most(35).with_long_message("must be less than 35 characters")  }
         end
+
+        context "password" do
+            it { should validate_length_of(:password).is_at_least(6).with_short_message("must be more than 6 characters")  }
+        end
     end
 end
