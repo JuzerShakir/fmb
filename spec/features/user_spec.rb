@@ -48,6 +48,8 @@ RSpec.describe "Users features" do
     # ! Only admin can access index
     # context "index template" do
     #     before do
+            # @user = FactoryBot.create(:user)
+            # page.set_rack_session(user_id: @user.id)
     #         @users = FactoryBot.create_list(:user, 3)
     #         visit admin_path
     #     end
@@ -60,6 +62,10 @@ RSpec.describe "Users features" do
     #         @users.each do |user|
     #             expect(page).to have_content("#{user.name}")
     #         end
+    #     end
+
+    #     scenario "should NOT show current admin details" do
+    #          expect(page).to have_no_content("#{user.name}")
     #     end
 
     #     scenario "should have a link to 'name' that renders user:show page after clicking it" do
