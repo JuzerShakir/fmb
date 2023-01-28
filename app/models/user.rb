@@ -1,6 +1,9 @@
 class User < ApplicationRecord
     has_secure_password
 
+    # * Callbacks
+    before_save :titleize_name, if: :will_save_change_to_name?
+
     # * FRIENDLY_ID
     extend FriendlyId
     friendly_id :its, use: [:slugged, :finders, :history]
@@ -22,4 +25,9 @@ class User < ApplicationRecord
 
     # password
     validates_length_of :password, minimum: 6, message: "must be more than 6 characters"
+
+    private
+      def titleize_name
+        self.name = self.name.split.map(&:capitalize).join(" ")
+      end
 end

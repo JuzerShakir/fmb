@@ -30,4 +30,17 @@ RSpec.describe User, type: :model do
             it { should validate_presence_of(:password_confirmation).with_message("cannot be blank")  }
         end
     end
+
+    context "callback method" do
+        context "#titleize_name" do
+            it { is_expected.to callback(:titleize_name).before(:save).if(:will_save_change_to_name?) }
+
+            it "must return capitalized name" do
+                subject.name = Faker::Name.name.swapcase
+                name_titleize_format = subject.name.split.map(&:capitalize).join(" ")
+                expect(subject).to receive(:titleize_name).and_return(name_titleize_format)
+                subject.save
+            end
+        end
+    end
 end
