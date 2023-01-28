@@ -57,6 +57,7 @@ group :development, :test do
   gem "rspec-rails"
   gem 'factory_bot_rails'
   gem 'capybara'
+  gem 'rack_session_access'
 end
 
 group :development do
@@ -98,5 +99,3 @@ gem "prawn", "~> 2.4"
 gem "prawn-table", "~> 0.2.2"
 
 gem "matrix", "~> 0.4.2"
-
-gem 'rack_session_access'
