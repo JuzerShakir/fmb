@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
+    before do
+        password = Faker::Internet.password(min_length: 6, max_length: 72)
+        @user = FactoryBot.create(:user, password: password)
+        post signup_path, params: { sessions: @user.attributes.merge({ password: password }) }
+    end
 
     # * NEW
     context "GET new" do
