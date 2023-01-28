@@ -22,4 +22,15 @@ RSpec.describe User, type: :routing do
             expect(post: signup_path).to route_to(controller: "sessions", action: "create")
         end
     end
+
+    # * DESTROY
+    context "destroy action" do
+        it "is accessible by /destroy route" do
+            expect(delete("/destroy")).to route_to("sessions#destroy")
+        end
+
+        it "is accessible by destroy_session_path route" do
+            expect(delete: destroy_session_path).to route_to(controller: "sessions", action: "destroy")
+        end
+    end
 end
