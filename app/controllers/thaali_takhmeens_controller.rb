@@ -117,7 +117,7 @@ class ThaaliTakhmeensController < ApplicationController
             @cur_takhmeen = @sabeel.thaali_takhmeens.where(year: $active_takhmeen).first
 
             unless @cur_takhmeen.nil?
-                message = "Sabeel: #{@sabeel.its} has already done takhmeen niyat for the year: #{$active_takhmeen}"
+                message = "Takhmeen niyat has already been done for the year: #{$active_takhmeen}"
                 redirect_back fallback_location: sabeel_path(@sabeel), notice: message
             end
         end
