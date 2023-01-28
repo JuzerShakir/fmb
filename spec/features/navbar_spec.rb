@@ -89,6 +89,14 @@ RSpec.describe "Navbar features" do
                 expect(current_path).to eql admin_path
             end
         end
+
+        scenario "with 'Log out' link" do
+            within("#admin") do
+                expect(page).to have_content("Log out")
+                click_on "Log out"
+                expect(current_path).to eql login_path
+            end
+        end
     end
 
     # * Login

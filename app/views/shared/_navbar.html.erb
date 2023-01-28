@@ -49,6 +49,8 @@
             <ul class="dropdown-menu">
               <li><%= link_to "Home", admin_path, class: "dropdown-item"%></li>
               <li><%= link_to "New User", new_user_path, class: "dropdown-item"%></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= link_to "Log out", destroy_session_path, method: :delete, class: "dropdown-item"%></li>
             </ul>
           </li>
         <% end %>
