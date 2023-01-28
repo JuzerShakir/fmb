@@ -7,7 +7,7 @@ FactoryBot.define do
     balance { total - paid }
     is_complete { false }
     number { Random.rand(1..10000) }
-    sequence :size, %i[small medium large].cycle
+    sequence :size, ThaaliTakhmeen.sizes.keys.cycle
 
     trait :current_year do
       year { $active_takhmeen }
