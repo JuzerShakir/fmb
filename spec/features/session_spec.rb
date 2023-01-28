@@ -24,4 +24,23 @@ RSpec.describe "Sessions features" do
             expect(page).to have_content("Afzalus Salam, #{@user.name}")
         end
     end
+
+    # * DESTROY
+    context "deleting session" do
+        before do
+            @user = FactoryBot.create(:user)
+            page.set_rack_session(user_id: @user.id)
+            visit root_path
+            click_on "Log out"
+        end
+
+        scenario "should redirect to login_path with flash message" do
+            expect(current_path).to eql login_path
+            expect(page).to have_content("Logged Out!")
+        end
+
+        scenario "should show 'Login' link" do
+            expect(page).to have_link("Login")
+        end
+    end
 end
