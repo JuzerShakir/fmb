@@ -45,37 +45,39 @@ RSpec.describe "Users features" do
     end
 
     # * INDEX
-    context "index template" do
-        before do
-            @users = FactoryBot.create_list(:user, 3)
-            visit admin_path
-        end
+    # ! Only admin can access index
+    # context "index template" do
+    #     before do
+    #         @users = FactoryBot.create_list(:user, 3)
+    #         visit admin_path
+    #     end
 
-        scenario "should have a heading" do
-            expect(page).to have_css('h2', text: "All Users")
-        end
+    #     scenario "should have a heading" do
+    #         expect(page).to have_css('h2', text: "All Users")
+    #     end
 
-        scenario "should show Name & role of all Users" do
-            @users.each do |user|
-                expect(page).to have_content("#{user.name}")
-            end
-        end
+    #     scenario "should show Name & role of all Users" do
+    #         @users.each do |user|
+    #             expect(page).to have_content("#{user.name}")
+    #         end
+    #     end
 
-        scenario "should have a link to 'name' that renders user:show page after clicking it" do
-            @users.each do |user|
-                expect(page).to have_content("#{user.name}")
+    #     scenario "should have a link to 'name' that renders user:show page after clicking it" do
+    #         @users.each do |user|
+    #             expect(page).to have_content("#{user.name}")
 
-                click_on "#{user.name}"
-                expect(current_path).to eql user_path(user)
-                visit admin_path
-            end
-        end
-    end
+    #             click_on "#{user.name}"
+    #             expect(current_path).to eql user_path(user)
+    #             visit admin_path
+    #         end
+    #     end
+    # end
 
     # * SHOW
     context "Show template" do
         before do
             @user = FactoryBot.create(:user)
+            page.set_rack_session(user_id: @user.id)
             visit user_path(@user)
         end
 
@@ -96,6 +98,7 @@ RSpec.describe "Users features" do
     context "Editing User", js: true do
         before do
             @user = FactoryBot.create(:user)
+            page.set_rack_session(user_id: @user.id)
             visit user_path(@user)
         end
 
@@ -129,6 +132,8 @@ RSpec.describe "Users features" do
     # * DELETE
     scenario "Deleting a User" do
         @user = FactoryBot.create(:user)
+        page.set_rack_session(user_id: @user.id)
+
         visit user_path(@user)
 
         expect(page).to have_button('Delete User')
@@ -136,8 +141,7 @@ RSpec.describe "Users features" do
         click_on "Delete User"
         click_on "Yes, delete it!"
 
-        expect(current_path).to eql admin_path
-        # expect(current_path).to eql login_path
+        expect(current_path).to eql login_path
         expect(page).to have_content("User deleted successfully")
     end
 end

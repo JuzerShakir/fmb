@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :authorize
+    before_action :authorize_user, only: [:show, :edit, :update, :destroy]
 
     def index
         @users = User.all
@@ -39,8 +39,9 @@ class UsersController < ApplicationController
     def destroy
         @user = User.find(params[:id])
         @user.destroy
+        session[:user_id] = nil
         #  if admin deletes other user
-        redirect_to admin_path, success: "User deleted successfully"
+        redirect_to login_path, success: "User deleted successfully"
         # if admin or user deletes itself
         # redirect_to login_path
     end

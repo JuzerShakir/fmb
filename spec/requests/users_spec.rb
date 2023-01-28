@@ -70,7 +70,6 @@ RSpec.describe "Users", type: :request do
     # * SHOW
     context "GET show" do
         before do
-            @user = FactoryBot.create(:user)
             get user_path(@user)
         end
 
@@ -88,7 +87,6 @@ RSpec.describe "Users", type: :request do
     # * EDIT
     context "GET edit" do
         before do
-            @user = FactoryBot.create(:user)
             get edit_user_path(@user)
         end
 
@@ -105,17 +103,13 @@ RSpec.describe "Users", type: :request do
 
     # * UPDATE
     context "PATCH update" do
-        before do
-            @user = FactoryBot.create(:user)
-        end
-
         context "with valid attributes" do
             it "should redirect to updated user" do
                 new_password = Faker::Internet.password(min_length: 6, max_length: 72)
-                @user.password = new_password
-                @user.password_confirmation = new_password
+                password = new_password
+                password_confirmation = new_password
 
-                hash_params = {password: @user.password, password_confirmation: @user.password_confirmation}
+                hash_params = {password: password, password_confirmation: password_confirmation}
                 user_params = @user.attributes.merge(hash_params)
 
                 patch user_path(@user), params: { user: user_params }
@@ -126,13 +120,13 @@ RSpec.describe "Users", type: :request do
 
         context "with invalid attributes" do
             it "should render an edit template" do
-                @user.password = nil
-                @user.password_confirmation = nil
+                password = nil
+                password_confirmation = nil
 
-                hash_params = {password: @user.password, password_confirmation: @user.password_confirmation}
+                hash_params = {password: password, password_confirmation: password_confirmation}
                 user_params = @user.attributes.merge(hash_params)
 
-                patch user_path(@user.id), params: { user: user_params }
+                patch user_path(@user), params: { user: user_params }
 
                 expect(response).to render_template(:edit)
             end
@@ -142,9 +136,8 @@ RSpec.describe "Users", type: :request do
     # * DESTROY
     context "DELETE destroy" do
         before do
-            user = FactoryBot.create(:user)
-            delete user_path(user.id)
-            @user = User.find_by(id: user.id)
+            delete user_path(@user)
+            @user = User.find_by(id: @user.id)
         end
 
 
@@ -153,8 +146,8 @@ RSpec.describe "Users", type: :request do
         end
 
         #  if admin deletes other user
-        it "should redirect to the admin path" do
-            expect(response).to redirect_to admin_path
+        it "should redirect to the login path" do
+            expect(response).to redirect_to login_path
         end
 
         # if admin or user deletes itself
