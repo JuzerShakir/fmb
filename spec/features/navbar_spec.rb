@@ -14,10 +14,10 @@ RSpec.describe "Navbar features" do
     end
 
     # * New Sabeel
-    scenario "should have a 'Add New Sabeel' link" do
+    scenario "should have a 'Create Sabeel' link" do
         within(".navbar-nav") do
-            expect(page).to have_content("Add New Sabeel")
-            click_on "Add New Sabeel"
+            expect(page).to have_content("Create Sabeel")
+            click_on "Create Sabeel"
             expect(current_path).to eql new_sabeel_path
         end
     end

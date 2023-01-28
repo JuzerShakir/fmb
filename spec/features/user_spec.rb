@@ -109,11 +109,11 @@ RSpec.describe "Users features" do
         end
 
         scenario "should have an edit link" do
-            expect(page).to have_link("Edit User")
+            expect(page).to have_link("Edit")
         end
 
         scenario "should BE able to update with valid values" do
-            click_link "Edit User"
+            click_link "Edit"
             new_password = Faker::Internet.password(min_length: 6, max_length: 72)
             fill_in "user_password", with: new_password
             fill_in "user_password_confirmation", with: new_password
@@ -124,7 +124,7 @@ RSpec.describe "Users features" do
         end
 
         scenario "should NOT BE able to update with invalid values" do
-            click_link "Edit User"
+            click_link "Edit"
             fill_in "user_password", with: ""
             fill_in "user_password_confirmation", with: ""
 
@@ -142,9 +142,9 @@ RSpec.describe "Users features" do
 
         visit user_path(@user)
 
-        expect(page).to have_button('Delete User')
+        expect(page).to have_button('Delete')
 
-        click_on "Delete User"
+        click_on "Delete"
         click_on "Yes, delete it!"
 
         expect(current_path).to eql login_path

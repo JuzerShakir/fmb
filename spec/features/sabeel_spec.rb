@@ -12,7 +12,7 @@ RSpec.describe "Sabeel features" do
     # * CREATE
     context "creating sabeel" do
         before do
-            click_on "New Sabeel"
+            click_on "Create Sabeel"
 
             attributes = FactoryBot.attributes_for(:sabeel)
             @apt = attributes.extract!(:apartment)
@@ -129,11 +129,11 @@ RSpec.describe "Sabeel features" do
         end
 
         scenario "should have an edit link" do
-            expect(page).to have_link("Edit Sabeel")
+            expect(page).to have_link("Edit")
         end
 
         scenario "should BE able to update with valid values" do
-            click_link "Edit Sabeel"
+            click_link "Edit"
             fill_in "sabeel_mobile", with: Faker::Number.number(digits: 10)
 
             click_on "Update Sabeel"
@@ -146,9 +146,9 @@ RSpec.describe "Sabeel features" do
     scenario "Deleting a Sabeel" do
         visit sabeel_path(@sabeel)
 
-        expect(page).to have_button('Delete Sabeel')
+        expect(page).to have_button('Delete')
 
-        click_on "Delete Sabeel"
+        click_on "Delete"
         click_on "Yes, delete it!"
 
         expect(current_path).to eql root_path("format=html")

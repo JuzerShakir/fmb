@@ -93,7 +93,7 @@ RSpec.describe "Transaction features"do
 
         it "should have an edit link" do
             visit transaction_path(@transaction)
-            expect(page).to have_link("Edit Transaction")
+            expect(page).to have_link("Edit")
         end
 
         scenario "should display amount of both the balance & current transaction amount" do
@@ -129,9 +129,9 @@ RSpec.describe "Transaction features"do
         @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
 
         visit transaction_path(@transaction)
-        expect(page).to have_button("Delete Transaction")
+        expect(page).to have_button("Delete")
 
-        click_on "Delete Transaction"
+        click_on "Delete"
         click_on "Yes, delete it!"
 
         expect(current_path).to eql takhmeen_path(@thaali)

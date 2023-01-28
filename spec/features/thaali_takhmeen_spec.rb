@@ -102,7 +102,7 @@ RSpec.describe "ThaaliTakhmeen features" do
             visit takhmeen_path(@thaali)
         end
         scenario "should BE able to update with valid values" do
-            click_on "Edit Thaali Takhmeen"
+            click_on "Edit"
             expect(current_path).to eql edit_takhmeen_path(@thaali)
 
             fill_in "thaali_takhmeen_number", with: "#{Random.rand(1..400)}"
@@ -173,9 +173,9 @@ RSpec.describe "ThaaliTakhmeen features" do
     scenario "Deleting ThaaliTakhmeen" do
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         visit takhmeen_path(@thaali)
-        expect(page).to have_button("Delete Thaali Takhmeen")
+        expect(page).to have_button("Delete")
 
-        click_on "Delete Thaali Takhmeen"
+        click_on "Delete"
         click_on "Yes, delete it!"
 
         expect(current_path).to eql sabeel_path(@sabeel)
