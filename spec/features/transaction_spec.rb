@@ -96,7 +96,7 @@ RSpec.describe "Transaction features"do
             expect(page).to have_link("Edit")
         end
 
-        scenario "should display amount of both the balance & current transaction amount" do
+        scenario "should display correct maximum amount in the hint message" do
             total = @thaali.balance + @transaction.amount
 
             within(".transaction_amount") do
