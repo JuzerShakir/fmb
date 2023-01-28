@@ -22,7 +22,8 @@ RSpec.describe "Sessions features" do
             click_button "Login"
 
             expect(current_path).to eql root_path("format=html")
-            expect(page).to have_content("Afzalus Salam, #{@user.name}")
+            first_name = @user.name.split.first
+            expect(page).to have_content("Afzalus Salam, #{first_name} bhai!")
             within("#admin") do
                 expect(page).to have_link("Admin")
             end
