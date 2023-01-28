@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   # session
   get "/login", to: "sessions#new"
+  post "/signup", to: "sessions#create"
 
   # sabeels
   get "/sabeels", to: "sabeels#index", as: :all_sabeels

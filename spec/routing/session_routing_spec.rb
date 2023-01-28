@@ -11,4 +11,15 @@ RSpec.describe User, type: :routing do
             expect(get: login_path).to route_to(controller: "sessions", action: "new")
         end
     end
+
+    # * CREATE
+    context "create action" do
+        it "is accessible by /signup route" do
+            expect(post("/signup")).to route_to("sessions#create")
+        end
+
+        it "is accessible by signup_path route" do
+            expect(post: signup_path).to route_to(controller: "sessions", action: "create")
+        end
+    end
 end
