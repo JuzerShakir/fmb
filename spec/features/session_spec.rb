@@ -22,6 +22,9 @@ RSpec.describe "Sessions features" do
 
             expect(current_path).to eql root_path("format=html")
             expect(page).to have_content("Afzalus Salam, #{@user.name}")
+            within("#admin") do
+                expect(page).to have_link("Admin")
+            end
         end
 
         scenario "should NOT be able to login with invalid credentials" do
