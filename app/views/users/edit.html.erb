@@ -1,16 +1,14 @@
 <%# * Title %>
-<h2 class= "text-center mb-5">Edit User</h2>
+<h2 class= "text-center mb-5">Change Password</h2>
 
 <% password_message = "between 6 to 72 characters long" %>
 
 <%= simple_form_for @user do |f| %>
     <%= f.error_notification %>
-    <%= f.input :its, disabled: true, label: "ITS No." %>
-    <%= f.input :name, disabled: true, input_html: { autocomplete: 'off' } %>
-    <%= f.input :password, hint: password_message, input_html: { autocomplete: 'off' } %>
+    <%= f.input :password, hint: password_message, input_html: { autocomplete: 'off' }, required: true %>
     <%= f.input :password_confirmation, hint: "should match the password" %>
 
-    <%= f.button :submit %>
+    <%= f.button :submit, value: "Update Password" %>
 <% end %>
 
 <%# * back button %>

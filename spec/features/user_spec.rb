@@ -118,7 +118,7 @@ RSpec.describe "Users features" do
             fill_in "user_password", with: new_password
             fill_in "user_password_confirmation", with: new_password
 
-            click_on "Update User"
+            click_on "Update Password"
             expect(current_path).to eql user_path(@user)
             expect(page).to have_content("User updated successfully")
         end
@@ -128,7 +128,7 @@ RSpec.describe "Users features" do
             fill_in "user_password", with: ""
             fill_in "user_password_confirmation", with: ""
 
-            click_on "Update User"
+            click_on "Update Password"
             expect(current_path).to eql edit_user_path(@user)
             expect(page).to have_content("Password must be more than 6 characters")
             expect(page).to have_content("Password confirmation cannot be blank")
