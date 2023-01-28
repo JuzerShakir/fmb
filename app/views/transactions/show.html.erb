@@ -20,6 +20,6 @@
      locals: {destroy_path: @transaction, message: "delete Transaction reciepe no: #{@transaction.recipe_no}?" } %>
 
 <%# * back button %>
-<div class="vstack col-md-2 mx-auto mt-5">
-     <%= link_to "Back to Takhmeen", takhmeen_path(@thaali_takhmeen), class: "btn btn-warning " %>
+<div class="mt-5">
+     <%= render partial: "shared/back" %>
 </div>
