@@ -11,12 +11,11 @@
   </head>
 
   <body>
-    <%= render "shared/navbar" if current_user %>
+    <%= render partial: "shared/navbar" if current_user %>
     <br>
+    <%= render partial: "shared/flash_messages" %>
 
     <div class="container mt-5">
-      <%= render "shared/flash_messages" %>
-
       <%= yield %>
     </div>
   </body>
