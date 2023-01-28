@@ -24,10 +24,21 @@ body {
     z-index: 2;
     right: 10px;
     background-color: rgba(0, 0, 0, 0.737);
-    color: rgb(0, 255, 0);
     font-size: larger;
     padding: 15px;
     border-radius: 25px;
+}
+
+#flash-success {
+    color: rgb(0, 255, 0);
+}
+
+#flash-alert {
+    color: rgb(255, 0, 0);
+}
+
+#flash-notice {
+    color: rgb(255, 255, 0);
 }
 
 #show-header-transaction {
