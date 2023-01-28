@@ -11,7 +11,7 @@ RSpec.describe "Sessions features" do
             click_on "Login"
             expect(current_path).to eql login_path
 
-            expect(page).to have_css('h2', text: "Login")
+            expect(page).to have_css('h2', text: "Member Login")
         end
 
         scenario "should be able to login with valid credentials" do
