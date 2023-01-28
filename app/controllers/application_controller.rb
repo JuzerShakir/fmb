@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
 
         helper_method :current_user
 
+        def logged_in?
+            redirect_to root_path, notice: "Already logged in!" if session[:user_id]
+        end
+
         def authorize
             redirect_to login_path, alert: "Not Authorized!" if current_user.nil?
         end
