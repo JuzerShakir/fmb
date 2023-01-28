@@ -62,7 +62,7 @@ RSpec.describe Sabeel, :type => :model do
 
             it "must return capitalized name" do
                 subject.hof_name = Faker::Name.name.swapcase
-                name_titleize_format = subject.hof_name.swapcase.titleize
+                name_titleize_format = subject.hof_name.split.map(&:capitalize).join(" ")
                 expect(subject).to receive(:titleize_hof_name).and_return(name_titleize_format)
                 subject.save
             end
