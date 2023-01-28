@@ -73,6 +73,15 @@ RSpec.describe "Navbar features" do
         before do
             click_on "Admin"
         end
+
+        scenario "with 'My Profile' link" do
+            within("#admin") do
+                expect(page).to have_content("My Profile")
+                click_on "My Profile"
+                expect(current_path).to eql user_path(@user)
+            end
+        end
+
         scenario "with 'New User' link" do
             within("#admin") do
                 expect(page).to have_content("New User")
