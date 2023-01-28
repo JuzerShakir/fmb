@@ -3,6 +3,10 @@
 
 <%# * show all users %>
 <div id="users" class="mt-5 container text-center">
-    <%= render partial: "theader" %>
-    <%= render partial: "user_content" %>
+    <% if @users.any? %>
+        <%= render partial: "theader" %>
+        <%= render partial: "user_content" %>
+    <% else %>
+        <%= render partial: "shared/no_results" %>
+    <% end %>
 </div>
