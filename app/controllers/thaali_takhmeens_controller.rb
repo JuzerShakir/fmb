@@ -1,4 +1,5 @@
 class ThaaliTakhmeensController < ApplicationController
+    before_action :authorize
     before_action :set_thaali_takhmeen, only: [:show, :edit, :update, :destroy]
     before_action :check_for_current_year_takhmeen, only: [:new]
     before_action :set_year, only: [:complete, :pending, :all]
