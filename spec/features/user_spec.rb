@@ -4,10 +4,15 @@ RSpec.describe "Users features" do
     # * CREATE
     context "creating user" do
         before do
+            @user = FactoryBot.create(:user)
+            page.set_rack_session(user_id: @user.id)
             visit root_path
+            click_on "Admin"
             click_on "New User"
-            expect(current_path).to eql new_user_path
+        end
 
+        scenario "should have a correct login path and a heading" do
+            expect(current_path).to eql new_user_path
             expect(page).to have_css('h2', text: "New User")
         end
 
