@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "Transactions", type: :request do
+    before do
+        password = Faker::Internet.password(min_length: 6, max_length: 72)
+        @user = FactoryBot.create(:user, password: password)
+        post signup_path, params: { sessions: @user.attributes.merge({ password: password }) }
+    end
+
     # * INDEX
     context "GET index" do
         before do

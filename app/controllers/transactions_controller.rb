@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+    before_action :authorize
     before_action :set_transaction, only: [:show, :edit, :update, :destroy]
     before_action :check_if_takhmeen_is_complete, only: [:new]
 
