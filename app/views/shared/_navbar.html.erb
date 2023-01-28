@@ -50,7 +50,7 @@
               <li><%= link_to "Home", admin_path, class: "dropdown-item"%></li>
               <li><%= link_to "New User", new_user_path, class: "dropdown-item"%></li>
               <li><hr class="dropdown-divider"></li>
-              <li><%= link_to "Log out", destroy_session_path, data: { turbo_method: :delete }, class: "dropdown-item"%></li>
+              <li><%= link_to "Log out", destroy_session_path, data: { turbo_method: :delete }, class: "dropdown-item text-center text-danger fw-bold"%></li>
             </ul>
           </li>
         <% end %>
