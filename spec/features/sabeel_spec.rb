@@ -2,17 +2,17 @@ require 'rails_helper'
 
 RSpec.describe "Sabeel features" do
     before do
+        @user = FactoryBot.create(:user)
+        page.set_rack_session(user_id: @user.id)
+        visit root_path
+
         @sabeel = FactoryBot.create(:sabeel)
     end
 
     # * CREATE
     context "creating sabeel" do
         before do
-            visit root_path
             click_on "New Sabeel"
-            expect(current_path).to eql new_sabeel_path
-
-            expect(page).to have_css('h2', text: "New Sabeel")
 
             attributes = FactoryBot.attributes_for(:sabeel)
             @apt = attributes.extract!(:apartment)
@@ -21,6 +21,12 @@ RSpec.describe "Sabeel features" do
                 fill_in "sabeel_#{k}",	with: "#{v}"
             end
         end
+
+        scenario "should have a correct url and a heading" do
+            expect(current_path).to eql new_sabeel_path
+            expect(page).to have_css('h2', text: "New Sabeel")
+        end
+
         scenario "should be able to create with valid values" do
             select @apt.fetch(:apartment).titleize, from: :sabeel_apartment
 

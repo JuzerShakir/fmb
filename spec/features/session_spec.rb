@@ -4,13 +4,14 @@ RSpec.describe "Sessions features" do
     # * CREATE
     context "creating session" do
         before do
-            visit root_path
             @password = Faker::Internet.password(min_length: 6, max_length: 72)
             @user = FactoryBot.create(:user, password: @password)
 
-            click_on "Login"
-            expect(current_path).to eql login_path
+            visit login_path
+        end
 
+        scenario "should have a correct url and a heading" do
+            expect(current_path).to eql login_path
             expect(page).to have_css('h2', text: "Member Login")
         end
 
@@ -50,8 +51,8 @@ RSpec.describe "Sessions features" do
             expect(page).to have_content("Logged Out!")
         end
 
-        scenario "should show 'Login' link" do
-            expect(page).to have_link("Login")
+        scenario "should NOT show the navbar" do
+            expect(page).not_to have_css("navbar")
         end
     end
 end

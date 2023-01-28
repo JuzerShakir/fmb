@@ -11,7 +11,7 @@ RSpec.describe "Users features" do
             click_on "New User"
         end
 
-        scenario "should have a correct login path and a heading" do
+        scenario "should have a correct url and a heading" do
             expect(current_path).to eql new_user_path
             expect(page).to have_css('h2', text: "New User")
         end

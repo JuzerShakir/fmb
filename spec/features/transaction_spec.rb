@@ -2,6 +2,10 @@ require "rails_helper"
 
 RSpec.describe "Transaction features"do
     before do
+        @user = FactoryBot.create(:user)
+        page.set_rack_session(user_id: @user.id)
+        visit root_path
+
         @sabeel = FactoryBot.create(:sabeel)
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
     end
