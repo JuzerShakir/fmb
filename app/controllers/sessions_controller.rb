@@ -10,8 +10,8 @@ class SessionsController < ApplicationController
                 format.all { redirect_to root_path(format: :html), success: "Afzalus Salam, #{user.name}" }
             end
         else
-            # @error_message = "Invalid credentials"
-            render :new
+            flash.now.alert = "Invalid credentials!"
+            render :new, status: :not_found
         end
     end
 

@@ -23,6 +23,14 @@ RSpec.describe "Sessions features" do
             expect(current_path).to eql root_path("format=html")
             expect(page).to have_content("Afzalus Salam, #{@user.name}")
         end
+
+        scenario "should NOT be able to login with invalid credentials" do
+            fill_in "sessions_its", with: "#{@user[:its]}"
+            fill_in "sessions_password", with: ""
+
+            click_button "Login"
+            expect(page).to have_content("Invalid credentials!")
+        end
     end
 
     # * DESTROY
