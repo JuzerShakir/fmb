@@ -111,6 +111,29 @@ RSpec.describe "Transaction features"do
             expect(current_path).to eql transaction_path(@transaction)
             expect(page).to have_content("Transaction updated successfully")
         end
+
+        context "with invalid values", js: true do
+            before do
+                @total = @thaali.balance + @transaction.amount
+                incorrect_amount = @total + Random.rand(1..100)
+                fill_in "transaction_amount", with: incorrect_amount
+
+                click_on "Update Transaction"
+            end
+
+            scenario "should NOT be able to update transaction" do
+                expect(current_path).to eql edit_transaction_path(@transaction)
+                within(".transaction_amount") do
+                    expect(page).to have_content("Amount cannot be greater than the balance")
+                end
+            end
+
+            scenario "should display correct maximum amount in the hint message after passing incorrect amount" do
+                within(".transaction_amount") do
+                    expect(page).to have_css('small', text: "Amount shouldn't be greater than: #{@total.humanize}")
+                end
+            end
+        end
     end
 
     # * SHOW

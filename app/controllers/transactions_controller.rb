@@ -41,7 +41,7 @@ class TransactionsController < ApplicationController
         if @transaction.update(transaction_params)
             redirect_to @transaction, success: "Transaction updated successfully"
         else
-            @total_balance = (@thaali_takhmeen.balance + @transaction.amount).humanize
+            @total_balance = (@thaali_takhmeen.balance + @transaction.amount_was).humanize
             render :edit, status: :unprocessable_entity
         end
     end
