@@ -71,6 +71,10 @@ RSpec.describe "ThaaliTakhmeen features" do
             visit root_path
         end
 
+        scenario "should have a heading" do
+            expect(page).to have_css('h2', text: "Thaali Takhmeens #{$active_takhmeen}")
+        end
+
         scenario "should have a link to thaali_number button that renders takhmeen:show page after clicking it" do
             @thaalis.each do |thaali|
                 number = thaali.number
