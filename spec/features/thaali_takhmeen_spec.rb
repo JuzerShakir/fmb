@@ -342,7 +342,7 @@ RSpec.describe "ThaaliTakhmeen features" do
 
         scenario "should have a header" do
             visit takhmeens_stats_path
-            expect(page).to have_css("h2", text: "Takhmeen Statistics over the years")
+            expect(page).to have_css("h2", text: "Takhmeen Statistics")
         end
 
         context "for all the years" do
