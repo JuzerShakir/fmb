@@ -102,9 +102,20 @@ RSpec.describe "Sabeel template" do
             expect(page).to have_button('Delete')
         end
 
-        scenario "should have a 'New Takhmeen' button" do
-            expect(page).to have_content('New Takhmeen')
-            click_on "New Takhmeen"
+        context "'New Takhmeen' button to be" do
+            scenario "shown if sabeel is NOT actively taking thaali" do
+                thaali = FactoryBot.create(:previous_takhmeen, sabeel_id: @sabeel.id)
+                visit sabeel_path(@sabeel)
+
+                expect(page).to have_button('New Takhmeen')
+            end
+
+            scenario "NOT shown if sabeel IS ACTIVELY taking thaali" do
+                thaali = FactoryBot.create(:active_takhmeen, sabeel_id: @sabeel.id)
+                visit sabeel_path(@sabeel)
+
+                expect(page).to have_no_button('New Takhmeen')
+            end
         end
 
         context "shows takhmeen details of a sabeel such as - " do

@@ -1,30 +1,12 @@
 require "rails_helper"
 
-RSpec.describe "ThaaliTakhmeen features" do
+RSpec.describe "ThaaliTakhmeen template" do
     before do
         @user = FactoryBot.create(:user)
         page.set_rack_session(user_id: @user.id)
         visit root_path
 
         @sabeel = FactoryBot.create(:sabeel)
-    end
-
-    context "'Create Takhmeen' link to be" do
-        scenario "visible if sabeel is NOT taking thaali for current year" do
-            thaali = FactoryBot.create(:previous_takhmeen, sabeel_id: @sabeel.id)
-
-            visit sabeel_path(@sabeel)
-
-            expect(page).to have_button('New Takhmeen')
-        end
-
-        scenario "NOT visible if sabeel is ALREADY taking thaali for current year" do
-            thaali = FactoryBot.create(:active_takhmeen, sabeel_id: @sabeel.id)
-
-            visit sabeel_path(@sabeel)
-
-            expect(page).to have_no_link('New Takhmeen')
-        end
     end
 
     # * NEW
