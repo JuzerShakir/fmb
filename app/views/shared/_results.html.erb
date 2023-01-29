@@ -1,5 +1,5 @@
 <%= turbo_frame_tag :results, data: { turbo_action: "advance" } do %>
-    <div class="container text-center mt-5">
+    <div id=<%="all-#{id}"%> class="container text-center my-5 border-2 rounded-4 shadow-lg ">
         <% if instances.any? %>
             <%= render partial: "theader" %>
             <div id=<%="#{id}"%> ></div>
