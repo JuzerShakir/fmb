@@ -54,7 +54,11 @@ RSpec.describe "Sabeel template" do
             visit all_sabeels_path
         end
 
-        scenario "should have a link to ITS text that renders sabeel:show page after clicking it" do
+        scenario "shows a heading" do
+            expect(page).to have_css('h2', text: "Sabeels")
+        end
+
+        scenario "shows 'ITS' button that routes to thaali show page" do
             @sabeels.each do |sabeel|
                 its = sabeel.its
                 expect(page).to have_content("#{its}")
@@ -65,7 +69,7 @@ RSpec.describe "Sabeel template" do
             end
         end
 
-        scenario "should show HOF name & Apartment of all sabeels" do
+        scenario "shows 'hof_name' & 'apartment' of all sabeels" do
             @sabeels.each do |sabeel|
                 expect(page).to have_content("#{sabeel.hof_name}")
                 expect(page).to have_content("#{sabeel.apartment.titleize}")
