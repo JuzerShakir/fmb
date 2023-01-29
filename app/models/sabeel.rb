@@ -13,12 +13,7 @@ class Sabeel < ApplicationRecord
     before_save :titleize_hof_name, if: :will_save_change_to_hof_name?
 
     # * FRIENDLY_ID
-    extend FriendlyId
-    friendly_id :its, use: [:slugged, :finders, :history]
-
-    def should_generate_new_friendly_id?
-      its_changed?
-    end
+    include ITSFriendlyId
 
     # * RANSACK
     ransacker :its do
