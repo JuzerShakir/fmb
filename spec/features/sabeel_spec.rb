@@ -85,6 +85,12 @@ RSpec.describe "Sabeel features" do
             end
         end
 
+        scenario "should have a 'New Takhmeen' button" do
+            visit sabeel_path(@sabeel)
+            expect(page).to have_content('New Takhmeen')
+            click_on "New Takhmeen"
+        end
+
         context "showing takhmeen details of a sabeel" do
             before do
                 2.times do |i|
