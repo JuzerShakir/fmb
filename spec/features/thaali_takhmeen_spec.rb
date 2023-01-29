@@ -272,7 +272,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
 
         scenario "should have a header" do
-            expect(page).to have_css("h2", text: "Pending Takhmeens for the year: #{$active_takhmeen}")
+            expect(page).to have_css("h2", text: "Pending Takhmeens #{$active_takhmeen}")
         end
 
         context "should list all the Pending Takhmeens details", js: true do
