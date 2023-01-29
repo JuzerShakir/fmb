@@ -60,6 +60,10 @@ RSpec.describe "Transaction features"do
             visit all_transactions_path
         end
 
+        scenario "shows a header" do
+            expect(page).to have_css('h2', text: "Transactions")
+        end
+
         scenario "should have a link to recipe_no button that renders transaction:show page after clicking it" do
             @transactions.each do |tran|
                 recipe_no = tran.recipe_no
