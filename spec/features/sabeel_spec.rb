@@ -176,7 +176,7 @@ RSpec.describe "Sabeel template" do
         end
 
         scenario "should show a header" do
-            expect(page).to have_css("h2", text: "Active Sabeels of #{@apt.titleize}")
+            expect(page).to have_css("h2", text: "Active Sabeels: #{@apt.titleize}")
         end
 
         scenario "should have a button with font-awesome icon that renders pdf" do
