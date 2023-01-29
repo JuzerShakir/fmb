@@ -78,7 +78,7 @@ RSpec.describe "ThaaliTakhmeen features" do
     end
 
     #  * CREATE
-    context "'creating'" do
+    context "'create'" do
         before do
             @thaali = FactoryBot.build(:active_takhmeen, sabeel_id: @sabeel.id)
             visit new_sabeel_takhmeen_path(@sabeel)
@@ -108,7 +108,7 @@ RSpec.describe "ThaaliTakhmeen features" do
     end
 
     # * INDEX
-    context "index template", js: true do
+    context "'index'", js: true do
         before do
             @thaalis = FactoryBot.create_list(:active_takhmeen, 3)
             visit root_path
@@ -143,7 +143,7 @@ RSpec.describe "ThaaliTakhmeen features" do
     end
 
     #  * EDIT
-    context "Editing ThaaliTakhmneens" do
+    context "'editing'" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
             visit takhmeen_path(@thaali)
@@ -160,7 +160,7 @@ RSpec.describe "ThaaliTakhmeen features" do
     end
 
     #  * SHOW
-    context "Showing ThaaliTakhmeen" do
+    context "'show'" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         end
@@ -217,7 +217,7 @@ RSpec.describe "ThaaliTakhmeen features" do
     end
 
     # * DELETE
-    scenario "Deleting ThaaliTakhmeen" do
+    scenario "'delete'" do
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         visit takhmeen_path(@thaali)
         expect(page).to have_button("Delete")
@@ -230,7 +230,7 @@ RSpec.describe "ThaaliTakhmeen features" do
     end
 
     #* COMPLETE
-    context "Complete template" do
+    context "'complete'" do
         before do
             @thaalis = FactoryBot.create_list(:active_completed_takhmeens, 3)
             visit takhmeens_complete_path($active_takhmeen)
@@ -265,7 +265,7 @@ RSpec.describe "ThaaliTakhmeen features" do
     end
 
     #* PENDING
-    context "Pending template" do
+    context "'pending'" do
         before do
             @thaalis = FactoryBot.create_list(:active_takhmeen, 3)
             visit takhmeens_pending_path($active_takhmeen)
@@ -300,7 +300,7 @@ RSpec.describe "ThaaliTakhmeen features" do
     end
 
     # * ALL
-    context "All template" do
+    context "'all'" do
         before do
             @thaalis = FactoryBot.create_list(:previous_takhmeen, 3)
             visit takhmeens_all_path($prev_takhmeen)
@@ -335,7 +335,7 @@ RSpec.describe "ThaaliTakhmeen features" do
     end
 
     # * Statistics
-    context "Statistics" do
+    context "'statistics'" do
         before do
             @sizes = ThaaliTakhmeen.sizes.keys
         end
