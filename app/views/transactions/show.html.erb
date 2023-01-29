@@ -1,7 +1,7 @@
 <%# * Title %>
 <h2 class= "text-center">Transaction <span class="text-muted">#<%= @transaction.recipe_no %></span></h2>
 
-<h4 class= "text-center">of the thaali number
+<h4 class= "text-center">of thaali
      <%= link_to @thaali_takhmeen.number, takhmeen_path(@thaali_takhmeen), class: "btn btn-outline-primary" %>
      <span class="text-muted">(<%= @transaction.thaali_takhmeen.year %>)</span></h4>
 
