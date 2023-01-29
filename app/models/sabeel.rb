@@ -27,15 +27,13 @@ class Sabeel < ApplicationRecord
 
     # * Validations
     # ITS
-    validates_numericality_of :its, only_integer: true, message: "must be a number"
-    validates_numericality_of :its, in: 10000000..99999999, message: "is invalid"
-    validates_uniqueness_of :its, message: "has already been registered"
+    include ITSValidation
     # Email
     validates_email_format_of :email, allow_blank: true, message: "is in invalid format"
     # hof_name
     validates_uniqueness_of :hof_name, scope: :its, message: "has already been registered with this ITS number"
     # apartment
-    validates_presence_of :apartment, :flat_no, :its, :mobile, :hof_name, message: "cannot be blank"
+    validates_presence_of :apartment, :flat_no, :mobile, :hof_name, message: "cannot be blank"
     # Flat No
     validates_numericality_of :flat_no, only_integer: true, message: "must be a number"
     validates_numericality_of :flat_no, greater_than: 0, message: "must be greater than 0"
