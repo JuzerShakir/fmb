@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Sabeel features" do
+RSpec.describe "Sabeel template" do
     before do
         @user = FactoryBot.create(:user)
         page.set_rack_session(user_id: @user.id)
@@ -10,7 +10,7 @@ RSpec.describe "Sabeel features" do
     end
 
     # * CREATE
-    context "creating sabeel" do
+    context "'creating sabeel'" do
         before do
             click_on "Create Sabeel"
 
@@ -48,7 +48,7 @@ RSpec.describe "Sabeel features" do
     end
 
     # * INDEX
-    context "index template", js: true do
+    context "'index'", js: true do
         before do
             @sabeels = FactoryBot.create_list(:sabeel, 3)
             visit all_sabeels_path
@@ -74,8 +74,8 @@ RSpec.describe "Sabeel features" do
     end
 
     # * SHOW
-    context "Show template" do
-        scenario "Showing a Sabeel details" do
+    context "'show'" do
+        scenario "shows sabeel details" do
             visit sabeel_path(@sabeel)
 
             attrbs = FactoryBot.attributes_for(:sabeel).except!(:apartment, :flat_no)
@@ -85,13 +85,23 @@ RSpec.describe "Sabeel features" do
             end
         end
 
+        scenario "should have an edit link" do
+            visit sabeel_path(@sabeel)
+            expect(page).to have_link("Edit")
+        end
+
+        scenario "should have a 'delete' link" do
+            visit sabeel_path(@sabeel)
+            expect(page).to have_button('Delete')
+        end
+
         scenario "should have a 'New Takhmeen' button" do
             visit sabeel_path(@sabeel)
             expect(page).to have_content('New Takhmeen')
             click_on "New Takhmeen"
         end
 
-        context "showing takhmeen details of a sabeel" do
+        context "shows takhmeen details of a sabeel such as - " do
             before do
                 2.times do |i|
                     FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: $active_takhmeen - i)
@@ -100,11 +110,11 @@ RSpec.describe "Sabeel features" do
                 @thaalis = @sabeel.thaali_takhmeens
             end
 
-            scenario "should show total number of takhmeens" do
+            scenario "total number of takhmeens" do
                 expect(page).to have_content("Total number of Takhmeens: #{@thaalis.count}")
             end
 
-            scenario "should show 'year', 'total', 'balance' values" do
+            scenario "'year', 'total', 'balance' attributes" do
                 @thaalis.each do |thaali|
                     expect(page).to have_content(thaali.year)
                     expect(page).to have_content(thaali.total)
@@ -117,7 +127,7 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
-            scenario "should be able to visit thaali show page after clicking on the year" do
+            scenario "'year' button that routes to thaali show page" do
                 @thaalis.each do | thaali |
                     year = thaali.year
                     click_button "#{year}"
@@ -129,17 +139,12 @@ RSpec.describe "Sabeel features" do
     end
 
     # * EDIT
-    context "Editing Sabeel" do
+    context "'edit'" do
         before do
-            visit sabeel_path(@sabeel)
+            visit edit_sabeel_path(@sabeel)
         end
 
-        scenario "should have an edit link" do
-            expect(page).to have_link("Edit")
-        end
-
-        scenario "should BE able to update with valid values" do
-            click_link "Edit"
+        scenario "has form fields and updates details for valid inputs" do
             fill_in "sabeel_mobile", with: Faker::Number.number(digits: 10)
 
             click_on "Update Sabeel"
@@ -152,8 +157,6 @@ RSpec.describe "Sabeel features" do
     scenario "Deleting a Sabeel" do
         visit sabeel_path(@sabeel)
 
-        expect(page).to have_button('Delete')
-
         click_on "Delete"
         click_on "Yes, delete it!"
 
@@ -162,7 +165,7 @@ RSpec.describe "Sabeel features" do
     end
 
     #* ACTIVE
-    context "Active template", js: true do
+    context "'active'", js: true do
         before do
             @apt = Sabeel.apartments.keys.sample
             @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
@@ -172,7 +175,7 @@ RSpec.describe "Sabeel features" do
             visit active_sabeels_path(@apt)
         end
 
-        scenario "Header" do
+        scenario "should show a header" do
             expect(page).to have_css("h2", text: "Active Sabeels of #{@apt.titleize}")
         end
 
@@ -181,18 +184,18 @@ RSpec.describe "Sabeel features" do
             expect(page).to have_css('.fa-file-pdf')
         end
 
-        context "clicking on 'Generate-PDF' button" do
+        context "generates PDF with - " do
             before do
                 @pdf_window = window_opened_by { click_on "Generate PDF" }
             end
 
-            scenario "should have a header" do
+            scenario "a header" do
                 within_window @pdf_window do
                     expect(page).to have_content("#{@apt.titleize} - #{$active_takhmeen}")
                 end
             end
 
-            scenario "should list all the active sabeels of an apartment" do
+            scenario "details of all sabeels such as 'flat_no', 'hof_name', 'mobile', 'number' & 'size'" do
                 within_window @pdf_window do
                     @sabeels.each do |sabeel|
                         expect(page).to have_content("#{sabeel.flat_no}")
@@ -206,7 +209,7 @@ RSpec.describe "Sabeel features" do
             end
         end
 
-        scenario "should list all the active sabeels of an apartment" do
+        scenario "shows details of all active sabeels of an apartment such as 'flat_no', 'hof_name', 'number' & 'size'" do
             @sabeels.each do |sabeel|
                 expect(page).to have_content("#{sabeel.flat_no}")
                 expect(page).to have_content("#{sabeel.hof_name}")
@@ -216,7 +219,7 @@ RSpec.describe "Sabeel features" do
             end
         end
 
-        scenario "should be able to visit sabeel show page after clicking on the flat_no" do
+        scenario "shows 'flat_no' button that routes to corresponding sabeel show page" do
             @sabeels.each do | sabeel |
                 flat_no = sabeel.flat_no
                 click_button "#{flat_no}"
@@ -225,7 +228,7 @@ RSpec.describe "Sabeel features" do
             end
         end
 
-        scenario "should be able to visit thaali show page after clicking on the thaali_number" do
+        scenario "shows 'number' button that routes to corresponding thaali show page" do
             @sabeels.each do | sabeel |
                 thaali = sabeel.thaali_takhmeens.first
                 click_button "#{thaali.number}"
@@ -236,7 +239,7 @@ RSpec.describe "Sabeel features" do
     end
 
     #* INACTIVE
-    context "Inactive template", js: true do
+    context "'inactive'", js: true do
         before do
             @apt = Sabeel.apartments.keys.sample
             @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
@@ -247,7 +250,7 @@ RSpec.describe "Sabeel features" do
             expect(page).to have_css("h2", text: "Inactive Sabeels of #{@apt.titleize}")
         end
 
-        scenario "should list all the inactive sabeels of an apartment" do
+        scenario "shows all details of inactive sabeels of an apartment such as 'its', 'hof_name' & 'apartment'" do
             @sabeels.each do |sabeel|
                 expect(page).to have_content("#{sabeel.its}")
                 expect(page).to have_content("#{sabeel.hof_name}")
@@ -257,7 +260,7 @@ RSpec.describe "Sabeel features" do
     end
 
     # * Statistics
-    context "Statistics" do
+    context "'statistics'" do
         before do
             @sizes = ThaaliTakhmeen.sizes.keys
         end
@@ -285,14 +288,14 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
-            scenario "should redirect to active sabeels page by clicking 'active' button" do
+            scenario "should route to 'active' page on clicking 'active' button" do
                 within('div#maimoon_a') do
                     click_on "Active: "
                     expect(current_path).to eql(active_sabeels_path("maimoon_a"))
                 end
             end
 
-            scenario "should redirect to inactive sabeels page by clicking 'inactive' button" do
+            scenario "should route to 'inactive' page on clicking 'inactive' button" do
                 within('div#maimoon_a') do
                     click_on "Inactive: "
                     expect(current_path).to eql(inactive_sabeels_path("maimoon_a"))
@@ -333,14 +336,14 @@ RSpec.describe "Sabeel features" do
                 end
             end
 
-            scenario "should redirect to active sabeels page by clicking 'active' button" do
+            scenario "should route to 'active' page on clicking 'active' button" do
                 within('div#maimoon_b') do
                     click_on "Active: "
                     expect(current_path).to eql(active_sabeels_path("maimoon_b"))
                 end
             end
 
-            scenario "should redirect to inactive sabeels page by clicking 'inactive' button" do
+            scenario "should route to 'inactive' page on clicking 'inactive' button" do
                 within('div#maimoon_b') do
                     click_on "Inactive: "
                     expect(current_path).to eql(inactive_sabeels_path("maimoon_b"))
