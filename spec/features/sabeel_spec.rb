@@ -247,7 +247,7 @@ RSpec.describe "Sabeel template" do
         end
 
         scenario "should have a header" do
-            expect(page).to have_css("h2", text: "Inactive Sabeels of #{@apt.titleize}")
+            expect(page).to have_css("h2", text: "Inactive Sabeels: #{@apt.titleize}")
         end
 
         scenario "shows all details of inactive sabeels of an apartment such as 'its', 'hof_name' & 'apartment'" do
