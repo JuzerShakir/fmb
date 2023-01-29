@@ -27,25 +27,68 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
     end
 
-    #  * CREATE
-    context "creating ThaaliTakhmeen" do
+    # * NEW
+    context "'new'" do
         before do
-            visit sabeel_path(@sabeel)
+            visit new_sabeel_takhmeen_path(@sabeel)
+        end
 
-            click_on "New Takhmeen"
+        scenario "should have correct URL" do
             expect(current_path).to eql new_sabeel_takhmeen_path(@sabeel)
-            expect(page).to have_css('h2', text: "New Takhmeen")
+        end
 
-            attributes = FactoryBot.attributes_for(:thaali_takhmeen).extract!(:number, :total, :size)
-            @size = attributes.extract!(:size)
+        scenario "should have a heading" do
+            expect(page).to have_css('h2', text: "New Thaali Takhmeen")
+        end
 
-            attributes.each do |k, v|
-                fill_in "thaali_takhmeen_#{k}",	with: "#{v}"
+        context "should be able to fill the takhmeen details for the sabeel" do
+            before do
+                visit root_path
             end
+
+            scenario "who HAS NOT taken thaali in previous year" do
+                thaali = FactoryBot.build(:active_takhmeen, sabeel_id: @sabeel.id)
+                visit new_sabeel_takhmeen_path(@sabeel)
+
+                fill_in "thaali_takhmeen_number", with: "#{thaali.number}"
+                fill_in "thaali_takhmeen_total", with: "#{thaali.total}"
+                select thaali.size.to_s.titleize, from: :thaali_takhmeen_size
+            end
+
+            # scenario "who HAS taken thaali in previous year" do
+            #     thaali = FactoryBot.build(:previous_takhmeen, sabeel_id: @sabeel.id)
+            #     visit new_sabeel_takhmeen_path(@sabeel)
+
+            #     within(".thaali_takhmeen_number") do
+            #         expect(page).to have_content("#{thaali.number}")
+            #     end
+
+            #     within(".thaali_takhmeen_size") do
+            #         expect(page).to have_content("#{thaali.size.to_s.titleize}")
+            #     end
+
+            #     fill_in "thaali_takhmeen_total", with: "#{thaali.total}"
+            # end
+        end
+
+        scenario "should have 'Create' button" do
+            expect(page).to have_button("Create Thaali takhmeen")
+            click_on "Create Thaali takhmeen"
+        end
+    end
+
+    #  * CREATE
+    context "'creating'" do
+        before do
+            @thaali = FactoryBot.build(:active_takhmeen, sabeel_id: @sabeel.id)
+            visit new_sabeel_takhmeen_path(@sabeel)
+
+            fill_in "thaali_takhmeen_number", with: "#{@thaali.number}"
+            fill_in "thaali_takhmeen_total", with: "#{@thaali.total}"
         end
 
         scenario "should BE able to create with valid values" do
-            select @size.fetch(:size).to_s.titleize, from: :thaali_takhmeen_size
+            select @thaali.size.to_s.titleize, from: :thaali_takhmeen_size
 
             click_button "Create Thaali takhmeen"
 
