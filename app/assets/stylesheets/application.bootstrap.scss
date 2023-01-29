@@ -42,7 +42,7 @@ body {
 }
 
 #show-header-transaction {
-    background-color: #ffe4e1;
+    background-color: #d7fcd7;
 }
 
 #show-transaction {
@@ -76,4 +76,10 @@ body {
     border-style: solid;
     border-width: 2px;
     border-color: rgb(13, 202, 240);
+}
+
+#all-transactions {
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(25, 135, 84);
 }
