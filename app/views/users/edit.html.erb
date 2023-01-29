@@ -6,7 +6,7 @@
 <%= simple_form_for @user do |f| %>
     <%= f.error_notification %>
     <%= f.input :password, hint: password_message, input_html: { autocomplete: 'off' }, required: true %>
-    <%= f.input :password_confirmation, hint: "should match the password" %>
+    <%= f.input :password_confirmation, input_html: { autocomplete: 'off' }, hint: "should match the password" %>
 
     <%= f.button :submit, value: "Update Password" %>
 <% end %>
