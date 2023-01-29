@@ -79,9 +79,11 @@ RSpec.describe "Sabeel template" do
 
     # * SHOW
     context "'show'" do
-        scenario "shows sabeel details" do
+        before do
             visit sabeel_path(@sabeel)
+        end
 
+        scenario "shows sabeel details" do
             attrbs = FactoryBot.attributes_for(:sabeel).except!(:apartment, :flat_no)
 
             attrbs.keys.each do | attrb |
@@ -90,17 +92,14 @@ RSpec.describe "Sabeel template" do
         end
 
         scenario "should have an edit link" do
-            visit sabeel_path(@sabeel)
             expect(page).to have_link("Edit")
         end
 
         scenario "should have a 'delete' link" do
-            visit sabeel_path(@sabeel)
             expect(page).to have_button('Delete')
         end
 
         scenario "should have a 'New Takhmeen' button" do
-            visit sabeel_path(@sabeel)
             expect(page).to have_content('New Takhmeen')
             click_on "New Takhmeen"
         end
@@ -271,7 +270,7 @@ RSpec.describe "Sabeel template" do
 
         scenario "should have a header" do
             visit stats_sabeels_path
-            expect(page).to have_css("h2", text: "Sabeel Statistics for #{$active_takhmeen}")
+            expect(page).to have_css("h2", text: "Sabeel Statistics: #{$active_takhmeen}")
         end
 
         context "for Maimoon A" do
