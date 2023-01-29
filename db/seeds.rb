@@ -1,11 +1,15 @@
 Sabeel.destroy_all
 
+apartments = Sabeel.apartments.keys
+sizes = ThaaliTakhmeen.sizes.keys
+modes = Transaction.modes.keys
+
 #  CREATE SABEEL
 1000.times do | i |
     Sabeel.create(
         its: 10000000 + i,
         hof_name: Faker::Name.name,
-        apartment: Array.new.push(*$phase_1, *$phase_2, *$phase_3).sample,
+        apartment: apartments.sample,
         flat_no: Faker::Number.within(range: 1..9999),
         mobile: Faker::Number.number(digits: 10),
         email: Faker::Internet.free_email
@@ -21,7 +25,7 @@ sabeel_prev_thaali.each.with_index do |sabeel, i|
         year: $prev_takhmeen,
         total: 48000,
         number: i + 1,
-        size: %w(large small medium).sample
+        size: sizes.sample
     )
 end
 
@@ -34,7 +38,7 @@ prev_takhmeen_comp.each do |thaali|
             amount: 4000,
             on_date: Faker::Date.in_date_period(year: $prev_takhmeen),
             recipe_no: Random.rand(1..2000000),
-            mode: %w(cash bank cheque).sample
+            mode: modes.sample
         )
     end
 end
@@ -50,7 +54,7 @@ prev_takhmeen_pend.each do |thaali|
             amount: 4000,
             on_date: Faker::Date.in_date_period(year: $prev_takhmeen),
             recipe_no: Random.rand(2000001..3000000),
-            mode: %w(cash bank cheque).sample
+            mode: modes.sample
         )
     end
 end
@@ -64,7 +68,7 @@ active_sabeel.each.with_index do |sabeel, i|
         year: $active_takhmeen,
         total: 60000,
         number: i + 1,
-        size: %w(large small medium).sample
+        size: sizes.sample
     )
 end
 
@@ -79,7 +83,7 @@ cur_takhmeen_comp.each do |thaali|
                 amount: 5000,
                 on_date: Faker::Date.in_date_period(year: $active_takhmeen),
                 recipe_no: Random.rand(3000001..6000000),
-                mode: %w(cash bank cheque).sample
+                mode: modes.sample
             )
         end
     end
@@ -95,7 +99,7 @@ cur_takhmeen_pend.each do |thaali|
             amount: 5000,
             on_date: Faker::Date.in_date_period(year: $active_takhmeen),
             recipe_no: Random.rand(6000000..10000000),
-            mode: %w(cash bank cheque).sample
+            mode: modes.sample
         )
     end
 end
