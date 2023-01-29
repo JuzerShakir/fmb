@@ -256,7 +256,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
     end
 
-    #* ALL
+    # * ALL
     context "All template" do
         before do
             @thaalis = FactoryBot.create_list(:previous_takhmeen, 3)
@@ -264,7 +264,7 @@ RSpec.describe "ThaaliTakhmeen features" do
         end
 
         scenario "should have a header" do
-            expect(page).to have_css("h2", text: "All Takhmeens for the year: #{$prev_takhmeen}")
+            expect(page).to have_css("h2", text: "Thaali Takhmeens #{$prev_takhmeen}")
         end
 
         context "should list all the Takhmeens details for the year in the params", js: true do
