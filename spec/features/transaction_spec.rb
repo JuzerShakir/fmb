@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Transaction features"do
+RSpec.describe "Transaction template"do
     before do
         @user = FactoryBot.create(:user)
         page.set_rack_session(user_id: @user.id)
@@ -10,51 +10,56 @@ RSpec.describe "Transaction features"do
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
     end
 
-    # * CREATE
-    context "create a Transaction" do
-        before do
-            @attributes = FactoryBot.attributes_for(:transaction)
-
+    # * NEW / CREATE
+    context "'new'" do
+        scenario "shows correct url and a heading" do
             visit takhmeen_path(@thaali)
-
             click_button "New Transaction"
+
             expect(current_path).to eql new_takhmeen_transaction_path(@thaali)
-
             expect(page).to have_css('h2', text: "New Transaction")
-            @select_atr = @attributes.extract!(:mode, :on_date)
+        end
 
-            @attributes.each do |k, v|
-                fill_in "transaction_#{k}",	with: "#{v}"
+        context "creating transaction" do
+            before do
+                visit new_takhmeen_transaction_path(@thaali)
+
+                @attributes = FactoryBot.attributes_for(:transaction)
+                @select_atr = @attributes.extract!(:mode, :on_date)
+
+                @attributes.each do |k, v|
+                    fill_in "transaction_#{k}",	with: "#{v}"
+                end
             end
-        end
 
-        scenario "should display balance amount of thaali" do
-            within(".transaction_amount") do
-                expect(page).to have_css('small', text: "Amount shouldn't be greater than: #{@thaali.balance.humanize}")
+            scenario "show a hint for 'amount' attribute of transaction" do
+                within(".transaction_amount") do
+                    expect(page).to have_css('small', text: "Amount shouldn't be greater than: #{@thaali.balance.humanize}")
+                end
             end
-        end
 
-        scenario "with valid values" do
-            select @select_atr.fetch(:mode).to_s.titleize, from: :transaction_mode
+            scenario "with valid values" do
+                select @select_atr.fetch(:mode).to_s.titleize, from: :transaction_mode
 
-            click_button "Create Transaction"
+                click_button "Create Transaction"
 
-            trans = Transaction.last
+                trans = Transaction.last
 
-            expect(current_path).to eql transaction_path(trans)
-            expect(page).to have_content("Transaction created successfully")
-        end
+                expect(current_path).to eql transaction_path(trans)
+                expect(page).to have_content("Transaction created successfully")
+            end
 
-        scenario "with invalid values" do
-            click_button "Create Transaction"
+            scenario "with invalid values" do
+                click_button "Create Transaction"
 
-            expect(page).to have_content("Please review the problems below:")
-            expect(page).to have_content("Mode must be selected")
+                expect(page).to have_content("Please review the problems below:")
+                expect(page).to have_content("Mode must be selected")
+            end
         end
     end
 
     # * INDEX
-    context "index template", js: true do
+    context "'index'", js: true do
         before do
             @transactions = FactoryBot.create_list(:transaction, 3)
             visit all_transactions_path
@@ -64,7 +69,7 @@ RSpec.describe "Transaction features"do
             expect(page).to have_css('h2', text: "Transactions")
         end
 
-        scenario "should have a link to recipe_no button that renders transaction:show page after clicking it" do
+        scenario "shows 'recipe_no' button that routes to transaction:show page" do
             @transactions.each do |tran|
                 recipe_no = tran.recipe_no
                 expect(page).to have_content("#{recipe_no}")
@@ -75,7 +80,7 @@ RSpec.describe "Transaction features"do
             end
         end
 
-        scenario "should show 'amount', 'thaali_number' & 'on_date' of all transactions" do
+        scenario "shows 'amount', 'thaali_number' & 'on_date' of all transactions" do
             @transactions.each do |tran|
                 expect(page).to have_content("#{tran.amount}")
                 expect(page).to have_content("#{time_ago_in_words(tran.on_date)}")
@@ -86,18 +91,13 @@ RSpec.describe "Transaction features"do
     end
 
     # * EDIT
-    context "Editing Transaction" do
+    context "'edit'" do
         before do
             @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
             # manually setting new balance amount since callback methods are not called
             @thaali.balance -= @transaction.amount
 
             visit edit_transaction_path(@transaction)
-        end
-
-        it "should have an edit link" do
-            visit transaction_path(@transaction)
-            expect(page).to have_link("Edit")
         end
 
         scenario "should display correct maximum amount in the hint message" do
@@ -141,14 +141,26 @@ RSpec.describe "Transaction features"do
     end
 
     # * SHOW
-    scenario "Showing transaction" do
-        @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
+    context "'show'" do
+        before do
+            @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
+            visit transaction_path(@transaction)
+        end
 
-        visit transaction_path(@transaction)
-        expect(page).to have_content("#{@transaction.recipe_no}")
-        expect(page).to have_content("#{@transaction.amount}")
-        expect(page).to have_content("#{@transaction.on_date.to_time.strftime('%A, %b %d %Y')}")
-        expect(page).to have_content("#{@transaction.mode.humanize}")
+        scenario "has an 'edit' link" do
+            expect(page).to have_link("Edit")
+        end
+
+        scenario "has a 'delete' link" do
+            expect(page).to have_button("Delete")
+        end
+
+        scenario "shows 'recipe_no', 'amount', 'on_date' & 'mode'" do
+            expect(page).to have_content("#{@transaction.recipe_no}")
+            expect(page).to have_content("#{@transaction.amount}")
+            expect(page).to have_content("#{@transaction.on_date.to_time.strftime('%A, %b %d %Y')}")
+            expect(page).to have_content("#{@transaction.mode.humanize}")
+        end
     end
 
     # * DESTROY
@@ -156,7 +168,6 @@ RSpec.describe "Transaction features"do
         @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
 
         visit transaction_path(@transaction)
-        expect(page).to have_button("Delete")
 
         click_on "Delete"
         click_on "Yes, delete it!"
