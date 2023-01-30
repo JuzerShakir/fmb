@@ -6,8 +6,11 @@ RSpec.describe "Transaction template 👉"do
         page.set_rack_session(user_id: @user.id)
         visit root_path
 
-        @sabeel = FactoryBot.create(:sabeel)
-        @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+        @thaali = FactoryBot.create(:thaali_takhmeen)
+        @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
+
+        # manually setting new balance amount since callback methods are not called
+        @thaali.balance -= @transaction.amount
     end
 
     # * NEW / CREATE
@@ -32,7 +35,7 @@ RSpec.describe "Transaction template 👉"do
                 end
             end
 
-            scenario "show a hint for 'amount' attribute of transaction" do
+            scenario "shows a hint for 'amount' attribute" do
                 within(".transaction_amount") do
                     expect(page).to have_css('small', text: "Amount shouldn't be greater than: #{@thaali.balance.humanize}")
                 end
@@ -93,18 +96,13 @@ RSpec.describe "Transaction template 👉"do
     # * EDIT
     context "'edit'" do
         before do
-            @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
-            # manually setting new balance amount since callback methods are not called
-            @thaali.balance -= @transaction.amount
-
+            @total = @thaali.balance + @transaction.amount
             visit edit_transaction_path(@transaction)
         end
 
         scenario "should display correct maximum amount in the hint message" do
-            total = @thaali.balance + @transaction.amount
-
             within(".transaction_amount") do
-                expect(page).to have_css('small', text: "Amount shouldn't be greater than: #{total.humanize}")
+                expect(page).to have_css('small', text: "Amount shouldn't be greater than: #{@total.humanize}")
             end
         end
 
@@ -118,7 +116,6 @@ RSpec.describe "Transaction template 👉"do
 
         context "with invalid values", js: true do
             before do
-                @total = @thaali.balance + @transaction.amount
                 incorrect_amount = @total + Random.rand(1..100)
                 fill_in "transaction_amount", with: incorrect_amount
 
@@ -143,7 +140,6 @@ RSpec.describe "Transaction template 👉"do
     # * SHOW
     context "'show'" do
         before do
-            @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
             visit transaction_path(@transaction)
         end
 
