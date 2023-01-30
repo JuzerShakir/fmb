@@ -205,16 +205,51 @@ RSpec.describe "ThaaliTakhmeen template 👉" do
     end
 
     # * DELETE
-    scenario "'destroy'" do
-        @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
-        visit takhmeen_path(@thaali)
-        expect(page).to have_button("Delete")
+    context "'destroy'", js: true do
+        before do
+            @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+            visit takhmeen_path(@thaali)
+            click_on "Delete"
+        end
 
-        click_on "Delete"
-        click_on "Yes, delete it!"
+        context "clicking on delete button" do
+            scenario "opens a destroy modal" do
+                expect(page).to have_css("#destroyModal")
+            end
 
-        expect(current_path).to eql sabeel_path(@sabeel)
-        expect(page).to have_content("Thaali Takhmeen destroyed successfully")
+            scenario "shows confirmation heading" do
+                within(".modal-header") do
+                    expect(page).to have_css('h1', text: 'Confirm Deletion')
+                end
+            end
+
+            scenario "shows confirmation message" do
+                within(".modal-body") do
+                    expect(page).to have_content("Are you sure you want to delete Thaali no: #{@thaali.number}? This action cannot be undone.")
+                end
+            end
+
+            scenario "show action buttons" do
+                within(".modal-footer") do
+                    expect(page).to have_css(".btn-secondary", text: "Cancel")
+                    expect(page).to have_css(".btn-primary", text: "Yes, delete it!")
+                end
+            end
+        end
+
+        context "after clicking 'Yes, delete it!' button" do
+            before do
+                click_on "Yes, delete it!"
+            end
+
+            scenario "returns to root path" do
+                expect(current_path).to eql sabeel_path(@sabeel)
+            end
+
+            scenario "shows success flash message" do
+                expect(page).to have_content("Thaali Takhmeen destroyed successfully")
+            end
+        end
     end
 
     #* COMPLETE

@@ -159,16 +159,50 @@ RSpec.describe "Transaction template 👉"do
         end
     end
 
-    # * DESTROY
-    scenario "'destroy'" do
-        @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
+    # * DELETE
+    context "'destroy'", js: true do
+        before do
+            visit transaction_path(@transaction)
+            click_on "Delete"
+        end
 
-        visit transaction_path(@transaction)
+        context "clicking on delete button" do
+            scenario "opens a destroy modal" do
+                expect(page).to have_css("#destroyModal")
+            end
 
-        click_on "Delete"
-        click_on "Yes, delete it!"
+            scenario "shows confirmation heading" do
+                within(".modal-header") do
+                    expect(page).to have_css('h1', text: 'Confirm Deletion')
+                end
+            end
 
-        expect(current_path).to eql takhmeen_path(@thaali)
-        expect(page).to have_content("Transaction destroyed successfully")
+            scenario "shows confirmation message" do
+                within(".modal-body") do
+                    expect(page).to have_content("Are you sure you want to delete Transaction reciepe no: #{@transaction.recipe_no}? This action cannot be undone.")
+                end
+            end
+
+            scenario "show action buttons" do
+                within(".modal-footer") do
+                    expect(page).to have_css(".btn-secondary", text: "Cancel")
+                    expect(page).to have_css(".btn-primary", text: "Yes, delete it!")
+                end
+            end
+        end
+
+        context "after clicking 'Yes, delete it!' button" do
+            before do
+                click_on "Yes, delete it!"
+            end
+
+            scenario "returns to root path" do
+                expect(current_path).to eql takhmeen_path(@thaali)
+            end
+
+            scenario "shows success flash message" do
+                expect(page).to have_content("Transaction destroyed successfully")
+            end
+        end
     end
 end

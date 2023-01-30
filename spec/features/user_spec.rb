@@ -136,16 +136,49 @@ RSpec.describe "User template 👉" do
     end
 
     # * DELETE
-    scenario "'destroy'" do
-        @user = FactoryBot.create(:user)
-        page.set_rack_session(user_id: @user.id)
+    context "'destroy'", js: true do
+        before do
+            visit user_path(@user)
+            click_on "Delete"
+        end
 
-        visit user_path(@user)
+        context "clicking on delete button" do
+            scenario "opens a destroy modal" do
+                expect(page).to have_css("#destroyModal")
+            end
 
-        click_on "Delete"
-        click_on "Yes, delete it!"
+            scenario "shows confirmation heading" do
+                within(".modal-header") do
+                    expect(page).to have_css('h1', text: 'Confirm Deletion')
+                end
+            end
 
-        expect(current_path).to eql login_path
-        expect(page).to have_content("User deleted successfully")
+            scenario "shows confirmation message" do
+                within(".modal-body") do
+                    expect(page).to have_content("Are you sure you want to delete User: #{@user.name}? This action cannot be undone.")
+                end
+            end
+
+            scenario "show action buttons" do
+                within(".modal-footer") do
+                    expect(page).to have_css(".btn-secondary", text: "Cancel")
+                    expect(page).to have_css(".btn-primary", text: "Yes, delete it!")
+                end
+            end
+        end
+
+        context "after clicking 'Yes, delete it!' button" do
+            before do
+                click_on "Yes, delete it!"
+            end
+
+            scenario "returns to root path" do
+                expect(current_path).to eql login_path
+            end
+
+            scenario "shows success flash message" do
+                expect(page).to have_content("User deleted successfully")
+            end
+        end
     end
 end
