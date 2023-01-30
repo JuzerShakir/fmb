@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Sabeel template" do
+RSpec.describe "Sabeel template 👉" do
     before do
         @user = FactoryBot.create(:user)
         page.set_rack_session(user_id: @user.id)

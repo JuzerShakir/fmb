@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Footer features" do
+RSpec.describe "Footer" do
     context "should have a footer showing - ", js: true do
         before do
             visit login_path

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "Users features" do
-    # * CREATE
-    context "creating user" do
+RSpec.describe "User template 👉" do
+    # * NEW / CREATE
+    context "'new'" do
         before do
             @user = FactoryBot.create(:user)
             page.set_rack_session(user_id: @user.id)
@@ -46,7 +46,7 @@ RSpec.describe "Users features" do
 
     # * INDEX
     # ! Only admin can access index
-    # context "index template" do
+    # context "'index'" do
     #     before do
             # @user = FactoryBot.create(:user)
             # page.set_rack_session(user_id: @user.id)
@@ -80,7 +80,7 @@ RSpec.describe "Users features" do
     # end
 
     # * SHOW
-    context "Show template" do
+    context "'show'" do
         before do
             @user = FactoryBot.create(:user)
             page.set_rack_session(user_id: @user.id)

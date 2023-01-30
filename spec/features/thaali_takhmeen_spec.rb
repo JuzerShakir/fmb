@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "ThaaliTakhmeen template" do
+RSpec.describe "ThaaliTakhmeen template 👉" do
     before do
         @user = FactoryBot.create(:user)
         page.set_rack_session(user_id: @user.id)
@@ -197,7 +197,7 @@ RSpec.describe "ThaaliTakhmeen template" do
     end
 
     # * DELETE
-    scenario "'delete'" do
+    scenario "'destroy'" do
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         visit takhmeen_path(@thaali)
         expect(page).to have_button("Delete")

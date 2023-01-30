@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "Sessions features" do
-    # * CREATE
-    context "creating session" do
+RSpec.describe "Sessions templates" do
+    # * NEW / CREATE
+    context "'new'" do
         before do
             @password = Faker::Internet.password(min_length: 6, max_length: 72)
             @user = FactoryBot.create(:user, password: @password)

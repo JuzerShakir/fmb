@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Transaction template"do
+RSpec.describe "Transaction template 👉"do
     before do
         @user = FactoryBot.create(:user)
         page.set_rack_session(user_id: @user.id)
@@ -164,7 +164,7 @@ RSpec.describe "Transaction template"do
     end
 
     # * DESTROY
-    scenario "Deleting transaction" do
+    scenario "'destroy'" do
         @transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
 
         visit transaction_path(@transaction)

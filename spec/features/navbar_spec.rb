@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Navbar features" do
+RSpec.describe "Navbar" do
     before do
         @user = FactoryBot.create(:user)
         page.set_rack_session(user_id: @user.id)
