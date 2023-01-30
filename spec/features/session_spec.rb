@@ -36,10 +36,14 @@ RSpec.describe "Sessions features" do
             click_button "Login"
             expect(page).to have_content("Invalid credentials!")
         end
+
+        scenario "should show footer" do
+            expect(page).to have_css("#footer")
+        end
     end
 
     # * DESTROY
-    context "deleting session" do
+    context "'destroy'" do
         before do
             @user = FactoryBot.create(:user)
             page.set_rack_session(user_id: @user.id)
