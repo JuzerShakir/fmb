@@ -57,7 +57,7 @@ RSpec.describe "Sessions features" do
         end
 
         scenario "should NOT show the navbar" do
-            expect(page).not_to have_css("navbar")
+            expect(page).not_to have_css(".navbar")
         end
     end
 end
