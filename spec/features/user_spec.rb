@@ -91,29 +91,33 @@ RSpec.describe "Users features" do
             expect(page).to have_css('h2', text: "Show User")
         end
 
-        scenario "Showing a User details" do
+        scenario "shows User details" do
             attrbs = FactoryBot.attributes_for(:user).except(:password, :password_confirmation)
 
             attrbs.keys.each do | attrb |
                 expect(page).to have_content("#{@user.send(attrb)}")
             end
         end
-    end
-
-    # * EDIT
-    context "Editing User", js: true do
-        before do
-            @user = FactoryBot.create(:user)
-            page.set_rack_session(user_id: @user.id)
-            visit user_path(@user)
-        end
 
         scenario "should have an edit link" do
             expect(page).to have_link("Edit")
         end
 
+        scenario "should have a 'delete' button" do
+            expect(page).to have_button('Delete')
+        end
+
+    end
+
+    # * EDIT
+    context "'edit'", js: true do
+        before do
+            @user = FactoryBot.create(:user)
+            page.set_rack_session(user_id: @user.id)
+            visit edit_user_path(@user)
+        end
+
         scenario "should BE able to update with valid values" do
-            click_link "Edit"
             new_password = Faker::Internet.password(min_length: 6, max_length: 72)
             fill_in "user_password", with: new_password
             fill_in "user_password_confirmation", with: new_password
@@ -124,7 +128,6 @@ RSpec.describe "Users features" do
         end
 
         scenario "should NOT BE able to update with invalid values" do
-            click_link "Edit"
             fill_in "user_password", with: ""
             fill_in "user_password_confirmation", with: ""
 
@@ -136,13 +139,11 @@ RSpec.describe "Users features" do
     end
 
     # * DELETE
-    scenario "Deleting a User" do
+    scenario "'destroy'" do
         @user = FactoryBot.create(:user)
         page.set_rack_session(user_id: @user.id)
 
         visit user_path(@user)
-
-        expect(page).to have_button('Delete')
 
         click_on "Delete"
         click_on "Yes, delete it!"
