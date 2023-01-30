@@ -145,11 +145,10 @@ RSpec.describe "ThaaliTakhmeen template 👉" do
     context "'show'" do
         before do
             @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+            visit takhmeen_path(@thaali)
         end
 
         scenario "shows all details of a ThaaliTakhmeen" do
-            visit takhmeen_path(@thaali)
-
             atrbs = FactoryBot.attributes_for(:thaali_takhmeen).keys - [:size, :is_complete]
             atrbs.each do | attrb |
                 expect(page).to have_content("#{@thaali.send(attrb)}")
@@ -164,8 +163,17 @@ RSpec.describe "ThaaliTakhmeen template 👉" do
             end
         end
 
+        scenario "should have an edit link" do
+            expect(page).to have_link("Edit")
+        end
+
+        scenario "should have a 'delete' link" do
+            expect(page).to have_button('Delete')
+        end
+
         context "if transaction details of a takhmeen exists, it shows - " do
             before do
+                visit root_path
                 2.times do |i|
                     FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
                 end
