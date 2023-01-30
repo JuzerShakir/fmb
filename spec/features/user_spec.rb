@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "User template 👉" do
+    before do
+        @user = FactoryBot.create(:user)
+        page.set_rack_session(user_id: @user.id)
+    end
+
     # * NEW / CREATE
     context "'new'" do
         before do
-            @user = FactoryBot.create(:user)
-            page.set_rack_session(user_id: @user.id)
             visit root_path
             click_on "Admin"
             click_on "New User"
@@ -48,8 +51,6 @@ RSpec.describe "User template 👉" do
     # ! Only admin can access index
     # context "'index'" do
     #     before do
-            # @user = FactoryBot.create(:user)
-            # page.set_rack_session(user_id: @user.id)
     #         @users = FactoryBot.create_list(:user, 3)
     #         visit admin_path
     #     end
@@ -82,8 +83,6 @@ RSpec.describe "User template 👉" do
     # * SHOW
     context "'show'" do
         before do
-            @user = FactoryBot.create(:user)
-            page.set_rack_session(user_id: @user.id)
             visit user_path(@user)
         end
 
@@ -112,8 +111,6 @@ RSpec.describe "User template 👉" do
     # * EDIT
     context "'edit'", js: true do
         before do
-            @user = FactoryBot.create(:user)
-            page.set_rack_session(user_id: @user.id)
             visit edit_user_path(@user)
         end
 
