@@ -1,178 +1,191 @@
 require 'rails_helper'
 
-RSpec.describe "Transactions", type: :request do
+RSpec.describe "Transaction requests", type: :request do
     before do
-        password = Faker::Internet.password(min_length: 6, max_length: 72)
-        @user = FactoryBot.create(:user, password: password)
-        post signup_path, params: { sessions: @user.attributes.merge({ password: password }) }
+        @password = Faker::Internet.password(min_length: 6, max_length: 72)
     end
 
-    # * INDEX
-    context "GET index" do
+    # * Accessible by all
+    context "by any user type can access" do
         before do
-            @transactions = FactoryBot.create_list(:transaction, 5)
-            get all_transactions_path
+            @user = FactoryBot.create(:user, password: @password)
+            post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
         end
 
-        it "should render a 'index' template" do
-            expect(response).to render_template(:index)
-            expect(response).to have_http_status(:ok)
-        end
-    end
-
-    # * NEW
-    context "GET new" do
-        before do
-            @sabeel = FactoryBot.create(:sabeel)
-        end
-
-        context "if thaali_takhmeen IS COMPLETED" do
+        # * INDEX
+        context "GET index" do
             before do
-                @thaali = FactoryBot.create(:completed_takhmeens, sabeel_id: @sabeel.id)
-                get new_takhmeen_transaction_path(@thaali)
-            end
-            it "SHOULD NOT render new tempelate" do
-                expect(response).to redirect_to takhmeen_path(@thaali)
-            end
-        end
-
-        context "if thaali_takhmeen IS NOT COMPLETED" do
-            before do
-                @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
-                get new_takhmeen_transaction_path(@thaali)
+                get all_transactions_path
             end
 
-            it "should return a 200 (OK) status code" do
+            it "should render a 'index' template" do
+                expect(response).to render_template(:index)
                 expect(response).to have_http_status(:ok)
-                expect(response).to render_template(:new)
+            end
+        end
+
+        # * SHOW
+        context "GET show" do
+            before do
+                @transaction = FactoryBot.create(:transaction)
+                get transaction_path(@transaction)
+            end
+
+            it "should render a show template" do
+                expect(response).to render_template(:show)
+                expect(response).to have_http_status(:ok)
+            end
+
+            it "should render the instance that was passed in the params" do
+                # it could be any attribute, not only amount
+                expect(response.body).to include("#{@transaction.amount}")
             end
         end
     end
 
-    # * CREATE
-    context "POST create" do
+    # * Accessible by Admins & Members
+    context "by 'admin' & 'member' types can access" do
         before do
-            @thaali = FactoryBot.create(:thaali_takhmeen)
+            @user = FactoryBot.create(:user_other_than_viewer, password: @password)
+            post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
         end
 
-        context "with valid attributes" do
+        # * NEW
+        context "GET new" do
             before do
-                @valid_attributes = FactoryBot.attributes_for(:transaction)
-                post takhmeen_transactions_path(@thaali), params: { transaction: @valid_attributes }
-                @transaction = Transaction.find_by(recipe_no: @valid_attributes[:recipe_no])
+                @sabeel = FactoryBot.create(:sabeel)
             end
 
-            it "should create a new Transaction" do
-                expect(@transaction).to be_truthy
+            context "if thaali_takhmeen IS COMPLETED" do
+                before do
+                    @thaali = FactoryBot.create(:completed_takhmeens, sabeel_id: @sabeel.id)
+                    get new_takhmeen_transaction_path(@thaali)
+                end
+                it "SHOULD NOT render new tempelate" do
+                    expect(response).to redirect_to takhmeen_path(@thaali)
+                end
             end
 
-            it "should redirect to created Transaction" do
-              expect(response).to have_http_status(:found)
-              expect(response).to redirect_to @transaction
+            context "if thaali_takhmeen IS NOT COMPLETED" do
+                before do
+                    @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+                    get new_takhmeen_transaction_path(@thaali)
+                end
+
+                it "should return a 200 (OK) status code" do
+                    expect(response).to have_http_status(:ok)
+                    expect(response).to render_template(:new)
+                end
             end
         end
 
-        context "with invalid attributes" do
+        # * CREATE
+        context "POST create" do
             before do
-                @invalid_attributes = FactoryBot.attributes_for(:transaction, amount: nil)
-                post takhmeen_transactions_path(@thaali), params: { transaction: @invalid_attributes }
-                @transaction = Transaction.find_by(recipe_no: @invalid_attributes[:recipe_no])
+                @thaali = FactoryBot.create(:thaali_takhmeen)
             end
 
-            it "does not create a new Transaction" do
+            context "with valid attributes" do
+                before do
+                    @valid_attributes = FactoryBot.attributes_for(:transaction)
+                    post takhmeen_transactions_path(@thaali), params: { transaction: @valid_attributes }
+                    @transaction = Transaction.find_by(recipe_no: @valid_attributes[:recipe_no])
+                end
+
+                it "should create a new Transaction" do
+                    expect(@transaction).to be_truthy
+                end
+
+                it "should redirect to created Transaction" do
+                  expect(response).to have_http_status(:found)
+                  expect(response).to redirect_to @transaction
+                end
+            end
+
+            context "with invalid attributes" do
+                before do
+                    @invalid_attributes = FactoryBot.attributes_for(:transaction, amount: nil)
+                    post takhmeen_transactions_path(@thaali), params: { transaction: @invalid_attributes }
+                    @transaction = Transaction.find_by(recipe_no: @invalid_attributes[:recipe_no])
+                end
+
+                it "does not create a new Transaction" do
+                    expect(@transaction).to be_nil
+                end
+
+                it "should render a new template" do
+                    expect(response).to render_template(:new)
+                    expect(response).to have_http_status(:unprocessable_entity)
+                end
+            end
+        end
+
+        # * EDIT
+        context "GET edit" do
+            before do
+                @transaction = FactoryBot.create(:transaction)
+                get edit_transaction_path(@transaction)
+            end
+
+            it "should render render an edit template" do
+                expect(response).to render_template(:edit)
+                expect(response).to have_http_status(:ok)
+            end
+
+            it "should render the instance that was passed in the params" do
+                # it could be any attribute, not only on_date
+                expect(response.body).to include("#{@transaction.recipe_no}")
+            end
+        end
+
+        # * UPDATE
+        context "PATCH update" do
+            before do
+                @transaction = FactoryBot.create(:transaction)
+            end
+
+            context "with valid attributes" do
+                before do
+                    @transaction.amount = Random.rand(1..100)
+                    patch transaction_path(@transaction), params: { transaction: @transaction.attributes }
+                end
+
+
+                it "should redirect to updated Transaction page" do
+                    expect(response).to redirect_to @transaction
+                end
+            end
+
+            context "with invalid attributes" do
+                before do
+                    @transaction.recipe_no = -123
+                    patch transaction_path(@transaction), params: { transaction: @transaction.attributes }
+                end
+
+                it "should render an edit template" do
+                      expect(response).to render_template(:edit)
+                      expect(response).to have_http_status(:unprocessable_entity)
+                end
+            end
+        end
+
+        # * DESTROY
+        context "DELETE destroy" do
+            before do
+                @thaali = FactoryBot.create(:thaali_takhmeen)
+                transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
+                delete transaction_path(transaction)
+                # find method will raise an error
+                @transaction = Transaction.find_by(id: transaction.id)
+            end
+
+            it "should destroy the Transaction" do
                 expect(@transaction).to be_nil
             end
 
-            it "should render a new template" do
-                expect(response).to render_template(:new)
-                expect(response).to have_http_status(:unprocessable_entity)
+            it "should redirect to its parent Thaali Takhmeen page" do
+                expect(response).to redirect_to takhmeen_path(@thaali)
             end
-        end
-    end
-
-    # * SHOW
-    context "GET show" do
-        before do
-            @transaction = FactoryBot.create(:transaction)
-            get transaction_path(@transaction)
-        end
-
-        it "should render a show template" do
-            expect(response).to render_template(:show)
-            expect(response).to have_http_status(:ok)
-        end
-
-        it "should render the instance that was passed in the params" do
-            # it could be any attribute, not only amount
-            expect(response.body).to include("#{@transaction.amount}")
-        end
-    end
-
-    # * EDIT
-    context "GET edit" do
-      before do
-          @transaction = FactoryBot.create(:transaction)
-          get edit_transaction_path(@transaction)
-      end
-
-      it "should render render an edit template" do
-          expect(response).to render_template(:edit)
-          expect(response).to have_http_status(:ok)
-      end
-
-      it "should render the instance that was passed in the params" do
-          # it could be any attribute, not only on_date
-          expect(response.body).to include("#{@transaction.recipe_no}")
-      end
-  end
-
-  # * UPDATE
-  context "PATCH update" do
-        before do
-            @transaction = FactoryBot.create(:transaction)
-        end
-
-        context "with valid attributes" do
-            before do
-                @transaction.amount = Random.rand(1..100)
-                patch transaction_path(@transaction), params: { transaction: @transaction.attributes }
-            end
-
-
-            it "should redirect to updated Transaction page" do
-                expect(response).to redirect_to @transaction
-            end
-        end
-
-        context "with invalid attributes" do
-            before do
-                @transaction.recipe_no = -123
-                patch transaction_path(@transaction), params: { transaction: @transaction.attributes }
-            end
-
-          it "should render an edit template" do
-                expect(response).to render_template(:edit)
-                expect(response).to have_http_status(:unprocessable_entity)
-          end
-        end
-    end
-
-    # * DESTROY
-    context "DELETE destroy" do
-        before do
-            @thaali = FactoryBot.create(:thaali_takhmeen)
-            transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id)
-            delete transaction_path(transaction)
-            # find method will raise an error
-            @transaction = Transaction.find_by(id: transaction.id)
-        end
-
-        it "should destroy the Transaction" do
-            expect(@transaction).to be_nil
-        end
-
-        it "should redirect to its parent Thaali Takhmeen page" do
-            expect(response).to redirect_to takhmeen_path(@thaali)
         end
     end
 end
