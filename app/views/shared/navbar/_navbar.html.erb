@@ -2,6 +2,7 @@
   <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark navbar-dark fixed-top">
 
     <div class="container-fluid">
+      <%# * Title %>
       <%= link_to "FMB", root_path, class: "navbar-brand" %>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,36 +11,18 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
+          <%# * Create Sabeel %>
           <% if current_user.admin? %>
             <li class="nav-item">
               <%= link_to "Create Sabeel", new_sabeel_path, class: "nav-link active" %>
             </li>
           <% end %>
 
-          <li id="resources" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Resources
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Sabeels", all_sabeels_path, class: "dropdown-item"%></li>
-              <li><%= link_to "Thaali Takhmeens", root_path, class: "dropdown-item"%></li>
-              <li><%= link_to "Transactions", all_transactions_path, class: "dropdown-item"%></li>
-              <%# <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li> %>
-            </ul>
-          </li>
-
-          <li id="statistics" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Statistics
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Sabeels", stats_sabeels_path, class: "dropdown-item"%></li>
-              <li><%= link_to "Thaali Takhmeens", takhmeens_stats_path, class: "dropdown-item"%></li>
-            </ul>
-          </li>
-
+          <%# * Resources %>
+          <%= render partial: "shared/navbar/resources_dropdown"%>
+          <%# * Statistics %>
+          <%= render partial: "shared/navbar/statistics_dropdown"%>
+          <%# * User Dropdown %>
           <% if current_user.admin? %>
             <%= render partial: "shared/navbar/admin_dropdown"%>
           <% elsif current_user.member? %>
