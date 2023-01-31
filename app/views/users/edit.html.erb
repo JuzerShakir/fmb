@@ -3,13 +3,15 @@
 
 <% password_message = "between 6 to 72 characters long" %>
 
-<%= simple_form_for @user do |f| %>
-    <%= f.error_notification %>
-    <%= f.input :password, hint: password_message, input_html: { autocomplete: 'off' }, required: true %>
-    <%= f.input :password_confirmation, input_html: { autocomplete: 'off' }, hint: "should match the password" %>
+<div class="form-card border shadow-lg container col-lg-4 offset-lg-4 p-5 rounded-5">
+    <%= simple_form_for @user do |f| %>
+        <%= f.error_notification %>
+        <%= f.input :password, hint: password_message, input_html: { autocomplete: 'off' }, required: true %>
+        <%= f.input :password_confirmation, input_html: { autocomplete: 'off' }, hint: "should match the password" %>
 
-    <%= f.button :submit, value: "Update Password" %>
-<% end %>
+        <%= f.button :submit, value: "Update Password" %>
+    <% end %>
+</div>
 
 <%# * back button %>
 <%= render partial: "shared/back" %>

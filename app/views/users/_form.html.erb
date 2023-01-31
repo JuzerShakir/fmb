@@ -2,16 +2,18 @@
 <% name_message = "between 3 to 35 characters long" %>
 <% password_message = "between 6 to 72 characters long" %>
 
-<%= simple_form_for @user do |f| %>
-    <%= f.error_notification %>
-    <%= f.input :its, hint: its_message, label: "ITS No." %>
-    <%= f.input :name, input_html: { autocomplete: 'off' }, hint: name_message %>
-    <%= f.input :role, collection: User.roles.keys.map{ |role| [role.titleize, role] } %>
-    <%= f.input :password, hint: password_message, input_html: { autocomplete: 'off' }, required: true %>
-    <%= f.input :password_confirmation, hint: "should match the password" %>
+<div class="form-card border shadow-lg container col-lg-4 offset-lg-4 p-5 rounded-5">
+    <%= simple_form_for @user do |f| %>
+        <%= f.error_notification %>
+        <%= f.input :its, hint: its_message, label: "ITS No." %>
+        <%= f.input :name, input_html: { autocomplete: 'off' }, hint: name_message %>
+        <%= f.input :role, collection: User.roles.keys.map{ |role| [role.titleize, role] } %>
+        <%= f.input :password, hint: password_message, input_html: { autocomplete: 'off' }, required: true %>
+        <%= f.input :password_confirmation, hint: "should match the password" %>
 
-    <%= f.button :submit %>
-<% end %>
+        <%= f.button :submit %>
+    <% end %>
+</div>
 
 <%# * back button %>
 <%= render partial: "shared/back" %>
