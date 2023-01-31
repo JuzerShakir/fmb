@@ -7,7 +7,7 @@ RSpec.describe "User template 👉" do
     end
 
     # * NEW / CREATE
-    context "'new'", js: true do
+    context "'new'" do
         before do
             visit root_path
             click_on "Admin"
@@ -94,10 +94,10 @@ RSpec.describe "User template 👉" do
         end
 
         scenario "shows User details" do
-            attrbs = FactoryBot.attributes_for(:user).except(:password, :password_confirmation)
-
-            attrbs.keys.each do | attrb |
-                expect(page).to have_content("#{@user.send(attrb)}")
+            within("#show-user") do
+                expect(page).to have_content("#{@user.name}")
+                expect(page).to have_content("#{@user.its}")
+                expect(page).to have_content("#{@user.role.humanize}")
             end
         end
 
