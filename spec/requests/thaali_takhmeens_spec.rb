@@ -271,5 +271,25 @@ RSpec.describe "ThaaliTakhmeen requests", type: :request do
                 expect(response).to redirect_to root_path
             end
         end
+
+        # * EDIT
+        context "GET edit" do
+            before do
+                @thaali = FactoryBot.create(:thaali_takhmeen)
+                get edit_takhmeen_path(@thaali)
+            end
+
+            scenario "should NOT render a edit template" do
+                expect(response).not_to render_template(:edit)
+            end
+
+            scenario "should respond with status code '302' (found)" do
+                expect(response).to have_http_status(:found)
+            end
+
+            scenario "should redirect to the root path" do
+                expect(response).to redirect_to root_path
+            end
+        end
     end
 end
