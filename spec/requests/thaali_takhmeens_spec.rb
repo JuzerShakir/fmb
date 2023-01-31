@@ -291,5 +291,23 @@ RSpec.describe "ThaaliTakhmeen requests", type: :request do
                 expect(response).to redirect_to root_path
             end
         end
+
+        # * DETROY
+        context "DELETE destroy" do
+            before do
+                thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+                delete takhmeen_path(thaali)
+                # find method will raise an error
+                @thaali = ThaaliTakhmeen.find_by(id: thaali.id)
+            end
+
+            scenario "should NOT destroy the thaali" do
+                expect(@thaali).not_to be_nil
+            end
+
+            scenario "should redirect to the root path" do
+                expect(response).to redirect_to root_path
+            end
+        end
     end
 end
