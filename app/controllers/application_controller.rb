@@ -19,7 +19,10 @@ class ApplicationController < ActionController::Base
         end
 
         def authorize_admin_member
-            redirect_to root_path, alert: "Not Authorized!" if current_user&.viewer?
+            if current_user&.viewer?
+                flash[:alert] = "Not Authorized!"
+                redirect_to root_path
+            end
         end
 
         def authorize_user
