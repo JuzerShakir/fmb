@@ -73,7 +73,7 @@ RSpec.describe "Users", type: :request do
             end
         end
 
-        # * DESTROY
+        # * DESTROY themselves
         context "DELETE destroy" do
             before do
                 delete user_path(@user)
@@ -85,15 +85,9 @@ RSpec.describe "Users", type: :request do
                 expect(@user).to be_nil
             end
 
-            #  if admin deletes other user
             scenario "should redirect to the login path" do
                 expect(response).to redirect_to login_path
             end
-
-            # if admin or user deletes itself
-            # it "should redirect to the login path" do
-            #     expect(response).to redirect_to login_path
-            # end
         end
     end
 
@@ -238,6 +232,23 @@ RSpec.describe "Users", type: :request do
             scenario "should render a index template with 200 status code" do
                 expect(response).to render_template(:index)
                 expect(response).to have_http_status(:ok)
+            end
+        end
+
+        # * DESTROY other users
+        context "DELETE destroy" do
+            before do
+                delete user_path(@user)
+                @user = User.find_by(id: @user.id)
+            end
+
+
+            scenario "should destroy the other user" do
+                expect(@user).to be_nil
+            end
+
+            scenario "should redirect to the login path" do
+                expect(response).to redirect_to admin_path
             end
         end
     end

@@ -37,11 +37,13 @@ class UsersController < ApplicationController
 
     def destroy
         @user.destroy
-        session[:user_id] = nil
-        #  if admin deletes other user
-        redirect_to login_path, success: "User deleted successfully"
-        # if admin or user deletes itself
-        # redirect_to login_path
+        if current_user.admin? && current_user != @user
+            redirect_to admin_path, success: "User deleted successfully"
+        else
+            session[:user_id] = nil
+            redirect_to login_path, success: "User deleted successfully"
+        end
+
     end
 
     private
