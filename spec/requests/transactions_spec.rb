@@ -194,13 +194,13 @@ RSpec.describe "Transaction requests", type: :request do
         before do
             @viewer = FactoryBot.create(:viewer_user, password: @password)
             post signup_path, params: { sessions: @viewer.attributes.merge({ password: @password }) }
-            @thaali = FactoryBot.create(:completed_takhmeens)
         end
 
         # * NEW
         context "GET new" do
             before do
-                get new_takhmeen_transaction_path(@thaali)
+                thaali = FactoryBot.create(:completed_takhmeens)
+                get new_takhmeen_transaction_path(thaali)
             end
 
             scenario "should NOT render a new template" do
@@ -216,25 +216,25 @@ RSpec.describe "Transaction requests", type: :request do
             end
         end
 
-        # # * EDIT
-        # context "GET edit" do
-        #     before do
-        #         @thaali = FactoryBot.create(:thaali_takhmeen)
-        #         get edit_takhmeen_path(@thaali)
-        #     end
+        # * EDIT
+        context "GET edit" do
+            before do
+                transaction = FactoryBot.create(:transaction)
+                get edit_transaction_path(transaction)
+            end
 
-        #     scenario "should NOT render a edit template" do
-        #         expect(response).not_to render_template(:edit)
-        #     end
+            scenario "should NOT render a edit template" do
+                expect(response).not_to render_template(:edit)
+            end
 
-        #     scenario "should respond with status code '302' (found)" do
-        #         expect(response).to have_http_status(:found)
-        #     end
+            scenario "should respond with status code '302' (found)" do
+                expect(response).to have_http_status(:found)
+            end
 
-        #     scenario "should redirect to the root path" do
-        #         expect(response).to redirect_to root_path
-        #     end
-        # end
+            scenario "should redirect to the root path" do
+                expect(response).to redirect_to root_path
+            end
+        end
 
         # # * DETROY
         # context "DELETE destroy" do
