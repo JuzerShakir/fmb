@@ -12,7 +12,7 @@ RSpec.describe "Sessions templates" do
 
         scenario "should have a correct url and a heading" do
             expect(current_path).to eql login_path
-            expect(page).to have_css('h2', text: "Member Login")
+            expect(page).to have_css('h2', text: "Faizul Mawaid il Burhaniyah")
         end
 
         scenario "should be able to login with valid credentials" do
