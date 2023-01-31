@@ -21,4 +21,8 @@ class ApplicationController < ActionController::Base
         def authorize_user
             redirect_to root_path, alert: "Not Authorized!" if current_user.its.to_s != params[:id]
         end
+
+        def authorize_admin
+            redirect_to root_path, alert: "Not Authorized!" unless current_user&.admin?
+        end
 end

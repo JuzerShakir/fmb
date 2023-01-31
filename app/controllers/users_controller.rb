@@ -53,8 +53,4 @@ class UsersController < ApplicationController
         def set_user
             @user = User.find(params[:id])
         end
-
-        def authorize_admin
-            redirect_to root_path, alert: "Not Authorized!" unless current_user&.admin?
-        end
 end
