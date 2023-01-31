@@ -5,26 +5,22 @@
 <p class="mt-5 fw-bold text-center text-info fs-4">Total number of Sabeels: <%= Sabeel.count %></p>
 
 <%# * Content %>
-<div class="text-center d-flex justify-content-center">
-    <div class="col-12 col-md-7">
-        <% @apts.each do |apartment, values| %>
-            <div id=<%= apartment %> class = "my-5 py-2 px-2 border rounded-5 shadow">
-                <h3><%= apartment.to_s.titleize %> </h3>
-                <div class="row mt-3">
-                    <%= link_to "Active: #{values[:active_takhmeens]}", active_sabeels_path(apartment.to_s), class: "btn btn-outline-success rounded-5 col mx-4 fs-5" %>
-                    <%= link_to "Inactive: #{values[:inactive_takhmeens]}", inactive_sabeels_path(apartment.to_s), class: "btn btn-outline-danger rounded-5 col mx-4 fs-5" %>
-                </div>
-                <div class="row mt-3 fw-bold">
-                    <p class= "col mx-4 text-primary">Small: <%= "#{values[:small]}" %></p>
-                    <p class= "col mx-4 text-warning">Medium: <%= "#{values[:medium]}" %></p>
-                    <p class= "col mx-4 text-dark">Large: <%= "#{values[:large]}" %></p>
-                </div>
-                <div class="row mt-2">
-                    <p class = "fw-bold text-info">
-                        Total Sabeels: <%=  "#{values[:total_sabeels]}" %>
-                    </p>
-                </div>
-            </div>
-        <% end %>
+<% @apts.each do |apartment, values| %>
+    <div id=<%= apartment %> class = "text-center container col-lg-8 offset-lg-2 my-5 p-3 border rounded-5 shadow form-card">
+        <h3><%= apartment.to_s.titleize %> </h3>
+        <div class="mt-4">
+            <%= link_to "Active: #{values[:active_takhmeens]}", active_sabeels_path(apartment.to_s), class: "button btn btn-outline-success rounded-5 mb-3" %>
+            <%= link_to "Inactive: #{values[:inactive_takhmeens]}", inactive_sabeels_path(apartment.to_s), class: "button cm btn btn-outline-danger rounded-5 mb-3" %>
+        </div>
+        <div class="row mt-2 fw-bold">
+            <p class= "col text-primary">Small: <%= "#{values[:small]}" %></p>
+            <p class= "col text-warning">Medium: <%= "#{values[:medium]}" %></p>
+            <p class= "col text-dark">Large: <%= "#{values[:large]}" %></p>
+        </div>
+        <div class="row mt-1">
+            <p class = "fw-bold text-info fs-5">
+                Total Sabeels: <%=  "#{values[:total_sabeels]}" %>
+            </p>
+        </div>
     </div>
-</div>
+<% end %>
