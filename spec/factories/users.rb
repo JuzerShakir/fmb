@@ -22,10 +22,14 @@ FactoryBot.define do
       role { "viewer" }
     end
 
+    trait :member_or_viewer do
+      role { ["member", "viewer"].sample }
+    end
+
     factory :invalid_user, traits: [:wrong_password]
     factory :admin_user, traits: [:admin]
     factory :member_user, traits: [:member]
     factory :viewer_user, traits: [:viewer]
-
+    factory :user_other_than_admin, traits: [:member_or_viewer]
   end
 end
