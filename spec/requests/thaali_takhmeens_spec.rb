@@ -248,4 +248,32 @@ RSpec.describe "ThaaliTakhmeen requests", type: :request do
             end
         end
     end
+
+    # * NOT Accessible by Viewers
+    context "if user is a 'viewer' type" do
+        before do
+            @viewer = FactoryBot.create(:viewer_user, password: @password)
+            post signup_path, params: { sessions: @viewer.attributes.merge({ password: @password }) }
+            @sabeel = FactoryBot.create(:sabeel)
+        end
+
+        # * NEW
+        context "GET new" do
+            before do
+                get new_sabeel_takhmeen_path(@sabeel)
+            end
+
+            scenario "should NOT render a new template" do
+                expect(response).not_to render_template(:new)
+            end
+
+            scenario "should respond with status code '302' (found)" do
+                expect(response).to have_http_status(:found)
+            end
+
+            scenario "should redirect to the root path" do
+                expect(response).to redirect_to root_path
+            end
+        end
+    end
 end
