@@ -236,23 +236,24 @@ RSpec.describe "Transaction requests", type: :request do
             end
         end
 
-        # # * DETROY
-        # context "DELETE destroy" do
-        #     before do
-        #         thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
-        #         delete takhmeen_path(thaali)
-        #         # find method will raise an error
-        #         @thaali = ThaaliTakhmeen.find_by(id: thaali.id)
-        #     end
+        # * DETROY
+        context "DELETE destroy" do
+            before do
+                thaali = FactoryBot.create(:thaali_takhmeen)
+                transaction = FactoryBot.create(:transaction, thaali_takhmeen_id: thaali.id)
+                delete transaction_path(transaction)
+                # find method will raise an error
+                @transaction = Transaction.find_by(id: transaction.id)
+            end
 
-        #     scenario "should NOT destroy the thaali" do
-        #         expect(@thaali).not_to be_nil
-        #     end
+            scenario "should NOT destroy the thaali" do
+                expect(@transaction).not_to be_nil
+            end
 
-        #     scenario "should redirect to the root path" do
-        #         expect(response).to redirect_to root_path
-        #     end
-        # end
+            scenario "should redirect to the root path" do
+                expect(response).to redirect_to root_path
+            end
+        end
     end
 end
 
