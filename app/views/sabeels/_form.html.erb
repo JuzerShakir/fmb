@@ -1,16 +1,18 @@
 <% its_message = "must be exactly 8 characters long" %>
 <% mobile_message = "without the country code" %>
 
-<%= simple_form_for @sabeel do |f| %>
-    <%= f.error_notification %>
-    <%= f.input :its, hint: its_message %>
-    <%= f.input :hof_name, placeholder: "Shk. Fakruddin Nakhudawala" %>
-    <%= f.input :apartment, collection: Sabeel.apartments.keys.map{ |apartment| [apartment.titleize, apartment] } %>
-    <%= f.input :flat_no %>
-    <%= f.input :mobile, hint: mobile_message, placeholder: "9876543210" %>
-    <%= f.input :email %>
-    <%= f.button :submit %>
-<% end %>
+<div class="form-card border shadow-lg container col-lg-4 offset-lg-4 p-5 rounded-5">
+    <%= simple_form_for @sabeel do |f| %>
+        <%= f.error_notification %>
+        <%= f.input :its, hint: its_message %>
+        <%= f.input :hof_name, placeholder: "Shk. Fakruddin Nakhudawala" %>
+        <%= f.input :apartment, collection: Sabeel.apartments.keys.map{ |apartment| [apartment.titleize, apartment] } %>
+        <%= f.input :flat_no %>
+        <%= f.input :mobile, hint: mobile_message, placeholder: "9876543210" %>
+        <%= f.input :email %>
+        <%= f.button :submit %>
+    <% end %>
+</div>
 
 <%# * back button %>
 <%= render partial: "shared/back" %>

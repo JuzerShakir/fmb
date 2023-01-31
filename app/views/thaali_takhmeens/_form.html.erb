@@ -1,22 +1,24 @@
 <% year_message = 'You cannot change this field' %>
 
-<%= simple_form_for @thaali_takhmeen, url: url_helper do |f| %>
-    <%= f.error_notification %>
+<div class="form-card border shadow-lg container col-lg-4 offset-lg-4 p-5 rounded-5">
+    <%= simple_form_for @thaali_takhmeen, url: url_helper do |f| %>
+        <%= f.error_notification %>
 
-    <%# for new takhmeen it will show current year %>
-    <% if @thaali_takhmeen.year.nil? %>
-        <%= f.input :year, disabled: true, hint: year_message, input_html: { value: $active_takhmeen } %>
+        <%# for new takhmeen it will show current year %>
+        <% if @thaali_takhmeen.year.nil? %>
+            <%= f.input :year, disabled: true, hint: year_message, input_html: { value: $active_takhmeen } %>
 
-    <%# for existing takhmeen it will its year %>
-    <% else %>
-        <%= f.input :year, disabled: true, hint: year_message %>
+        <%# for existing takhmeen it will its year %>
+        <% else %>
+            <%= f.input :year, disabled: true, hint: year_message %>
+        <% end %>
+
+        <%= f.input :number %>
+        <%= f.input :size, collection: ThaaliTakhmeen.sizes.keys.map{ |size| [size.titleize, size] } %>
+        <%= f.input :total %>
+        <%= f.button :submit,  value: "Create Thaali" %>
     <% end %>
-
-    <%= f.input :number %>
-    <%= f.input :size, collection: ThaaliTakhmeen.sizes.keys.map{ |size| [size.titleize, size] } %>
-    <%= f.input :total %>
-    <%= f.button :submit %>
-<% end %>
+</div>
 
 <%# * back button %>
 <%= render partial: "shared/back" %>

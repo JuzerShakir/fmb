@@ -1,13 +1,15 @@
 <% amount_message = "Amount shouldn't be greater than: #{@total_balance}" %>
 
-<%= simple_form_for @transaction, url: url_helper do |f| %>
-    <%= f.error_notification %>
-    <%= f.input :recipe_no %>
-    <%= f.input :amount, hint: amount_message %>
-    <%= f.input :mode, collection: Transaction.modes.keys.map{ |mode| [mode.titleize, mode] } %>
-    <%= f.input :on_date %>
-    <%= f.button :submit %>
-<% end %>
+<div class="form-card border shadow-lg container col-lg-4 offset-lg-4 p-5 rounded-5">
+    <%= simple_form_for @transaction, url: url_helper do |f| %>
+        <%= f.error_notification %>
+        <%= f.input :recipe_no %>
+        <%= f.input :amount, hint: amount_message %>
+        <%= f.input :mode, collection: Transaction.modes.keys.map{ |mode| [mode.titleize, mode] } %>
+        <%= f.input :on_date %>
+        <%= f.button :submit %>
+    <% end %>
+</div>
 
 <%# * back button %>
 <%= render partial: "shared/back" %>
