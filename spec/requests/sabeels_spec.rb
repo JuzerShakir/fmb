@@ -273,4 +273,32 @@ RSpec.describe "Sabeel requests", type: :request do
             end
         end
     end
+
+    # * NOT ACCESSIBLE by 'viewer' types
+    context "if user is a 'viewer'" do
+        before do
+            @viewer = FactoryBot.create(:viewer_user, password: @password)
+            post signup_path, params: { sessions: @viewer.attributes.merge({ password: @password }) }
+        end
+
+        # * EDIT
+        context "GET edit" do
+            before do
+                @sabeel = FactoryBot.create(:sabeel)
+                get edit_sabeel_path(@sabeel.id)
+            end
+
+            scenario "should NOT render an edit template" do
+                expect(response).not_to render_template(:edit)
+            end
+
+            scenario "should respond with status code '302' (found)" do
+                expect(response).to have_http_status(:found)
+            end
+
+            scenario "should redirect to the root path" do
+                expect(response).to redirect_to root_path
+            end
+        end
+    end
 end
