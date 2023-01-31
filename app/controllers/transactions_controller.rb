@@ -1,5 +1,6 @@
 class TransactionsController < ApplicationController
-    before_action :authorize
+    before_action :authorize, except: [:new, :create]
+    before_action :authorize_admin_member, only: [:new, :create]
     before_action :set_transaction, only: [:show, :edit, :update, :destroy]
     before_action :check_if_takhmeen_is_complete, only: [:new]
 
