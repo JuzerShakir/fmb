@@ -190,5 +190,21 @@ RSpec.describe "Users", type: :request do
             end
         end
 
+        # * INDEX
+        context "GET index" do
+            before { get admin_path }
+
+            scenario "should NOT render the 'index' template" do
+                expect(response).not_to render_template(:index)
+            end
+
+            scenario "should respond with status code '302' (found)" do
+                expect(response).to have_http_status(:found)
+            end
+
+            scenario "should redirect to the root path" do
+                expect(response).to redirect_to root_path
+            end
+        end
     end
 end
