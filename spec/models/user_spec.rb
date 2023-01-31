@@ -29,6 +29,12 @@ RSpec.describe User, type: :model do
         context "password_confirmation" do
             it { should validate_presence_of(:password_confirmation).with_message("cannot be blank")  }
         end
+
+        context "role" do
+            it { should validate_presence_of(:role).with_message("selection is required") }
+
+            it { should define_enum_for(:role).with_values([:admin, :member, :viewer]) }
+        end
     end
 
     context "callback method" do

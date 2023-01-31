@@ -19,6 +19,12 @@ class User < ApplicationRecord
     # password
     validates_length_of :password, minimum: 6, message: "must be more than 6 characters"
 
+    # role
+    validates_presence_of :role, message: "selection is required"
+
+    # * Enums
+    enum :role, { admin: 0, member: 1, viewer: 2 }
+
     private
       def titleize_name
         self.name = self.name.split.map(&:capitalize).join(" ")
