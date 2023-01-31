@@ -169,7 +169,7 @@ RSpec.describe "Sabeel requests", type: :request do
         end
     end
 
-    # * ONLY Accessibile by ADMIN
+    # * NOT Accessibile by other types (except admin)
     context "if user is not an 'admin'" do
         before do
             @user = FactoryBot.create(:user_other_than_admin, password: @password)
@@ -194,7 +194,7 @@ RSpec.describe "Sabeel requests", type: :request do
         end
 
         # * DESTROY
-        context "GET index" do
+        context "DELETE destroy" do
             before do
                 @sabeel = FactoryBot.create(:sabeel)
                 delete sabeel_path(@sabeel.id)
@@ -215,7 +215,7 @@ RSpec.describe "Sabeel requests", type: :request do
     end
 
     # * Accessible by all user types, except 'viewers'
-    context "if user is not a 'viewer'" do
+    context "if user is 'admin' & 'member'" do
         before do
             @user = FactoryBot.create(:user_other_than_viewer, password: @password)
             post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
@@ -228,7 +228,7 @@ RSpec.describe "Sabeel requests", type: :request do
                 get edit_sabeel_path(@sabeel.id)
             end
 
-            it "should render render an edit template" do
+            it "should render an edit template" do
                 expect(response).to render_template(:edit)
                 expect(response).to have_http_status(:ok)
             end
