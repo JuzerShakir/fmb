@@ -5,10 +5,10 @@ RSpec.describe "Users", type: :request do
         @password = Faker::Internet.password(min_length: 6, max_length: 72)
     end
 
-    # * Accessible by all Users
-    context "can access" do
+    # * Accessible by Admin & Member
+    context "type 'Admin' & 'Member' can access" do
         before do
-            @user = FactoryBot.create(:user, password: @password)
+            @user = FactoryBot.create(:user_other_than_viewer, password: @password)
             post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
         end
 
@@ -97,11 +97,70 @@ RSpec.describe "Users", type: :request do
         end
     end
 
+    # * NOT ACCESSIBLE by viewer
+    context "type 'Viewer'" do
+        before do
+            @viewer = FactoryBot.create(:viewer_user, password: @password)
+            post signup_path, params: { sessions: @viewer.attributes.merge({ password: @password }) }
+        end
+
+        # * SHOW
+        context "GET show" do
+            before { get user_path(@viewer) }
+
+            scenario "should NOT render the 'show' template" do
+                expect(response).not_to render_template(:show)
+            end
+
+            scenario "should respond with status code '302' (found)" do
+                expect(response).to have_http_status(:found)
+            end
+
+            scenario "should redirect to the root path" do
+                expect(response).to redirect_to root_path
+            end
+        end
+
+       # * EDIT
+        context "GET edit" do
+            before { get edit_user_path(@viewer) }
+
+            scenario "should NOT render the 'edit' template" do
+                expect(response).not_to render_template(:edit)
+            end
+
+            scenario "should respond with status code '302' (found)" do
+                expect(response).to have_http_status(:found)
+            end
+
+            scenario "should redirect to the root path" do
+                expect(response).to redirect_to root_path
+            end
+        end
+
+       # * DESTROY
+        context "DELETE destroy" do
+            before do
+                 delete user_path(@viewer)
+                 @viewer = User.find_by(id: @viewer.id)
+            end
+
+            scenario "should destroy the user" do
+                expect(@viewer).to_not be_nil
+            end
+
+            scenario "should redirect to the root path" do
+                expect(response).to redirect_to root_path
+            end
+        end
+    end
+
     # * Accessible by ADMIN
     context "type 'Admin' can access" do
         before do
             @admin = FactoryBot.create(:admin_user, password: @password)
             post signup_path, params: { sessions: @admin.attributes.merge({ password: @password }) }
+            @user = FactoryBot.create(:user, password: @password)
         end
 
         # * NEW
@@ -155,6 +214,23 @@ RSpec.describe "Users", type: :request do
             end
         end
 
+        # * SHOW page of other users
+        context "GET show of other user" do
+            before do
+                get user_path(@user)
+            end
+
+            scenario "should render a show template" do
+                expect(response).to render_template(:show)
+                expect(response).to have_http_status(:ok)
+            end
+
+            scenario "should render the instance that was passed in the params" do
+                # it could be any attribute, not only ITS
+                expect(response.body).to include("#{@user.its}")
+            end
+        end
+
         # * INDEX
         context "GET index" do
             before { get admin_path }
@@ -171,6 +247,7 @@ RSpec.describe "Users", type: :request do
         before do
             @user = FactoryBot.create(:user_other_than_admin, password: @password)
             post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
+            @other_user = FactoryBot.create(:user_other_than_admin, password: @password)
         end
 
         # * NEW
@@ -179,6 +256,23 @@ RSpec.describe "Users", type: :request do
 
             scenario "should NOT render the 'new' template" do
                 expect(response).not_to render_template(:new)
+            end
+
+            scenario "should respond with status code '302' (found)" do
+                expect(response).to have_http_status(:found)
+            end
+
+            scenario "should redirect to the root path" do
+                expect(response).to redirect_to root_path
+            end
+        end
+
+        # * SHOW page of other users
+        context "GET show  of other user" do
+            before { get user_path(@other_user) }
+
+            scenario "should NOT render the 'show' template" do
+                expect(response).not_to render_template(:show)
             end
 
             scenario "should respond with status code '302' (found)" do
