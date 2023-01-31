@@ -178,7 +178,7 @@ RSpec.describe "Sabeel requests", type: :request do
 
         # * NEW
         context "GET new" do
-            before { get new_user_path }
+            before { get new_sabeel_path }
 
             scenario "should NOT render a new template" do
                 expect(response).not_to render_template(:new)
