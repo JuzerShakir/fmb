@@ -7,7 +7,7 @@ RSpec.describe "User template 👉" do
     end
 
     # * NEW / CREATE
-    context "'new'" do
+    context "'new'", js: true do
         before do
             visit root_path
             click_on "Admin"
@@ -20,25 +20,28 @@ RSpec.describe "User template 👉" do
         end
 
         scenario "should be able to create with valid values" do
-            attributes = FactoryBot.attributes_for(:user)
+            attributes = FactoryBot.attributes_for(:user).except(:role)
 
             attributes.each do |k, v|
                 fill_in "user_#{k}", with: "#{v}"
             end
 
+            select User.roles.keys.sample.to_s.titleize, from: :user_role
+
             click_button "Create User"
 
-            user = User.last
             expect(current_path).to eql admin_path
             expect(page).to have_content("User created successfully")
         end
 
         scenario "should NOT be able to create with invalid values" do
-            attributes = FactoryBot.attributes_for(:invalid_user)
+            attributes = FactoryBot.attributes_for(:invalid_user).except(:role)
 
             attributes.each do |k, v|
                 fill_in "user_#{k}", with: "#{v}"
             end
+
+            select User.roles.keys.sample.to_s.titleize, from: :user_role
 
             click_button "Create User"
 
