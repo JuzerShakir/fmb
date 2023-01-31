@@ -2,38 +2,34 @@
 <h2 class= "text-center">Takhmeen Statistics</h2>
 
 <%# * Content %>
-<div class="text-center d-flex justify-content-center">
-    <div class="col-12 col-md-7">
-        <% @years.each do |year, values| %>
-            <div id=<%= year %> class = "my-5 py-2 px-2 border rounded-5 shadow">
-                <h3><%= year %> </h3>
-                <div class="row mt-3">
-                    <p class="col fs-5 fw-bold text-success">
-                        Total:
-                        <i class="fa-solid fa-indian-rupee-sign"></i><%= "#{number_with_delimiter(values[:total])}" %>
-                    </p>
-                    <p class="col fs-5 fw-bold text-danger">
-                        Balance:
-                        <i class="fa-solid fa-indian-rupee-sign"></i><%= "#{number_with_delimiter(values[:balance])}" %>
-                    </p>
-                </div>
-                <div class="row mt-3">
-                    <%= link_to "Complete: #{values[:complete]}", takhmeens_complete_path(year), class: "btn btn-outline-success rounded-5 col mx-4 fs-5" %>
-                    <%= link_to "Pending: #{values[:pending]}", takhmeens_pending_path(year), class: "btn btn-outline-danger rounded-5 col mx-4 fs-5" %>
-                </div>
-                <div class="row mt-4 fw-bold">
-                    <p class= "col mx-4 text-primary">Small: <%= "#{values[:small]}" %></p>
-                    <p class= "col mx-4 text-warning">Medium: <%= "#{values[:medium]}" %></p>
-                    <p class= "col mx-4 text-dark">Large: <%= "#{values[:large]}" %></p>
-                </div>
-                <div class="row mt-2">
-                    <% if year == $active_takhmeen %>
-                        <%= link_to "Total Takhmeens: #{values[:count]}", root_path, class: "fw-bold text-info fs-5" %>
-                    <% else %>
-                        <%= link_to "Total Takhmeens: #{values[:count]}", takhmeens_all_path(year), class: "fw-bold text-info fs-5" %>
-                    <% end %>
-                </div>
-            </div>
-        <% end %>
+<% @years.each do |year, values| %>
+    <div id=<%= year %> class = "text-center container col-lg-8 offset-lg-2 my-5 p-3 border rounded-5 shadow form-card">
+        <h3><%= year %> </h3>
+        <div class="row mt-3">
+            <p class="col fw-bold text-success">
+                Total:
+                <i class="fa-solid fa-indian-rupee-sign"></i><%= "#{number_with_delimiter(values[:total])}" %>
+            </p>
+            <p class="col fw-bold text-danger">
+                Balance:
+                <i class="fa-solid fa-indian-rupee-sign"></i><%= "#{number_with_delimiter(values[:balance])}" %>
+            </p>
+        </div>
+        <div class="mt-3">
+            <%= link_to "Complete: #{values[:complete]}", takhmeens_complete_path(year), class: "button btn btn-outline-success rounded-5 mb-3" %>
+            <%= link_to "Pending: #{values[:pending]}", takhmeens_pending_path(year), class: "button cm btn btn-outline-danger rounded-5 mb-3" %>
+        </div>
+        <div class="row mt-4 fw-bold">
+            <p class= "col text-primary">Small: <%= "#{values[:small]}" %></p>
+            <p class= "col text-warning">Medium: <%= "#{values[:medium]}" %></p>
+            <p class= "col text-dark">Large: <%= "#{values[:large]}" %></p>
+        </div>
+        <div class="row mt-2">
+            <% if year == $active_takhmeen %>
+                <%= link_to "Total Takhmeens: #{values[:count]}", root_path, class: "fw-bold text-info fs-5" %>
+            <% else %>
+                <%= link_to "Total Takhmeens: #{values[:count]}", takhmeens_all_path(year), class: "fw-bold text-info fs-5" %>
+            <% end %>
+        </div>
     </div>
-</div>
+<% end %>
