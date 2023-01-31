@@ -1,5 +1,6 @@
 class SabeelsController < ApplicationController
-    before_action :authorize
+    before_action :authorize, only: [:index, :show, :stats, :active, :inactive]
+    before_action :authorize_admin, only: [:new, :create, :destroy]
     before_action :set_sabeel, only: [:show, :update, :edit, :destroy]
     before_action :set_apt, only: [:active, :inactive]
     # after_action :set_pagy_sabeels_total, only: [:active, :total]
