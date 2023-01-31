@@ -9,8 +9,8 @@
     <div id=<%= apartment %> class = "text-center container col-lg-8 offset-lg-2 my-5 p-3 border rounded-5 shadow form-card">
         <h3><%= apartment.to_s.titleize %> </h3>
         <div class="mt-4">
-            <%= link_to "Active: #{values[:active_takhmeens]}", active_sabeels_path(apartment.to_s), class: "button btn btn-outline-success rounded-5 mb-3" %>
-            <%= link_to "Inactive: #{values[:inactive_takhmeens]}", inactive_sabeels_path(apartment.to_s), class: "button cm btn btn-outline-danger rounded-5 mb-3" %>
+            <%= link_to "Active: #{values[:active_takhmeens]}", active_sabeels_path(apartment.to_s), class: " fw-bold button btn btn-outline-success rounded-5 mb-3" %>
+            <%= link_to "Inactive: #{values[:inactive_takhmeens]}", inactive_sabeels_path(apartment.to_s), class: " fw-bold button cm btn btn-outline-danger rounded-5 mb-3" %>
         </div>
         <div class="row mt-2 fw-bold">
             <p class= "col text-primary">Small: <%= "#{values[:small]}" %></p>
