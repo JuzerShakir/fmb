@@ -15,7 +15,6 @@ RSpec.describe "ThaaliTakhmeen requests", type: :request do
         # * INDEX
         context "GET index" do
             before do
-                FactoryBot.create_list(:active_takhmeen, 3)
                 get root_path
             end
 
@@ -29,9 +28,6 @@ RSpec.describe "ThaaliTakhmeen requests", type: :request do
         context "GET show" do
             before do
                 @thaali = FactoryBot.create(:thaali_takhmeen)
-                3.times do |i|
-                    FactoryBot.create(:transaction, thaali_takhmeen_id: @thaali.id, amount: Random.rand(10..100))
-                end
                 get takhmeen_path(@thaali.id)
             end
 
