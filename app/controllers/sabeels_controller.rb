@@ -49,7 +49,7 @@ class SabeelsController < ApplicationController
     end
 
     def stats
-        apartments = Array.new.push(*$phase_1, *$phase_2, *$phase_3).map(&:to_sym)
+        apartments = Sabeel.apartments.keys.map(&:to_sym)
         @apts = {}
 
         apartments.each do |apartment|

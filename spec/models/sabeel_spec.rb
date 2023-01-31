@@ -33,7 +33,7 @@ RSpec.describe Sabeel, :type => :model do
         end
 
         context "apartment" do
-            let(:all_apartments) { Array.new.push(*$phase_1, *$phase_2, *$phase_3) }
+            let(:all_apartments) { Sabeel.apartments.keys }
             it { should validate_presence_of(:apartment).with_message("cannot be blank") }
 
             it { should define_enum_for(:apartment).with_values(all_apartments) }
