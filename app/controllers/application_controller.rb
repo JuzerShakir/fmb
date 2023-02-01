@@ -34,6 +34,10 @@ class ApplicationController < ActionController::Base
         end
 
         def authorize_admin
-            redirect_to root_path, alert: "Not Authorized!" unless current_user&.admin?
+            unless current_user&.admin?
+                previuos_path = request.referer || root_path
+                flash[:alert] = "Not Authorized!"
+                redirect_to previuos_path
+            end
         end
 end
