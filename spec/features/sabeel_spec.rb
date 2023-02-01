@@ -1,561 +1,553 @@
 require 'rails_helper'
 
-RSpec.describe "Sabeel template 👉" do
+RSpec.describe "Sabeel accessed by users who are 👉" do
     before do
         @sabeel = FactoryBot.create(:sabeel)
     end
 
-    context "accessed by" do
-        # * NON-LOGGED-IN users
-        context "non-logged in user does NOT render template" do
-            scenario "'new'" do
-                visit new_sabeel_path
-                expect(current_path).to eq login_path
-                expect(page).to have_content "Not Authorized!"
-            end
+    # * NON-LOGGED-IN users
+    context "not-logged-in will NOT render template" do
+        scenario "'new'" do
+            visit new_sabeel_path
+            expect(current_path).to eq login_path
+            expect(page).to have_content "Not Authorized!"
+        end
 
-            scenario "'show'" do
+        scenario "'show'" do
+            visit sabeel_path(@sabeel)
+            expect(current_path).to eq login_path
+            expect(page).to have_content "Not Authorized!"
+        end
+
+        scenario "'edit'" do
+            visit edit_sabeel_path(@sabeel)
+            expect(current_path).to eq login_path
+            expect(page).to have_content "Not Authorized!"
+        end
+
+        scenario "'index'" do
+            visit all_sabeels_path
+            expect(current_path).to eq login_path
+            expect(page).to have_content "Not Authorized!"
+        end
+
+
+        scenario "'stats'" do
+            visit stats_sabeels_path
+            expect(current_path).to eq login_path
+            expect(page).to have_content "Not Authorized!"
+        end
+
+
+        scenario "'active'" do
+            apt = Sabeel.apartments.keys.sample
+            visit active_sabeels_path(apt)
+            expect(current_path).to eq login_path
+            expect(page).to have_content "Not Authorized!"
+        end
+
+
+        scenario "'inactive'" do
+            apt = Sabeel.apartments.keys.sample
+            visit inactive_sabeels_path(apt)
+            expect(current_path).to eq login_path
+            expect(page).to have_content "Not Authorized!"
+        end
+    end
+
+    # * ALL user types
+    context "logged-in WILL render template" do
+        before do
+            @user = FactoryBot.create(:user)
+            page.set_rack_session(user_id: @user.id)
+            visit root_path
+        end
+
+        # * SHOW
+        context "'show' should have" do
+            before do
                 visit sabeel_path(@sabeel)
-                expect(current_path).to eq login_path
-                expect(page).to have_content "Not Authorized!"
             end
 
-            scenario "'edit'" do
-                visit edit_sabeel_path(@sabeel)
-                expect(current_path).to eq login_path
-                expect(page).to have_content "Not Authorized!"
+            scenario "correct URL" do
+                expect(current_path).to eq sabeel_path(@sabeel)
             end
 
-            scenario "'index'" do
-                visit all_sabeels_path
-                expect(current_path).to eq login_path
-                expect(page).to have_content "Not Authorized!"
+            scenario "sabeel details" do
+                attrbs = FactoryBot.attributes_for(:sabeel).except!(:apartment, :flat_no)
+
+                attrbs.keys.each do | attrb |
+                    expect(page).to have_content("#{@sabeel.send(attrb)}")
+                end
             end
 
-
-            scenario "'stats'" do
-                visit stats_sabeels_path
-                expect(current_path).to eq login_path
-                expect(page).to have_content "Not Authorized!"
+            scenario "an edit link" do
+                expect(page).to have_link("Edit")
             end
 
-
-            scenario "'active'" do
-                apt = Sabeel.apartments.keys.sample
-                visit active_sabeels_path(apt)
-                expect(current_path).to eq login_path
-                expect(page).to have_content "Not Authorized!"
+            scenario "a 'delete' link" do
+                expect(page).to have_button('Delete')
             end
 
+            scenario "a 'New Takhmeen' button if sabeel is NOT actively taking thaali" do
+                thaali = FactoryBot.create(:previous_takhmeen, sabeel_id: @sabeel.id)
+                visit sabeel_path(@sabeel)
 
-            scenario "'inactive'" do
-                apt = Sabeel.apartments.keys.sample
-                visit inactive_sabeels_path(apt)
-                expect(current_path).to eq login_path
-                expect(page).to have_content "Not Authorized!"
+                expect(page).to have_button('New Takhmeen')
+            end
+
+            scenario "NO 'New Takhmeen' button if sabeel IS ACTIVELY taking thaali" do
+                thaali = FactoryBot.create(:active_takhmeen, sabeel_id: @sabeel.id)
+                visit sabeel_path(@sabeel)
+
+                expect(page).to have_no_button('New Takhmeen')
+            end
+
+            context "takhmeen details, such as - " do
+                before do
+                    2.times do |i|
+                        FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: $active_takhmeen - i)
+                    end
+                    visit sabeel_path(@sabeel)
+                    @thaalis = @sabeel.thaali_takhmeens
+                end
+
+                scenario "total number of takhmeens" do
+                    expect(page).to have_content("Total number of Takhmeens: #{@thaalis.count}")
+                end
+
+                scenario "'year', 'total', 'balance' attributes" do
+                    @thaalis.each do |thaali|
+                        expect(page).to have_content(thaali.year)
+                        expect(page).to have_content(thaali.total)
+                        expect(page).to have_content(thaali.balance)
+                        if thaali.is_complete
+                            expect(page).to have_css('.fa-check')
+                        else
+                            expect(page).to have_css('.fa-xmark')
+                        end
+                    end
+                end
+
+                scenario "'year' button that routes to thaali show page" do
+                    @thaalis.each do | thaali |
+                        year = thaali.year
+                        click_button "#{year}"
+                        expect(current_path).to eql takhmeen_path(thaali)
+                        visit sabeel_path(@sabeel)
+                    end
+                end
             end
         end
 
-        # * ALL user types
-        context "all users will render template" do
+        # * INDEX
+        context "'index' should have", js: true do
             before do
-                @user = FactoryBot.create(:user)
-                page.set_rack_session(user_id: @user.id)
-                visit root_path
+                @sabeels = FactoryBot.create_list(:sabeel, 3)
+                visit all_sabeels_path
             end
 
-            # * SHOW
-            context "'show'" do
+            scenario "a correct URL" do
+                expect(current_path).to eq all_sabeels_path
+            end
+
+            scenario "a heading" do
+                expect(page).to have_css('h2', text: "Sabeels")
+            end
+
+            scenario "a 'ITS' button that routes to thaali show page" do
+                @sabeels.each do |sabeel|
+                    its = sabeel.its
+                    expect(page).to have_content("#{its}")
+
+                    click_button "#{its}"
+                    expect(current_path).to eql sabeel_path(its)
+                    page.driver.go_back
+                end
+            end
+
+            scenario "'hof_name' & 'apartment' of all sabeels" do
+                @sabeels.each do |sabeel|
+                    expect(page).to have_content("#{sabeel.hof_name}")
+                    expect(page).to have_content("#{sabeel.apartment.titleize}")
+                end
+            end
+        end
+
+        #* ACTIVE
+        context "'active' should have", js: true do
+            before do
+                @apt = Sabeel.apartments.keys.sample
+                @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
+                @sabeels.each do |sabeel|
+                    FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id)
+                end
+                visit active_sabeels_path(@apt)
+            end
+
+            scenario "a correct URL" do
+                expect(current_path).to eq active_sabeels_path(@apt)
+            end
+
+            scenario "a header" do
+                expect(page).to have_css("h2", text: "Active Sabeels: #{@apt.titleize}")
+            end
+
+            scenario "a button with font-awesome icon" do
+                expect(page).to have_button('Generate PDF')
+                expect(page).to have_css('.fa-file-pdf')
+            end
+
+            context "that generates PDF with - " do
                 before do
-                    visit sabeel_path(@sabeel)
+                    @pdf_window = window_opened_by { click_on "Generate PDF" }
                 end
 
-                scenario "with correct URL" do
-                    expect(current_path).to eq sabeel_path(@sabeel)
-                end
-
-                scenario "shows sabeel details" do
-                    attrbs = FactoryBot.attributes_for(:sabeel).except!(:apartment, :flat_no)
-
-                    attrbs.keys.each do | attrb |
-                        expect(page).to have_content("#{@sabeel.send(attrb)}")
+                scenario "a header" do
+                    within_window @pdf_window do
+                        expect(page).to have_content("#{@apt.titleize} - #{$active_takhmeen}")
                     end
                 end
 
-                scenario "should have an edit link" do
-                    expect(page).to have_link("Edit")
-                end
-
-                scenario "should have a 'delete' link" do
-                    expect(page).to have_button('Delete')
-                end
-
-                context "'New Takhmeen' button to be" do
-                    scenario "shown if sabeel is NOT actively taking thaali" do
-                        thaali = FactoryBot.create(:previous_takhmeen, sabeel_id: @sabeel.id)
-                        visit sabeel_path(@sabeel)
-
-                        expect(page).to have_button('New Takhmeen')
-                    end
-
-                    scenario "NOT shown if sabeel IS ACTIVELY taking thaali" do
-                        thaali = FactoryBot.create(:active_takhmeen, sabeel_id: @sabeel.id)
-                        visit sabeel_path(@sabeel)
-
-                        expect(page).to have_no_button('New Takhmeen')
-                    end
-                end
-
-                context "shows takhmeen details of a sabeel such as - " do
-                    before do
-                        2.times do |i|
-                            FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: $active_takhmeen - i)
-                        end
-                        visit sabeel_path(@sabeel)
-                        @thaalis = @sabeel.thaali_takhmeens
-                    end
-
-                    scenario "total number of takhmeens" do
-                        expect(page).to have_content("Total number of Takhmeens: #{@thaalis.count}")
-                    end
-
-                    scenario "'year', 'total', 'balance' attributes" do
-                        @thaalis.each do |thaali|
-                            expect(page).to have_content(thaali.year)
-                            expect(page).to have_content(thaali.total)
-                            expect(page).to have_content(thaali.balance)
-                            if thaali.is_complete
-                                expect(page).to have_css('.fa-check')
-                            else
-                                expect(page).to have_css('.fa-xmark')
-                            end
-                        end
-                    end
-
-                    scenario "'year' button that routes to thaali show page" do
-                        @thaalis.each do | thaali |
-                            year = thaali.year
-                            click_button "#{year}"
-                            expect(current_path).to eql takhmeen_path(thaali)
-                            visit sabeel_path(@sabeel)
+                scenario "details of such as 'flat_no', 'hof_name', 'mobile', 'number' & 'size'" do
+                    within_window @pdf_window do
+                        @sabeels.each do |sabeel|
+                            expect(page).to have_content("#{sabeel.flat_no}")
+                            expect(page).to have_content("#{sabeel.hof_name}")
+                            expect(page).to have_content("#{sabeel.mobile}")
+                            thaali = sabeel.thaali_takhmeens.first
+                            expect(page).to have_content("#{thaali.number}")
+                            expect(page).to have_content("#{thaali.size.humanize.chr}")
                         end
                     end
                 end
             end
 
-            # * INDEX
-            context "'index'", js: true do
-                before do
-                    @sabeels = FactoryBot.create_list(:sabeel, 3)
-                    visit all_sabeels_path
-                end
-
-                scenario "with correct URL" do
-                    expect(current_path).to eq all_sabeels_path
-                end
-
-                scenario "shows a heading" do
-                    expect(page).to have_css('h2', text: "Sabeels")
-                end
-
-                scenario "shows 'ITS' button that routes to thaali show page" do
-                    @sabeels.each do |sabeel|
-                        its = sabeel.its
-                        expect(page).to have_content("#{its}")
-
-                        click_button "#{its}"
-                        expect(current_path).to eql sabeel_path(its)
-                        page.driver.go_back
-                    end
-                end
-
-                scenario "shows 'hof_name' & 'apartment' of all sabeels" do
-                    @sabeels.each do |sabeel|
-                        expect(page).to have_content("#{sabeel.hof_name}")
-                        expect(page).to have_content("#{sabeel.apartment.titleize}")
-                    end
+            scenario "details of all active sabeels of an apartment such as 'flat_no', 'hof_name', 'number' & 'size'" do
+                @sabeels.each do |sabeel|
+                    expect(page).to have_content("#{sabeel.flat_no}")
+                    expect(page).to have_content("#{sabeel.hof_name}")
+                    thaali = sabeel.thaali_takhmeens.first
+                    expect(page).to have_content("#{thaali.number}")
+                    expect(page).to have_content("#{thaali.size.humanize.chr}")
                 end
             end
 
-            #* ACTIVE
-            context "'active'", js: true do
-                before do
-                    @apt = Sabeel.apartments.keys.sample
-                    @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
-                    @sabeels.each do |sabeel|
-                        FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id)
-                    end
+            scenario "'flat_no' button that routes to corresponding sabeel show page" do
+                @sabeels.each do | sabeel |
+                    flat_no = sabeel.flat_no
+                    click_button "#{flat_no}"
+                    expect(current_path).to eql sabeel_path(sabeel)
                     visit active_sabeels_path(@apt)
                 end
+            end
 
-                scenario "with correct URL" do
-                    expect(current_path).to eq active_sabeels_path(@apt)
+            scenario "'number' button that routes to corresponding thaali show page" do
+                @sabeels.each do | sabeel |
+                    thaali = sabeel.thaali_takhmeens.first
+                    click_button "#{thaali.number}"
+                    expect(current_path).to eql takhmeen_path(thaali)
+                    visit active_sabeels_path(@apt)
                 end
+            end
+        end
 
-                scenario "should show a header" do
-                    expect(page).to have_css("h2", text: "Active Sabeels: #{@apt.titleize}")
+        #* INACTIVE
+        context "'inactive' should have", js: true do
+            before do
+                @apt = Sabeel.apartments.keys.sample
+                @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
+                visit inactive_sabeels_path(@apt)
+            end
+
+            scenario "a correct URL" do
+                expect(current_path).to eq inactive_sabeels_path(@apt)
+            end
+
+            scenario "a header" do
+                expect(page).to have_css("h2", text: "Inactive Sabeels: #{@apt.titleize}")
+            end
+
+            scenario "all details of inactive sabeels of an apartment such as 'its', 'hof_name' & 'apartment'" do
+                @sabeels.each do |sabeel|
+                    expect(page).to have_content("#{sabeel.its}")
+                    expect(page).to have_content("#{sabeel.hof_name}")
+                    expect(page).to have_content("#{sabeel.apartment.titleize}")
                 end
+            end
+        end
 
-                scenario "should have a button with font-awesome icon that renders pdf" do
-                    expect(page).to have_button('Generate PDF')
-                    expect(page).to have_css('.fa-file-pdf')
-                end
+        # * Statistics
+        context "'statistics' should have" do
+            before do
+                @sizes = ThaaliTakhmeen.sizes.keys
+                visit stats_sabeels_path
+            end
 
-                context "generates PDF with - " do
-                    before do
-                        @pdf_window = window_opened_by { click_on "Generate PDF" }
+            scenario "a correct URL" do
+                expect(current_path).to eq stats_sabeels_path
+            end
+
+            scenario "a header" do
+                expect(page).to have_css("h2", text: "Sabeel Statistics: #{$active_takhmeen}")
+            end
+
+            context "detials of Maimoon A, such as - " do
+                before do
+                    @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "maimoon_a")
+                    @sabeels.first(3).each.with_index do |sabeel, i|
+                        FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
                     end
+                    visit stats_sabeels_path
+                end
+                scenario "a title" do
+                    expect(page).to have_css("h3", text: "Maimoon A")
+                end
 
-                    scenario "a header" do
-                        within_window @pdf_window do
-                            expect(page).to have_content("#{@apt.titleize} - #{$active_takhmeen}")
+                scenario "total number of active sabeels" do
+                    within('div#maimoon_a') do
+                        expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.maimoon_a.active_takhmeen($active_takhmeen).count}")
+                    end
+                end
+
+                scenario "'active' button that routes to 'active' page" do
+                    within('div#maimoon_a') do
+                        click_on "Active: "
+                        expect(current_path).to eql(active_sabeels_path("maimoon_a"))
+                    end
+                end
+
+                scenario "'inactive' button that routes to 'inactive' page" do
+                    within('div#maimoon_a') do
+                        click_on "Inactive: "
+                        expect(current_path).to eql(inactive_sabeels_path("maimoon_a"))
+                    end
+                end
+
+                scenario "total number of inactive sabeels" do
+                    within('div#maimoon_a') do
+                        expect(page).to have_selector(:link_or_button, "Inactive: 2")
+                    end
+                end
+
+                scenario "total number of thaali sizes" do
+                    within('div#maimoon_a') do
+                        @sizes.each do |size|
+                            expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_a.active_takhmeen($active_takhmeen).with_the_size(size).count}")
                         end
-                    end
-
-                    scenario "details of all sabeels such as 'flat_no', 'hof_name', 'mobile', 'number' & 'size'" do
-                        within_window @pdf_window do
-                            @sabeels.each do |sabeel|
-                                expect(page).to have_content("#{sabeel.flat_no}")
-                                expect(page).to have_content("#{sabeel.hof_name}")
-                                expect(page).to have_content("#{sabeel.mobile}")
-                                thaali = sabeel.thaali_takhmeens.first
-                                expect(page).to have_content("#{thaali.number}")
-                                expect(page).to have_content("#{thaali.size.humanize.chr}")
-                            end
-                        end
-                    end
-                end
-
-                scenario "shows details of all active sabeels of an apartment such as 'flat_no', 'hof_name', 'number' & 'size'" do
-                    @sabeels.each do |sabeel|
-                        expect(page).to have_content("#{sabeel.flat_no}")
-                        expect(page).to have_content("#{sabeel.hof_name}")
-                        thaali = sabeel.thaali_takhmeens.first
-                        expect(page).to have_content("#{thaali.number}")
-                        expect(page).to have_content("#{thaali.size.humanize.chr}")
-                    end
-                end
-
-                scenario "shows 'flat_no' button that routes to corresponding sabeel show page" do
-                    @sabeels.each do | sabeel |
-                        flat_no = sabeel.flat_no
-                        click_button "#{flat_no}"
-                        expect(current_path).to eql sabeel_path(sabeel)
-                        visit active_sabeels_path(@apt)
-                    end
-                end
-
-                scenario "shows 'number' button that routes to corresponding thaali show page" do
-                    @sabeels.each do | sabeel |
-                        thaali = sabeel.thaali_takhmeens.first
-                        click_button "#{thaali.number}"
-                        expect(current_path).to eql takhmeen_path(thaali)
-                        visit active_sabeels_path(@apt)
                     end
                 end
             end
 
-            #* INACTIVE
-            context "'inactive'", js: true do
+            context "detials of Maimoon A, such as - " do
                 before do
-                    @apt = Sabeel.apartments.keys.sample
-                    @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
-                    visit inactive_sabeels_path(@apt)
-                end
-
-                scenario "with correct URL" do
-                    expect(current_path).to eq inactive_sabeels_path(@apt)
-                end
-
-                scenario "should have a header" do
-                    expect(page).to have_css("h2", text: "Inactive Sabeels: #{@apt.titleize}")
-                end
-
-                scenario "shows all details of inactive sabeels of an apartment such as 'its', 'hof_name' & 'apartment'" do
-                    @sabeels.each do |sabeel|
-                        expect(page).to have_content("#{sabeel.its}")
-                        expect(page).to have_content("#{sabeel.hof_name}")
-                        expect(page).to have_content("#{sabeel.apartment.titleize}")
+                    @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "maimoon_b")
+                    @sabeels.first(3).each.with_index do |sabeel, i|
+                        FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
                     end
-                end
-            end
-
-            # * Statistics
-            context "'statistics'" do
-                before do
-                    @sizes = ThaaliTakhmeen.sizes.keys
+                    visit stats_sabeels_path
                 end
 
-                context "content" do
-                    before do
-                        visit stats_sabeels_path
-                    end
+                scenario "a title" do
+                    expect(page).to have_css("h3", text: "Maimoon B")
+                end
 
-                    scenario "with correct URL" do
-                        expect(current_path).to eq stats_sabeels_path
-                    end
-
-                    scenario "should have a header" do
-                        expect(page).to have_css("h2", text: "Sabeel Statistics: #{$active_takhmeen}")
+                scenario "total number of active sabeels" do
+                    within('div#maimoon_b') do
+                        expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.maimoon_b.active_takhmeen($active_takhmeen).count}")
                     end
                 end
 
-                context "for Maimoon A" do
-                    before do
-                        @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "maimoon_a")
-                        @sabeels.first(3).each.with_index do |sabeel, i|
-                            FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
-                        end
-                        visit stats_sabeels_path
-                    end
-                    scenario "should have a title" do
-                        expect(page).to have_css("h3", text: "Maimoon A")
-                    end
-
-                    scenario "should show number of active takmeen sabeels count" do
-                        within('div#maimoon_a') do
-                            expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.maimoon_a.active_takhmeen($active_takhmeen).count}")
-                        end
-                    end
-
-                    scenario "should route to 'active' page on clicking 'active' button" do
-                        within('div#maimoon_a') do
-                            click_on "Active: "
-                            expect(current_path).to eql(active_sabeels_path("maimoon_a"))
-                        end
-                    end
-
-                    scenario "should route to 'inactive' page on clicking 'inactive' button" do
-                        within('div#maimoon_a') do
-                            click_on "Inactive: "
-                            expect(current_path).to eql(inactive_sabeels_path("maimoon_a"))
-                        end
-                    end
-
-                    scenario "should show total number of inactive sabeels" do
-                        within('div#maimoon_a') do
-                            expect(page).to have_selector(:link_or_button, "Inactive: 2")
-                        end
-                    end
-
-                    scenario "should show total number of thaali sizes" do
-                        within('div#maimoon_a') do
-                            @sizes.each do |size|
-                                expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_a.active_takhmeen($active_takhmeen).with_the_size(size).count}")
-                            end
-                        end
+                scenario "'active' button that routes to 'active' page" do
+                    within('div#maimoon_b') do
+                        click_on "Active: "
+                        expect(current_path).to eql(active_sabeels_path("maimoon_b"))
                     end
                 end
 
-                context "for Maimoon B" do
-                    before do
-                        @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "maimoon_b")
-                        @sabeels.first(3).each.with_index do |sabeel, i|
-                            FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
-                        end
-                        visit stats_sabeels_path
+                scenario "'inactive' button that routes to 'inactive' page" do
+                    within('div#maimoon_b') do
+                        click_on "Inactive: "
+                        expect(current_path).to eql(inactive_sabeels_path("maimoon_b"))
                     end
+                end
 
-                    scenario "should have a title" do
-                        expect(page).to have_css("h3", text: "Maimoon B")
+                scenario "total number of inactive sabeels" do
+                    within('div#maimoon_b') do
+                        expect(page).to have_selector(:link_or_button, "Inactive: 2")
                     end
+                end
 
-                    scenario "should show number of active takmeen sabeels count" do
-                        within('div#maimoon_b') do
-                            expect(page).to have_selector(:link_or_button, "Active: #{Sabeel.maimoon_b.active_takhmeen($active_takhmeen).count}")
-                        end
-                    end
-
-                    scenario "should route to 'active' page on clicking 'active' button" do
-                        within('div#maimoon_b') do
-                            click_on "Active: "
-                            expect(current_path).to eql(active_sabeels_path("maimoon_b"))
-                        end
-                    end
-
-                    scenario "should route to 'inactive' page on clicking 'inactive' button" do
-                        within('div#maimoon_b') do
-                            click_on "Inactive: "
-                            expect(current_path).to eql(inactive_sabeels_path("maimoon_b"))
-                        end
-                    end
-
-                    scenario "should show total number of inactive sabeels" do
-                        within('div#maimoon_b') do
-                            expect(page).to have_selector(:link_or_button, "Inactive: 2")
-                        end
-                    end
-
-                    scenario "should show total number of thaali sizes" do
-                        within('div#maimoon_b') do
-                            @sizes.each do |size|
-                                expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_b.active_takhmeen($active_takhmeen).with_the_size(size).count}")
-                            end
+                scenario "total number of thaali sizes" do
+                    within('div#maimoon_b') do
+                        @sizes.each do |size|
+                            expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_b.active_takhmeen($active_takhmeen).with_the_size(size).count}")
                         end
                     end
                 end
             end
         end
+    end
 
-        # * ONLY Admin types
-        context "ONLY 'Admin' user" do
-            before do
-                @admin = FactoryBot.create(:admin_user)
-                page.set_rack_session(user_id: @admin.id)
-                visit root_path
-            end
+    # * ONLY Admin types
+    context "'Admin' WILL render template" do
+        before do
+            @admin = FactoryBot.create(:admin_user)
+            page.set_rack_session(user_id: @admin.id)
+            visit root_path
+        end
 
-            # * NEW / CREATE
-            context "renders 'new' template" do
-                scenario "should have a correct url and a heading" do
-                    click_on "Create Sabeel"
-                    expect(current_path).to eql new_sabeel_path
-                    expect(page).to have_css('h2', text: "New Sabeel")
-                end
-
-                context "creating sabeel" do
-                    before do
-                        attributes = FactoryBot.attributes_for(:sabeel)
-                        @apt = attributes.extract!(:apartment)
-
-                        visit new_sabeel_path
-
-                        attributes.each do |k, v|
-                            fill_in "sabeel_#{k}",	with: "#{v}"
-                        end
-                    end
-
-                    scenario "should be able to create with valid values" do
-                        select @apt.fetch(:apartment).titleize, from: :sabeel_apartment
-
-                        click_button "Create Sabeel"
-
-                        sabeel = Sabeel.last
-                        expect(current_path).to eql sabeel_path(sabeel)
-                        expect(page).to have_content("Sabeel created successfully")
-                    end
-
-                    scenario "should NOT be able to create with invalid values" do
-                        # we haven't selected any apartment, which is required, hence sabeel will not be saved
-
-                        click_button "Create Sabeel"
-
-                        expect(page).to have_content("Please review the problems below:")
-                        expect(page).to have_content("Apartment cannot be blank")
-                    end
-                end
-            end
-
-            # * DELETE
-            context "'destroy'", js: true do
-                before do
-                    visit sabeel_path(@sabeel)
-                    click_on "Delete"
-                end
-
-                context "clicking on delete button" do
-                    scenario "opens a destroy modal" do
-                        expect(page).to have_css("#destroyModal")
-                    end
-
-                    scenario "shows confirmation heading" do
-                        within(".modal-header") do
-                            expect(page).to have_css('h1', text: 'Confirm Deletion')
-                        end
-                    end
-
-                    scenario "shows confirmation message" do
-                        within(".modal-body") do
-                            expect(page).to have_content("Are you sure you want to delete Sabeel ITS no: #{@sabeel.its}? This action cannot be undone.")
-                        end
-                    end
-
-                    scenario "show action buttons" do
-                        within(".modal-footer") do
-                            expect(page).to have_css(".btn-secondary", text: "Cancel")
-                            expect(page).to have_css(".btn-primary", text: "Yes, delete it!")
-                        end
-                    end
-                end
-
-                context "after clicking 'Yes, delete it!' button" do
-                    before do
-                        click_on "Yes, delete it!"
-                    end
-
-                    scenario "returns to root path" do
-                        expect(current_path).to eql root_path("format=html")
-                    end
-
-                    scenario "shows success flash message" do
-                        expect(page).to have_content("Sabeel deleted successfully")
-                    end
-                end
+        # * NEW
+        context "'new' should have" do
+            scenario "a correct url & a heading" do
+                click_on "Create Sabeel"
+                expect(current_path).to eql new_sabeel_path
+                expect(page).to have_css('h2', text: "New Sabeel")
             end
         end
 
-        # * NOT ACCESSED by 'member' & 'viewer'
-        context "'Member' & 'viewer' users does NOT" do
+        #  * CREATE
+        context "creating action" do
             before do
-                @user = FactoryBot.create(:user_other_than_admin)
-                page.set_rack_session(user_id: @user.id)
-                visit root_path
-            end
+                attributes = FactoryBot.attributes_for(:sabeel)
+                @apt = attributes.extract!(:apartment)
 
-            # * NEW
-            scenario "render 'new' template" do
                 visit new_sabeel_path
-                expect(current_path).to eq root_path
-                expect(page).to have_content "Not Authorized!"
+
+                attributes.each do |k, v|
+                    fill_in "sabeel_#{k}",	with: "#{v}"
+                end
             end
 
-            # * DELETE
-            scenario "destroy" do
+            scenario "should be able to create with valid values" do
+                select @apt.fetch(:apartment).titleize, from: :sabeel_apartment
+
+                click_button "Create Sabeel"
+
+                sabeel = Sabeel.last
+                expect(current_path).to eql sabeel_path(sabeel)
+                expect(page).to have_content("Sabeel created successfully")
+            end
+
+            scenario "should NOT be able to create with invalid values" do
+                # we haven't selected any apartment, which is required, hence sabeel will not be saved
+
+                click_button "Create Sabeel"
+
+                expect(page).to have_content("Please review the problems below:")
+                expect(page).to have_content("Apartment cannot be blank")
+            end
+        end
+
+        # * DELETE
+        context "'deleting' action", js: true do
+            before do
                 visit sabeel_path(@sabeel)
                 click_on "Delete"
-                click_on "Yes, delete it!"
-                expect(current_path).to eq sabeel_path(@sabeel)
-                expect(page).to have_content "Not Authorized!"
-            end
-        end
-
-        # * ONLY Admins & Members
-        context "'Admin' & 'Member' users renders" do
-            before do
-                @user = FactoryBot.create(:user_other_than_viewer)
-                page.set_rack_session(user_id: @user.id)
-                visit root_path
             end
 
-            # * EDIT
-            context "'edit'" do
+            context "clicking on delete button" do
+                scenario "opens a destroy modal" do
+                    expect(page).to have_css("#destroyModal")
+                end
+
+                scenario "shows confirmation heading" do
+                    within(".modal-header") do
+                        expect(page).to have_css('h1', text: 'Confirm Deletion')
+                    end
+                end
+
+                scenario "shows confirmation message" do
+                    within(".modal-body") do
+                        expect(page).to have_content("Are you sure you want to delete Sabeel ITS no: #{@sabeel.its}? This action cannot be undone.")
+                    end
+                end
+
+                scenario "show action buttons" do
+                    within(".modal-footer") do
+                        expect(page).to have_css(".btn-secondary", text: "Cancel")
+                        expect(page).to have_css(".btn-primary", text: "Yes, delete it!")
+                    end
+                end
+            end
+
+            context "after clicking 'Yes, delete it!' button" do
                 before do
-                    visit edit_sabeel_path(@sabeel)
+                    click_on "Yes, delete it!"
                 end
 
-                scenario "has form fields and updates details for valid inputs" do
-                    fill_in "sabeel_mobile", with: Faker::Number.number(digits: 10)
+                scenario "returns to root path" do
+                    expect(current_path).to eql root_path("format=html")
+                end
 
-                    click_on "Update Sabeel"
-                    expect(current_path).to eql sabeel_path(@sabeel)
-                    expect(page).to have_content("Sabeel updated successfully")
+                scenario "shows success flash message" do
+                    expect(page).to have_content("Sabeel deleted successfully")
                 end
             end
         end
+    end
 
-        # * NOT ACCESSED by Viewers
-        context "'Viewer' user does NOT render" do
+    # * NOT ACCESSED by 'member' & 'viewer'
+    context "'Member' & 'viewer' will NOT render template" do
+        before do
+            @user = FactoryBot.create(:user_other_than_admin)
+            page.set_rack_session(user_id: @user.id)
+            visit root_path
+        end
+
+        # * NEW
+        scenario "'new'" do
+            visit new_sabeel_path
+            expect(current_path).to eq root_path
+            expect(page).to have_content "Not Authorized!"
+        end
+
+        # * DELETE
+        scenario "destroy" do
+            visit sabeel_path(@sabeel)
+            click_on "Delete"
+            click_on "Yes, delete it!"
+            expect(current_path).to eq sabeel_path(@sabeel)
+            expect(page).to have_content "Not Authorized!"
+        end
+    end
+
+    # * ONLY Admins & Members
+    context "'Admin' & 'Member' WIlL render template" do
+        before do
+            @user = FactoryBot.create(:user_other_than_viewer)
+            page.set_rack_session(user_id: @user.id)
+            visit root_path
+        end
+
+        # * EDIT
+        context "'edit' should show" do
             before do
-                @viewer = FactoryBot.create(:viewer_user)
-                page.set_rack_session(user_id: @viewer.id)
-                visit sabeel_path(@sabeel)
+                visit edit_sabeel_path(@sabeel)
             end
 
-            scenario "'edit' template" do
-                click_on "Edit"
-                expect(current_path).to eq sabeel_path(@sabeel)
-                expect(page).to have_content "Not Authorized!"
+            scenario "form fields of sabeel to update details with valid inputs" do
+                fill_in "sabeel_mobile", with: Faker::Number.number(digits: 10)
+
+                click_on "Update Sabeel"
+                expect(current_path).to eql sabeel_path(@sabeel)
+                expect(page).to have_content("Sabeel updated successfully")
             end
+        end
+    end
+
+    # * NOT ACCESSED by Viewers
+    context "'Viewer' will NOT render template" do
+        before do
+            @viewer = FactoryBot.create(:viewer_user)
+            page.set_rack_session(user_id: @viewer.id)
+            visit sabeel_path(@sabeel)
+        end
+
+        scenario "'edit'" do
+            click_on "Edit"
+            expect(current_path).to eq sabeel_path(@sabeel)
+            expect(page).to have_content "Not Authorized!"
         end
     end
 end
