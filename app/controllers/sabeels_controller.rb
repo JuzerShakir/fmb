@@ -1,5 +1,5 @@
 class SabeelsController < ApplicationController
-    before_action :authorize, except: [:new, :create, :destroy]
+    before_action :authorize
     before_action :authorize_admin, only: [:new, :create, :destroy]
     before_action :authorize_admin_member, only: [:edit, :update]
     before_action :set_sabeel, only: [:show, :update, :edit, :destroy]

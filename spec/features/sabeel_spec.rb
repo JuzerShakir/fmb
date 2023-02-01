@@ -300,7 +300,7 @@ RSpec.describe "Sabeel template 👉" do
                     end
                 end
 
-                context "for Maimoon A", js: true do
+                context "for Maimoon A" do
                     before do
                         @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "maimoon_a")
                         @sabeels.first(3).each.with_index do |sabeel, i|

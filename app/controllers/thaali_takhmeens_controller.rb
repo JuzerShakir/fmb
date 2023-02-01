@@ -1,5 +1,5 @@
 class ThaaliTakhmeensController < ApplicationController
-    before_action :authorize, except: [:new, :create, :edit, :update, :destroy]
+    before_action :authorize
     before_action :authorize_admin_member, only: [:new, :create, :edit, :update, :destroy]
     before_action :set_thaali_takhmeen, only: [:show, :edit, :update, :destroy]
     before_action :check_for_current_year_takhmeen, only: [:new]
