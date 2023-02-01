@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
         def authorize_admin_member
             if current_user&.viewer?
-                previuos_path = url_for(request.referer) || root_path
+                previuos_path = request.referer || root_path
                 flash[:alert] = "Not Authorized!"
                 redirect_to previuos_path
             end
