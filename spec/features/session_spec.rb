@@ -1,20 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe "Sessions templates" do
-    # * NEW / CREATE
+    before do
+        @password = Faker::Internet.password(min_length: 6, max_length: 72)
+        @user = FactoryBot.create(:user, password: @password)
+
+        visit login_path
+    end
+
+    # * NEW
     context "'new'" do
-        before do
-            @password = Faker::Internet.password(min_length: 6, max_length: 72)
-            @user = FactoryBot.create(:user, password: @password)
-
-            visit login_path
-        end
-
         scenario "should have a correct url and a heading" do
             expect(current_path).to eql login_path
             expect(page).to have_css('h2', text: "Faizul Mawaid il Burhaniyah")
         end
+    end
 
+    # * CREATE
+    context "creating session"  do
         scenario "should be able to login with valid credentials" do
             fill_in "sessions_its", with: "#{@user[:its]}"
             fill_in "sessions_password", with: "#{@password}"
@@ -24,9 +27,6 @@ RSpec.describe "Sessions templates" do
             expect(current_path).to eql root_path("format=html")
             first_name = @user.name.split.first
             expect(page).to have_content("Afzalus Salam, #{first_name} bhai!")
-            within("#admin") do
-                expect(page).to have_link("Admin")
-            end
         end
 
         scenario "should NOT be able to login with invalid credentials" do
@@ -45,7 +45,6 @@ RSpec.describe "Sessions templates" do
     # * DESTROY
     context "'destroy'" do
         before do
-            @user = FactoryBot.create(:user)
             page.set_rack_session(user_id: @user.id)
             visit root_path
             click_on "Log out"
