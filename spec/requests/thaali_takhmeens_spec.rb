@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "ThaaliTakhmeen requests", type: :request do
+RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
     before do
         @password = Faker::Internet.password(min_length: 6, max_length: 72)
     end
 
     # * Accessible by all
-    context "by any user type can access" do
+    context "any user can access 👉" do
         before do
             @user = FactoryBot.create(:user, password: @password)
             post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
@@ -92,7 +92,7 @@ RSpec.describe "ThaaliTakhmeen requests", type: :request do
     end
 
     # * Accessible by Admins & Members
-    context "by 'admin' & 'member' types can access" do
+    context "'admin' & 'member' can access 👉" do
         before do
             @user = FactoryBot.create(:user_other_than_viewer, password: @password)
             post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
@@ -246,7 +246,7 @@ RSpec.describe "ThaaliTakhmeen requests", type: :request do
     end
 
     # * NOT Accessible by Viewers
-    context "if user is a 'viewer' type" do
+    context "'viewer' CANNOT access 👉" do
         before do
             @viewer = FactoryBot.create(:viewer_user, password: @password)
             post signup_path, params: { sessions: @viewer.attributes.merge({ password: @password }) }

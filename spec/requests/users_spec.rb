@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "Users", type: :request do
+RSpec.describe "User request - user type 👉", type: :request do
     before do
         @password = Faker::Internet.password(min_length: 6, max_length: 72)
     end
 
     # * Accessible by Admin & Member
-    context "type 'Admin' & 'Member' can access" do
+    context "'Admin' & 'Member' can access 👉" do
         before do
             @user = FactoryBot.create(:user_other_than_viewer, password: @password)
             post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
@@ -92,7 +92,7 @@ RSpec.describe "Users", type: :request do
     end
 
     # * NOT ACCESSIBLE by viewer
-    context "type 'Viewer'" do
+    context "'Viewer' CANNOT access 👉" do
         before do
             @viewer = FactoryBot.create(:viewer_user, password: @password)
             post signup_path, params: { sessions: @viewer.attributes.merge({ password: @password }) }
@@ -150,7 +150,7 @@ RSpec.describe "Users", type: :request do
     end
 
     # * Accessible by ADMIN
-    context "type 'Admin' can access" do
+    context "'Admin' can access 👉" do
         before do
             @admin = FactoryBot.create(:admin_user, password: @password)
             post signup_path, params: { sessions: @admin.attributes.merge({ password: @password }) }
@@ -254,7 +254,7 @@ RSpec.describe "Users", type: :request do
     end
 
     # * NOT ADMIN
-    context "if User is not an 'admin'" do
+    context "NOT an 'admin', CANNOT access 👉" do
         before do
             @user = FactoryBot.create(:user_other_than_admin, password: @password)
             post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
