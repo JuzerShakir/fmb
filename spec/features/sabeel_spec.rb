@@ -198,7 +198,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
                 expect(page).to have_css('.fa-file-pdf')
             end
 
-            context "that generates PDF with - " do
+            context "a button that generates PDF with - " do
                 before do
                     @pdf_window = window_opened_by { click_on "Generate PDF" }
                 end
@@ -339,7 +339,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
                 end
             end
 
-            context "detials of Maimoon A, such as - " do
+            context "detials of Maimoon B, such as - " do
                 before do
                     @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "maimoon_b")
                     @sabeels.first(3).each.with_index do |sabeel, i|
