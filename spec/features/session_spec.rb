@@ -26,7 +26,15 @@ RSpec.describe "Sessions templates" do
 
             expect(current_path).to eql root_path("format=html")
             first_name = @user.name.split.first
-            expect(page).to have_content("Afzalus Salam, #{first_name} bhai!")
+
+            if @user.viewer?
+                flash_msg = "Afzalus Salam"
+            else
+                first_name = @user.name.split.first
+                flash_msg = "Afzalus Salam, #{first_name} bhai!"
+            end
+
+            expect(page).to have_content(flash_msg)
         end
 
         scenario "should NOT be able to login with invalid credentials" do

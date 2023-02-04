@@ -8,9 +8,15 @@ class SessionsController < ApplicationController
         user = User.find_by_its(params[:sessions][:its])
         if user && user.authenticate(params[:sessions][:password])
             session[:user_id] = user.id
-            respond_to do |format|
+            if user.viewer?
+                 flash_msg = "Afzalus Salam"
+            else
                 first_name = user.name.split.first
-                format.all { redirect_to root_path(format: :html), success: "Afzalus Salam, #{first_name} bhai!" }
+                flash_msg = "Afzalus Salam, #{first_name} bhai!"
+            end
+
+            respond_to do |format|
+                format.all { redirect_to root_path(format: :html), success:  flash_msg}
             end
         else
             flash.now.alert = "Invalid credentials!"
