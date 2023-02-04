@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "Sabeel requests", type: :request do
+RSpec.describe "Sabeel request - user type 👉", type: :request do
     before do
         @password = Faker::Internet.password(min_length: 6, max_length: 72)
     end
 
     # * Accessible by all
-    context "by any user type can access" do
+    context "any user can access 👉" do
         before do
             @user = FactoryBot.create(:user, password: @password)
             post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
@@ -95,7 +95,7 @@ RSpec.describe "Sabeel requests", type: :request do
     end
 
     # * Accessible by Admins
-    context "by user 'admin' type can access" do
+    context "'admin' can access 👉" do
         before do
             @admin = FactoryBot.create(:admin_user, password: @password)
             post signup_path, params: { sessions: @admin.attributes.merge({ password: @password }) }
@@ -170,7 +170,7 @@ RSpec.describe "Sabeel requests", type: :request do
     end
 
     # * NOT Accessibile by other types (except admin)
-    context "if user is not an 'admin'" do
+    context "NOT an 'admin' CANNOT access 👉" do
         before do
             @user = FactoryBot.create(:user_other_than_admin, password: @password)
             post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
@@ -215,7 +215,7 @@ RSpec.describe "Sabeel requests", type: :request do
     end
 
     # * Accessible by all user types, except 'viewers'
-    context "if user is 'admin' & 'member'" do
+    context "'admin' & 'member' can access 👉" do
         before do
             @user = FactoryBot.create(:user_other_than_viewer, password: @password)
             post signup_path, params: { sessions: @user.attributes.merge({ password: @password }) }
@@ -275,7 +275,7 @@ RSpec.describe "Sabeel requests", type: :request do
     end
 
     # * NOT ACCESSIBLE by 'viewer' types
-    context "if user is a 'viewer'" do
+    context "'viewer' CANNOT access 👉" do
         before do
             @viewer = FactoryBot.create(:viewer_user, password: @password)
             post signup_path, params: { sessions: @viewer.attributes.merge({ password: @password }) }
