@@ -1,0 +1,8 @@
+<div class="form-card border shadow-lg container col-lg-4 offset-lg-4 p-5 rounded-5">
+    <%= simple_form_for :sessions, url: signup_path do |f| %>
+        <%= f.input :its, label: "ITS No.", as: :integer %>
+        <%= f.input :password %>
+
+        <%= f.button :submit, value: "Login" %>
+    <% end %>
+</div>
