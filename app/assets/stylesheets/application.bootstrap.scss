@@ -9,7 +9,8 @@ body {
 
 // for mobile-devices
 @media (max-width: 767px) {
-    .button {
+    .button,
+    .button-contact {
         width: 100%;
     }
 }
@@ -22,6 +23,10 @@ body {
 
     .cm {
         margin-left: 10%;
+    }
+
+    .button-contact {
+        width: 25%;
     }
 }
 
