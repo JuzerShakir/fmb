@@ -19,7 +19,7 @@
 <%= button_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel), method: :get,  class: "btn btn-outline-success mt-5 vstack mx-auto" if @thaali_inactive %>
 
 <div id="thaalis" class="mt-5">
-    <div class="container text-center">
+    <div class="container text-center form-card">
         <%= render partial: "takhmeens" if @thaalis.any? %>
     </div>
 </div>
