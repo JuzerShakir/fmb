@@ -13,6 +13,10 @@ body {
     .button-contact {
         width: 100%;
     }
+
+    .about {
+        margin-top: 4rem;
+    }
 }
 
 // for non-mobile-devices
@@ -28,14 +32,25 @@ body {
     .button-contact {
         width: 25%;
     }
+
+    .desktop-mt {
+        margin-top: 4rem;
+    }
 }
 
-.form-card {
+.form-card,
+.about {
     background-color: rgba(255, 255, 240, 0.5);
 }
 
 .about {
-    background-color: rgba(255, 255, 240, 0);
+    background-color: rgba(252, 244, 253, 0.5);
+    border-color: rgba(251, 224, 253);
+    border-radius: 2px;
+}
+
+.c-shadow {
+    box-shadow: 0px -7px 10px rgba(0, 0, 0, 0.15);
 }
 
 .error-message {
