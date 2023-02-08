@@ -1,8 +1,15 @@
 <% if flash.any? %>
     <div id="flash" data-controller= "autohide">
       <% flash.each do |name, msg| %>
-        <% msg.prepend(name.to_s.capitalize.concat("! ")) %>
-        <%= content_tag :div, msg, id: "flash-#{name}" %>
+        <% case name %>
+          <% when "success" %>
+          <% text = "<i class='fa-solid fa-circle-check'></i> #{msg}".html_safe %>
+          <% when "notice" %>
+          <% text = "<i class='fa-solid fa-circle-exclamation'></i> #{msg}".html_safe %>
+          <% when "alert" %>
+          <% text = "<i class='fa-solid fa-circle-xmark'></i> #{msg}".html_safe %>
+        <% end %>
+        <%= content_tag :div, text, id: "flash-#{name}" %>
       <% end %>
     </div>
 <% end %>
