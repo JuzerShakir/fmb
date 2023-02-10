@@ -24,7 +24,7 @@
 <p class="fw-bold mt-3 text-center text-info">Total number of Transactions: <%= @transactions.count %></p>
 
 <div id="transactions" class="mt-3">
-    <div class="container text-center form-card">
+    <div class="container text-center c-bg">
         <% if @transactions.any? %>
             <%= render "transactions/theader"  %>
             <%= render "transactions/transaction_content" %>
