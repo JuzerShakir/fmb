@@ -43,4 +43,6 @@ Apart from permanent staff, over 7,000 Bohra volunteers strive to keep the commu
 
 -   **Burhaniyah** 👉 An adjective that attributes the mawaid to Syedna Mohammed Burhanuddin. For the Dawoodi Bohras, the name Faiz al-Mawaid al-Burhaniyah is a continuing reminder of the blessings and benevolence of Syedna Burhanuddin.
 
+> For further details, please visit this [link](https://www.thedawoodibohras.com/about-the-bohras/faiz-al-mawaid-al-burhaniyah/).
+
 ---
