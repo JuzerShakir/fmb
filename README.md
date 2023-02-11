@@ -77,3 +77,7 @@ The completion of the project's tasks necessitated the use of the following gems
 |          Matrix           |  **0.4.2**  |
 
 ---
+
+### Schema
+
+<img src="public/images/schema.png" />
