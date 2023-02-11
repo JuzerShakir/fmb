@@ -46,3 +46,34 @@ Apart from permanent staff, over 7,000 Bohra volunteers strive to keep the commu
 > For further details, please visit this [link](https://www.thedawoodibohras.com/about-the-bohras/faiz-al-mawaid-al-burhaniyah/).
 
 ---
+
+## About the project
+
+### Gems
+
+The completion of the project's tasks necessitated the use of the following gems:
+
+|       **Gem Names**       | **Version** |
+| :-----------------------: | :---------: |
+|        Postgresql         |  **1.2.3**  |
+|          BCrypt           | **3.1.18**  |
+|           RSpec           |  **6.0.1**  |
+|        Factory Bot        |  **6.2.0**  |
+|         Capybara          | **3.38.0**  |
+|    Rack Session Access    |  **0.2.0**  |
+|     Shoulda-Matchers      |  **5.3.0**  |
+| Shoulda-Callback-Matchers |  **1.1.4**  |
+| Rails Controller Testing  |  **1.0.5**  |
+| Validates Email Format of |  **1.7.2**  |
+|           Faker           |  **3.1.0**  |
+|        FriendlyId         |  **5.5.0**  |
+|        Simple Form        |  **5.1.0**  |
+|          Ransack          |  **3.2.1**  |
+|         Humanize          |  **2.5.0**  |
+|           Pagy            |  **6.0.0**  |
+|    Selenium Webdriver     |  **4.7.0**  |
+|           Prawn           |  **2.4.0**  |
+|        Prawn Table        |  **0.2.2**  |
+|          Matrix           |  **0.4.2**  |
+
+---
