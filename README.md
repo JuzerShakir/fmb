@@ -27,11 +27,4 @@
   <a href="https://wakatime.com/badge/user/ccef187f-4308-4666-920d-d0a9a07d713a/project/509003f7-2b71-4958-be09-1a0d27b03a0c"><img src="https://wakatime.com/badge/user/ccef187f-4308-4666-920d-d0a9a07d713a/project/a1029089-1300-49f5-966c-3cb6d86f2955.svg" alt="wakatime"></a>
 </div>
 
-<br>
-
-<div align="center">
-  <!-- BUY ME COFFEE -->
-  <a href="https://www.buymeacoffee.com/juzershakir"> <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="juzershakir" /></a>
-</div>
-
 ---
