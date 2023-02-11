@@ -28,3 +28,11 @@
 </div>
 
 ---
+
+## About FMB
+
+FMB was initiated by the 52nd al-Dai al-Mutlaq Syedna Mohammed Burhanuddin, who often expressed an earnest, but seemingly insurmountable desire: to ensure that no member of the Dawoodi Bohra community anywhere in the world go to bed hungry. Launched in August 2011, this novel initiative today benefits over 135,000 community households in 869 cities across the world.
+
+Apart from permanent staff, over 7,000 Bohra volunteers strive to keep the community kitchens running and ensure that fresh, nutritious meals are delivered on time each and every day. Run with voluntary donations from community members, FMB brings together every member of the community, regardless of socio-economic status. Over the past ten years, FMB has further expanded outside the Bohra community to include numerous sustained efforts to provide food to the hungry and impoverished as well as aid and relief supplies during emergencies and natural calamities.
+
+---
