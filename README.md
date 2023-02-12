@@ -51,7 +51,7 @@ Apart from permanent staff, over 7,000 Bohra volunteers strive to keep the commu
 
 ### Hosting
 
-This application is hosted [here](https://fmb.fly.dev) using fly.io.
+This application is hosted [here](https://fmb.fly.dev) using [Fly.io](https://fly.io/).
 
 ---
 
