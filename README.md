@@ -49,6 +49,12 @@ Apart from permanent staff, over 7,000 Bohra volunteers strive to keep the commu
 
 ## About the project
 
+### Hosting
+
+This application is hosted [here](https://fmb.fly.dev) using fly.io.
+
+---
+
 ### Gems
 
 The completion of the project's tasks necessitated the use of the following gems:
