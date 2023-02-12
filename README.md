@@ -119,3 +119,10 @@ The completion of the project's tasks necessitated the use of the following gems
 -   A `transaction` can be of any of these 3 `mode`: `cash`, `bank` or `cheque`.
 
 ---
+
+## Current Bugs / Improvements
+
+-   Loading additional content with hotwire don't work if '**%>**' text is removed from the `app/views/shared/_results.html.erb` file.
+-   Generate SQL query for inactive sabeels.
+-   '**Back**' button doesn't redirect to last visited page after user clicks on an un-authorized link.
+-   Let `admin` have access the ability to change the _current-year_ value for takhmeen.
