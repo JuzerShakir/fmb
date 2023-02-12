@@ -81,3 +81,41 @@ The completion of the project's tasks necessitated the use of the following gems
 ### Schema
 
 <img src="public/images/schema.png" />
+
+#### User Model
+
+-   The User model will hold data of the members in the FMB organization of a particular city.
+
+-   A user has to sign-in in order to access the site with the credentials provided by the `admin`.
+
+-   A user can have 3 different roles such as `admin`, `member` & `viewer`.
+    -   An `admin` has access to everything and also the ability to create & delete `sabeel` & `user` with any roles which no other `role` has access to.
+    -   A `member` has access to create, update or delete routes of `thaali_takhmeen` of a `sabeel` & `transaction` of a `thaali_takhmeen`.
+    -   A `viewer` has NO access to create, update or delete routes of any models but only view the site and all its data.
+
+> The first `admin`/`user` can oly be created by the developer and then later that `admin` can create any number of users with roles of his choosing.
+
+#### Sabeel Model
+
+-   **A Dawoodi Bohra family in other words is called a `sabeel`.**
+-   All the sabeels listed in this model will only belong to a particular city.
+-   The `ITS` attribute is an 8-digit number which is unique for all Dawoodi Bohra members. The sabeel is created with the `ITS` number of HOF member.
+
+#### Thaali Takhmeen Model
+
+-   **The term `Thaali` refers to a lunch/dinner set that is used to give meal to a sabeel.**
+-   A `sabeel` can only take a `thaali` for each `year` & have multiple thaalis over the years.
+-   The value of `number` attribute will be unique for each `year`, so no 2 `thaalis` can have same number in the same `year`.
+-   A `sabeel` can choose a `thaali` of the size required (`small`, `medium` & `large`) to avoid food wastage.
+-   **The term `takhmeen` refers to the voluntary donations done by each `sabeel` for a `thaali`.**
+-   The `total`, `paid` & `balance` attributes belong to `takhmeen` which basically keeps track of donation amount.
+-   The value of the `year` attribute depends on the value of the global variable `$active_takhmeen`. The user cannot change it and it will be automatically set by the developer.
+
+#### Transaction model
+
+-   A `takhmeen` can have many `transaction`.
+-   After creating or updating a transaction, the value of `balance` & `paid` attribute of parent instance is updated accordingly.
+-   The `recipe_no` will be unique for all transactions.
+-   A `transaction` can be of any of these 3 `mode`: `cash`, `bank` or `cheque`.
+
+---
