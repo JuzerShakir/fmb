@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white">
 
   <!-- Bootstrap -->
-  <img src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white"/>
+  <img src="https://img.shields.io/badge/bootstrap_5.3-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white"/>
 
 </div>
 
