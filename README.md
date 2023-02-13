@@ -29,13 +29,31 @@
 
 ---
 
+## Table of Contents
+
+-   [About FMB](#about-fmb)
+    -   [Definition of FMB](#definition-of-fmb)
+-   [About project](#about-the-project)
+    -   [Hosting](#hosting)
+    -   [Gems](#gems)
+    -   [Schema](#schema)
+        -   [User](#user-model)
+        -   [Sabeel](#Sabeel-model)
+        -   [ThaaliTakhmeen](#thaali-takhmeen-model)
+        -   [Transaction](#transaction-model)
+-   [Testing](#testing)
+-   [Bugs](#bugs)
+-   [Additional Features](#additional-features)
+
+---
+
 ## About FMB
 
 FMB was initiated by the 52nd al-Dai al-Mutlaq Syedna Mohammed Burhanuddin, who often expressed an earnest, but seemingly insurmountable desire: to ensure that no member of the Dawoodi Bohra community anywhere in the world go to bed hungry. Launched in August 2011, this novel initiative today benefits over 135,000 community households in 869 cities across the world.
 
 Apart from permanent staff, over 7,000 Bohra volunteers strive to keep the community kitchens running and ensure that fresh, nutritious meals are delivered on time each and every day. Run with voluntary donations from community members, FMB brings together every member of the community, regardless of socio-economic status. Over the past ten years, FMB has further expanded outside the Bohra community to include numerous sustained efforts to provide food to the hungry and impoverished as well as aid and relief supplies during emergencies and natural calamities.
 
-### Definition of the name
+### Definition of FMB
 
 -   **Faiz** 👉 The original meaning of faiz (or fayd) indicates an effusion or outpouring, such as water gushing from a stream or a glass filled until the liquid overflows. It has come to connote anything that is profuse or in abundance; for example, abundant generosity. In the name Faiz al-Mawaid al-Burhaniyah, faiz is understood as the abundant blessings or bounties that flow from the mawaid of Syedna Mohammed Burhanuddin.
 
@@ -139,7 +157,7 @@ The development of this application utilizes TDD approach. By writing tests firs
 
 ---
 
-## Current Bugs / Improvements
+## Bugs
 
 -   Loading additional content with hotwire don't work if '**%>**' text is removed from the `app/views/shared/_results.html.erb` file.
 -   Generate SQL query for inactive sabeels.
