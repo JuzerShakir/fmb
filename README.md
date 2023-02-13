@@ -135,7 +135,7 @@ The development of this application utilizes TDD approach. By writing tests firs
 -   🎥 [Routes](https://youtu.be/9wv6zdohgsA)
 -   🎥 [Requests](https://youtu.be/e86BCc_Lcvo)
 -   🎥 [Models](https://youtu.be/Dks5DcOswNE)
--   🎥[Features](https://youtu.be/ZZ51DW0-SEs)
+-   🎥 [Features](https://youtu.be/ZZ51DW0-SEs)
 
 ---
 
@@ -147,3 +147,8 @@ The development of this application utilizes TDD approach. By writing tests firs
 -   Let `admin` have access the ability to change the _current-year_ value for takhmeen.
 
 ---
+
+## Additional Features
+
+-   Fill in the Takhmeen form (PDF) after creating new takhmeen.
+-   Send transaction receipt (PDF) to sabeels email address after its new transaction is created.
