@@ -132,3 +132,18 @@ The completion of the project's tasks necessitated the use of the following gems
 -   Generate SQL query for inactive sabeels.
 -   '**Back**' button doesn't redirect to last visited page after user clicks on an un-authorized link.
 -   Let `admin` have access the ability to change the _current-year_ value for takhmeen.
+
+---
+
+## Testing
+
+The development of this application utilizes TDD approach. By writing tests first and then writing the code, the development process becomes more focused and streamlined. It also helps catch bugs and other issues early on in the development process, which can save time and resources in the long run and can help ensure that the application is of high quality and works as intended.
+
+**As of Release Version 1.0, this application consisted of 497 test suites testing every single routes, requests, models & views.**
+
+-   🎥 [Routes](https://youtu.be/9wv6zdohgsA)
+-   🎥 [Requests](https://youtu.be/e86BCc_Lcvo)
+-   🎥 [Models](https://youtu.be/Dks5DcOswNE)
+-   🎥[Features](https://youtu.be/ZZ51DW0-SEs)
+
+---
