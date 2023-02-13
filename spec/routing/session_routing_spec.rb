@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :routing do
+RSpec.describe "Session", type: :routing do
     # * NEW
     context "new action" do
         it "is accessible by /login route" do
