@@ -71,6 +71,19 @@ Apart from permanent staff, over 7,000 Bohra volunteers strive to keep the commu
 
 This application is hosted [here](https://fmb.fly.dev) using [Fly.io](https://fly.io/).
 
+**Login Credentials (Role: Viewer):**
+**ITS ID:**
+
+```
+12345678
+```
+
+**Password**
+
+```
+123456
+```
+
 ---
 
 ### Gems
