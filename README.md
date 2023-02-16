@@ -175,7 +175,6 @@ The development of this application utilizes TDD approach. By writing tests firs
 -   Loading additional content with hotwire don't work if '**%>**' text is removed from the `app/views/shared/_results.html.erb` file.
 -   Generate SQL query for inactive sabeels.
 -   '**Back**' button doesn't redirect to last visited page after user clicks on an un-authorized link.
--   Let `admin` have access the ability to change the _current-year_ value for takhmeen.
 
 ---
 
@@ -183,3 +182,5 @@ The development of this application utilizes TDD approach. By writing tests firs
 
 -   Fill in the Takhmeen form (PDF) after creating new takhmeen.
 -   Send transaction receipt (PDF) to sabeels email address after its new transaction is created.
+-   Let `admin` have access the ability to change the _current-year_ value for takhmeen.
+-   Migrate from Sprockets to Propshaft
