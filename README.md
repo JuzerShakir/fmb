@@ -223,11 +223,14 @@ The completion of the project's tasks necessitated the use of the following gems
     -   [x] of sabeels who are taking thaalis of different sizes for each apartment.
 
 -   In the Statistics page of thaali_takhmeen it must show total...
+
     -   [x] thaalis taken for each year.
     -   [x] takhmeen amount promised by sabeels for each year.
     -   [x] takhmeen amount balance for each year.
     -   [x] thaalis taken of different sizes each year.
     -   [x] count & list of thaalis who have & have not completed the takhmeen for each year
+
+-   Should generate a PDF for each apartment listing all the details of the sabeels and their thaali ordered by the flat number in ascending order.
 
 ---
 
