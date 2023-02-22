@@ -324,6 +324,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
                     end
                 end
 
+                # ! Flaky Test Case
                 scenario "total number of inactive sabeels" do
                     within('div#maimoon_a') do
                         expect(page).to have_selector(:link_or_button, "Inactive: 2")
@@ -372,6 +373,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
                     end
                 end
 
+                # ! Flaky Test Case
                 scenario "total number of inactive sabeels" do
                     within('div#maimoon_b') do
                         expect(page).to have_selector(:link_or_button, "Inactive: 2")
