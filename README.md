@@ -254,7 +254,4 @@ The development of this application utilizes TDD approach. By writing tests firs
 
 ## Additional Features
 
--   Fill in the Takhmeen form (PDF) after creating new takhmeen.
--   Send transaction receipt (PDF) to sabeels email address after its new transaction is created.
--   Let `admin` have access the ability to change the _current-year_ value for takhmeen.
--   Migrate from Sprockets to Propshaft
+List of all [upcoming features](https://github.com/JuzerShakir/fmb/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement).
