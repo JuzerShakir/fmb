@@ -78,6 +78,10 @@ group :test do
   gem 'rails-controller-testing'
 end
 
+group :productiom do
+  gem "matrix", "~> 0.4.2"
+end
+
 gem 'validates_email_format_of'
 
 gem 'faker'
@@ -97,5 +101,3 @@ gem "selenium-webdriver", "~> 4.7"
 gem "prawn", "~> 2.4"
 
 gem "prawn-table", "~> 0.2.2"
-
-gem "matrix", "~> 0.4.2"
