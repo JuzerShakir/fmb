@@ -41,6 +41,7 @@
         -   [Sabeel](#Sabeel-model)
         -   [ThaaliTakhmeen](#thaali-takhmeen-model)
         -   [Transaction](#transaction-model)
+    -   [Features](#features)
 -   [Testing](#testing)
 -   [Bugs](#bugs)
 -   [Additional Features](#additional-features)
@@ -157,7 +158,7 @@ The completion of the project's tasks necessitated the use of the following gems
 
 ---
 
-## Features
+### Features
 
 -   [x] Only logged-in users can access the content of the site.
 -   [x] Redirect non-logged-in users to login page.
