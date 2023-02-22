@@ -246,9 +246,7 @@ The development of this application utilizes TDD approach. By writing tests firs
 
 ## Bugs
 
--   Loading additional content with hotwire don't work if '**%>**' text is removed from the `app/views/shared/_results.html.erb` file.
--   Generate SQL query for inactive sabeels.
--   '**Back**' button doesn't redirect to last visited page after user clicks on an un-authorized link.
+List of all the [bugs](https://github.com/JuzerShakir/fmb/issues?q=is%3Aopen+is%3Aissue+label%3Abug) that needs to be fixed.
 
 ---
 
