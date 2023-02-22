@@ -3,7 +3,7 @@
         <% if instances.any? %>
             <%= render partial: "theader" %>
             <div id=<%="#{id}"%> ></div>
-            <%= turbo_frame_tag :pagination, loading: :lazy, src: path %> %>
+            <%= turbo_frame_tag :pagination, loading: :lazy, src: path %>
         <% else %>
             <%= render partial: "shared/no_results" %>
         <% end %>
