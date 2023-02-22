@@ -157,6 +157,79 @@ The completion of the project's tasks necessitated the use of the following gems
 
 ---
 
+## Features
+
+-   [x] Only logged-in users can access the content of the site.
+-   [x] Redirect non-logged-in users to login page.
+
+-   A login page must display...
+
+    -   [x] list of benefits of using this portal for their organization.
+    -   [x] different social links to connect with the developer.
+
+-   Only a user with an `admin` role is allowed to...
+
+    -   [x] create & destroy sabeels.
+    -   [x] create a user with different roles.
+    -   [x] list all the users who has access to the portal.
+    -   [x] delete any user.
+
+-   [x] A user with a role of `visitor` is not allowed to perform any CRUD actions on any of the models.
+
+-   A user is able to search for a particular...
+
+    -   [x] sabeel either by their name or ITS number.
+    -   [x] thaali by the thaali number.
+    -   [x] transaction by the receipt number.
+
+-   Show lists of all...
+
+    -   [x] sabeels ordered by newly created first.
+    -   [x] thaali_takhmeen ordered by thaali number.
+    -   [x] transactions ordered by the latest transaction first.
+
+-   Sabeels' `show` page should show...
+
+    -   [x] list of all the thaalis they have taken over the years ordered by the recent first.
+    -   [x] total number of thaalis taken over the years.
+
+-   Thaalis' show page should show...
+
+    -   [x] list of all the transactions that have been billed for that takhmeen ordered by the recent first.
+    -   [x] total number of transactions.
+
+-   Show total count of...
+
+    -   [x] sabeels.
+    -   [x] thaali_takhmeen for each year.
+    -   [x] transactions till date.
+
+-   [x] When listing thaalis or a thaali it must show '✅' sign if the takhmeen has been completed or else show '❌' for the corresponding thaali.
+
+-   [x] When creating a new transaction or editing an existing one, it should show the maximum **recommended** amount it can be billed. If the billing amount exceeds the **recommended** amount then it should show an error.
+
+-   The designing of the `show` pages for all the models is inspired by...
+
+    -   [x] an _ITS card_ for sabeel & user.
+    -   [x] a _food container_ for thaali_takhmeen.
+    -   [x] a _receipt page_ for transaction.
+
+-   In the Statistics page of sabeel it must show total count...
+
+    -   [x] of sabeel.
+    -   [x] of sabeel for each apartment.
+    -   [x] & list of sabeels who are currently taking & not taking thaali for each apartment.
+    -   [x] of sabeels who are taking thaalis of different sizes for each apartment.
+
+-   In the Statistics page of thaali_takhmeen it must show total...
+    -   [x] thaalis taken for each year.
+    -   [x] takhmeen amount promised by sabeels for each year.
+    -   [x] takhmeen amount balance for each year.
+    -   [x] thaalis taken of different sizes each year.
+    -   [x] count & list of thaalis who have & have not completed the takhmeen for each year
+
+---
+
 ## Testing
 
 The development of this application utilizes TDD approach. By writing tests first and then writing the code, the development process becomes more focused and streamlined. It also helps catch bugs and other issues early on in the development process, which can save time and resources in the long run and can help ensure that the application is of high quality and works as intended.
