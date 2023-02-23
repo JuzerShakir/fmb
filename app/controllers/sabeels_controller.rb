@@ -4,7 +4,6 @@ class SabeelsController < ApplicationController
   before_action :authorize_admin_member, only: %i[edit update]
   before_action :set_sabeel, only: %i[show update edit destroy]
   before_action :set_apt, only: %i[active inactive]
-  # after_action :set_pagy_sabeels_total, only: [:active, :total]
 
   def index
     search_params = params.permit(:format, :page, q: [:hof_name_or_its_cont])
@@ -97,9 +96,4 @@ class SabeelsController < ApplicationController
   def set_apt
     @apt = params[:apt]
   end
-
-  # def set_pagy_sabeels_total
-  #     @total = @s.count
-  #     @pagy, @sabeels = pagy_countless(@s, items: 20)
-  # end
 end

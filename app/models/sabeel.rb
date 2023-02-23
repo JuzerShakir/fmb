@@ -57,9 +57,6 @@ class Sabeel < ApplicationRecord
 
   scope :active_takhmeen, ->(current_year) { joins(:thaali_takhmeens).where(thaali_takhmeens: { year: current_year }) }
 
-  # doees not work
-  # scope :takhmeens_other_than_the_year, -> current_year { joins(:thaali_takhmeens).where.not(thaali_takhmeens: {year: current_year}) }
-
   scope :never_done_takhmeen, -> { where.missing(:thaali_takhmeens) }
 
   scope :with_the_size, ->(size) { joins(:thaali_takhmeens).where(thaali_takhmeens: { size: }) }
