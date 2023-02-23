@@ -1,5 +1,5 @@
 <%= turbo_stream.append :sabeels do %>
-    <%= render partial: "sabeel_content_2" %>
+    <%= render partial: "active_sabeel_content" %>
 <% end %>
 
 <%= render partial: "shared/pagy", locals: { path: active_sabeels_path(format: :turbo_stream, page: @pagy.next) } %>
