@@ -1,8 +1,8 @@
 class Sabeel < ApplicationRecord
   # * Global variables
-  $phase_1 = %w[mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi]
-  $phase_2 = %w[maimoon_a maimoon_b qutbi_a qutbi_b najmi]
-  $phase_3 = %w[husami_a husami_b noorani_a noorani_b]
+  $phase_1 = %w(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi)
+  $phase_2 = %w(maimoon_a maimoon_b qutbi_a qutbi_b najmi)
+  $phase_3 = %w(husami_a husami_b noorani_a noorani_b)
 
   # * Associations
   has_many :thaali_takhmeens, dependent: :destroy
@@ -47,17 +47,15 @@ class Sabeel < ApplicationRecord
   enum :apartment, all_apartments_with_ids
 
   # * Scopes
-  scope :in_phase_1, lambda {
-                       where(apartment: %w[mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi])
-                     }
+  scope :in_phase_1, -> { where(apartment: ["mohammedi", "saifee", "jamali", "taiyebi", "imadi", "burhani", "zaini", "fakhri", "badri", "ezzi"]) }
 
-  scope :in_phase_2, -> { where(apartment: %w[maimoon_a maimoon_b qutbi_a qutbi_b najmi]) }
+  scope :in_phase_2, -> { where(apartment: ["maimoon_a", "maimoon_b", "qutbi_a", "qutbi_b", "najmi"]) }
 
-  scope :in_phase_3, -> { where(apartment: %w[husami_a husami_b noorani_a noorani_b]) }
+  scope :in_phase_3, -> { where(apartment: ["husami_a", "husami_b", "noorani_a", "noorani_b"]) }
 
   scope :active_takhmeen, ->(current_year) { joins(:thaali_takhmeens).where(thaali_takhmeens: { year: current_year }) }
 
-  scope :inactive_takhmeen, lambda { |apt|
+  scope :inactive_takhmeen, ->(apt) {
     where(apartment: apt).where("id NOT IN (
                                 SELECT sabeel_id
                                 FROM thaali_takhmeens
