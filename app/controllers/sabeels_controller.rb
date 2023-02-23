@@ -79,7 +79,7 @@ class SabeelsController < ApplicationController
   end
 
   def inactive
-    @sabeels = Sabeel.inactive_takhmeen(@apt)
+    @sabeels = Sabeel.inactive_takhmeen(@apt).order(flat_no: :ASC)
     @total = @sabeels.count
   end
 
