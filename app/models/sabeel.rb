@@ -57,6 +57,14 @@ class Sabeel < ApplicationRecord
 
   scope :active_takhmeen, ->(current_year) { joins(:thaali_takhmeens).where(thaali_takhmeens: { year: current_year }) }
 
+  scope :inactive_takhmeen, lambda { |apt|
+    where(apartment: apt).where("id NOT IN (
+                                SELECT sabeel_id
+                                FROM thaali_takhmeens
+                                WHERE year = #{$active_takhmeen}
+                                )")
+  }
+
   scope :never_done_takhmeen, -> { where.missing(:thaali_takhmeens) }
 
   scope :with_the_size, ->(size) { joins(:thaali_takhmeens).where(thaali_takhmeens: { size: }) }
@@ -72,26 +80,6 @@ class Sabeel < ApplicationRecord
   end
 
   private
-
-  def self.inactive_takhmeen(apt)
-    v = Sabeel.apartments.fetch(apt, nil)
-
-    if v.nil?
-      v
-    else
-      find_by_sql(
-        "SELECT * FROM sabeels
-            WHERE
-            apartment = #{v}
-            AND
-            id NOT IN (
-              SELECT sabeel_id
-              FROM thaali_takhmeens
-              WHERE year = #{$active_takhmeen}
-              )"
-      )
-    end
-  end
 
   def titleize_hof_name
     self.hof_name = hof_name.split(' ').map(&:capitalize).join(' ') unless hof_name.nil?
