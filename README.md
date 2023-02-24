@@ -149,6 +149,18 @@ The completion of the project's tasks necessitated the use of the following gems
 -   The `total`, `paid` & `balance` attributes belong to `takhmeen` which basically keeps track of donation amount.
 -   The value of the `year` attribute depends on the value of the global variable `$active_takhmeen`. The user cannot change it and it will be automatically set by the developer.
 
+---
+
+#### Global Variables
+
+There're some values that must be accessible in the models, controller, views and test files. Here are the list of those:
+
+-   `active_takhmeen`: Holds an integer value (year) that represents what year of the cycle is currently going on.
+-   `prev_takhmeen`: Depends on the value of the `active_takhmeen` as it is a value less than it, which represents the previous year of the cycle.
+-   `phase_1`, `phase_2` & `phase_3`: Lists all the name of the apartments in their respective region.
+
+---
+
 #### Transaction model
 
 -   A `takhmeen` can have many `transaction`.
