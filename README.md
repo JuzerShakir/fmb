@@ -41,6 +41,8 @@
         -   [Sabeel](#Sabeel-model)
         -   [ThaaliTakhmeen](#thaali-takhmeen-model)
         -   [Transaction](#transaction-model)
+    -   [Request Response Cycle](#request-response-cycle)
+    -   [Global Variables](#global-variables)
     -   [Features](#features)
 -   [Testing](#testing)
 -   [Bugs](#bugs)
@@ -151,22 +153,28 @@ The completion of the project's tasks necessitated the use of the following gems
 
 ---
 
-#### Global Variables
-
-There're some values that must be accessible in the models, controller, views and test files. Here are the list of those:
-
--   `active_takhmeen`: Holds an integer value (year) that represents what year of the cycle is currently going on.
--   `prev_takhmeen`: Depends on the value of the `active_takhmeen` as it is a value less than it, which represents the previous year of the cycle.
--   `phase_1`, `phase_2` & `phase_3`: Lists all the name of the apartments in their respective region.
-
----
-
 #### Transaction model
 
 -   A `takhmeen` can have many `transaction`.
 -   After creating or updating a transaction, the value of `balance` & `paid` attribute of parent instance is updated accordingly.
 -   The `recipe_no` will be unique for all transactions.
 -   A `transaction` can be of any of these 3 `mode`: `cash`, `bank` or `cheque`.
+
+---
+
+### Request Response Cycle
+
+<img src="public/images/request-response-cycle.png" />
+
+---
+
+### Global Variables
+
+There're some values that must be accessible in the models, controller, views and test files. Here are the list of those:
+
+-   `active_takhmeen`: Holds an integer value (year) that represents what year of the cycle is currently going on.
+-   `prev_takhmeen`: Depends on the value of the `active_takhmeen` as it is a value less than it, which represents the previous year of the cycle.
+-   `phase_1`, `phase_2` & `phase_3`: Lists all the name of the apartments in their respective region.
 
 ---
 
