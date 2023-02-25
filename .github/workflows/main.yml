@@ -50,6 +50,13 @@ jobs:
                   gem install bundler
                   bundle install
 
+            - name: Gem cache
+              id: cache-bundle
+              uses: actions/cache@v3.2.6
+              with:
+                  path: vendor/bundle
+                  key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+
             - name: Run yarn commands
               run: |
                   yarn install
