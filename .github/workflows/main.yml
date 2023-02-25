@@ -48,7 +48,7 @@ jobs:
             - name: Installing Bundler & Gems
               run: |
                   gem install bundler
-                  bundle install
+                  bundle install --jobs 4 --retry 3
 
             - name: Run yarn commands
               run: |
