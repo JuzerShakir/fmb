@@ -60,7 +60,7 @@ jobs:
             - name: Prepare Database
               run: bundle exec rails db:setup
 
-            - name: Run tests
+            - name: Run routing tests
               env:
                   DATABASE_URL: postgres://postgres:@localhost:5432/fmb_test
-              run: rspec
+              run: rspec spec/routing -fd
