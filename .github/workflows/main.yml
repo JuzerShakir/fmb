@@ -78,3 +78,10 @@ jobs:
                   RAILS_ENV: test
                   PG_USER: postgres
               run: rspec spec/models -fd
+
+            - name: Testing helpers
+              env:
+                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
+                  RAILS_ENV: test
+                  PG_USER: postgres
+              run: rspec spec/helpers -fd
