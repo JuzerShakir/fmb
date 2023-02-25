@@ -98,4 +98,6 @@ jobs:
                   DATABASE_URL: postgres://postgres:password@localhost:5432/test
                   RAILS_ENV: test
                   PG_USER: postgres
-              run: rspec spec/features -fd
+              run: |
+                  sudo apt-get install x11-xkb-utils
+                  rspec spec/features -fd
