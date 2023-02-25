@@ -37,8 +37,8 @@ jobs:
             - name: Check out repository code
               uses: actions/checkout@v3
 
-            - name: Setup Node.js environment
-              uses: actions/setup-node@v3.6.0
+            # - name: Setup Node.js environment
+            #   uses: actions/setup-node@v3.6.0
 
             - name: Setting up Ruby
               uses: ruby/setup-ruby@v1.138.0
@@ -53,8 +53,7 @@ jobs:
             - name: Run yarn commands
               run: |
                   yarn install
-                  yarn build
-                  yarn build:css
+                  yarn run build
 
             - name: Preparing Database
               env:
@@ -93,11 +92,19 @@ jobs:
                   PG_USER: postgres
               run: rspec spec/helpers -fd
 
+            - name: Setup Chrome
+              uses: browser-actions/setup-chrome@v1.1.0
+
+            - name: setup-chromedriver
+              uses: nanasess/setup-chromedriver@v1.1.0
+
             - name: Testing features
               env:
                   DATABASE_URL: postgres://postgres:password@localhost:5432/test
                   RAILS_ENV: test
                   PG_USER: postgres
               run: |
-                  sudo apt-get install x11-xkb-utils
+                  export DISPLAY=:99
+                  chromedriver &
+                  sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional
                   rspec spec/features -fd
