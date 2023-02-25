@@ -57,9 +57,11 @@ jobs:
               run: bundle install
 
             - name: Prepare Database
+              env:
+                  DATABASE_URL: postgres://app:app@localhost:5432/fmb_test
               run: bundle exec rails db:setup
 
             - name: Run routing tests
               env:
-                  DATABASE_URL: postgres://postgres:@localhost:5432/fmb_test
+                  DATABASE_URL: postgres://app:app@localhost:5432/fmb_test
               run: rspec spec/routing -fd
