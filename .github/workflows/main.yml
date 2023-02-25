@@ -8,9 +8,9 @@ name: Testing the application
 
 on:
     push:
-        branches: ["github-actions"]
+        branches: ["master"]
     pull_request:
-        branches: ["github-actions"]
+        branches: ["master"]
 
 jobs:
     build:
