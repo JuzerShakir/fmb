@@ -100,5 +100,19 @@ jobs:
                   chromedriver &
                   sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional
                   rspec spec/features -fd
+            # 'sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional' command launches an instance of Xvfb (X Virtual Framebuffer), a virtual display server for X11 that allows running graphical applications without an actual display hardware.
+    # ..
+    # ..
+    # ..
 
-# 'sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional' command launches an instance of Xvfb (X Virtual Framebuffer), a virtual display server for X11 that allows running graphical applications without an actual display hardware.
+    # deploy the application to fly.io only after it passes all the tests
+    deploy:
+        needs: rspec-test
+        runs-on: ubuntu-latest
+        env:
+            run: flyctl status -t $SECRET_TOKEN -a app_name
+            FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        steps:
+            - uses: actions/checkout@v3
+            - uses: superfly/flyctl-actions/setup-flyctl@master
+            - run: flyctl deploy --remote-only
