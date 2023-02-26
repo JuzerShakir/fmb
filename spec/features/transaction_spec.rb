@@ -96,6 +96,9 @@ RSpec.describe "Transaction accessed by users who are 👉" do
                     expect(page).to have_content("#{thaali.number}")
                 end
             end
+
+          # TODO: write tests for the search
+
         end
     end
 

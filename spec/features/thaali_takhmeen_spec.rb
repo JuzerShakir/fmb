@@ -170,6 +170,8 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           end
         end
       end
+
+      # TODO: write tests for the search
     end
 
     # * COMPLETE
@@ -401,7 +403,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           select thaali.size.to_s.titleize, from: :thaali_takhmeen_size
         end
 
-        # ? number & size property do not show in the form
+        # FIXME: unable to show existing number & size property in the test
         # scenario "who HAS taken thaali in previous year" do
         #     thaali = FactoryBot.build(:previous_takhmeen, sabeel_id: @sabeel.id)
         #     visit new_sabeel_takhmeen_path(@sabeel)
