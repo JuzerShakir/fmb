@@ -37,9 +37,6 @@ jobs:
             - name: Check out repository code
               uses: actions/checkout@v3
 
-            # - name: Setup Node.js environment
-            #   uses: actions/setup-node@v3.6.0
-
             - name: Setting up Ruby
               uses: ruby/setup-ruby@v1.138.0
               with:
@@ -108,3 +105,5 @@ jobs:
                   chromedriver &
                   sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional
                   rspec spec/features -fd
+
+# 'sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional' command launches an instance of Xvfb (X Virtual Framebuffer), a virtual display server for X11 that allows running graphical applications without an actual display hardware.

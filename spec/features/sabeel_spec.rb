@@ -202,6 +202,8 @@ RSpec.describe 'Sabeel accessed by users who are 👉' do
 
         scenario 'a header' do
           within_window @pdf_window do
+            # for the test to pass in github actions
+            sleep 2
             expect(page).to have_content("#{@apt.titleize} - #{$active_takhmeen}")
           end
         end
