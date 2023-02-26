@@ -179,6 +179,7 @@ There're some values that must be accessible in the models, controller, views an
 ---
 
 ### Features
+-   [x] A responsive website that enables users to browse the site on any device. 
 
 -   [x] Only logged-in users can access the content of the site.
 -   [x] Redirect non-logged-in users to login page.
@@ -196,6 +197,11 @@ There're some values that must be accessible in the models, controller, views an
     -   [x] delete any user.
 
 -   [x] A user with a role of `visitor` is not allowed to perform any CRUD actions on any of the models.
+
+-   A user will not be able to create duplicate... 
+    -  [x] sabeel with same `ITS No`. 
+    -  [x] thaali with same `number` for that particular `year`. 
+    -  [x] transaction with same `receipt_no`. 
 
 -   A user is able to search for a particular...
 
