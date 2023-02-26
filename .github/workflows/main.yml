@@ -14,15 +14,10 @@ on:
 
 jobs:
     rspec-test:
-        runs-on:
-            ubuntu-latest
-            # Service containers to run with `container-job`
+        runs-on: ubuntu-latest
         services:
-            # Label used to access the service container
             postgres:
-                # Docker Hub image
                 image: postgres
-                # Provide the password for postgres
                 env:
                     POSTGRES_USER: postgres
                     POSTGRES_PASSWORD: password
