@@ -8,9 +8,9 @@ name: Testing the application
 
 on:
     push:
-        branches: ["pre-production"]
+        branches: ["master"]
     pull_request:
-        branches: ["pre-production"]
+        branches: ["master"]
 
 jobs:
     rspec-test:
