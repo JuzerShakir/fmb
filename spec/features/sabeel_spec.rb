@@ -169,6 +169,8 @@ RSpec.describe 'Sabeel accessed by users who are 👉' do
           expect(page).to have_content("#{sabeel.apartment.titleize}")
         end
       end
+
+      # TODO: write tests for the search
     end
 
     # * ACTIVE
@@ -200,8 +202,11 @@ RSpec.describe 'Sabeel accessed by users who are 👉' do
           @pdf_window = window_opened_by { click_on 'Generate PDF' }
         end
 
+        # FIXME: use another logic to wait the test until the header appears
         scenario 'a header' do
           within_window @pdf_window do
+            # for the test to pass in github actions
+            sleep 5
             expect(page).to have_content("#{@apt.titleize} - #{$active_takhmeen}")
           end
         end

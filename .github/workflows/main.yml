@@ -13,55 +13,106 @@ on:
         branches: ["master"]
 
 jobs:
-    build:
+    rspec-test:
         runs-on: ubuntu-latest
+        services:
+            postgres:
+                image: postgres
+                env:
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: password
+                ports: ["5432:5432"]
+                # Set health checks to wait until postgres has started
+                options: >-
+                    --health-cmd pg_isready
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
         steps:
-            - uses: actions/checkout@v3
+            - name: Check out repository code
+              uses: actions/checkout@v3
 
-            - name:
-                  Setup PostgreSQL with PostgreSQL extensions and unprivileged user
-                  # You may pin to the exact commit or the version.
-                  # uses: Daniel-Marynicz/postgresql-action@79215751c10f38d037032a85feebba06c1c13968
-              uses: Daniel-Marynicz/postgresql-action@1.0.0
-              # with:
-              #   # Docker postgres image tag for available image tags please see https://hub.docker.com/_/postgres
-              #   postgres_image_tag: # optional, default is latest
-              #   # Docker postgres image name if not using https://hub.docker.com/_/postgres
-              #   postgres_image_name: # optional, default is postgres
-              #   # POSTGRES_USER - create the user with the superuser power
-              #   postgres_user: # optional, default is postgres
-              #   # POSTGRES_DB - postgres database
-              #   postgres_db: # optional, default is postgres
-              #   # POSTGRES_PASSWORD - superuser password
-              #   postgres_password: # optional
-              #   # POSTGRES_EXTENSIONS - List of postgres extensions separated by space to install in template1 database
-              #   postgres_extensions: # optional
-              #   # APP_USER - unprivileged postgres user
-              #   app_user: # optional, default is app
-              #   # APP_PASSWORD_USER - password for unprivileged postgres user
-              #   app_user_password: # optional, default is app
-              #   # APP_DB - database or list of databases separated by space for unprivileged postgres user
-              #   app_db: # optional, default is app
-              #   # EXPOSED_POSTGRES_PORT - exposed postgres port
-              #   exposed_postgres_port: # optional, default is 5432
-
-            - name: Setup Ruby
+            - name: Setting up Ruby
               uses: ruby/setup-ruby@v1.138.0
               with:
                   ruby-version: 3.1.2
 
-            - name: Install Dependencies
-              run: gem install bundler
+            - name: Installing Bundler & Gems
+              run: |
+                  gem install bundler
+                  bundle install --jobs 4 --retry 3
 
-            - name: Install Gems
-              run: bundle install
+            - name: Run yarn commands
+              run: |
+                  yarn install
+                  yarn run build
 
-            - name: Prepare Database
+            - name: Preparing Database
               env:
-                  DATABASE_URL: postgres://app:app@localhost:5432/fmb_test
-              run: bundle exec rails db:setup
+                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
+                  RAILS_ENV: test
+                  PG_USER: postgres
+              run: |
+                  bundle exec rails db:create
+                  bundle exec rails db:migrate
 
-            - name: Run routing tests
+            - name: Testing routes
               env:
-                  DATABASE_URL: postgres://app:app@localhost:5432/fmb_test
+                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
+                  RAILS_ENV: test
+                  PG_USER: postgres
               run: rspec spec/routing -fd
+
+            - name: Testing requests
+              env:
+                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
+                  RAILS_ENV: test
+                  PG_USER: postgres
+              run: rspec spec/requests -fd
+
+            - name: Testing models
+              env:
+                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
+                  RAILS_ENV: test
+                  PG_USER: postgres
+              run: rspec spec/models -fd
+
+            - name: Testing helpers
+              env:
+                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
+                  RAILS_ENV: test
+                  PG_USER: postgres
+              run: rspec spec/helpers -fd
+
+            - name: Setup Chrome
+              uses: browser-actions/setup-chrome@v1.1.0
+
+            - name: setup-chromedriver
+              uses: nanasess/setup-chromedriver@v1.1.0
+
+            - name: Testing features
+              env:
+                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
+                  RAILS_ENV: test
+                  PG_USER: postgres
+              run: |
+                  export DISPLAY=:99
+                  chromedriver &
+                  sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional
+                  rspec spec/features -fd
+            # 'sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional' command launches an instance of Xvfb (X Virtual Framebuffer), a virtual display server for X11 that allows running graphical applications without an actual display hardware.
+    # ..
+    # ..
+    # ..
+    # ..
+
+    # deploy the application to fly.io only after it passes all the tests
+    deploy:
+        needs: rspec-test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: superfly/flyctl-actions/setup-flyctl@master
+            - run: flyctl deploy --remote-only
+              env:
+                  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
