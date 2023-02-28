@@ -42,7 +42,7 @@ class ThaaliTakhmeen < ApplicationRecord
   validates_numericality_of :paid, greater_than_or_equal_to: 0
 
   # * Enums
-  enum :size, { small: 0, medium: 1, large: 2 }
+  enum :size, %i(small medium large)
 
   # * Scopes
   scope :in_the_year, -> year { where(year: year).order(number: :ASC) }
