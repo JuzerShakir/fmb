@@ -171,7 +171,20 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         end
       end
 
-      # TODO: write tests for the search
+      context "search that returns thaalis with the" do
+        scenario "thaali number searched for" do
+          searched = @thaalis.first.number
+          un_searched = @thaalis.last.number
+
+          fill_in "q_number_cont", with: "#{searched}"
+
+          within('div#all-thaalis') do
+            expect(page).to have_content(searched)
+            expect(page).not_to have_content(un_searched)
+          end
+
+        end
+      end
     end
 
     # * COMPLETE
