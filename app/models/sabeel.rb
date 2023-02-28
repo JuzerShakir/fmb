@@ -38,13 +38,9 @@ class Sabeel < ApplicationRecord
 
   # * Enums
   # apartment
-  all_apartments = %i[mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi
-                      maimoon_a maimoon_b qutbi_a qutbi_b najmi husami_a husami_b noorani_a noorani_b]
-
-  all_apartments_with_ids = all_apartments.each_with_object({}).with_index do |(apartment, hash), i|
-    hash[apartment] = i
-  end
-  enum :apartment, all_apartments_with_ids
+  enum :apartment, %i[mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi
+                      maimoon_a maimoon_b qutbi_a qutbi_b najmi husami_a husami_b noorani_a
+                      noorani_b]
 
   # * Scopes
   scope :in_phase_1, -> { where(apartment: ["mohammedi", "saifee", "jamali", "taiyebi", "imadi", "burhani", "zaini", "fakhri", "badri", "ezzi"]) }
