@@ -97,8 +97,20 @@ RSpec.describe "Transaction accessed by users who are 👉" do
                 end
             end
 
-          # TODO: write tests for the search
+            context "search that returns transactions with the" do
+                scenario "recipe_no searched for" do
+                  searched_recipe_no = @transactions.first.recipe_no
+                  un_searched_recipe_no = @transactions.last.recipe_no
 
+                  fill_in "q_recipe_no_cont", with: "#{searched_recipe_no}"
+
+                  within('div#all-transactions') do
+                    expect(page).to have_content(searched_recipe_no)
+                    expect(page).not_to have_content(un_searched_recipe_no)
+                  end
+
+                end
+            end
         end
     end
 
