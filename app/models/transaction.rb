@@ -52,8 +52,7 @@ class Transaction < ApplicationRecord
   end
 
   # * Enums
-  mode_of_payments = { cash: 0, cheque: 1, bank: 2 }
-  enum :mode, mode_of_payments
+  enum :mode, %i(cash cheque bank)
 
   # * Scopes
   scope :that_occured_on, -> date { where(on_date: date)}
