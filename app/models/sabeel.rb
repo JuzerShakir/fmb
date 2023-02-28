@@ -43,11 +43,11 @@ class Sabeel < ApplicationRecord
                       noorani_b]
 
   # * Scopes
-  scope :in_phase_1, -> { where(apartment: ["mohammedi", "saifee", "jamali", "taiyebi", "imadi", "burhani", "zaini", "fakhri", "badri", "ezzi"]) }
+  scope :in_phase_1, -> { where(apartment: $phase_1) }
 
-  scope :in_phase_2, -> { where(apartment: ["maimoon_a", "maimoon_b", "qutbi_a", "qutbi_b", "najmi"]) }
+  scope :in_phase_2, -> { where(apartment: $phase_2) }
 
-  scope :in_phase_3, -> { where(apartment: ["husami_a", "husami_b", "noorani_a", "noorani_b"]) }
+  scope :in_phase_3, -> { where(apartment: $phase_3) }
 
   scope :active_takhmeen, ->(current_year) { joins(:thaali_takhmeens).where(thaali_takhmeens: { year: current_year }) }
 

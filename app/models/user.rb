@@ -23,7 +23,7 @@ class User < ApplicationRecord
     validates_presence_of :role, message: "selection is required"
 
     # * Enums
-    enum :role, { admin: 0, member: 1, viewer: 2 }
+    enum :role, %i(admin member viewer)
 
     private
       def titleize_name

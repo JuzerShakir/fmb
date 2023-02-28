@@ -1,14 +1,9 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the ThaaliTakhmeensHelper. For example:
-#
-# describe ThaaliTakhmeensHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe ThaaliTakhmeensHelper, type: :helper do
+  describe "#year_message" do
+    it "returns a hint that year is un-editable" do
+      expect(helper.year_message).to eq('You cannot change this field')
+    end
+  end
 end

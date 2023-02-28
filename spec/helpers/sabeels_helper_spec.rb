@@ -1,14 +1,15 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the SabeelHelper. For example:
-#
-# describe SabeelHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe SabeelsHelper, type: :helper do
+    describe "#its_message" do
+        it "returns a hint about no. of chars allowed" do
+          expect(helper.its_message).to eq("must be exactly 8 characters long")
+        end
+    end
+
+    describe "#mobile_message" do
+        it "returns a hint to not include country code" do
+          expect(helper.mobile_message).to eq("without the country code")
+        end
+    end
 end
