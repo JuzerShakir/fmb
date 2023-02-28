@@ -170,7 +170,33 @@ RSpec.describe 'Sabeel accessed by users who are 👉' do
         end
       end
 
-      # TODO: write tests for the search
+      context "search that returns sabeels with the" do
+        scenario "ITS number searched for" do
+          searched_its = @sabeels.first.its
+          un_searched_its = @sabeels.last.its
+
+          fill_in "q_hof_name_or_its_cont", with: "#{searched_its}"
+
+          within('div#all-sabeels') do
+            expect(page).to have_content(searched_its)
+            expect(page).not_to have_content(un_searched_its)
+          end
+
+        end
+
+        scenario "HOF name searched for" do
+          searched_name = @sabeels.first.hof_name
+          un_searched_name = @sabeels.last.hof_name
+
+          fill_in "q_hof_name_or_its_cont", with: "#{searched_name}"
+
+          within('div#all-sabeels') do
+            expect(page).to have_content(searched_name)
+            expect(page).not_to have_content(un_searched_name)
+          end
+
+        end
+      end
     end
 
     # * ACTIVE
