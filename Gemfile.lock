@@ -279,9 +279,9 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   debug
-  factory_bot_rails
-  faker
-  friendly_id
+  factory_bot_rails (~> 6.2.0)
+  faker (~> 3.1.0)
+  friendly_id (~> 5.5.0)
   humanize (~> 2.5)
   jbuilder
   jsbundling-rails
@@ -294,10 +294,10 @@ DEPENDENCIES
   puma (~> 5.0)
   rack_session_access
   rails (~> 7.0.4)
-  rails-controller-testing
-  ransack
+  rails-controller-testing (~> 1.0.5)
+  ransack (~> 3.2.1)
   redis (~> 4.0)
-  rspec-rails
+  rspec-rails (~> 6.0.1)
   selenium-webdriver (~> 4.7)
   shoulda-callback-matchers (~> 1.1.1)
   shoulda-matchers!
@@ -306,7 +306,7 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails
   tzinfo-data
-  validates_email_format_of
+  validates_email_format_of (~> 1.7.2)
   web-console
 
 RUBY VERSION
