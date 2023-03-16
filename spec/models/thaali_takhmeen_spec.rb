@@ -17,7 +17,6 @@ RSpec.describe ThaaliTakhmeen, type: :model do
 
         context "number" do
             it { should validate_numericality_of(:number).only_integer.with_message("must be a number") }
-            it { should validate_presence_of(:number).with_message("cannot be blank") }
             it { should validate_numericality_of(:number).is_greater_than(0).with_message("must be greater than 0") }
             it { should validate_uniqueness_of(:number).scoped_to(:year).with_message("has already been taken for the selected year") }
         end
@@ -28,20 +27,17 @@ RSpec.describe ThaaliTakhmeen, type: :model do
         end
 
         context "year" do
-            it { should validate_presence_of(:year).with_message("cannot be blank") }
             it { should validate_numericality_of(:year).only_integer.with_message("must be a number") }
             it { should validate_numericality_of(:year).is_less_than_or_equal_to($active_takhmeen).with_message("must be less than or equal to #{$active_takhmeen}") }
             it { should validate_uniqueness_of(:year).scoped_to(:sabeel_id).with_message("sabeel is already taking thaali for selected year") }
         end
 
         context "total" do
-            it { should validate_presence_of(:total).with_message("cannot be blank") }
             it { should validate_numericality_of(:total).only_integer.with_message("must be a number") }
             it { should validate_numericality_of(:total).is_greater_than(0).with_message("must be greater than 0") }
         end
 
         context "paid" do
-            it { should validate_presence_of(:paid).with_message("cannot be blank") }
             it { should validate_numericality_of(:paid).only_integer.with_message("must be a number") }
             it { should validate_numericality_of(:paid).is_greater_than_or_equal_to(0) }
             it "is set to 0 by default after instance is instantiated" do

@@ -25,7 +25,6 @@ class Transaction < ApplicationRecord
   validates_presence_of  :on_date, message: "must be selected"
   validates_comparison_of :on_date, less_than_or_equal_to: Date.today, message: "cannot be in the future", if: :will_save_change_to_on_date?
   #amount
-  validates_presence_of :amount, :recipe_no, message: "cannot be blank"
   validates_numericality_of :amount, :recipe_no, only_integer: true, message: "must be a number"
   validates_numericality_of :amount, :recipe_no, greater_than: 0, message: "must be greater than 0"
   # recipe no

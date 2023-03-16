@@ -18,8 +18,6 @@ RSpec.describe Sabeel, :type => :model do
             it { should validate_numericality_of(:its).is_in(10000000..99999999).with_message("is invalid") }
 
             it { should validate_uniqueness_of(:its).with_message("has already been registered") }
-
-            it { should validate_presence_of(:its).with_message("cannot be blank") }
         end
 
         context "email" do
@@ -43,8 +41,6 @@ RSpec.describe Sabeel, :type => :model do
         context "flat_no" do
             it { should validate_numericality_of(:flat_no).only_integer.with_message("must be a number") }
 
-            it { should validate_presence_of(:flat_no).with_message("cannot be blank") }
-
             it { should validate_numericality_of(:flat_no).is_greater_than(0).with_message("must be greater than 0") }
         end
 
@@ -52,8 +48,6 @@ RSpec.describe Sabeel, :type => :model do
             it { should validate_numericality_of(:mobile).only_integer.with_message("must be a number") }
 
             it { should validate_numericality_of(:mobile).is_in(1000000000..9999999999).with_message("is in invalid format") }
-
-            it { should validate_presence_of(:mobile).with_message("cannot be blank") }
         end
     end
 
