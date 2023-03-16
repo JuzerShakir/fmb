@@ -23,6 +23,7 @@ class Transaction < ApplicationRecord
   validates_presence_of :mode, message: "must be selected"
   #on_date
   validates_presence_of  :on_date, message: "must be selected"
+  validates_comparison_of :on_date, less_than_or_equal_to: Date.today, message: "cannot be in the future", if: :will_save_change_to_on_date?
   #amount
   validates_presence_of :amount, :recipe_no, message: "cannot be blank"
   validates_numericality_of :amount, :recipe_no, only_integer: true, message: "must be a number"
@@ -32,14 +33,6 @@ class Transaction < ApplicationRecord
 
   # * Custom Validations
   validate :amount_should_be_less_than_the_balance, if: :will_save_change_to_amount?
-
-  validate :on_date_must_not_be_in_future, if: :will_save_change_to_on_date?
-
-  def on_date_must_not_be_in_future
-    if self.on_date.present? && (self.on_date > Date.today)
-      errors.add(:on_date, "cannot be in the future")
-    end
-  end
 
   def amount_should_be_less_than_the_balance
     if self.persisted?

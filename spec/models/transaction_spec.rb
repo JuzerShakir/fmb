@@ -32,6 +32,18 @@ RSpec.describe Transaction, type: :model do
             it "must have a valid date" do
                 expect(subject.on_date).to be_an_instance_of(Date)
             end
+
+            it "should be less than or equal to the current date" do
+                subject.on_date = today
+                subject.validate
+                expect(subject.errors[:on_date]).to_not include("cannot be in the future")
+            end
+
+            it "should raise error for future dates" do
+                subject.on_date = Faker::Date.forward
+                subject.validate
+                expect(subject.errors[:on_date]).to include("cannot be in the future")
+            end
         end
 
         context "recipe_no" do
@@ -43,24 +55,6 @@ RSpec.describe Transaction, type: :model do
     end
 
     context "custom validation method" do
-        context "#on_date_must_not_be_in_future" do
-            it "on_date value should not be nil" do
-                expect(subject.on_date.present?).to be_truthy
-            end
-
-            it "must raise error for future dates" do
-                subject.on_date = Faker::Date.forward
-                subject.validate
-                expect(subject.errors[:on_date]).to include("cannot be in the future")
-            end
-
-            it "must pass for present or past dates" do
-                subject.on_date = today
-                subject.validate
-                expect(subject.errors[:on_date]).to_not include("cannot be in the future")
-            end
-        end
-
         context "#amount_should_be_less_than_the_balance" do
             it "amount value should not be nil" do
                 expect(subject.amount.present?).to be_truthy
