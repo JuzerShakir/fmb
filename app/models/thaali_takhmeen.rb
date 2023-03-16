@@ -34,7 +34,7 @@ class ThaaliTakhmeen < ApplicationRecord
   validates_numericality_of :number, :total, greater_than: 0, message: "must be greater than 0"
   #number
   validates_uniqueness_of :number, scope: :year, message: "has already been taken for the selected year"
-  validates_presence_of :number, :size, :year, :total, :paid, message: "cannot be blank"
+  validates_presence_of :size, message: "cannot be blank"
   #year
   validates_uniqueness_of :year, scope: :sabeel_id, message: "sabeel is already taking thaali for selected year"
   validates_numericality_of :year, less_than_or_equal_to: $active_takhmeen, message: "must be less than or equal to #{$active_takhmeen}"

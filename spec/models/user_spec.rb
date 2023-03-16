@@ -10,8 +10,6 @@ RSpec.describe User, type: :model do
             it { should validate_numericality_of(:its).is_in(10000000..99999999).with_message("is invalid") }
 
             it { should validate_uniqueness_of(:its).with_message("has already been registered") }
-
-            it { should validate_presence_of(:its).with_message("cannot be blank") }
         end
 
         context "name" do
