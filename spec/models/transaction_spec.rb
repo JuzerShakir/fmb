@@ -3,10 +3,8 @@ require "rails_helper"
 RSpec.describe Transaction, type: :model do
     subject { build(:transaction) }
 
-    today = Date.today
-    yesterday = Date.today.prev_day
-    current_year = today.year
-    next_year = today.next_year.year
+    today = Time.zone.now.to_date
+    yesterday = today.prev_day
 
     context "assocaition" do
         subject { create(:transaction) }
