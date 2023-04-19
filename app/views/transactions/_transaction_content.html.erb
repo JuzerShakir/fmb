@@ -10,7 +10,7 @@
             <%= button_to transaction.thaali_takhmeen.number, takhmeen_path(transaction.thaali_takhmeen), method: :get, class: "btn btn-outline-secondary btn-sm py-1" %>
         </div>
         <div class="col text-secondary">
-            <%= time_ago_in_words(transaction.on_date) %>
+            <%= time_ago_in_words(transaction.date) %>
         </div>
     </div>
 <% end %>

@@ -63,7 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_054211) do
     t.bigint "thaali_takhmeen_id", null: false
     t.integer "mode", null: false
     t.integer "amount", null: false
-    t.date "on_date", null: false
+    t.date "date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "recipe_no", null: false

@@ -13,7 +13,6 @@ en:
         # Examples
         labels:
             defaults:
-                on_date: "Paid On"
                 total: "Niyat"
                 password_confirmation: "Password Confirmation"
         hints:

@@ -8,7 +8,7 @@ class TransactionsController < ApplicationController
     search_params = params.permit(:format, :page, q: [:recipe_no_cont])
     @q = Transaction.includes(:thaali_takhmeen).ransack(params[:q])
 
-    trans = @q.result(distinct: true).order(on_date: :DESC)
+    trans = @q.result(distinct: true).order(date: :DESC)
     @pagy, @transactions = pagy_countless(trans)
   end
 
@@ -55,7 +55,7 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(:amount, :on_date, :mode, :recipe_no)
+    params.require(:transaction).permit(:amount, :date, :mode, :recipe_no)
   end
 
   def set_transaction

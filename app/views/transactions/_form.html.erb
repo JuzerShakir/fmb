@@ -4,7 +4,7 @@
         <%= f.input :recipe_no %>
         <%= f.input :amount, hint: amount_message %>
         <%= f.input :mode, collection: Transaction.modes.keys.map{ |mode| [mode.titleize, mode] } %>
-        <%= f.input :on_date %>
+        <%= f.input :date %>
         <%= f.button :submit %>
     <% end %>
 </div>
