@@ -18,14 +18,10 @@ en:
                 hof_name: "HOF Name"
                 total: "Niyat"
                 password_confirmation: "Password Confirmation"
-        #   user:
-        #     new:
-        #       email: 'E-mail to sign in.'
-        #     edit:
-        #       email: 'E-mail.'
-        # hints:
-        #   defaults:
-        #     username: 'User name to sign in.'
+        hints:
+            defaults:
+                its: "must be exactly 8 characters long"
+                mobile: "without the country code"
         #     password: 'No special characters, please.'
         # include_blanks:
         #   defaults:
