@@ -22,6 +22,7 @@ en:
             defaults:
                 its: "must be exactly 8 characters long"
                 mobile: "without the country code"
+                year: "You cannot change this field"
         #     password: 'No special characters, please.'
         # include_blanks:
         #   defaults:
