@@ -25,10 +25,10 @@ RSpec.describe Sabeel, :type => :model do
             it { should allow_value(nil).for(:email) }
         end
 
-        context "hof_name" do
-            it { should validate_presence_of(:hof_name).with_message("cannot be blank")  }
+        context "name" do
+            it { should validate_presence_of(:name).with_message("cannot be blank")  }
 
-            it { should validate_uniqueness_of(:hof_name).scoped_to(:its).with_message("has already been registered with this ITS number") }
+            it { should validate_uniqueness_of(:name).scoped_to(:its).with_message("has already been registered with this ITS number") }
         end
 
         context "apartment" do
@@ -52,13 +52,13 @@ RSpec.describe Sabeel, :type => :model do
     end
 
     context "callback method" do
-        context "#titleize_hof_name" do
-            it { is_expected.to callback(:titleize_hof_name).before(:save).if(:will_save_change_to_hof_name?) }
+        context "#titleize_name" do
+            it { is_expected.to callback(:titleize_name).before(:save).if(:will_save_change_to_name?) }
 
             it "must return capitalized name" do
-                subject.hof_name = Faker::Name.name.swapcase
-                name_titleize_format = subject.hof_name.split.map(&:capitalize).join(" ")
-                expect(subject).to receive(:titleize_hof_name).and_return(name_titleize_format)
+                subject.name = Faker::Name.name.swapcase
+                name_titleize_format = subject.name.split.map(&:capitalize).join(" ")
+                expect(subject).to receive(:titleize_name).and_return(name_titleize_format)
                 subject.save
             end
         end

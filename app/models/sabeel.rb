@@ -10,7 +10,7 @@ class Sabeel < ApplicationRecord
 
   # * Callbacks
   before_save :set_up_address
-  before_save :titleize_hof_name, if: :will_save_change_to_hof_name?
+  before_save :titleize_name, if: :will_save_change_to_name?
 
   # * FRIENDLY_ID
   include ITSFriendlyId
@@ -25,10 +25,10 @@ class Sabeel < ApplicationRecord
   include ITSValidation
   # Email
   validates_email_format_of :email, allow_blank: true, message: 'is in invalid format'
-  # hof_name
-  validates_uniqueness_of :hof_name, scope: :its, message: 'has already been registered with this ITS number'
+  # name
+  validates_uniqueness_of :name, scope: :its, message: 'has already been registered with this ITS number'
   # apartment
-  validates_presence_of :apartment, :hof_name, message: 'cannot be blank'
+  validates_presence_of :apartment, :name, message: 'cannot be blank'
   # Flat No
   validates_numericality_of :flat_no, only_integer: true, message: 'must be a number'
   validates_numericality_of :flat_no, greater_than: 0, message: 'must be greater than 0'
@@ -75,8 +75,8 @@ class Sabeel < ApplicationRecord
 
   private
 
-  def titleize_hof_name
-    self.hof_name = hof_name.split(' ').map(&:capitalize).join(' ') unless hof_name.nil?
+  def titleize_name
+    self.name = name.split(' ').map(&:capitalize).join(' ') unless name.nil?
   end
 
   def set_up_address

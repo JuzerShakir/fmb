@@ -8,7 +8,7 @@ modes = Transaction.modes.keys
 1000.times do | i |
     Sabeel.create(
         its: 10000000 + i,
-        hof_name: Faker::Name.name,
+        name: Faker::Name.name,
         apartment: apartments.sample,
         flat_no: Faker::Number.within(range: 1..9999),
         mobile: Faker::Number.number(digits: 10),

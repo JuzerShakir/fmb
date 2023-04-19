@@ -2,7 +2,7 @@
     <%= simple_form_for @sabeel do |f| %>
         <%= f.error_notification %>
         <%= f.input :its %>
-        <%= f.input :hof_name, placeholder: "Shk. Fakruddin Nakhudawala" %>
+        <%= f.input :name, placeholder: "Shk. Fakruddin Nakhudawala" %>
         <%= f.input :apartment, collection: Sabeel.apartments.keys.map{ |apartment| [apartment.titleize, apartment] } %>
         <%= f.input :flat_no %>
         <%= f.input :mobile, placeholder: "9876543210" %>
