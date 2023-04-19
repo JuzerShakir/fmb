@@ -30,4 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+    hello: "Hello world"
+    activerecord:
+        attributes:
+            sabeel:
+                its: "ITS"
+            user:
+                its: "ITS"

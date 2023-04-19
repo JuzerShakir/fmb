@@ -14,8 +14,6 @@ en:
         labels:
             defaults:
                 on_date: "Paid On"
-                its: "HOF ITS No."
-                hof_name: "HOF Name"
                 total: "Niyat"
                 password_confirmation: "Password Confirmation"
         hints:
