@@ -1,7 +1,7 @@
 <div class="c-bg border shadow-lg container col-lg-4 offset-lg-4 p-5 rounded-5">
     <%= simple_form_for @user do |f| %>
         <%= f.error_notification %>
-        <%= f.input :its %>
+        <%= f.input :its, required: true %>
         <%= f.input :name, input_html: { autocomplete: 'off' } %>
         <%= f.input :role, collection: User.roles.keys.map{ |role| [role.titleize, role] } %>
         <%= f.input :password, input_html: { autocomplete: 'off' }, required: true %>

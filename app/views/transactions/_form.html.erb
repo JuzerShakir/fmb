@@ -1,8 +1,8 @@
 <div class="c-bg border shadow-lg container col-lg-4 offset-lg-4 p-5 rounded-5">
     <%= simple_form_for @transaction, url: url_helper do |f| %>
         <%= f.error_notification %>
-        <%= f.input :recipe_no %>
-        <%= f.input :amount, hint: amount_message %>
+        <%= f.input :recipe_no, required: true %>
+        <%= f.input :amount, hint: amount_message, required: true %>
         <%= f.input :mode, collection: Transaction.modes.keys.map{ |mode| [mode.titleize, mode] } %>
         <%= f.input :date %>
         <%= f.button :submit %>

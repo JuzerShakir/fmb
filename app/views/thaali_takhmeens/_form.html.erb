@@ -11,9 +11,9 @@
             <%= f.input :year, disabled: true %>
         <% end %>
 
-        <%= f.input :number %>
+        <%= f.input :number, required: true %>
         <%= f.input :size, collection: ThaaliTakhmeen.sizes.keys.map{ |size| [size.titleize, size] } %>
-        <%= f.input :total %>
+        <%= f.input :total, required: true %>
         <%= f.button :submit %>
     <% end %>
 </div>
