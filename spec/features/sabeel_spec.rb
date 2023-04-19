@@ -163,9 +163,9 @@ RSpec.describe 'Sabeel accessed by users who are 👉' do
         end
       end
 
-      scenario "'hof_name' & 'apartment' of all sabeels" do
+      scenario "'name' & 'apartment' of all sabeels" do
         @sabeels.each do |sabeel|
-          expect(page).to have_content("#{sabeel.hof_name}")
+          expect(page).to have_content("#{sabeel.name}")
           expect(page).to have_content("#{sabeel.apartment.titleize}")
         end
       end
@@ -175,7 +175,7 @@ RSpec.describe 'Sabeel accessed by users who are 👉' do
           searched_its = @sabeels.first.its
           un_searched_its = @sabeels.last.its
 
-          fill_in "q_hof_name_or_its_cont", with: "#{searched_its}"
+          fill_in "q_name_or_its_cont", with: "#{searched_its}"
 
           within('div#all-sabeels') do
             expect(page).to have_content(searched_its)
@@ -185,10 +185,10 @@ RSpec.describe 'Sabeel accessed by users who are 👉' do
         end
 
         scenario "HOF name searched for" do
-          searched_name = @sabeels.first.hof_name
-          un_searched_name = @sabeels.last.hof_name
+          searched_name = @sabeels.first.name
+          un_searched_name = @sabeels.last.name
 
-          fill_in "q_hof_name_or_its_cont", with: "#{searched_name}"
+          fill_in "q_name_or_its_cont", with: "#{searched_name}"
 
           within('div#all-sabeels') do
             expect(page).to have_content(searched_name)
@@ -237,11 +237,11 @@ RSpec.describe 'Sabeel accessed by users who are 👉' do
           end
         end
 
-        scenario "details of such as 'flat_no', 'hof_name', 'mobile', 'number' & 'size'" do
+        scenario "details of such as 'flat_no', 'name', 'mobile', 'number' & 'size'" do
           within_window @pdf_window do
             @sabeels.each do |sabeel|
               expect(page).to have_content("#{sabeel.flat_no}")
-              expect(page).to have_content("#{sabeel.hof_name}")
+              expect(page).to have_content("#{sabeel.name}")
               expect(page).to have_content("#{sabeel.mobile}")
               thaali = sabeel.thaali_takhmeens.first
               expect(page).to have_content("#{thaali.number}")
@@ -251,10 +251,10 @@ RSpec.describe 'Sabeel accessed by users who are 👉' do
         end
       end
 
-      scenario "details of all active sabeels of an apartment such as 'flat_no', 'hof_name', 'number' & 'size'" do
+      scenario "details of all active sabeels of an apartment such as 'flat_no', 'name', 'number' & 'size'" do
         @sabeels.each do |sabeel|
           expect(page).to have_content("#{sabeel.flat_no}")
-          expect(page).to have_content("#{sabeel.hof_name}")
+          expect(page).to have_content("#{sabeel.name}")
           thaali = sabeel.thaali_takhmeens.first
           expect(page).to have_content("#{thaali.number}")
           expect(page).to have_content("#{thaali.size.humanize.chr}")
@@ -296,10 +296,10 @@ RSpec.describe 'Sabeel accessed by users who are 👉' do
         expect(page).to have_css('h2', text: "Inactive Sabeels: #{@apt.titleize}")
       end
 
-      scenario "all details of inactive sabeels of an apartment such as 'its' & 'hof_name'" do
+      scenario "all details of inactive sabeels of an apartment such as 'its' & 'name'" do
         @sabeels.each do |sabeel|
           expect(page).to have_content("#{sabeel.its}")
-          expect(page).to have_content("#{sabeel.hof_name}")
+          expect(page).to have_content("#{sabeel.name}")
         end
       end
     end

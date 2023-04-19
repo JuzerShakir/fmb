@@ -5,8 +5,8 @@
 <p class="mt-3 fw-bold text-center text-info">Total number of Sabeels: <%= Sabeel.count %></p>
 
 <%# * search %>
-<%= render partial: "shared/search", locals: { message: "HOF Name or ITS No." ,
-        path: all_sabeels_path, search: :hof_name_or_its_cont } %>
+<%= render partial: "shared/search", locals: { message: "Name or ITS No." ,
+        path: all_sabeels_path, search: :name_or_its_cont } %>
 
 <%# * show all sabeels %>
 <%= render partial: "shared/results",

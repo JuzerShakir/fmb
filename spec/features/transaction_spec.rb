@@ -58,10 +58,10 @@ RSpec.describe "Transaction accessed by users who are 👉" do
                 expect(page).to have_button("Delete")
             end
 
-            scenario "'recipe_no', 'amount', 'on_date' & 'mode' details" do
+            scenario "'recipe_no', 'amount', 'date' & 'mode' details" do
                 expect(page).to have_content("#{@transaction.recipe_no}")
                 expect(page).to have_content("#{@transaction.amount}")
-                expect(page).to have_content("#{@transaction.on_date.to_time.strftime('%A, %b %d %Y')}")
+                expect(page).to have_content("#{@transaction.date.to_time.strftime('%A, %b %d %Y')}")
                 expect(page).to have_content("#{@transaction.mode.humanize}")
             end
         end
@@ -88,10 +88,10 @@ RSpec.describe "Transaction accessed by users who are 👉" do
                 end
             end
 
-            scenario "'amount', 'thaali_number' & 'on_date' details of all transactions" do
+            scenario "'amount', 'thaali_number' & 'date' details of all transactions" do
                 @transactions.each do |tran|
                     expect(page).to have_content("#{tran.amount}")
-                    expect(page).to have_content("#{time_ago_in_words(tran.on_date)}")
+                    expect(page).to have_content("#{time_ago_in_words(tran.date)}")
                     thaali = tran.thaali_takhmeen
                     expect(page).to have_content("#{thaali.number}")
                 end
@@ -139,7 +139,7 @@ RSpec.describe "Transaction accessed by users who are 👉" do
                 visit new_takhmeen_transaction_path(@thaali)
 
                 @attributes = FactoryBot.attributes_for(:transaction)
-                @select_atr = @attributes.extract!(:mode, :on_date)
+                @select_atr = @attributes.extract!(:mode, :date)
 
                 @attributes.each do |k, v|
                     fill_in "transaction_#{k}",	with: "#{v}"

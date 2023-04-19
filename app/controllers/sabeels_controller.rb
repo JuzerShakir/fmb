@@ -6,7 +6,7 @@ class SabeelsController < ApplicationController
   before_action :set_apt, only: %i[active inactive]
 
   def index
-    search_params = params.permit(:format, :page, q: [:hof_name_or_its_cont])
+    search_params = params.permit(:format, :page, q: [:name_or_its_cont])
     @q = Sabeel.ransack(search_params[:q])
     sabeels = @q.result(distinct: true).order(created_at: :DESC)
     @pagy, @sabeels = pagy_countless(sabeels)
@@ -87,7 +87,7 @@ class SabeelsController < ApplicationController
   private
 
   def sabeel_params
-    params.require(:sabeel).permit(:its, :hof_name, :apartment, :flat_no, :mobile, :email)
+    params.require(:sabeel).permit(:its, :name, :apartment, :flat_no, :mobile, :email)
   end
 
   def set_sabeel

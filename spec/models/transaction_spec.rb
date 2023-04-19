@@ -23,23 +23,23 @@ RSpec.describe Transaction, type: :model do
             it { should validate_numericality_of(:amount).is_greater_than(0).with_message("must be greater than 0") }
         end
 
-        context "on_date" do
-            it { should validate_presence_of(:on_date).with_message("must be selected") }
+        context "date" do
+            it { should validate_presence_of(:date).with_message("must be selected") }
 
             it "must have a valid date" do
-                expect(subject.on_date).to be_an_instance_of(Date)
+                expect(subject.date).to be_an_instance_of(Date)
             end
 
             it "should be less than or equal to the current date" do
-                subject.on_date = today
+                subject.date = today
                 subject.validate
-                expect(subject.errors[:on_date]).to_not include("cannot be in the future")
+                expect(subject.errors[:date]).to_not include("cannot be in the future")
             end
 
             it "should raise error for future dates" do
-                subject.on_date = Faker::Date.forward
+                subject.date = Faker::Date.forward
                 subject.validate
-                expect(subject.errors[:on_date]).to include("cannot be in the future")
+                expect(subject.errors[:date]).to include("cannot be in the future")
             end
         end
 
@@ -107,8 +107,8 @@ RSpec.describe Transaction, type: :model do
 
     context "scope" do
         context ".that_occured_on" do
-            let!(:transaction_today) { create(:transaction, on_date: today) }
-            let!(:transaction_prev_day) { create(:transaction, on_date: yesterday) }
+            let!(:transaction_today) { create(:transaction, date: today) }
+            let!(:transaction_prev_day) { create(:transaction, date: yesterday) }
 
             it "should return all the transactions that occured on the given date" do
                 expect(described_class.that_occured_on(today)).to contain_exactly(transaction_today)

@@ -42,7 +42,7 @@ class ThaaliTakhmeensController < ApplicationController
   end
 
   def show
-    @transactions = @thaali_takhmeen.transactions.order(on_date: :DESC)
+    @transactions = @thaali_takhmeen.transactions.order(date: :DESC)
     @sabeel = @thaali_takhmeen.sabeel
   end
 
@@ -118,7 +118,7 @@ class ThaaliTakhmeensController < ApplicationController
     @cur_takhmeen = @sabeel.thaali_takhmeens.where(year: $active_takhmeen).first
 
     unless @cur_takhmeen.nil?
-      message = "Takhmeen niyat has already been done for the year: #{$active_takhmeen}"
+      message = "Takhmeen has already been done for the year: #{$active_takhmeen}"
       redirect_back fallback_location: sabeel_path(@sabeel), notice: message
     end
   end

@@ -21,9 +21,9 @@ class Transaction < ApplicationRecord
   # * Validations
   #mode
   validates_presence_of :mode, message: "must be selected"
-  #on_date
-  validates_presence_of  :on_date, message: "must be selected"
-  validates_comparison_of :on_date, less_than_or_equal_to: Time.zone.now.to_date, message: "cannot be in the future", if: :will_save_change_to_on_date?
+  #date
+  validates_presence_of  :date, message: "must be selected"
+  validates_comparison_of :date, less_than_or_equal_to: Time.zone.now.to_date, message: "cannot be in the future", if: :will_save_change_to_date?
   #amount
   validates_numericality_of :amount, :recipe_no, only_integer: true, message: "must be a number"
   validates_numericality_of :amount, :recipe_no, greater_than: 0, message: "must be greater than 0"
@@ -47,7 +47,7 @@ class Transaction < ApplicationRecord
   enum :mode, %i(cash cheque bank)
 
   # * Scopes
-  scope :that_occured_on, -> date { where(on_date: date)}
+  scope :that_occured_on, -> date { where(date: date)}
 
   private
 

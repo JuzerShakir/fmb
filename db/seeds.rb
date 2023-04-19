@@ -8,7 +8,7 @@ modes = Transaction.modes.keys
 1000.times do | i |
     Sabeel.create(
         its: 10000000 + i,
-        hof_name: Faker::Name.name,
+        name: Faker::Name.name,
         apartment: apartments.sample,
         flat_no: Faker::Number.within(range: 1..9999),
         mobile: Faker::Number.number(digits: 10),
@@ -36,7 +36,7 @@ prev_takhmeen_comp.each do |thaali|
     12.times do
         thaali.transactions.create(
             amount: 4000,
-            on_date: Faker::Date.in_date_period(year: $prev_takhmeen),
+            date: Faker::Date.in_date_period(year: $prev_takhmeen),
             recipe_no: Random.rand(1..2000000),
             mode: modes.sample
         )
@@ -52,7 +52,7 @@ prev_takhmeen_pend.each do |thaali|
     num.times do
         thaali.transactions.create(
             amount: 4000,
-            on_date: Faker::Date.in_date_period(year: $prev_takhmeen),
+            date: Faker::Date.in_date_period(year: $prev_takhmeen),
             recipe_no: Random.rand(2000001..3000000),
             mode: modes.sample
         )
@@ -81,7 +81,7 @@ cur_takhmeen_comp.each do |thaali|
         12.times do
             thaali.transactions.create(
                 amount: 5000,
-                on_date: Faker::Date.in_date_period(year: $active_takhmeen),
+                date: Faker::Date.in_date_period(year: $active_takhmeen),
                 recipe_no: Random.rand(3000001..6000000),
                 mode: modes.sample
             )
@@ -97,7 +97,7 @@ cur_takhmeen_pend.each do |thaali|
     num.times do
         thaali.transactions.create(
             amount: 5000,
-            on_date: Faker::Date.in_date_period(year: $active_takhmeen),
+            date: Faker::Date.in_date_period(year: $active_takhmeen),
             recipe_no: Random.rand(6000000..10000000),
             mode: modes.sample
         )

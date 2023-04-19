@@ -2,7 +2,7 @@ FactoryBot.define do
 
   factory :sabeel do
     its { Faker::Number.number(digits: 8) }
-    hof_name { Faker::Name.name }
+    name { Faker::Name.name }
     apartment { Sabeel.apartments.keys.sample }
     flat_no { Faker::Number.within(range: 1..9999) }
     mobile { Faker::Number.number(digits: 10) }

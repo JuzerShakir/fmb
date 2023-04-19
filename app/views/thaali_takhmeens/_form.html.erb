@@ -4,11 +4,11 @@
 
         <%# for new takhmeen it will show current year %>
         <% if @thaali_takhmeen.year.nil? %>
-            <%= f.input :year, disabled: true, hint: year_message, input_html: { value: $active_takhmeen } %>
+            <%= f.input :year, disabled: true, input_html: { value: $active_takhmeen } %>
 
         <%# for existing takhmeen it will its year %>
         <% else %>
-            <%= f.input :year, disabled: true, hint: year_message %>
+            <%= f.input :year, disabled: true %>
         <% end %>
 
         <%= f.input :number %>

@@ -13,23 +13,19 @@ en:
         # Examples
         labels:
             defaults:
-                on_date: "Paid On"
-                its: "HOF ITS No."
-                hof_name: "HOF Name"
-                total: "Niyat"
                 password_confirmation: "Password Confirmation"
-        #   user:
-        #     new:
-        #       email: 'E-mail to sign in.'
-        #     edit:
-        #       email: 'E-mail.'
-        # hints:
-        #   defaults:
-        #     username: 'User name to sign in.'
-        #     password: 'No special characters, please.'
+        hints:
+            defaults:
+                its: "must be exactly 8 characters long"
+                mobile: "without the country code"
+                year: "You cannot change this field"
+            user:
+                name: "between 3 to 35 characters long"
+                password: "between 6 to 72 characters long"
+                password_confirmation: "should match the password"
         # include_blanks:
         #   defaults:
         #     age: 'Rather not say'
         # prompts:
-        #   defaults:
-        #     age: 'Select your age'
+        #     defaults:
+        #         role: "Select your age"

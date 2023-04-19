@@ -118,11 +118,11 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           expect(page).to have_content("Total number of Transactions: #{@transactions.count}")
         end
 
-        scenario "'recipe_no', 'amount', 'on_date' values" do
+        scenario "'recipe_no', 'amount', 'date' values" do
           @transactions.each do |trans|
             expect(page).to have_content(trans.recipe_no)
             expect(page).to have_content(trans.amount)
-            expect(page).to have_content(time_ago_in_words(trans.on_date))
+            expect(page).to have_content(time_ago_in_words(trans.date))
           end
         end
 
@@ -159,10 +159,10 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         end
       end
 
-      scenario "'hof_name', 'address' & 'is_complete' of all thaalis" do
+      scenario "'name', 'address' & 'is_complete' of all thaalis" do
         @thaalis.each do |thaali|
           sabeel = thaali.sabeel
-          expect(page).to have_content("#{sabeel.hof_name}")
+          expect(page).to have_content("#{sabeel.name}")
           if thaali.is_complete
             expect(page).to have_css('.fa-check')
           else
@@ -204,7 +204,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           @thaalis.each do |thaali|
             expect(page).to have_content("#{thaali.number}")
             sabeel = thaali.sabeel
-            expect(page).to have_content("#{sabeel.hof_name}")
+            expect(page).to have_content("#{sabeel.name}")
             if thaali.is_complete
               expect(page).to have_css('.fa-check')
             else
@@ -240,7 +240,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           @thaalis.each do |thaali|
             expect(page).to have_content("#{thaali.number}")
             sabeel = thaali.sabeel
-            expect(page).to have_content("#{sabeel.hof_name}")
+            expect(page).to have_content("#{sabeel.name}")
             if thaali.is_complete
               expect(page).to have_css('.fa-check')
             else
@@ -275,7 +275,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           @thaalis.each do |thaali|
             expect(page).to have_content("#{thaali.number}")
             sabeel = thaali.sabeel
-            expect(page).to have_content("#{sabeel.hof_name}")
+            expect(page).to have_content("#{sabeel.name}")
             if thaali.is_complete
               expect(page).to have_css('.fa-check')
             else
