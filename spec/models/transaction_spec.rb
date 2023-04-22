@@ -24,7 +24,7 @@ RSpec.describe Transaction, type: :model do
         end
 
         context "date" do
-            let(:today_str) { Date.current.strftime("%d-%m-%Y") }
+            let(:today_str) { Date.current.strftime("%e %B %Y") }
 
             it { should validate_presence_of(:date).with_message("must be selected") }
 
