@@ -101,3 +101,5 @@ gem "selenium-webdriver", "~> 4.7"
 gem "prawn", "~> 2.4"
 
 gem "prawn-table", "~> 0.2.2"
+
+gem 'validates_timeliness', '~> 7.0.0.beta1'
