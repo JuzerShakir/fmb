@@ -145,7 +145,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
       end
 
       scenario 'a heading' do
-        expect(page).to have_css('h2', text: "Thaali Takhmeens #{$active_takhmeen}")
+        expect(page).to have_css('h2', text: "Takhmeens in #{$active_takhmeen}")
       end
 
       scenario 'a thaali_number button that routes to takhmeen:show page' do
@@ -195,7 +195,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
       end
 
       scenario 'a header' do
-        expect(page).to have_css('h2', text: "Completed Takhmeens #{$active_takhmeen}")
+        expect(page).to have_css('h2', text: "Completed Takhmeens in #{$active_takhmeen}")
       end
 
       context 'details of those ThaaliTakhmeens whose total amount is fully paid for the given year, such as - ',
@@ -231,7 +231,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
       end
 
       scenario 'a header' do
-        expect(page).to have_css('h2', text: "Pending Takhmeens #{$active_takhmeen}")
+        expect(page).to have_css('h2', text: "Pending Takhmeens in #{$active_takhmeen}")
       end
 
       context 'details of those thaalis whose HAS balance amount for the given year such as -',
@@ -267,7 +267,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
       end
 
       scenario 'a header' do
-        expect(page).to have_css('h2', text: "Thaali Takhmeens #{$prev_takhmeen}")
+        expect(page).to have_css('h2', text: "Takhmeens in #{$prev_takhmeen}")
       end
 
       context 'details of all ThaaliTakhmeen for the given year, such as - ', js: true do
