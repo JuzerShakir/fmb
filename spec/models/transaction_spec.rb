@@ -24,6 +24,8 @@ RSpec.describe Transaction, type: :model do
         end
 
         context "date" do
+            let(:today_str) { Date.current.strftime("%d-%m-%Y") }
+
             it { should validate_presence_of(:date).with_message("must be selected") }
 
             it "must have a valid date" do
@@ -33,13 +35,13 @@ RSpec.describe Transaction, type: :model do
             it "should be less than or equal to the current date" do
                 subject.date = today
                 subject.validate
-                expect(subject.errors[:date]).to_not include("cannot be in the future")
+                expect(subject.errors[:date]).to_not include("must be on or before #{today_str}")
             end
 
             it "should raise error for future dates" do
                 subject.date = Faker::Date.forward
                 subject.validate
-                expect(subject.errors[:date]).to include("cannot be in the future")
+                expect(subject.errors[:date]).to include("must be on or before #{today_str}")
             end
         end
 
