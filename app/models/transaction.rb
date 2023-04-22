@@ -23,7 +23,7 @@ class Transaction < ApplicationRecord
   validates_presence_of :mode, message: "must be selected"
   #date
   validates_presence_of  :date, message: "must be selected"
-  validates_date :date, on_or_before: :today, message: "cannot be in the future", if: :will_save_change_to_date?
+  validates_date :date, on_or_before: :today, if: :will_save_change_to_date?
   #amount
   validates_numericality_of :amount, :recipe_no, only_integer: true, message: "must be a number"
   validates_numericality_of :amount, :recipe_no, greater_than: 0, message: "must be greater than 0"
