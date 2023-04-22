@@ -26,9 +26,9 @@ Rails.application.routes.draw do
   get "/transactions", to: "transactions#index", as: :all_transactions
 
   # * RESOURCEFUL ROUTES
-  resources :sabeels, shallow: true, except: [:index]  do
+  resources :sabeels, shallow: true, except: [:index] do
     collection do
-      get 'stats'
+      get "stats"
       get "/:apt/active", action: :active, as: :active
       get "/:apt/active/pdf", action: :active_pdf, as: :active_pdf
       get "/:apt/inactive", action: :inactive, as: :inactive
@@ -42,6 +42,6 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
 
   # * ERRORS
-  match '/404', to: "errors#not_found", via: :all
-  match '/500', to: "errors#internal_server", via: :all
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server", via: :all
 end

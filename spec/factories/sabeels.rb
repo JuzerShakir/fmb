@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :sabeel do
     its { Faker::Number.number(digits: 8) }
     name { Faker::Name.name }
@@ -24,6 +23,5 @@ FactoryBot.define do
     factory :sabeel_phase1, traits: [:in_phase_1]
     factory :sabeel_phase2, traits: [:in_phase_2]
     factory :sabeel_phase3, traits: [:in_phase_3]
-
   end
 end

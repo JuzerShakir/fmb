@@ -15,16 +15,16 @@ class Transaction < ApplicationRecord
 
   # * RANSACK
   ransacker :recipe_no do
-      Arel.sql("to_char(\"#{table_name}\".\"recipe_no\", '99999999')")
+    Arel.sql("to_char(\"#{table_name}\".\"recipe_no\", '99999999')")
   end
 
   # * Validations
-  #mode
+  # mode
   validates_presence_of :mode, message: "must be selected"
-  #date
-  validates_presence_of  :date, message: "must be selected"
+  # date
+  validates_presence_of :date, message: "must be selected"
   validates_date :date, on_or_before: :today, if: :will_save_change_to_date?
-  #amount
+  # amount
   validates_numericality_of :amount, :recipe_no, only_integer: true, message: "must be a number"
   validates_numericality_of :amount, :recipe_no, greater_than: 0, message: "must be greater than 0"
   # recipe no
@@ -34,40 +34,39 @@ class Transaction < ApplicationRecord
   validate :amount_should_be_less_than_the_balance, if: :will_save_change_to_amount?
 
   def amount_should_be_less_than_the_balance
-    if self.persisted?
-      balance = self.amount_was + self.thaali_takhmeen.balance
-      errors.add(:amount, "cannot be greater than the balance") if self.amount > balance
+    if persisted?
+      balance = amount_was + thaali_takhmeen.balance
+      errors.add(:amount, "cannot be greater than the balance") if amount > balance
 
-     elsif self.present? && (self.amount > self.thaali_takhmeen.balance)
-        errors.add(:amount, "cannot be greater than the balance")
-     end
+    elsif present? && (amount > thaali_takhmeen.balance)
+      errors.add(:amount, "cannot be greater than the balance")
+    end
   end
 
   # * Enums
-  enum :mode, %i(cash cheque bank)
+  enum :mode, %i[cash cheque bank]
 
   # * Scopes
-  scope :that_occured_on, -> date { where(date: date)}
+  scope :that_occured_on, ->(date) { where(date: date) }
 
   private
 
-    def add_all_transaction_amounts_to_paid_amount
-      takhmeen = self.thaali_takhmeen
-      all_transactions_of_a_takhmeen = takhmeen.transactions
+  def add_all_transaction_amounts_to_paid_amount
+    takhmeen = thaali_takhmeen
+    all_transactions_of_a_takhmeen = takhmeen.transactions
 
-      if all_transactions_of_a_takhmeen.any?
-        total_takhmeen_paid = 0
+    if all_transactions_of_a_takhmeen.any?
+      total_takhmeen_paid = 0
 
-        all_transactions_of_a_takhmeen.each do |transaction|
-          total_takhmeen_paid += transaction.amount if transaction.persisted?
-        end
-
-        takhmeen.update_attribute(:paid, total_takhmeen_paid)
-
-      # below logic won't run if takhmeen instance has been destroyed
-      elsif takhmeen.persisted?
-        takhmeen.update_attribute(:paid, 0)
+      all_transactions_of_a_takhmeen.each do |transaction|
+        total_takhmeen_paid += transaction.amount if transaction.persisted?
       end
 
+      takhmeen.update_attribute(:paid, total_takhmeen_paid)
+
+    # below logic won't run if takhmeen instance has been destroyed
+    elsif takhmeen.persisted?
+      takhmeen.update_attribute(:paid, 0)
     end
+  end
 end
