@@ -28,7 +28,7 @@
           <% elsif current_user.member? %>
             <%= render partial: "shared/navbar/member_dropdown"%>
           <% else %>
-            <li id="viewer"><%= link_to "Log out", destroy_session_path, data: { turbo_method: :delete }, class: "nav-item nav-link text-center text-danger fw-bold"%></li>
+            <li id="viewer"><%= link_to "Log out", destroy_path, data: { turbo_method: :delete }, class: "nav-item nav-link text-center text-danger fw-bold"%></li>
           <% end %>
         </ul>
       </div>

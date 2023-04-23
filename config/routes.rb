@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # session
   get "/login", to: "sessions#new"
   post "/signup", to: "sessions#create"
-  delete "/destroy", to: "sessions#destroy", as: :destroy_session
+  delete "/destroy", to: "sessions#destroy"
 
   # thaali-takhmeen
   get "/takhmeens/stats", to: "thaali_takhmeens#stats", as: :takhmeens_stats

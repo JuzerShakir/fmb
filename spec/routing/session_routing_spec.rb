@@ -29,8 +29,8 @@ RSpec.describe "Session", type: :routing do
       expect(delete("/destroy")).to route_to("sessions#destroy")
     end
 
-    it "is accessible by destroy_session_path route" do
-      expect(delete: destroy_session_path).to route_to(controller: "sessions", action: "destroy")
+    it "is accessible by destroy_path route" do
+      expect(delete: destroy_path).to route_to(controller: "sessions", action: "destroy")
     end
   end
 end
