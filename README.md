@@ -103,7 +103,7 @@ This application is hosted [here](https://fmb.fly.dev) using [Fly.io](https://fl
     -   A `member` has access to create, update or delete routes of `thaali_takhmeen` of a `sabeel` & `transaction` of a `thaali_takhmeen`.
     -   A `viewer` has NO access to create, update or delete routes of any models but only view the site and all its data.
 
-> The first `admin`/`user` can oly be created by the developer and then later that `admin` can create any number of users with roles of his choosing.
+> The first `admin`/`user` can only be created by the developer and then later that `admin` can create any number of users with roles of his choosing.
 
 #### Sabeel Model
 
