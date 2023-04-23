@@ -27,7 +27,7 @@ class SabeelsController < ApplicationController
 
   def show
     @thaalis = @sabeel.thaali_takhmeens.order(year: :DESC)
-    @thaali_inactive = @thaalis.in_the_year($active_takhmeen).empty?
+    @thaali_inactive = @thaalis.in_the_year(CURR_YR).empty?
   end
 
   def edit
@@ -54,7 +54,7 @@ class SabeelsController < ApplicationController
 
     apartments.each do |apartment|
       total_sabeels = Sabeel.send(apartment)
-      active_takhmeens = total_sabeels.active_takhmeen($active_takhmeen)
+      active_takhmeens = total_sabeels.active_takhmeen(CURR_YR)
       inactive = total_sabeels - active_takhmeens
       @apts[apartment] = {}
       @apts[apartment].store(:active_takhmeens, active_takhmeens.count)
@@ -67,13 +67,13 @@ class SabeelsController < ApplicationController
   end
 
   def active
-    @s = Sabeel.send(@apt).active_takhmeen($active_takhmeen).order(flat_no: :ASC).includes(:thaali_takhmeens)
+    @s = Sabeel.send(@apt).active_takhmeen(CURR_YR).order(flat_no: :ASC).includes(:thaali_takhmeens)
     @total = @s.count
     @pagy, @sabeels = pagy_countless(@s)
 
     if request.format.symbol == :pdf
       pdf = ActiveSabeels.new(@s, @apt)
-      send_data pdf.render, filename: "#{@apt}-#{$active_takhmeen}.pdf",
+      send_data pdf.render, filename: "#{@apt}-#{CURR_YR}.pdf",
         type: "application/pdf", disposition: "inline"
     end
   end

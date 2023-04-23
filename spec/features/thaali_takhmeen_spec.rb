@@ -42,21 +42,21 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
     end
 
     scenario "'complete'" do
-      year = $active_takhmeen
+      year = CURR_YR
       visit takhmeens_complete_path(year)
       expect(current_path).to eq login_path
       expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'pending'" do
-      year = $active_takhmeen
+      year = CURR_YR
       visit takhmeens_pending_path(year)
       expect(current_path).to eq login_path
       expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'all'" do
-      year = $active_takhmeen
+      year = CURR_YR
       visit takhmeens_pending_path(year)
       expect(current_path).to eq login_path
       expect(page).to have_content "Not Authorized!"
@@ -144,7 +144,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
       end
 
       scenario "a heading" do
-        expect(page).to have_css("h2", text: "Takhmeens in #{$active_takhmeen}")
+        expect(page).to have_css("h2", text: "Takhmeens in #{CURR_YR}")
       end
 
       scenario "a thaali_number button that routes to takhmeen:show page" do
@@ -189,11 +189,11 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
     context "'complete' should show" do
       before do
         @thaalis = FactoryBot.create_list(:active_completed_takhmeens, 3)
-        visit takhmeens_complete_path($active_takhmeen)
+        visit takhmeens_complete_path(CURR_YR)
       end
 
       scenario "a header" do
-        expect(page).to have_css("h2", text: "Completed Takhmeens in #{$active_takhmeen}")
+        expect(page).to have_css("h2", text: "Completed Takhmeens in #{CURR_YR}")
       end
 
       context "details of those ThaaliTakhmeens whose total amount is fully paid for the given year, such as - ",
@@ -215,7 +215,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           @thaalis.each do |thaali|
             click_button thaali.number.to_s
             expect(current_path).to eql takhmeen_path(thaali)
-            visit takhmeens_complete_path($active_takhmeen)
+            visit takhmeens_complete_path(CURR_YR)
           end
         end
       end
@@ -225,11 +225,11 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
     context "'pending' should show" do
       before do
         @thaalis = FactoryBot.create_list(:active_takhmeen, 3)
-        visit takhmeens_pending_path($active_takhmeen)
+        visit takhmeens_pending_path(CURR_YR)
       end
 
       scenario "a header" do
-        expect(page).to have_css("h2", text: "Pending Takhmeens in #{$active_takhmeen}")
+        expect(page).to have_css("h2", text: "Pending Takhmeens in #{CURR_YR}")
       end
 
       context "details of those thaalis whose HAS balance amount for the given year such as -",
@@ -251,7 +251,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           @thaalis.each do |thaali|
             click_button thaali.number.to_s
             expect(current_path).to eql takhmeen_path(thaali)
-            visit takhmeens_pending_path($active_takhmeen)
+            visit takhmeens_pending_path(CURR_YR)
           end
         end
       end
@@ -261,11 +261,11 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
     context "'all' should show" do
       before do
         @thaalis = FactoryBot.create_list(:previous_takhmeen, 3)
-        visit takhmeens_all_path($prev_takhmeen)
+        visit takhmeens_all_path(PREV_YR)
       end
 
       scenario "a header" do
-        expect(page).to have_css("h2", text: "Takhmeens in #{$prev_takhmeen}")
+        expect(page).to have_css("h2", text: "Takhmeens in #{PREV_YR}")
       end
 
       context "details of all ThaaliTakhmeen for the given year, such as - ", js: true do
@@ -286,7 +286,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           @thaalis.each do |thaali|
             click_button thaali.number.to_s
             expect(current_path).to eql takhmeen_path(thaali)
-            visit takhmeens_all_path($prev_takhmeen)
+            visit takhmeens_all_path(PREV_YR)
           end
         end
       end
@@ -313,65 +313,65 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         end
 
         scenario "title (year)" do
-          within("div##{$active_takhmeen}") do
-            expect(page).to have_css("h3", text: $active_takhmeen)
+          within("div##{CURR_YR}") do
+            expect(page).to have_css("h3", text: CURR_YR)
           end
         end
 
         scenario "total Takhmeen amount" do
-          within("div##{$active_takhmeen}") do
-            total = ThaaliTakhmeen.in_the_year($active_takhmeen).pluck(:total).sum
+          within("div##{CURR_YR}") do
+            total = ThaaliTakhmeen.in_the_year(CURR_YR).pluck(:total).sum
             expect(page).to have_content(number_with_delimiter(total))
           end
         end
 
         scenario "total Balance amount" do
-          within("div##{$active_takhmeen}") do
-            balance = ThaaliTakhmeen.in_the_year($active_takhmeen).pluck(:balance).sum
+          within("div##{CURR_YR}") do
+            balance = ThaaliTakhmeen.in_the_year(CURR_YR).pluck(:balance).sum
             expect(page).to have_content(number_with_delimiter(balance))
           end
         end
 
         scenario "total completed takhmeens" do
-          within("div##{$active_takhmeen}") do
+          within("div##{CURR_YR}") do
             expect(page).to have_selector(:link_or_button,
-              "Complete: #{ThaaliTakhmeen.completed_year($active_takhmeen).count}")
+              "Complete: #{ThaaliTakhmeen.completed_year(CURR_YR).count}")
           end
         end
 
         scenario "'Complete' button that routes to 'complete' template" do
-          within("div##{$active_takhmeen}") do
+          within("div##{CURR_YR}") do
             click_on "Complete: "
-            expect(current_path).to eql(takhmeens_complete_path($active_takhmeen))
+            expect(current_path).to eql(takhmeens_complete_path(CURR_YR))
           end
         end
 
         scenario "total pending takhmeens" do
-          within("div##{$active_takhmeen}") do
+          within("div##{CURR_YR}") do
             expect(page).to have_selector(:link_or_button,
-              "Pending: #{ThaaliTakhmeen.pending_year($active_takhmeen).count}")
+              "Pending: #{ThaaliTakhmeen.pending_year(CURR_YR).count}")
           end
         end
 
         scenario "'Pending' button that routes to 'pending' template" do
-          within("div##{$active_takhmeen}") do
+          within("div##{CURR_YR}") do
             click_on "Pending: "
-            expect(current_path).to eql(takhmeens_pending_path($active_takhmeen))
+            expect(current_path).to eql(takhmeens_pending_path(CURR_YR))
           end
         end
 
         scenario "total thaalis for each size" do
-          within("div##{$active_takhmeen}") do
+          within("div##{CURR_YR}") do
             @sizes.each do |size|
-              expect(page).to have_content("#{size.humanize}: #{ThaaliTakhmeen.in_the_year($active_takhmeen).send(size).count}")
+              expect(page).to have_content("#{size.humanize}: #{ThaaliTakhmeen.in_the_year(CURR_YR).send(size).count}")
             end
           end
         end
 
         scenario "total takhmeens for the year" do
-          within("div##{$active_takhmeen}") do
+          within("div##{CURR_YR}") do
             expect(page).to have_selector(:link_or_button,
-              "Total Takhmeens: #{ThaaliTakhmeen.in_the_year($active_takhmeen).count}")
+              "Total Takhmeens: #{ThaaliTakhmeen.in_the_year(CURR_YR).count}")
           end
         end
       end

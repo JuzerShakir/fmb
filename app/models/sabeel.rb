@@ -1,9 +1,4 @@
 class Sabeel < ApplicationRecord
-  # * Global variables
-  $phase_1 = %w[mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi]
-  $phase_2 = %w[maimoon_a maimoon_b qutbi_a qutbi_b najmi]
-  $phase_3 = %w[husami_a husami_b noorani_a noorani_b]
-
   # * Associations
   has_many :thaali_takhmeens, dependent: :destroy
   has_many :transactions, through: :thaali_takhmeens
@@ -43,11 +38,11 @@ class Sabeel < ApplicationRecord
     noorani_b]
 
   # * Scopes
-  scope :in_phase_1, -> { where(apartment: $phase_1) }
+  scope :in_phase_1, -> { where(apartment: PHASE_1) }
 
-  scope :in_phase_2, -> { where(apartment: $phase_2) }
+  scope :in_phase_2, -> { where(apartment: PHASE_2) }
 
-  scope :in_phase_3, -> { where(apartment: $phase_3) }
+  scope :in_phase_3, -> { where(apartment: PHASE_3) }
 
   scope :active_takhmeen, ->(current_year) { joins(:thaali_takhmeens).where(thaali_takhmeens: {year: current_year}) }
 
@@ -55,7 +50,7 @@ class Sabeel < ApplicationRecord
     where(apartment: apt).where("id NOT IN (
                                 SELECT sabeel_id
                                 FROM thaali_takhmeens
-                                WHERE year = #{$active_takhmeen}
+                                WHERE year = #{CURR_YR}
                                 )")
   }
 

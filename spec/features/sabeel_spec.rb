@@ -103,7 +103,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
       context "takhmeen details, such as - " do
         before do
           2.times do |i|
-            FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: $active_takhmeen - i)
+            FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: CURR_YR - i)
           end
           visit sabeel_path(@sabeel)
           @thaalis = @sabeel.thaali_takhmeens
@@ -231,7 +231,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
           within_window @pdf_window do
             # for the test to pass in github actions
             sleep 5
-            expect(page).to have_content("#{@apt.titleize} - #{$active_takhmeen}")
+            expect(page).to have_content("#{@apt.titleize} - #{CURR_YR}")
           end
         end
 
@@ -314,7 +314,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
       end
 
       scenario "a header" do
-        expect(page).to have_css("h2", text: "Sabeel Statistics: #{$active_takhmeen}")
+        expect(page).to have_css("h2", text: "Sabeel Statistics: #{CURR_YR}")
       end
 
       context "detials of Maimoon A, such as - " do
@@ -331,7 +331,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
 
         scenario "total number of active sabeels" do
           within("div#maimoon_a") do
-            count = Sabeel.maimoon_a.active_takhmeen($active_takhmeen).count
+            count = Sabeel.maimoon_a.active_takhmeen(CURR_YR).count
             expect(page).to have_selector(:link_or_button,
               "Active: #{count}")
           end
@@ -361,7 +361,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         scenario "total number of thaali sizes" do
           within("div#maimoon_a") do
             @sizes.each do |size|
-              expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_a.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+              expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_a.active_takhmeen(CURR_YR).with_the_size(size).count}")
             end
           end
         end
@@ -382,7 +382,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
 
         scenario "total number of active sabeels" do
           within("div#maimoon_b") do
-            count = Sabeel.maimoon_b.active_takhmeen($active_takhmeen).count
+            count = Sabeel.maimoon_b.active_takhmeen(CURR_YR).count
             expect(page).to have_selector(:link_or_button,
               "Active: #{count}")
           end
@@ -412,7 +412,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         scenario "total number of thaali sizes" do
           within("div#maimoon_b") do
             @sizes.each do |size|
-              expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_b.active_takhmeen($active_takhmeen).with_the_size(size).count}")
+              expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_b.active_takhmeen(CURR_YR).with_the_size(size).count}")
             end
           end
         end

@@ -21,7 +21,7 @@ sabeel_prev_thaali = Sabeel.all.sample(Sabeel.count * 0.9)
 
 sabeel_prev_thaali.each.with_index do |sabeel, i|
   sabeel.thaali_takhmeens.create(
-    year: $prev_takhmeen,
+    year: PREV_YR,
     total: 48000,
     number: i + 1,
     size: sizes.sample
@@ -29,13 +29,13 @@ sabeel_prev_thaali.each.with_index do |sabeel, i|
 end
 
 #  have 80% of thaalis to have a complete payment of prev year --> (8640 transactions from 720 thaalis)
-prev_takhmeen_comp = ThaaliTakhmeen.in_the_year($prev_takhmeen).sample(sabeel_prev_thaali.count * 0.8)
+prev_takhmeen_comp = ThaaliTakhmeen.in_the_year(PREV_YR).sample(sabeel_prev_thaali.count * 0.8)
 
 prev_takhmeen_comp.each do |thaali|
   12.times do
     thaali.transactions.create(
       amount: 4000,
-      date: Faker::Date.in_date_period(year: $prev_takhmeen),
+      date: Faker::Date.in_date_period(year: PREV_YR),
       recipe_no: Random.rand(1..2000000),
       mode: modes.sample
     )
@@ -43,14 +43,14 @@ prev_takhmeen_comp.each do |thaali|
 end
 
 #  have rest of the thaalis created of prev year be pending  ---> (maximum: 1980 transactions from 180 thaalis)
-prev_takhmeen_pend = ThaaliTakhmeen.pending_year($prev_takhmeen)
+prev_takhmeen_pend = ThaaliTakhmeen.pending_year(PREV_YR)
 
 prev_takhmeen_pend.each do |thaali|
   num = Random.rand(1...12)
   num.times do
     thaali.transactions.create(
       amount: 4000,
-      date: Faker::Date.in_date_period(year: $prev_takhmeen),
+      date: Faker::Date.in_date_period(year: PREV_YR),
       recipe_no: Random.rand(2000001..3000000),
       mode: modes.sample
     )
@@ -62,7 +62,7 @@ active_sabeel = sabeel_prev_thaali.sample(sabeel_prev_thaali.count * 0.95)
 
 active_sabeel.each.with_index do |sabeel, i|
   sabeel.thaali_takhmeens.create(
-    year: $active_takhmeen,
+    year: CURR_YR,
     total: 60000,
     number: i + 1,
     size: sizes.sample
@@ -70,14 +70,14 @@ active_sabeel.each.with_index do |sabeel, i|
 end
 
 #  have ~30% thaalis complete the takhmeens of current year but only if their last year takhmeen is complete ---> (maximum thaalis: 256 thaalis)
-cur_takhmeen_comp = ThaaliTakhmeen.in_the_year($active_takhmeen).sample(active_sabeel.count * 0.3)
+cur_takhmeen_comp = ThaaliTakhmeen.in_the_year(CURR_YR).sample(active_sabeel.count * 0.3)
 
 cur_takhmeen_comp.each do |thaali|
-  if thaali.sabeel.takhmeen_complete_of_last_year($active_takhmeen)
+  if thaali.sabeel.takhmeen_complete_of_last_year(CURR_YR)
     12.times do
       thaali.transactions.create(
         amount: 5000,
-        date: Faker::Date.in_date_period(year: $active_takhmeen),
+        date: Faker::Date.in_date_period(year: CURR_YR),
         recipe_no: Random.rand(3000001..6000000),
         mode: modes.sample
       )
@@ -86,14 +86,14 @@ cur_takhmeen_comp.each do |thaali|
 end
 
 #  have takhmeen pending for rest (~70%) of the thaalis created of current year
-cur_takhmeen_pend = ThaaliTakhmeen.pending_year($active_takhmeen)
+cur_takhmeen_pend = ThaaliTakhmeen.pending_year(CURR_YR)
 
 cur_takhmeen_pend.each do |thaali|
   num = Random.rand(1...12)
   num.times do
     thaali.transactions.create(
       amount: 5000,
-      date: Faker::Date.in_date_period(year: $active_takhmeen),
+      date: Faker::Date.in_date_period(year: CURR_YR),
       recipe_no: Random.rand(6000000..10000000),
       mode: modes.sample
     )

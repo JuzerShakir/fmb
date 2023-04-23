@@ -149,7 +149,7 @@ The completion of the project's tasks necessitated the use of the following gems
 -   A `sabeel` can choose a `thaali` of the size required (`small`, `medium` & `large`) to avoid food wastage.
 -   **The term `takhmeen` refers to the voluntary donations done by each `sabeel` for a `thaali`.**
 -   The `total`, `paid` & `balance` attributes belong to `takhmeen` which basically keeps track of donation amount.
--   The value of the `year` attribute depends on the value of the global variable `$active_takhmeen`. The user cannot change it and it will be automatically set by the developer.
+-   The value of the `year` attribute depends on the value of the global variable `CURR_YR`. The user cannot change it and it will be automatically set by the developer.
 
 ---
 
@@ -179,7 +179,8 @@ There're some values that must be accessible in the models, controller, views an
 ---
 
 ### Features
--   [x] A responsive website that enables users to browse the site on any device. 
+
+-   [x] A responsive website that enables users to browse the site on any device.
 
 -   [x] Only logged-in users can access the content of the site.
 -   [x] Redirect non-logged-in users to login page.
@@ -198,10 +199,11 @@ There're some values that must be accessible in the models, controller, views an
 
 -   [x] A user with a role of `visitor` is not allowed to perform any CRUD actions on any of the models.
 
--   A user will not be able to create duplicate... 
-    -  [x] sabeel with same `ITS No`. 
-    -  [x] thaali with same `number` for that particular `year`. 
-    -  [x] transaction with same `receipt_no`. 
+-   A user will not be able to create duplicate...
+
+    -   [x] sabeel with same `ITS No`.
+    -   [x] thaali with same `number` for that particular `year`.
+    -   [x] transaction with same `receipt_no`.
 
 -   A user is able to search for a particular...
 

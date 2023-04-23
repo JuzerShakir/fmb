@@ -28,7 +28,6 @@ RSpec.describe "Sessions accessed by user who are 👉" do
         click_button "Login"
 
         expect(current_path).to eql root_path("format=html")
-        first_name = @user.name.split.first
 
         if @user.viewer?
           flash_msg = "Afzalus Salam"

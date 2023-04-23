@@ -8,15 +8,15 @@ FactoryBot.define do
     email { Faker::Internet.free_email }
 
     trait :in_phase_1 do
-      apartment { $phase_1.sample }
+      apartment { PHASE_1.sample }
     end
 
     trait :in_phase_2 do
-      apartment { $phase_2.sample }
+      apartment { PHASE_2.sample }
     end
 
     trait :in_phase_3 do
-      apartment { $phase_3.sample }
+      apartment { PHASE_3.sample }
     end
 
     # factory :sabeel_with_thaali, traits: [:with_thaali]

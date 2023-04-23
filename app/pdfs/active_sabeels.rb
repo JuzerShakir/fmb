@@ -19,7 +19,7 @@ class ActiveSabeels < Prawn::Document
   end
 
   def header
-    text "#{@apt.titleize} - #{$active_takhmeen}", size: 20, style: :bold, align: :center
+    text "#{@apt.titleize} - #{CURR_YR}", size: 20, style: :bold, align: :center
   end
 
   def line_items

@@ -25,7 +25,7 @@
             <p class= "col text-dark">Large: <%= "#{values[:large]}" %></p>
         </div>
         <div class="row mt-2">
-            <% if year == $active_takhmeen %>
+            <% if year == CURR_YR %>
                 <%= link_to "Total Takhmeens: #{values[:count]}", root_path, class: "fw-bold text-info fs-5" %>
             <% else %>
                 <%= link_to "Total Takhmeens: #{values[:count]}", takhmeens_all_path(year), class: "fw-bold text-info fs-5" %>

@@ -57,7 +57,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
     # * COMPLETE
     context "GET complete" do
       before do
-        get takhmeens_complete_path($active_takhmeen)
+        get takhmeens_complete_path(CURR_YR)
       end
 
       it "should render a complete template" do
@@ -69,7 +69,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
     # * PENDING
     context "GET pending" do
       before do
-        get takhmeens_pending_path($active_takhmeen)
+        get takhmeens_pending_path(CURR_YR)
       end
 
       it "should render a pending template" do
@@ -81,7 +81,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
     # * ALL
     context "GET all" do
       before do
-        get takhmeens_all_path($prev_takhmeen)
+        get takhmeens_all_path(PREV_YR)
       end
 
       it "should render a all template" do

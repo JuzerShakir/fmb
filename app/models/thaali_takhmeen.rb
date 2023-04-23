@@ -1,8 +1,4 @@
 class ThaaliTakhmeen < ApplicationRecord
-  # * Global Variables
-  $active_takhmeen = 2022
-  $prev_takhmeen = $active_takhmeen - 1
-
   # * Associtions
   belongs_to :sabeel
   has_many :transactions, dependent: :destroy
@@ -37,7 +33,7 @@ class ThaaliTakhmeen < ApplicationRecord
   validates_presence_of :size, message: "cannot be blank"
   # year
   validates_uniqueness_of :year, scope: :sabeel_id, message: "sabeel is already taking thaali for selected year"
-  validates_numericality_of :year, less_than_or_equal_to: $active_takhmeen, message: "must be less than or equal to #{$active_takhmeen}"
+  validates_numericality_of :year, less_than_or_equal_to: CURR_YR, message: "must be less than or equal to #{CURR_YR}"
   # paid
   validates_numericality_of :paid, greater_than_or_equal_to: 0
 
