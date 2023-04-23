@@ -55,9 +55,7 @@ jobs:
                   bundle exec rails db:migrate
 
             - name: StandardRB Linter
-              uses: andrewmcodes/standardrb-action@v1.0.0
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: bundle exec standardrb
 
             - name: Testing routes
               env:
