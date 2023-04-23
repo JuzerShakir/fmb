@@ -1,14 +1,14 @@
 require "rails_helper"
 
 RSpec.describe Transaction, type: :routing do
-  # * INDEX
-  context "index action" do
+  # * ALL
+  context "all action" do
     it "is accessible by /transactions route" do
-      expect(get("/transactions")).to route_to("transactions#index")
+      expect(get("/transactions")).to route_to("transactions#all")
     end
 
-    it "is accessible by all_transactions_path url helper" do
-      expect(get: all_transactions_path).to route_to(controller: "transactions", action: "index")
+    it "is accessible by transactions_all_path url helper" do
+      expect(get: transactions_all_path).to route_to(controller: "transactions", action: "all")
     end
   end
 

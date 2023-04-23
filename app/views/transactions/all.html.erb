@@ -6,8 +6,8 @@
 
 <%# * search %>
 <%= render partial: "shared/search", locals: { message: "Recipe Number",
-        path: all_transactions_path, search: :recipe_no_cont } %>
+        path: transactions_all_path, search: :recipe_no_cont } %>
 
 <%# * show all transactions %>
 <%= render partial: "shared/results",
-    locals: { instances: @transactions, id: "transactions", path: all_transactions_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) } %>
+    locals: { instances: @transactions, id: "transactions", path: transactions_all_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) } %>

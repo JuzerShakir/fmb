@@ -55,7 +55,7 @@ RSpec.describe "Navbar" do
         within("#resources") do
           expect(page).to have_content("Transactions")
           click_on "Transactions"
-          expect(current_path).to eql all_transactions_path
+          expect(current_path).to eql transactions_all_path
         end
       end
     end

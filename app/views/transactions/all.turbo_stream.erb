@@ -1,0 +1,5 @@
+<%= turbo_stream.append :transactions do %>
+    <%= render partial: "transaction_content" %>
+<% end %>
+
+<%= render partial: "shared/pagy", locals: { path: transactions_all_path(format: :turbo_stream, page: @pagy.next, q: params[:q]&.to_unsafe_h) } %>

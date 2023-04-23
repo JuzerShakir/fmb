@@ -1,10 +1,10 @@
 class TransactionsController < ApplicationController
   before_action :authorize
-  before_action :authorize_admin_member, except: %i[index show]
+  before_action :authorize_admin_member, except: %i[all show]
   before_action :set_transaction, only: %i[show edit update destroy]
   before_action :check_if_takhmeen_is_complete, only: [:new]
 
-  def index
+  def all
     @q = Transaction.includes(:thaali_takhmeen).ransack(params[:q])
 
     trans = @q.result(distinct: true).order(date: :DESC)

@@ -30,7 +30,7 @@ RSpec.describe "Transaction accessed by users who are 👉" do
     end
 
     scenario "'index'" do
-      visit all_transactions_path
+      visit transactions_all_path
       expect(current_path).to eq login_path
       expect(page).to have_content "Not Authorized!"
     end
@@ -70,7 +70,7 @@ RSpec.describe "Transaction accessed by users who are 👉" do
     context "'index' should have", js: true do
       before do
         @transactions = FactoryBot.create_list(:transaction, 3)
-        visit all_transactions_path
+        visit transactions_all_path
       end
 
       scenario "a header" do

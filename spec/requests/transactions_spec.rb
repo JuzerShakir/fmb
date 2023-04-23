@@ -12,14 +12,14 @@ RSpec.describe "Transaction request - user type 👉", type: :request do
       post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
     end
 
-    # * INDEX
-    context "GET index" do
+    # * ALL
+    context "GET ALL" do
       before do
-        get all_transactions_path
+        get transactions_all_path
       end
 
-      it "should render a 'index' template" do
-        expect(response).to render_template(:index)
+      it "should render a 'all' template" do
+        expect(response).to render_template(:all)
         expect(response).to have_http_status(:ok)
       end
     end

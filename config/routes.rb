@@ -16,23 +16,24 @@ Rails.application.routes.draw do
   get "/takhmeens/:year/pending", to: "thaali_takhmeens#pending", as: :takhmeens_pending
   get "/takhmeens/:year/all", to: "thaali_takhmeens#all", as: :takhmeens_all
 
-  # transactions
-  get "/transactions", to: "transactions#index", as: :all_transactions
-
   # * RESOURCEFUL ROUTES
   resources :users
 
   resources :sabeels, shallow: true do
     get :stats, on: :collection
 
-    resources :takhmeens, controller: "thaali_takhmeens", except: [:index] do
-      resources :transactions, except: [:index]
+    resources :takhmeens, controller: "thaali_takhmeens", except: %i(index) do
+      resources :transactions, except: %i(index)
     end
   end
 
   namespace :sabeels, path: "sabeels/:apt" do
     get :active
     get :inactive
+  end
+
+  namespace :transactions do
+    get :all, path: ""
   end
 
   # * ERRORS
