@@ -26,7 +26,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
     end
 
     scenario "'index'" do
-      visit all_sabeels_path
+      visit sabeels_path
       expect(current_path).to eq login_path
       expect(page).to have_content "Not Authorized!"
     end
@@ -141,11 +141,11 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
     context "'index' should have", js: true do
       before do
         @sabeels = FactoryBot.create_list(:sabeel, 3)
-        visit all_sabeels_path
+        visit sabeels_path
       end
 
       scenario "a correct URL" do
-        expect(current_path).to eq all_sabeels_path
+        expect(current_path).to eq sabeels_path
       end
 
       scenario "a heading" do

@@ -16,7 +16,7 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
     context "GET index" do
       before do
         FactoryBot.create_list(:sabeel, 2)
-        get all_sabeels_path
+        get sabeels_path
       end
 
       it "should render an index template with 200 status code" do

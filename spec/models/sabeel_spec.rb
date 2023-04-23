@@ -113,9 +113,9 @@ RSpec.describe Sabeel, type: :model do
     end
 
     context "for thaali" do
-      let(:all_sabeels) { [*phase_1, *phase_2, *phase_3] }
-      let(:current_thaali) { all_sabeels.sample(n) }
-      let(:x_thaali) { all_sabeels - current_thaali }
+      let(:sabeels) { [*phase_1, *phase_2, *phase_3] }
+      let(:current_thaali) { sabeels.sample(n) }
+      let(:x_thaali) { sabeels - current_thaali }
 
       context ".active_takhmeen" do
         it "should ONLY return all sabeels who TAKES thaali in the CURRENT YEAR" do
@@ -136,13 +136,13 @@ RSpec.describe Sabeel, type: :model do
 
       context ".with_the_size" do
         it "should ONLY return all sabeels for the thaali size specified" do
-          sabeels_with_size = all_sabeels.first(n)
+          sabeels_with_size = sabeels.first(n)
 
           sabeels_with_size.each do |sabeel|
             create(:thaali_takhmeen, sabeel:, size:)
           end
 
-          sabeel_with_other_size = create(:thaali_takhmeen, sabeel: all_sabeels.last, size: other_size)
+          sabeel_with_other_size = create(:thaali_takhmeen, sabeel: sabeels.last, size: other_size)
 
           output = described_class.with_the_size(size)
 

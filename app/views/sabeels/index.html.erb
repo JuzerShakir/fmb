@@ -6,8 +6,8 @@
 
 <%# * search %>
 <%= render partial: "shared/search", locals: { message: "Name or ITS No." ,
-        path: all_sabeels_path, search: :name_or_its_cont } %>
+        path: sabeels_path, search: :name_or_its_cont } %>
 
 <%# * show all sabeels %>
 <%= render partial: "shared/results",
-    locals: { instances: @sabeels, id: "sabeels", path: all_sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) } %>
+    locals: { instances: @sabeels, id: "sabeels", path: sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) } %>

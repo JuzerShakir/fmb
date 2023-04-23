@@ -13,9 +13,6 @@ Rails.application.routes.draw do
   post "/signup", to: "sessions#create"
   delete "/destroy", to: "sessions#destroy", as: :destroy_session
 
-  # sabeels
-  get "/sabeels", to: "sabeels#index", as: :all_sabeels
-
   # thaali-takhmeen
   get "/takhmeens/stats", to: "thaali_takhmeens#stats", as: :takhmeens_stats
   get "/takhmeens/:year/complete", to: "thaali_takhmeens#complete", as: :takhmeens_complete
@@ -26,7 +23,7 @@ Rails.application.routes.draw do
   get "/transactions", to: "transactions#index", as: :all_transactions
 
   # * RESOURCEFUL ROUTES
-  resources :sabeels, shallow: true, except: [:index] do
+  resources :sabeels, shallow: true do
     collection do
       get "stats"
       get "/:apt/active", action: :active, as: :active

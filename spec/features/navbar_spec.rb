@@ -39,7 +39,7 @@ RSpec.describe "Navbar" do
         within("#resources") do
           expect(page).to have_content("Sabeels")
           click_on "Sabeels"
-          expect(current_path).to eql all_sabeels_path
+          expect(current_path).to eql sabeels_path
         end
       end
 

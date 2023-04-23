@@ -7,8 +7,8 @@ RSpec.describe Sabeel, type: :routing do
       expect(get("/sabeels")).to route_to("sabeels#index")
     end
 
-    it "is accessible by all_sabeels route" do
-      expect(get: all_sabeels_path).to route_to(controller: "sabeels", action: "index")
+    it "is accessible by sabeels route" do
+      expect(get: sabeels_path).to route_to(controller: "sabeels", action: "index")
     end
   end
 
