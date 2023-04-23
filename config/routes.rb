@@ -12,9 +12,6 @@ Rails.application.routes.draw do
 
   # thaali-takhmeen
   get "/takhmeens/stats", to: "thaali_takhmeens#stats", as: :takhmeens_stats
-  get "/takhmeens/:year/complete", to: "thaali_takhmeens#complete", as: :takhmeens_complete
-  get "/takhmeens/:year/pending", to: "thaali_takhmeens#pending", as: :takhmeens_pending
-  get "/takhmeens/:year/all", to: "thaali_takhmeens#all", as: :takhmeens_all
 
   # * RESOURCEFUL ROUTES
   resources :users
@@ -22,14 +19,20 @@ Rails.application.routes.draw do
   resources :sabeels, shallow: true do
     get :stats, on: :collection
 
-    resources :takhmeens, controller: "thaali_takhmeens", except: %i(index) do
-      resources :transactions, except: %i(index)
+    resources :takhmeens, controller: "thaali_takhmeens", except: %i[index] do
+      resources :transactions, except: %i[index]
     end
   end
 
   namespace :sabeels, path: "sabeels/:apt" do
     get :active
     get :inactive
+  end
+
+  namespace :thaali_takhmeens, path: "takhmeens/:year" do
+    get :complete
+    get :pending
+    get :all
   end
 
   namespace :transactions do

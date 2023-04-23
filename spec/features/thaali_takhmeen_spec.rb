@@ -43,21 +43,21 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
 
     scenario "'complete'" do
       year = CURR_YR
-      visit takhmeens_complete_path(year)
+      visit thaali_takhmeens_complete_path(year)
       expect(current_path).to eq login_path
       expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'pending'" do
       year = CURR_YR
-      visit takhmeens_pending_path(year)
+      visit thaali_takhmeens_pending_path(year)
       expect(current_path).to eq login_path
       expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'all'" do
       year = CURR_YR
-      visit takhmeens_pending_path(year)
+      visit thaali_takhmeens_pending_path(year)
       expect(current_path).to eq login_path
       expect(page).to have_content "Not Authorized!"
     end
@@ -189,7 +189,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
     context "'complete' should show" do
       before do
         @thaalis = FactoryBot.create_list(:active_completed_takhmeens, 3)
-        visit takhmeens_complete_path(CURR_YR)
+        visit thaali_takhmeens_complete_path(CURR_YR)
       end
 
       scenario "a header" do
@@ -215,7 +215,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           @thaalis.each do |thaali|
             click_button thaali.number.to_s
             expect(current_path).to eql takhmeen_path(thaali)
-            visit takhmeens_complete_path(CURR_YR)
+            visit thaali_takhmeens_complete_path(CURR_YR)
           end
         end
       end
@@ -225,7 +225,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
     context "'pending' should show" do
       before do
         @thaalis = FactoryBot.create_list(:active_takhmeen, 3)
-        visit takhmeens_pending_path(CURR_YR)
+        visit thaali_takhmeens_pending_path(CURR_YR)
       end
 
       scenario "a header" do
@@ -251,7 +251,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           @thaalis.each do |thaali|
             click_button thaali.number.to_s
             expect(current_path).to eql takhmeen_path(thaali)
-            visit takhmeens_pending_path(CURR_YR)
+            visit thaali_takhmeens_pending_path(CURR_YR)
           end
         end
       end
@@ -261,7 +261,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
     context "'all' should show" do
       before do
         @thaalis = FactoryBot.create_list(:previous_takhmeen, 3)
-        visit takhmeens_all_path(PREV_YR)
+        visit thaali_takhmeens_all_path(PREV_YR)
       end
 
       scenario "a header" do
@@ -286,7 +286,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           @thaalis.each do |thaali|
             click_button thaali.number.to_s
             expect(current_path).to eql takhmeen_path(thaali)
-            visit takhmeens_all_path(PREV_YR)
+            visit thaali_takhmeens_all_path(PREV_YR)
           end
         end
       end
@@ -342,7 +342,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         scenario "'Complete' button that routes to 'complete' template" do
           within("div##{CURR_YR}") do
             click_on "Complete: "
-            expect(current_path).to eql(takhmeens_complete_path(CURR_YR))
+            expect(current_path).to eql(thaali_takhmeens_complete_path(CURR_YR))
           end
         end
 
@@ -356,7 +356,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         scenario "'Pending' button that routes to 'pending' template" do
           within("div##{CURR_YR}") do
             click_on "Pending: "
-            expect(current_path).to eql(takhmeens_pending_path(CURR_YR))
+            expect(current_path).to eql(thaali_takhmeens_pending_path(CURR_YR))
           end
         end
 
