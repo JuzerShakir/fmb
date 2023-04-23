@@ -41,7 +41,7 @@
         -   [ThaaliTakhmeen](#thaali-takhmeen-model)
         -   [Transaction](#transaction-model)
     -   [Request Response Cycle](#request-response-cycle)
-    -   [Global Variables](#global-variables)
+    -   [Constants](#constants)
     -   [Features](#features)
 -   [Testing](#testing)
 -   [Bugs](#bugs)
@@ -138,13 +138,13 @@ This application is hosted [here](https://fmb.fly.dev) using [Fly.io](https://fl
 
 ---
 
-### Global Variables
+### Constants
 
-There're some values that must be accessible in the models, controller, views and test files. Here are the list of those:
+Here are the list of constants declared in the `config/constant.rb` file which are accessible by the whole application:
 
--   `active_takhmeen`: Holds an integer value (year) that represents what year of the cycle is currently going on.
--   `prev_takhmeen`: Depends on the value of the `active_takhmeen` as it is a value less than it, which represents the previous year of the cycle.
--   `phase_1`, `phase_2` & `phase_3`: Lists all the name of the apartments in their respective region.
+-   `CURR_YR`: Holds an integer value (year) that represents which annual cycle is currently active.
+-   `PREV_YR`: Holds an integer value (year) that represents previous annual cycle of `CURR_YR`.
+-   `PHASE_1`, `PHASE_2` & `PHASE_3`: Lists all the name of the apartments in their respective region.
 
 ---
 
