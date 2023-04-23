@@ -1,14 +1,13 @@
 <%# * Title %>
-<h2 class= "text-center">Takhmeens in <span class="text-secondary"><%= $active_takhmeen %></span> </h2>
+<h2 class="text-center">Takhmeens in <span class="text-secondary"><%= CURR_YR %></span> </h2>
 
 <%# * No. of Takhmeens %>
 <p class="mt-3 fw-bold text-center text-info">Total number of Takhmeens: <%= @active_thaalis.count %></p>
 
 <%# * search %>
-<%= render partial: "shared/search", locals: { message: "Thaali Number" ,
-        path: root_path, search: :number_cont } %>
-
+<%= render partial: "shared/search", locals: {message: "Thaali Number",
+                                              path: root_path, search: :number_cont} %>
 
 <%# * show all Current Year Thaalis %>
 <%= render partial: "shared/results",
-    locals: { instances: @thaalis, id: "thaalis", path: root_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) } %>
+      locals: {instances: @thaalis, id: "thaalis", path: root_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h)} %>

@@ -1,11 +1,10 @@
 class TransactionsController < ApplicationController
   before_action :authorize
-  before_action :authorize_admin_member, except: %i[index show]
+  before_action :authorize_admin_member, except: %i[all show]
   before_action :set_transaction, only: %i[show edit update destroy]
   before_action :check_if_takhmeen_is_complete, only: [:new]
 
-  def index
-    search_params = params.permit(:format, :page, q: [:recipe_no_cont])
+  def all
     @q = Transaction.includes(:thaali_takhmeen).ransack(params[:q])
 
     trans = @q.result(distinct: true).order(date: :DESC)
@@ -23,7 +22,7 @@ class TransactionsController < ApplicationController
 
     if @transaction.valid?
       @transaction.save
-      redirect_to @transaction, success: 'Transaction created successfully'
+      redirect_to @transaction, success: "Transaction created successfully"
     else
       @total_balance = @thaali_takhmeen.balance.humanize
       render :new, status: :unprocessable_entity
@@ -40,7 +39,7 @@ class TransactionsController < ApplicationController
 
   def update
     if @transaction.update(transaction_params)
-      redirect_to @transaction, success: 'Transaction updated successfully'
+      redirect_to @transaction, success: "Transaction updated successfully"
     else
       @total_balance = (@thaali_takhmeen.balance + @transaction.amount_was).humanize
       render :edit, status: :unprocessable_entity
@@ -49,7 +48,7 @@ class TransactionsController < ApplicationController
 
   def destroy
     @transaction.destroy
-    redirect_to takhmeen_path(@thaali_takhmeen), success: 'Transaction destroyed successfully'
+    redirect_to takhmeen_path(@thaali_takhmeen), success: "Transaction destroyed successfully"
   end
 
   private

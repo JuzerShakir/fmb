@@ -6,9 +6,7 @@ class ThaaliTakhmeensController < ApplicationController
   before_action :set_year, only: %i[complete pending all]
 
   def index
-    search_params = params.permit(:format, :page, q: [:number_cont])
-
-    @active_thaalis = ThaaliTakhmeen.includes(:sabeel).in_the_year($active_takhmeen)
+    @active_thaalis = ThaaliTakhmeen.includes(:sabeel).in_the_year(CURR_YR)
     @q = @active_thaalis.ransack(params[:q])
 
     thaalis = @q.result(distinct: true)
@@ -16,7 +14,7 @@ class ThaaliTakhmeensController < ApplicationController
   end
 
   def new
-    prev_takhmeen = @sabeel.thaali_takhmeens.where(year: $prev_takhmeen).first
+    prev_takhmeen = @sabeel.thaali_takhmeens.where(year: PREV_YR).first
 
     if prev_takhmeen.nil?
       @thaali_takhmeen = @sabeel.thaali_takhmeens.new
@@ -31,11 +29,11 @@ class ThaaliTakhmeensController < ApplicationController
   def create
     @sabeel = Sabeel.find(params[:sabeel_id])
     @thaali_takhmeen = @sabeel.thaali_takhmeens.new(thaali_takhmeen_params)
-    @thaali_takhmeen.year = $active_takhmeen
+    @thaali_takhmeen.year = CURR_YR
 
     if @thaali_takhmeen.valid?
       @thaali_takhmeen.save
-      redirect_to takhmeen_path(@thaali_takhmeen), success: 'Thaali Takhmeen created successfully'
+      redirect_to takhmeen_path(@thaali_takhmeen), success: "Thaali Takhmeen created successfully"
     else
       render :new, status: :unprocessable_entity
     end
@@ -46,11 +44,12 @@ class ThaaliTakhmeensController < ApplicationController
     @sabeel = @thaali_takhmeen.sabeel
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @thaali_takhmeen.update(thaali_takhmeen_params)
-      redirect_to takhmeen_path(@thaali_takhmeen), success: 'Thaali Takhmeen updated successfully'
+      redirect_to takhmeen_path(@thaali_takhmeen), success: "Thaali Takhmeen updated successfully"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -58,7 +57,7 @@ class ThaaliTakhmeensController < ApplicationController
 
   def destroy
     @thaali_takhmeen.destroy
-    redirect_to sabeel_path(@thaali_takhmeen.sabeel), success: 'Thaali Takhmeen destroyed successfully'
+    redirect_to sabeel_path(@thaali_takhmeen.sabeel), success: "Thaali Takhmeen destroyed successfully"
   end
 
   def stats
@@ -115,10 +114,10 @@ class ThaaliTakhmeensController < ApplicationController
 
   def check_for_current_year_takhmeen
     @sabeel = Sabeel.find(params[:sabeel_id])
-    @cur_takhmeen = @sabeel.thaali_takhmeens.where(year: $active_takhmeen).first
+    @cur_takhmeen = @sabeel.thaali_takhmeens.where(year: CURR_YR).first
 
     unless @cur_takhmeen.nil?
-      message = "Takhmeen has already been done for the year: #{$active_takhmeen}"
+      message = "Takhmeen has already been done for the year: #{CURR_YR}"
       redirect_back fallback_location: sabeel_path(@sabeel), notice: message
     end
   end

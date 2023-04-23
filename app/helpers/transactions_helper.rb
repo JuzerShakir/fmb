@@ -1,6 +1,6 @@
 module TransactionsHelper
   def readable_date(date)
-   date.to_time.strftime('%A, %b %d %Y')
+    date.to_time.strftime("%A, %b %d %Y")
   end
 
   def amount_message

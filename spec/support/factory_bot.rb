@@ -1,5 +1,5 @@
 require "rails_helper"
 
 RSpec.configure do |config|
-    config.include FactoryBot::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 end

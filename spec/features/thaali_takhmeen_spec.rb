@@ -1,13 +1,12 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
-
   before do
     @sabeel = FactoryBot.create(:sabeel)
   end
 
   # * NON-LOGGED-IN users
-  context 'not-logged-in will NOT render template' do
+  context "not-logged-in will NOT render template" do
     before do
       @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
     end
@@ -15,57 +14,57 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
     scenario "'new'" do
       visit new_sabeel_takhmeen_path(@sabeel)
       expect(current_path).to eq login_path
-      expect(page).to have_content 'Not Authorized!'
+      expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'show'" do
       visit takhmeen_path(@thaali)
       expect(current_path).to eq login_path
-      expect(page).to have_content 'Not Authorized!'
+      expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'edit'" do
       visit edit_takhmeen_path(@thaali)
       expect(current_path).to eq login_path
-      expect(page).to have_content 'Not Authorized!'
+      expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'index'" do
       visit root_path
       expect(current_path).to eq login_path
-      expect(page).to have_content 'Not Authorized!'
+      expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'stats'" do
       visit takhmeens_stats_path
       expect(current_path).to eq login_path
-      expect(page).to have_content 'Not Authorized!'
+      expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'complete'" do
-      year = $active_takhmeen
-      visit takhmeens_complete_path(year)
+      year = CURR_YR
+      visit thaali_takhmeens_complete_path(year)
       expect(current_path).to eq login_path
-      expect(page).to have_content 'Not Authorized!'
+      expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'pending'" do
-      year = $active_takhmeen
-      visit takhmeens_pending_path(year)
+      year = CURR_YR
+      visit thaali_takhmeens_pending_path(year)
       expect(current_path).to eq login_path
-      expect(page).to have_content 'Not Authorized!'
+      expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'all'" do
-      year = $active_takhmeen
-      visit takhmeens_pending_path(year)
+      year = CURR_YR
+      visit thaali_takhmeens_pending_path(year)
       expect(current_path).to eq login_path
-      expect(page).to have_content 'Not Authorized!'
+      expect(page).to have_content "Not Authorized!"
     end
   end
 
   # * ALL user types
-  context 'logged-in WILL render template' do
+  context "logged-in WILL render template" do
     before do
       @user = FactoryBot.create(:user)
       page.set_rack_session(user_id: @user.id)
@@ -79,30 +78,30 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         visit takhmeen_path(@thaali)
       end
 
-      scenario 'details of a ThaaliTakhmeen' do
+      scenario "details of a ThaaliTakhmeen" do
         atrbs = FactoryBot.attributes_for(:thaali_takhmeen).keys - %i[size is_complete]
         atrbs.each do |attrb|
-          expect(page).to have_content("#{@thaali.send(attrb)}")
+          expect(page).to have_content(@thaali.send(attrb))
         end
 
-        expect(page).to have_content("#{@thaali.size.humanize}")
+        expect(page).to have_content(@thaali.size.humanize)
 
         if @thaali.is_complete
-          expect(page).to have_css('.fa-check')
+          expect(page).to have_css(".fa-check")
         else
-          expect(page).to have_css('.fa-xmark')
+          expect(page).to have_css(".fa-xmark")
         end
       end
 
-      scenario 'an edit link' do
-        expect(page).to have_link('Edit')
+      scenario "an edit link" do
+        expect(page).to have_link("Edit")
       end
 
       scenario "a 'delete' link" do
-        expect(page).to have_button('Delete')
+        expect(page).to have_button("Delete")
       end
 
-      context 'transaction details such as - ' do
+      context "transaction details such as - " do
         before do
           visit root_path
           2.times do
@@ -114,7 +113,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           visit takhmeen_path(@thaali)
         end
 
-        scenario 'total number of transactions' do
+        scenario "total number of transactions" do
           expect(page).to have_content("Total number of Transactions: #{@transactions.count}")
         end
 
@@ -129,7 +128,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         scenario "'recipe_no' button that routes to transaction 'show' page" do
           @transactions.each do |trans|
             recipe_no = trans.recipe_no
-            click_button "#{recipe_no}"
+            click_button recipe_no.to_s
             expect(current_path).to eql transaction_path(trans)
             visit takhmeen_path(@thaali)
           end
@@ -144,16 +143,16 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         visit root_path
       end
 
-      scenario 'a heading' do
-        expect(page).to have_css('h2', text: "Takhmeens in #{$active_takhmeen}")
+      scenario "a heading" do
+        expect(page).to have_css("h2", text: "Takhmeens in #{CURR_YR}")
       end
 
-      scenario 'a thaali_number button that routes to takhmeen:show page' do
+      scenario "a thaali_number button that routes to takhmeen:show page" do
         @thaalis.each do |thaali|
           number = thaali.number
-          expect(page).to have_content("#{number}")
+          expect(page).to have_content(number)
 
-          click_button "#{number}"
+          click_button number.to_s
           expect(current_path).to eql takhmeen_path(thaali)
           page.driver.go_back
         end
@@ -162,11 +161,11 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
       scenario "'name', 'address' & 'is_complete' of all thaalis" do
         @thaalis.each do |thaali|
           sabeel = thaali.sabeel
-          expect(page).to have_content("#{sabeel.name}")
+          expect(page).to have_content(sabeel.name)
           if thaali.is_complete
-            expect(page).to have_css('.fa-check')
+            expect(page).to have_css(".fa-check")
           else
-            expect(page).to have_css('.fa-xmark')
+            expect(page).to have_css(".fa-xmark")
           end
         end
       end
@@ -176,13 +175,12 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           searched = @thaalis.first.number
           un_searched = @thaalis.last.number
 
-          fill_in "q_number_cont", with: "#{searched}"
+          fill_in "q_number_cont", with: searched
 
-          within('div#all-thaalis') do
+          within("div#all-thaalis") do
             expect(page).to have_content(searched)
             expect(page).not_to have_content(un_searched)
           end
-
         end
       end
     end
@@ -191,33 +189,33 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
     context "'complete' should show" do
       before do
         @thaalis = FactoryBot.create_list(:active_completed_takhmeens, 3)
-        visit takhmeens_complete_path($active_takhmeen)
+        visit thaali_takhmeens_complete_path(CURR_YR)
       end
 
-      scenario 'a header' do
-        expect(page).to have_css('h2', text: "Completed Takhmeens in #{$active_takhmeen}")
+      scenario "a header" do
+        expect(page).to have_css("h2", text: "Completed Takhmeens in #{CURR_YR}")
       end
 
-      context 'details of those ThaaliTakhmeens whose total amount is fully paid for the given year, such as - ',
-              js: true do
+      context "details of those ThaaliTakhmeens whose total amount is fully paid for the given year, such as - ",
+        js: true do
         scenario "'number', 'name', 'address' & 'is_complete' attributes" do
           @thaalis.each do |thaali|
-            expect(page).to have_content("#{thaali.number}")
+            expect(page).to have_content(thaali.number)
             sabeel = thaali.sabeel
-            expect(page).to have_content("#{sabeel.name}")
+            expect(page).to have_content(sabeel.name)
             if thaali.is_complete
-              expect(page).to have_css('.fa-check')
+              expect(page).to have_css(".fa-check")
             else
-              expect(page).to have_css('.fa-xmark')
+              expect(page).to have_css(".fa-xmark")
             end
           end
         end
 
         scenario "'number' button that routes to the thaali 'show' page" do
           @thaalis.each do |thaali|
-            click_button "#{thaali.number}"
+            click_button thaali.number.to_s
             expect(current_path).to eql takhmeen_path(thaali)
-            visit takhmeens_complete_path($active_takhmeen)
+            visit thaali_takhmeens_complete_path(CURR_YR)
           end
         end
       end
@@ -227,33 +225,33 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
     context "'pending' should show" do
       before do
         @thaalis = FactoryBot.create_list(:active_takhmeen, 3)
-        visit takhmeens_pending_path($active_takhmeen)
+        visit thaali_takhmeens_pending_path(CURR_YR)
       end
 
-      scenario 'a header' do
-        expect(page).to have_css('h2', text: "Pending Takhmeens in #{$active_takhmeen}")
+      scenario "a header" do
+        expect(page).to have_css("h2", text: "Pending Takhmeens in #{CURR_YR}")
       end
 
-      context 'details of those thaalis whose HAS balance amount for the given year such as -',
-              js: true do
+      context "details of those thaalis whose HAS balance amount for the given year such as -",
+        js: true do
         scenario "'number', 'name', 'address' & 'is_complete' attributes" do
           @thaalis.each do |thaali|
-            expect(page).to have_content("#{thaali.number}")
+            expect(page).to have_content(thaali.number)
             sabeel = thaali.sabeel
-            expect(page).to have_content("#{sabeel.name}")
+            expect(page).to have_content(sabeel.name)
             if thaali.is_complete
-              expect(page).to have_css('.fa-check')
+              expect(page).to have_css(".fa-check")
             else
-              expect(page).to have_css('.fa-xmark')
+              expect(page).to have_css(".fa-xmark")
             end
           end
         end
 
         scenario "'number' button that routes to the thaali 'show' page" do
           @thaalis.each do |thaali|
-            click_button "#{thaali.number}"
+            click_button thaali.number.to_s
             expect(current_path).to eql takhmeen_path(thaali)
-            visit takhmeens_pending_path($active_takhmeen)
+            visit thaali_takhmeens_pending_path(CURR_YR)
           end
         end
       end
@@ -263,32 +261,32 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
     context "'all' should show" do
       before do
         @thaalis = FactoryBot.create_list(:previous_takhmeen, 3)
-        visit takhmeens_all_path($prev_takhmeen)
+        visit thaali_takhmeens_all_path(PREV_YR)
       end
 
-      scenario 'a header' do
-        expect(page).to have_css('h2', text: "Takhmeens in #{$prev_takhmeen}")
+      scenario "a header" do
+        expect(page).to have_css("h2", text: "Takhmeens in #{PREV_YR}")
       end
 
-      context 'details of all ThaaliTakhmeen for the given year, such as - ', js: true do
+      context "details of all ThaaliTakhmeen for the given year, such as - ", js: true do
         scenario "'number', 'name', 'address' & 'is_complete' attributes" do
           @thaalis.each do |thaali|
-            expect(page).to have_content("#{thaali.number}")
+            expect(page).to have_content(thaali.number)
             sabeel = thaali.sabeel
-            expect(page).to have_content("#{sabeel.name}")
+            expect(page).to have_content(sabeel.name)
             if thaali.is_complete
-              expect(page).to have_css('.fa-check')
+              expect(page).to have_css(".fa-check")
             else
-              expect(page).to have_css('.fa-xmark')
+              expect(page).to have_css(".fa-xmark")
             end
           end
         end
 
         scenario "'number' button that routes to the thaali 'show' page" do
           @thaalis.each do |thaali|
-            click_button "#{thaali.number}"
+            click_button thaali.number.to_s
             expect(current_path).to eql takhmeen_path(thaali)
-            visit takhmeens_all_path($prev_takhmeen)
+            visit thaali_takhmeens_all_path(PREV_YR)
           end
         end
       end
@@ -300,12 +298,12 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         @sizes = ThaaliTakhmeen.sizes.keys
       end
 
-      scenario 'a header' do
+      scenario "a header" do
         visit takhmeens_stats_path
-        expect(page).to have_css('h2', text: 'Takhmeen Statistics')
+        expect(page).to have_css("h2", text: "Takhmeen Statistics")
       end
 
-      context 'following statistics for all the years, such as - ' do
+      context "following statistics for all the years, such as - " do
         before do
           @sizes.each do |size|
             FactoryBot.create(:active_takhmeen, size:)
@@ -314,66 +312,66 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
           visit takhmeens_stats_path
         end
 
-        scenario 'title (year)' do
-          within("div##{$active_takhmeen}") do
-            expect(page).to have_css('h3', text: $active_takhmeen)
+        scenario "title (year)" do
+          within("div##{CURR_YR}") do
+            expect(page).to have_css("h3", text: CURR_YR)
           end
         end
 
-        scenario 'total Takhmeen amount' do
-          within("div##{$active_takhmeen}") do
-            total = ThaaliTakhmeen.in_the_year($active_takhmeen).pluck(:total).sum
+        scenario "total Takhmeen amount" do
+          within("div##{CURR_YR}") do
+            total = ThaaliTakhmeen.in_the_year(CURR_YR).pluck(:total).sum
             expect(page).to have_content(number_with_delimiter(total))
           end
         end
 
-        scenario 'total Balance amount' do
-          within("div##{$active_takhmeen}") do
-            balance = ThaaliTakhmeen.in_the_year($active_takhmeen).pluck(:balance).sum
+        scenario "total Balance amount" do
+          within("div##{CURR_YR}") do
+            balance = ThaaliTakhmeen.in_the_year(CURR_YR).pluck(:balance).sum
             expect(page).to have_content(number_with_delimiter(balance))
           end
         end
 
-        scenario 'total completed takhmeens' do
-          within("div##{$active_takhmeen}") do
+        scenario "total completed takhmeens" do
+          within("div##{CURR_YR}") do
             expect(page).to have_selector(:link_or_button,
-                                          "Complete: #{ThaaliTakhmeen.completed_year($active_takhmeen).count}")
+              "Complete: #{ThaaliTakhmeen.completed_year(CURR_YR).count}")
           end
         end
 
         scenario "'Complete' button that routes to 'complete' template" do
-          within("div##{$active_takhmeen}") do
-            click_on 'Complete: '
-            expect(current_path).to eql(takhmeens_complete_path($active_takhmeen))
+          within("div##{CURR_YR}") do
+            click_on "Complete: "
+            expect(current_path).to eql(thaali_takhmeens_complete_path(CURR_YR))
           end
         end
 
-        scenario 'total pending takhmeens' do
-          within("div##{$active_takhmeen}") do
+        scenario "total pending takhmeens" do
+          within("div##{CURR_YR}") do
             expect(page).to have_selector(:link_or_button,
-                                          "Pending: #{ThaaliTakhmeen.pending_year($active_takhmeen).count}")
+              "Pending: #{ThaaliTakhmeen.pending_year(CURR_YR).count}")
           end
         end
 
         scenario "'Pending' button that routes to 'pending' template" do
-          within("div##{$active_takhmeen}") do
-            click_on 'Pending: '
-            expect(current_path).to eql(takhmeens_pending_path($active_takhmeen))
+          within("div##{CURR_YR}") do
+            click_on "Pending: "
+            expect(current_path).to eql(thaali_takhmeens_pending_path(CURR_YR))
           end
         end
 
-        scenario 'total thaalis for each size' do
-          within("div##{$active_takhmeen}") do
+        scenario "total thaalis for each size" do
+          within("div##{CURR_YR}") do
             @sizes.each do |size|
-              expect(page).to have_content("#{size.humanize}: #{ThaaliTakhmeen.in_the_year($active_takhmeen).send(size).count}")
+              expect(page).to have_content("#{size.humanize}: #{ThaaliTakhmeen.in_the_year(CURR_YR).send(size).count}")
             end
           end
         end
 
-        scenario 'total takhmeens for the year' do
-          within("div##{$active_takhmeen}") do
+        scenario "total takhmeens for the year" do
+          within("div##{CURR_YR}") do
             expect(page).to have_selector(:link_or_button,
-                                          "Total Takhmeens: #{ThaaliTakhmeen.in_the_year($active_takhmeen).count}")
+              "Total Takhmeens: #{ThaaliTakhmeen.in_the_year(CURR_YR).count}")
           end
         end
       end
@@ -390,29 +388,29 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
 
     # * NEW
     context "'new' should show" do
-      scenario 'correct URL' do
+      scenario "correct URL" do
         visit sabeel_path(@sabeel)
-        click_button 'New Takhmeen'
+        click_button "New Takhmeen"
 
         expect(current_path).to eql new_sabeel_takhmeen_path(@sabeel)
       end
 
-      scenario 'a heading' do
+      scenario "a heading" do
         visit new_sabeel_takhmeen_path(@sabeel)
-        expect(page).to have_css('h2', text: 'New Thaali Takhmeen')
+        expect(page).to have_css("h2", text: "New Thaali Takhmeen")
       end
 
-      context 'a form to fill takhmeen details of a sabeel' do
+      context "a form to fill takhmeen details of a sabeel" do
         before do
           visit root_path
         end
 
-        scenario 'who HAS NOT taken thaali in previous year' do
+        scenario "who HAS NOT taken thaali in previous year" do
           thaali = FactoryBot.build(:active_takhmeen, sabeel_id: @sabeel.id)
           visit new_sabeel_takhmeen_path(@sabeel)
 
-          fill_in 'thaali_takhmeen_number', with: "#{thaali.number}"
-          fill_in 'thaali_takhmeen_total', with: "#{thaali.total}"
+          fill_in "thaali_takhmeen_number", with: thaali.number
+          fill_in "thaali_takhmeen_total", with: thaali.total
           select thaali.size.to_s.titleize, from: :thaali_takhmeen_size
         end
 
@@ -422,7 +420,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         #     visit new_sabeel_takhmeen_path(@sabeel)
 
         #     within(".thaali_takhmeen_number") do
-        #         expect(page).to have_content("#{thaali.number}")
+        #         expect(page).to have_content(thaali.number)
         #     end
 
         #     within(".thaali_takhmeen_size") do
@@ -435,7 +433,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
 
       scenario "a 'Create' button" do
         visit new_sabeel_takhmeen_path(@sabeel)
-        expect(page).to have_button('Create Thaali takhmeen')
+        expect(page).to have_button("Create Thaali takhmeen")
       end
     end
 
@@ -445,26 +443,26 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         @thaali = FactoryBot.build(:active_takhmeen, sabeel_id: @sabeel.id)
         visit new_sabeel_takhmeen_path(@sabeel)
 
-        fill_in 'thaali_takhmeen_number', with: "#{@thaali.number}"
-        fill_in 'thaali_takhmeen_total', with: "#{@thaali.total}"
+        fill_in "thaali_takhmeen_number", with: @thaali.number
+        fill_in "thaali_takhmeen_total", with: @thaali.total
       end
 
-      scenario 'should BE able to create with valid values' do
+      scenario "should BE able to create with valid values" do
         select @thaali.size.to_s.titleize, from: :thaali_takhmeen_size
 
-        click_button 'Create Thaali takhmeen'
+        click_button "Create Thaali takhmeen"
 
         thaali_takhmeen = ThaaliTakhmeen.last
         expect(current_path).to eql takhmeen_path(thaali_takhmeen)
-        expect(page).to have_content('Thaali Takhmeen created successfully')
+        expect(page).to have_content("Thaali Takhmeen created successfully")
       end
 
-      scenario 'should NOT BE able to create with invalid values' do
-        click_button 'Create Thaali takhmeen'
+      scenario "should NOT BE able to create with invalid values" do
+        click_button "Create Thaali takhmeen"
 
         # we haven't selected any size, which is required, hence thaali will not be saved
-        expect(page).to have_content('Please review the problems below:')
-        expect(page).to have_content('Size cannot be blank')
+        expect(page).to have_content("Please review the problems below:")
+        expect(page).to have_content("Size cannot be blank")
       end
     end
 
@@ -474,14 +472,14 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         visit takhmeen_path(@thaali)
       end
-      scenario 'should BE able to update with valid values' do
-        click_on 'Edit'
+      scenario "should BE able to update with valid values" do
+        click_on "Edit"
         expect(current_path).to eql edit_takhmeen_path(@thaali)
 
-        fill_in 'thaali_takhmeen_number', with: "#{Random.rand(1..400)}"
-        click_on 'Update Thaali takhmeen'
+        fill_in "thaali_takhmeen_number", with: Random.rand(1..400)
+        click_on "Update Thaali takhmeen"
 
-        expect(page).to have_content('Thaali Takhmeen updated successfully')
+        expect(page).to have_content("Thaali Takhmeen updated successfully")
       end
     end
 
@@ -490,45 +488,45 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
       before do
         @thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         visit takhmeen_path(@thaali)
-        click_on 'Delete'
+        click_on "Delete"
       end
 
-      context 'clicking on delete button' do
-        scenario 'opens a destroy modal' do
-          expect(page).to have_css('#destroyModal')
+      context "clicking on delete button" do
+        scenario "opens a destroy modal" do
+          expect(page).to have_css("#destroyModal")
         end
 
-        scenario 'shows confirmation heading' do
-          within('.modal-header') do
-            expect(page).to have_css('h1', text: 'Confirm Deletion')
+        scenario "shows confirmation heading" do
+          within(".modal-header") do
+            expect(page).to have_css("h1", text: "Confirm Deletion")
           end
         end
 
-        scenario 'shows confirmation message' do
-          within('.modal-body') do
+        scenario "shows confirmation message" do
+          within(".modal-body") do
             expect(page).to have_content("Are you sure you want to delete Thaali no: #{@thaali.number}? This action cannot be undone.")
           end
         end
 
-        scenario 'show action buttons' do
-          within('.modal-footer') do
-            expect(page).to have_css('.btn-secondary', text: 'Cancel')
-            expect(page).to have_css('.btn-primary', text: 'Yes, delete it!')
+        scenario "show action buttons" do
+          within(".modal-footer") do
+            expect(page).to have_css(".btn-secondary", text: "Cancel")
+            expect(page).to have_css(".btn-primary", text: "Yes, delete it!")
           end
         end
       end
 
       context "after clicking 'Yes, delete it!' button" do
         before do
-          click_on 'Yes, delete it!'
+          click_on "Yes, delete it!"
         end
 
-        scenario 'returns to root path' do
+        scenario "returns to root path" do
           expect(current_path).to eql sabeel_path(@sabeel)
         end
 
-        scenario 'shows success flash message' do
-          expect(page).to have_content('Thaali Takhmeen destroyed successfully')
+        scenario "shows success flash message" do
+          expect(page).to have_content("Thaali Takhmeen destroyed successfully")
         end
       end
     end
@@ -545,22 +543,22 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
 
     scenario "'new'" do
       visit sabeel_path(@sabeel)
-      click_on 'New Takhmeen'
+      click_on "New Takhmeen"
       expect(current_path).to eq sabeel_path(@sabeel)
-      expect(page).to have_content 'Not Authorized!'
+      expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'edit'" do
-      click_on 'Edit'
+      click_on "Edit"
       expect(current_path).to eq takhmeen_path(@thaali)
-      expect(page).to have_content 'Not Authorized!'
+      expect(page).to have_content "Not Authorized!"
     end
 
-    scenario 'destroy' do
-      click_on 'Delete'
-      click_on 'Yes, delete it!'
+    scenario "destroy" do
+      click_on "Delete"
+      click_on "Yes, delete it!"
       expect(current_path).to eq takhmeen_path(@thaali)
-      expect(page).to have_content 'Not Authorized!'
+      expect(page).to have_content "Not Authorized!"
     end
   end
 end

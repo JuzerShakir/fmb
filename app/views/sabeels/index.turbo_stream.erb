@@ -2,4 +2,4 @@
     <%= render partial: "sabeel_content" %>
 <% end %>
 
-<%= render partial: "shared/pagy", locals: { path: all_sabeels_path(format: :turbo_stream, page: @pagy.next, q: params[:q]&.to_unsafe_h) } %>
+<%= render partial: "shared/pagy", locals: { path: sabeels_path(format: :turbo_stream, page: @pagy.next, q: params[:q]&.to_unsafe_h) } %>

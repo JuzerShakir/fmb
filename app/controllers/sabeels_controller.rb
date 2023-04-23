@@ -6,8 +6,7 @@ class SabeelsController < ApplicationController
   before_action :set_apt, only: %i[active inactive]
 
   def index
-    search_params = params.permit(:format, :page, q: [:name_or_its_cont])
-    @q = Sabeel.ransack(search_params[:q])
+    @q = Sabeel.ransack(params[:q])
     sabeels = @q.result(distinct: true).order(created_at: :DESC)
     @pagy, @sabeels = pagy_countless(sabeels)
   end
@@ -20,7 +19,7 @@ class SabeelsController < ApplicationController
     @sabeel = Sabeel.new(sabeel_params)
     if @sabeel.valid?
       @sabeel.save
-      redirect_to @sabeel, success: 'Sabeel created successfully'
+      redirect_to @sabeel, success: "Sabeel created successfully"
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,14 +27,15 @@ class SabeelsController < ApplicationController
 
   def show
     @thaalis = @sabeel.thaali_takhmeens.order(year: :DESC)
-    @thaali_inactive = @thaalis.in_the_year($active_takhmeen).empty?
+    @thaali_inactive = @thaalis.in_the_year(CURR_YR).empty?
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @sabeel.update(sabeel_params)
-      redirect_to @sabeel, success: 'Sabeel updated successfully'
+      redirect_to @sabeel, success: "Sabeel updated successfully"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -44,7 +44,7 @@ class SabeelsController < ApplicationController
   def destroy
     @sabeel.destroy
     respond_to do |format|
-      format.all { redirect_to root_path(format: :html), success: 'Sabeel deleted successfully' }
+      format.all { redirect_to root_path(format: :html), success: "Sabeel deleted successfully" }
     end
   end
 
@@ -54,7 +54,7 @@ class SabeelsController < ApplicationController
 
     apartments.each do |apartment|
       total_sabeels = Sabeel.send(apartment)
-      active_takhmeens = total_sabeels.active_takhmeen($active_takhmeen)
+      active_takhmeens = total_sabeels.active_takhmeen(CURR_YR)
       inactive = total_sabeels - active_takhmeens
       @apts[apartment] = {}
       @apts[apartment].store(:active_takhmeens, active_takhmeens.count)
@@ -67,14 +67,14 @@ class SabeelsController < ApplicationController
   end
 
   def active
-    @s = Sabeel.send(@apt).active_takhmeen($active_takhmeen).order(flat_no: :ASC).includes(:thaali_takhmeens)
+    @s = Sabeel.send(@apt).active_takhmeen(CURR_YR).order(flat_no: :ASC).includes(:thaali_takhmeens)
     @total = @s.count
     @pagy, @sabeels = pagy_countless(@s)
 
     if request.format.symbol == :pdf
       pdf = ActiveSabeels.new(@s, @apt)
-      send_data pdf.render, filename: "#{@apt}-#{$active_takhmeen}.pdf",
-                            type: 'application/pdf', disposition: 'inline'
+      send_data pdf.render, filename: "#{@apt}-#{CURR_YR}.pdf",
+        type: "application/pdf", disposition: "inline"
     end
   end
 

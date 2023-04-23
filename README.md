@@ -35,14 +35,13 @@
     -   [Definition of FMB](#definition-of-fmb)
 -   [About project](#about-the-project)
     -   [Hosting](#hosting)
-    -   [Gems](#gems)
     -   [Schema](#schema)
         -   [User](#user-model)
         -   [Sabeel](#Sabeel-model)
         -   [ThaaliTakhmeen](#thaali-takhmeen-model)
         -   [Transaction](#transaction-model)
     -   [Request Response Cycle](#request-response-cycle)
-    -   [Global Variables](#global-variables)
+    -   [Constants](#constants)
     -   [Features](#features)
 -   [Testing](#testing)
 -   [Bugs](#bugs)
@@ -89,35 +88,6 @@ This application is hosted [here](https://fmb.fly.dev) using [Fly.io](https://fl
 
 ---
 
-### Gems
-
-The completion of the project's tasks necessitated the use of the following gems:
-
-|       **Gem Names**       | **Version** |
-| :-----------------------: | :---------: |
-|        Postgresql         |  **1.2.3**  |
-|          BCrypt           | **3.1.18**  |
-|           RSpec           |  **6.0.1**  |
-|        Factory Bot        |  **6.2.0**  |
-|         Capybara          | **3.38.0**  |
-|    Rack Session Access    |  **0.2.0**  |
-|     Shoulda-Matchers      |  **5.3.0**  |
-| Shoulda-Callback-Matchers |  **1.1.4**  |
-| Rails Controller Testing  |  **1.0.5**  |
-| Validates Email Format of |  **1.7.2**  |
-|           Faker           |  **3.1.0**  |
-|        FriendlyId         |  **5.5.0**  |
-|        Simple Form        |  **5.1.0**  |
-|          Ransack          |  **3.2.1**  |
-|         Humanize          |  **2.5.0**  |
-|           Pagy            |  **6.0.0**  |
-|    Selenium Webdriver     |  **4.7.0**  |
-|           Prawn           |  **2.4.0**  |
-|        Prawn Table        |  **0.2.2**  |
-|          Matrix           |  **0.4.2**  |
-
----
-
 ### Schema
 
 <img src="public/images/schema.png" />
@@ -133,7 +103,7 @@ The completion of the project's tasks necessitated the use of the following gems
     -   A `member` has access to create, update or delete routes of `thaali_takhmeen` of a `sabeel` & `transaction` of a `thaali_takhmeen`.
     -   A `viewer` has NO access to create, update or delete routes of any models but only view the site and all its data.
 
-> The first `admin`/`user` can oly be created by the developer and then later that `admin` can create any number of users with roles of his choosing.
+> The first `admin`/`user` can only be created by the developer and then later that `admin` can create any number of users with roles of his choosing.
 
 #### Sabeel Model
 
@@ -149,7 +119,7 @@ The completion of the project's tasks necessitated the use of the following gems
 -   A `sabeel` can choose a `thaali` of the size required (`small`, `medium` & `large`) to avoid food wastage.
 -   **The term `takhmeen` refers to the voluntary donations done by each `sabeel` for a `thaali`.**
 -   The `total`, `paid` & `balance` attributes belong to `takhmeen` which basically keeps track of donation amount.
--   The value of the `year` attribute depends on the value of the global variable `$active_takhmeen`. The user cannot change it and it will be automatically set by the developer.
+-   The value of the `year` attribute depends on the value of the global variable `CURR_YR`. The user cannot change it and it will be automatically set by the developer.
 
 ---
 
@@ -168,18 +138,19 @@ The completion of the project's tasks necessitated the use of the following gems
 
 ---
 
-### Global Variables
+### Constants
 
-There're some values that must be accessible in the models, controller, views and test files. Here are the list of those:
+Here are the list of constants declared in the `config/constant.rb` file which are accessible by the whole application:
 
--   `active_takhmeen`: Holds an integer value (year) that represents what year of the cycle is currently going on.
--   `prev_takhmeen`: Depends on the value of the `active_takhmeen` as it is a value less than it, which represents the previous year of the cycle.
--   `phase_1`, `phase_2` & `phase_3`: Lists all the name of the apartments in their respective region.
+-   `CURR_YR`: Holds an integer value (year) that represents which annual cycle is currently active.
+-   `PREV_YR`: Holds an integer value (year) that represents previous annual cycle of `CURR_YR`.
+-   `PHASE_1`, `PHASE_2` & `PHASE_3`: Lists all the name of the apartments in their respective region.
 
 ---
 
 ### Features
--   [x] A responsive website that enables users to browse the site on any device. 
+
+-   [x] A responsive website that enables users to browse the site on any device.
 
 -   [x] Only logged-in users can access the content of the site.
 -   [x] Redirect non-logged-in users to login page.
@@ -198,10 +169,11 @@ There're some values that must be accessible in the models, controller, views an
 
 -   [x] A user with a role of `visitor` is not allowed to perform any CRUD actions on any of the models.
 
--   A user will not be able to create duplicate... 
-    -  [x] sabeel with same `ITS No`. 
-    -  [x] thaali with same `number` for that particular `year`. 
-    -  [x] transaction with same `receipt_no`. 
+-   A user will not be able to create duplicate...
+
+    -   [x] sabeel with same `ITS No`.
+    -   [x] thaali with same `number` for that particular `year`.
+    -   [x] transaction with same `receipt_no`.
 
 -   A user is able to search for a particular...
 

@@ -15,18 +15,18 @@
     </div>
 </div>
 <% @thaalis.each do |thaali| %>
-    <div  id="thaali_<%= thaali.year %>" class="row py-3 border-bottom border-light">
+    <div id="thaali_<%= thaali.year %>" class="row py-3 border-bottom border-light">
         <div id="<%= thaali.year %>" class="col">
             <%= button_to thaali.year, takhmeen_path(thaali), method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
         </div>
         <div class="col text-danger fw-bold">
-            <i class="fa-solid fa-indian-rupee-sign"></i><%= "#{thaali.total}" %>
+            <i class="fa-solid fa-indian-rupee-sign"></i><%= thaali.total.to_s %>
         </div>
         <div class="col text-success fw-bold">
-            <i class="fa-solid fa-indian-rupee-sign"></i><%= "#{thaali.balance}" %>
+            <i class="fa-solid fa-indian-rupee-sign"></i><%= thaali.balance.to_s %>
         </div>
         <div class="col">
-            <%= render partial: "shared/takhmeen_complete", locals: { takhmeen: thaali } %>
+            <%= render partial: "shared/takhmeen_complete", locals: {takhmeen: thaali} %>
         </div>
     </div>
 <% end %>

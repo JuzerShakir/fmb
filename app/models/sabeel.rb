@@ -1,9 +1,4 @@
 class Sabeel < ApplicationRecord
-  # * Global variables
-  $phase_1 = %w(mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi)
-  $phase_2 = %w(maimoon_a maimoon_b qutbi_a qutbi_b najmi)
-  $phase_3 = %w(husami_a husami_b noorani_a noorani_b)
-
   # * Associations
   has_many :thaali_takhmeens, dependent: :destroy
   has_many :transactions, through: :thaali_takhmeens
@@ -24,44 +19,44 @@ class Sabeel < ApplicationRecord
   # ITS
   include ITSValidation
   # Email
-  validates_email_format_of :email, allow_blank: true, message: 'is in invalid format'
+  validates_email_format_of :email, allow_blank: true, message: "is in invalid format"
   # name
-  validates_uniqueness_of :name, scope: :its, message: 'has already been registered with this ITS number'
+  validates_uniqueness_of :name, scope: :its, message: "has already been registered with this ITS number"
   # apartment
-  validates_presence_of :apartment, :name, message: 'cannot be blank'
+  validates_presence_of :apartment, :name, message: "cannot be blank"
   # Flat No
-  validates_numericality_of :flat_no, only_integer: true, message: 'must be a number'
-  validates_numericality_of :flat_no, greater_than: 0, message: 'must be greater than 0'
+  validates_numericality_of :flat_no, only_integer: true, message: "must be a number"
+  validates_numericality_of :flat_no, greater_than: 0, message: "must be greater than 0"
   # mobile
-  validates_numericality_of :mobile, only_integer: true, message: 'must be a number'
-  validates_numericality_of :mobile, in: 1_000_000_000..9_999_999_999, message: 'is in invalid format'
+  validates_numericality_of :mobile, only_integer: true, message: "must be a number"
+  validates_numericality_of :mobile, in: 1_000_000_000..9_999_999_999, message: "is in invalid format"
 
   # * Enums
   # apartment
   enum :apartment, %i[mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi
-                      maimoon_a maimoon_b qutbi_a qutbi_b najmi husami_a husami_b noorani_a
-                      noorani_b]
+    maimoon_a maimoon_b qutbi_a qutbi_b najmi husami_a husami_b noorani_a
+    noorani_b]
 
   # * Scopes
-  scope :in_phase_1, -> { where(apartment: $phase_1) }
+  scope :in_phase_1, -> { where(apartment: PHASE_1) }
 
-  scope :in_phase_2, -> { where(apartment: $phase_2) }
+  scope :in_phase_2, -> { where(apartment: PHASE_2) }
 
-  scope :in_phase_3, -> { where(apartment: $phase_3) }
+  scope :in_phase_3, -> { where(apartment: PHASE_3) }
 
-  scope :active_takhmeen, ->(current_year) { joins(:thaali_takhmeens).where(thaali_takhmeens: { year: current_year }) }
+  scope :active_takhmeen, ->(current_year) { joins(:thaali_takhmeens).where(thaali_takhmeens: {year: current_year}) }
 
   scope :inactive_takhmeen, ->(apt) {
     where(apartment: apt).where("id NOT IN (
                                 SELECT sabeel_id
                                 FROM thaali_takhmeens
-                                WHERE year = #{$active_takhmeen}
+                                WHERE year = #{CURR_YR}
                                 )")
   }
 
   scope :never_done_takhmeen, -> { where.missing(:thaali_takhmeens) }
 
-  scope :with_the_size, ->(size) { joins(:thaali_takhmeens).where(thaali_takhmeens: { size: }) }
+  scope :with_the_size, ->(size) { joins(:thaali_takhmeens).where(thaali_takhmeens: {size:}) }
 
   scope :phase_1_size, ->(size) { in_phase_1.with_the_size(size) }
 
@@ -76,7 +71,7 @@ class Sabeel < ApplicationRecord
   private
 
   def titleize_name
-    self.name = name.split(' ').map(&:capitalize).join(' ') unless name.nil?
+    self.name = name.split(" ").map(&:capitalize).join(" ") unless name.nil?
   end
 
   def set_up_address

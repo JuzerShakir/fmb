@@ -1,5 +1,5 @@
 <%# * Title %>
-<h2 class= "text-center">Active Sabeels: <span class="text-secondary"><%= "#{@apt.titleize}" %></span> </h2>
+<h2 class="text-center">Active Sabeels: <span class="text-secondary"><%= @apt.titleize.to_s %></span> </h2>
 
 <%# * No. of Sabeels %>
 <p class="fs-5 mt-4 fw-bold text-info text-center">Total number of Active Sabeels: <%= @total %></p>
@@ -7,17 +7,16 @@
 <%# * Generate PDF %>
 <div class="mt-4 text-center">
     <%= button_to '<i class=" fa-regular fa-file-pdf fa-lg"></i> Generate PDF'.html_safe,
-                    active_sabeels_path(@apt, format: :pdf), method: :get, form: {target: '_blank'},
-                    class: "btn btn-primary" %>
+          sabeels_active_path(@apt, format: :pdf), method: :get, form: {target: "_blank"},
+          class: "btn btn-primary" %>
 </div>
-
 
 <%# * show all active sabeels %>
 <div id="all-sabeels" class="container text-center my-5 border-2 rounded-4 shadow-lg c-bg">
     <% if @sabeels.any? %>
         <%= render partial: "active_theader" %>
         <div id="sabeels"></div>
-        <%= turbo_frame_tag :pagination, loading: :lazy, src: active_sabeels_path(format: :turbo_stream) %>
+        <%= turbo_frame_tag :pagination, loading: :lazy, src: sabeels_active_path(format: :turbo_stream) %>
     <% else %>
         <%= render partial: "shared/no_results" %>
     <% end %>

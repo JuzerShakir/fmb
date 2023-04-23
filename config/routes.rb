@@ -5,43 +5,41 @@ Rails.application.routes.draw do
   root "thaali_takhmeens#index"
 
   # * CUSTOM ROUTES
-  # users
-  get "/admin", to: "users#index"
-
   # session
   get "/login", to: "sessions#new"
   post "/signup", to: "sessions#create"
-  delete "/destroy", to: "sessions#destroy", as: :destroy_session
-
-  # sabeels
-  get "/sabeels", to: "sabeels#index", as: :all_sabeels
+  delete "/destroy", to: "sessions#destroy"
 
   # thaali-takhmeen
   get "/takhmeens/stats", to: "thaali_takhmeens#stats", as: :takhmeens_stats
-  get "/takhmeens/:year/complete", to: "thaali_takhmeens#complete", as: :takhmeens_complete
-  get "/takhmeens/:year/pending", to: "thaali_takhmeens#pending", as: :takhmeens_pending
-  get "/takhmeens/:year/all", to: "thaali_takhmeens#all", as: :takhmeens_all
-
-  # transactions
-  get "/transactions", to: "transactions#index", as: :all_transactions
 
   # * RESOURCEFUL ROUTES
-  resources :sabeels, shallow: true, except: [:index]  do
-    collection do
-      get 'stats'
-      get "/:apt/active", action: :active, as: :active
-      get "/:apt/active/pdf", action: :active_pdf, as: :active_pdf
-      get "/:apt/inactive", action: :inactive, as: :inactive
-    end
+  resources :users
 
-    resources :takhmeens, controller: "thaali_takhmeens", except: [:index] do
-      resources :transactions, except: [:index]
+  resources :sabeels, shallow: true do
+    get :stats, on: :collection
+
+    resources :takhmeens, controller: "thaali_takhmeens", except: %i[index] do
+      resources :transactions, except: %i[index]
     end
   end
 
-  resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
+  namespace :sabeels, path: "sabeels/:apt" do
+    get :active
+    get :inactive
+  end
+
+  namespace :thaali_takhmeens, path: "takhmeens/:year" do
+    get :complete
+    get :pending
+    get :all
+  end
+
+  namespace :transactions do
+    get :all, path: ""
+  end
 
   # * ERRORS
-  match '/404', to: "errors#not_found", via: :all
-  match '/500', to: "errors#internal_server", via: :all
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server", via: :all
 end

@@ -1,5 +1,5 @@
 <%# * Title %>
-<h2 class= "text-center">Inactive Sabeels: <span class="text-secondary"><%= "#{@apt.titleize}" %></span> </h2>
+<h2 class="text-center">Inactive Sabeels: <span class="text-secondary"><%= @apt.titleize.to_s %></span> </h2>
 
 <%# * No. of Inactive Sabeels %>
 <p class="fs-5 mt-5 fw-bold text-info text-center">Total number of Inactive Sabeels: <%= @total %></p>
@@ -9,7 +9,7 @@
     <% if @sabeels.any? %>
         <%= render partial: "inactive_theader" %>
         <div id="sabeels"></div>
-        <%= turbo_frame_tag :pagination, loading: :lazy, src: inactive_sabeels_path(format: :turbo_stream) %>
+        <%= turbo_frame_tag :pagination, loading: :lazy, src: sabeels_inactive_path(format: :turbo_stream) %>
     <% else %>
         <%= render partial: "shared/no_results" %>
     <% end %>

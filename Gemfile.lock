@@ -75,7 +75,15 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    ast (2.4.2)
     bcrypt (3.1.18)
+    better_html (2.0.1)
+      actionview (>= 6.0)
+      activesupport (>= 6.0)
+      ast (~> 2.0)
+      erubi (~> 1.4)
+      parser (>= 2.4)
+      smart_properties
     bindex (0.8.1)
     bootsnap (1.15.0)
       msgpack (~> 1.2)
@@ -99,6 +107,13 @@ GEM
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
+    erb_lint (0.4.0)
+      activesupport
+      better_html (>= 2.0.1)
+      parser (>= 2.7.1.4)
+      rainbow
+      rubocop
+      smart_properties
     erubi (1.12.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -122,6 +137,9 @@ GEM
       activesupport (>= 5.0.0)
     jsbundling-rails (1.1.1)
       railties (>= 6.0.0)
+    json (2.6.3)
+    language_server-protocol (3.17.0.3)
+    lint_roller (1.0.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -149,6 +167,9 @@ GEM
     nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
     pagy (6.0.0)
+    parallel (1.23.0)
+    parser (3.2.2.0)
+      ast (~> 2.4.1)
     pdf-core (0.9.0)
     pg (1.4.5)
     prawn (2.4.0)
@@ -201,6 +222,7 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0)
       zeitwerk (~> 2.5)
+    rainbow (3.1.1)
     rake (13.0.6)
     ransack (3.2.1)
       activerecord (>= 6.1.5)
@@ -228,6 +250,22 @@ GEM
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
     rspec-support (3.12.0)
+    rubocop (1.50.2)
+      json (~> 2.3)
+      parallel (~> 1.10)
+      parser (>= 3.2.0.0)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.28.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.28.0)
+      parser (>= 3.2.1.0)
+    rubocop-performance (1.16.0)
+      rubocop (>= 1.7.0, < 2.0)
+      rubocop-ast (>= 0.4.0)
+    ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
     selenium-webdriver (4.7.1)
       rexml (~> 3.2, >= 3.2.5)
@@ -244,6 +282,18 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    smart_properties (1.17.0)
+    standard (1.28.0)
+      language_server-protocol (~> 3.17.0.2)
+      lint_roller (~> 1.0)
+      rubocop (~> 1.50.2)
+      standard-custom (~> 1.0.0)
+      standard-performance (~> 1.0.1)
+    standard-custom (1.0.0)
+      lint_roller (~> 1.0)
+    standard-performance (1.0.1)
+      lint_roller (~> 1.0)
+      rubocop-performance (~> 1.16.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     thor (1.2.1)
@@ -256,6 +306,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    unicode-display_width (2.4.2)
     validates_email_format_of (1.7.2)
       i18n
     validates_timeliness (7.0.0.beta2)
@@ -283,6 +334,7 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   debug
+  erb_lint
   factory_bot_rails (~> 6.2.0)
   faker (~> 3.1.0)
   friendly_id (~> 5.5.0)
@@ -307,6 +359,7 @@ DEPENDENCIES
   shoulda-matchers!
   simple_form (~> 5.1)
   simplecov
+  standard
   stimulus-rails
   turbo-rails
   tzinfo-data
