@@ -19,16 +19,16 @@
           <% end %>
 
           <%# * Resources %>
-          <%= render partial: "shared/navbar/resources_dropdown"%>
+          <%= render partial: "shared/navbar/resources_dropdown" %>
           <%# * Statistics %>
-          <%= render partial: "shared/navbar/statistics_dropdown"%>
+          <%= render partial: "shared/navbar/statistics_dropdown" %>
           <%# * User Dropdown %>
           <% if current_user.admin? %>
-            <%= render partial: "shared/navbar/admin_dropdown"%>
+            <%= render partial: "shared/navbar/admin_dropdown" %>
           <% elsif current_user.member? %>
-            <%= render partial: "shared/navbar/member_dropdown"%>
+            <%= render partial: "shared/navbar/member_dropdown" %>
           <% else %>
-            <li id="viewer"><%= link_to "Log out", destroy_path, data: { turbo_method: :delete }, class: "nav-item nav-link text-center text-danger fw-bold"%></li>
+            <li id="viewer"><%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-center text-danger fw-bold" %></li>
           <% end %>
         </ul>
       </div>

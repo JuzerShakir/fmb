@@ -7,7 +7,7 @@
 <%# * action buttons %>
 <% if current_user == @user %>
     <%= render partial: "shared/actions",
-    locals: { edit_path: edit_user_path(@user) } %>
+          locals: {edit_path: edit_user_path(@user)} %>
 <% else %>
     <div class="vstack gap-2 col-sm-3 mx-auto mt-5">
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
@@ -18,4 +18,4 @@
 
 <%# * destroy Modal %>
 <%= render partial: "shared/destroy_modal",
-     locals: {destroy_path: @user, message: "delete User: #{@user.name}?" } %>
+      locals: {destroy_path: @user, message: "delete User: #{@user.name}?"} %>

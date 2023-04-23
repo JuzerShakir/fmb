@@ -1,9 +1,9 @@
 <%# * Title %>
-<h2 class= "text-center">Completed Takhmeens in <span class="text-secondary"> <%= "#{@year}" %> </span> </h2>
+<h2 class="text-center">Completed Takhmeens in <span class="text-secondary"> <%= @year.to_s %> </span> </h2>
 
 <%# * No. of Completed Takhmeens %>
 <p class="fs-5 mt-5 fw-bold text-info text-center">Total number of Completed Takhmeens: <%= @total %></p>
 
 <%# * show all Completed Takhmeens %>
 <%= render partial: "shared/results",
-    locals: { instances: @thaalis, id: "thaalis", path: thaali_takhmeens_complete_path(format: :turbo_stream) } %>
+      locals: {instances: @thaalis, id: "thaalis", path: thaali_takhmeens_complete_path(format: :turbo_stream)} %>

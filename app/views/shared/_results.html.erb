@@ -1,8 +1,8 @@
-<%= turbo_frame_tag :results, data: { turbo_action: "advance" } do %>
-    <div id=<%="all-#{id}"%> class="container text-center my-5 border-2 rounded-4 shadow-lg c-bg">
+<%= turbo_frame_tag :results, data: {turbo_action: "advance"} do %>
+    <div id=<%= "all-#{id}" %> ">
         <% if instances.any? %>
             <%= render partial: "theader" %>
-            <div id=<%="#{id}"%> ></div>
+            <div id=<%= id.to_s %> ></div>
             <%= turbo_frame_tag :pagination, loading: :lazy, src: path %>
         <% else %>
             <%= render partial: "shared/no_results" %>
