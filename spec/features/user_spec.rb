@@ -26,7 +26,7 @@ RSpec.describe "User accessed by users who are 👉" do
     end
 
     scenario "'index'" do
-      visit admin_path
+      visit users_path
       expect(current_path).to eq login_path
       expect(page).to have_content "Not Authorized!"
     end
@@ -207,7 +207,7 @@ RSpec.describe "User accessed by users who are 👉" do
 
         click_button "Create User"
 
-        expect(current_path).to eql admin_path
+        expect(current_path).to eql users_path
         expect(page).to have_content("User created successfully")
       end
 
@@ -231,7 +231,7 @@ RSpec.describe "User accessed by users who are 👉" do
     context "'index' should have" do
       before do
         @users = FactoryBot.create_list(:user, 3)
-        visit admin_path
+        visit users_path
       end
 
       scenario "a heading" do
@@ -254,7 +254,7 @@ RSpec.describe "User accessed by users who are 👉" do
 
           click_on user.name.to_s
           expect(current_path).to eql user_path(user)
-          visit admin_path
+          visit users_path
         end
       end
     end
@@ -277,7 +277,7 @@ RSpec.describe "User accessed by users who are 👉" do
 
     # * INDEX
     scenario "'index'" do
-      visit admin_path
+      visit users_path
       expect(current_path).to eq root_path
       expect(page).to have_content "Not Authorized!"
     end

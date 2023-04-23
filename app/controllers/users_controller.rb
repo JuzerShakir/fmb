@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.valid?
       @user.save
-      redirect_to admin_path, success: "User created successfully"
+      redirect_to users_path, success: "User created successfully"
     else
       render :new, status: :unprocessable_entity
     end
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     if current_user.admin? && current_user != @user
-      redirect_to admin_path, success: "User deleted successfully"
+      redirect_to users_path, success: "User deleted successfully"
     else
       session[:user_id] = nil
       redirect_to login_path, success: "User deleted successfully"

@@ -25,12 +25,12 @@ RSpec.describe User, type: :routing do
 
   # * INDEX
   context "index action" do
-    it "is accessible by /admin route" do
-      expect(get("/admin")).to route_to("users#index")
+    it "is accessible by /users route" do
+      expect(get("/users")).to route_to("users#index")
     end
 
-    it "is accessible by admin_path route" do
-      expect(get: admin_path).to route_to(controller: "users", action: "index")
+    it "is accessible by users_path route" do
+      expect(get: users_path).to route_to(controller: "users", action: "index")
     end
   end
 

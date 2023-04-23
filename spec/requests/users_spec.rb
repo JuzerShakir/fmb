@@ -186,7 +186,7 @@ RSpec.describe "User request - user type 👉", type: :request do
 
         scenario "should redirect to index path of User" do
           expect(response).to have_http_status(:found)
-          expect(response).to redirect_to admin_path
+          expect(response).to redirect_to users_path
         end
       end
 
@@ -226,7 +226,7 @@ RSpec.describe "User request - user type 👉", type: :request do
 
     # * INDEX
     context "GET index" do
-      before { get admin_path }
+      before { get users_path }
 
       scenario "should render a index template with 200 status code" do
         expect(response).to render_template(:index)
@@ -246,7 +246,7 @@ RSpec.describe "User request - user type 👉", type: :request do
       end
 
       scenario "should redirect to the login path" do
-        expect(response).to redirect_to admin_path
+        expect(response).to redirect_to users_path
       end
     end
   end
@@ -295,7 +295,7 @@ RSpec.describe "User request - user type 👉", type: :request do
 
     # * INDEX
     context "GET index" do
-      before { get admin_path }
+      before { get users_path }
 
       scenario "should NOT render the 'index' template" do
         expect(response).not_to render_template(:index)

@@ -5,9 +5,6 @@ Rails.application.routes.draw do
   root "thaali_takhmeens#index"
 
   # * CUSTOM ROUTES
-  # users
-  get "/admin", to: "users#index"
-
   # session
   get "/login", to: "sessions#new"
   post "/signup", to: "sessions#create"
@@ -23,6 +20,8 @@ Rails.application.routes.draw do
   get "/transactions", to: "transactions#index", as: :all_transactions
 
   # * RESOURCEFUL ROUTES
+  resources :users
+
   resources :sabeels, shallow: true do
     get :stats, on: :collection
 
@@ -35,8 +34,6 @@ Rails.application.routes.draw do
     get :active
     get :inactive
   end
-
-  resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
 
   # * ERRORS
   match "/404", to: "errors#not_found", via: :all

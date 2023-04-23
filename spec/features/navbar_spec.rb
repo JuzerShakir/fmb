@@ -107,7 +107,7 @@ RSpec.describe "Navbar" do
       within("#admin") do
         expect(page).to have_content("Home")
         click_on "Home"
-        expect(current_path).to eql admin_path
+        expect(current_path).to eql users_path
       end
     end
 
