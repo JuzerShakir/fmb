@@ -95,8 +95,8 @@ RSpec.describe Sabeel, type: :routing do
       expect(get("/sabeels/mohammedi/active")).to route_to("sabeels#active", apt: "mohammedi")
     end
 
-    it "is accessible by active_sabeels_path route" do
-      expect(get: active_sabeels_path("mohammedi")).to route_to(controller: "sabeels", action: "active", apt: "mohammedi")
+    it "is accessible by sabeels_active_path route" do
+      expect(get: sabeels_active_path("mohammedi")).to route_to(controller: "sabeels", action: "active", apt: "mohammedi")
     end
   end
 
@@ -106,8 +106,8 @@ RSpec.describe Sabeel, type: :routing do
       expect(get("/sabeels/mohammedi/inactive")).to route_to("sabeels#inactive", apt: "mohammedi")
     end
 
-    it "is accessible by inactive_sabeels_path route" do
-      expect(get: inactive_sabeels_path("mohammedi")).to route_to(controller: "sabeels", action: "inactive", apt: "mohammedi")
+    it "is accessible by sabeels_inactive_path route" do
+      expect(get: sabeels_inactive_path("mohammedi")).to route_to(controller: "sabeels", action: "inactive", apt: "mohammedi")
     end
   end
 end

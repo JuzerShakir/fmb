@@ -211,25 +211,25 @@ RSpec.describe Sabeel, type: :model do
       before do
         @apt = Sabeel.apartments.keys.sample
 
-        @active_sabeels = FactoryBot.create_list(:sabeel, n, apartment: @apt)
-        @active_sabeels.each do |sabeel|
+        @sabeels_active = FactoryBot.create_list(:sabeel, n, apartment: @apt)
+        @sabeels_active.each do |sabeel|
           FactoryBot.create(:active_takhmeen, sabeel:)
         end
 
-        @inactive_sabeels = FactoryBot.create_list(:sabeel, n, apartment: @apt)
-        @inactive_sabeels.each do |sabeel|
+        @sabeels_inactive = FactoryBot.create_list(:sabeel, n, apartment: @apt)
+        @sabeels_inactive.each do |sabeel|
           FactoryBot.create(:previous_takhmeen, sabeel:)
         end
       end
 
       it "should return all the sabeels of an apt who are currently NOT TAKING thaali" do
         output = described_class.inactive_takhmeen(@apt)
-        expect(output).to contain_exactly(*@inactive_sabeels)
+        expect(output).to contain_exactly(*@sabeels_inactive)
       end
 
       it "should NOT return sabeels of an apt who are currently TAKING thaali" do
         output = described_class.inactive_takhmeen(@apt)
-        expect(output).not_to contain_exactly(*@active_sabeels)
+        expect(output).not_to contain_exactly(*@sabeels_active)
       end
 
       it "should return 'nil' if input apt name is invalid" do

@@ -24,16 +24,16 @@ Rails.application.routes.draw do
 
   # * RESOURCEFUL ROUTES
   resources :sabeels, shallow: true do
-    collection do
-      get "stats"
-      get "/:apt/active", action: :active, as: :active
-      get "/:apt/active/pdf", action: :active_pdf, as: :active_pdf
-      get "/:apt/inactive", action: :inactive, as: :inactive
-    end
+    get :stats, on: :collection
 
     resources :takhmeens, controller: "thaali_takhmeens", except: [:index] do
       resources :transactions, except: [:index]
     end
+  end
+
+  namespace :sabeels, path: "sabeels/:apt" do
+    get :active
+    get :inactive
   end
 
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]

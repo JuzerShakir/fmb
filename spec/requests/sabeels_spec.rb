@@ -69,13 +69,13 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
       end
 
       it "should render a active template" do
-        get active_sabeels_path(@apts.sample)
+        get sabeels_active_path(@apts.sample)
         expect(response).to render_template(:active)
         expect(response).to have_http_status(:ok)
       end
 
       it "should render a pdf response" do
-        get active_sabeels_path(@apts.sample, format: :pdf)
+        get sabeels_active_path(@apts.sample, format: :pdf)
         expect(response).to have_http_status(:ok)
       end
     end
@@ -84,7 +84,7 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
     context "GET inactive" do
       before do
         apts = Sabeel.apartments.keys
-        get inactive_sabeels_path(apts.sample)
+        get sabeels_inactive_path(apts.sample)
       end
 
       it "should render a inactive template" do

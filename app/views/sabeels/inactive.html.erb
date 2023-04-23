@@ -9,7 +9,7 @@
     <% if @sabeels.any? %>
         <%= render partial: "inactive_theader" %>
         <div id="sabeels"></div>
-        <%= turbo_frame_tag :pagination, loading: :lazy, src: inactive_sabeels_path(format: :turbo_stream) %>
+        <%= turbo_frame_tag :pagination, loading: :lazy, src: sabeels_inactive_path(format: :turbo_stream) %>
     <% else %>
         <%= render partial: "shared/no_results" %>
     <% end %>

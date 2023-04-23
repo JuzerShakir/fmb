@@ -39,14 +39,14 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
 
     scenario "'active'" do
       apt = Sabeel.apartments.keys.sample
-      visit active_sabeels_path(apt)
+      visit sabeels_active_path(apt)
       expect(current_path).to eq login_path
       expect(page).to have_content "Not Authorized!"
     end
 
     scenario "'inactive'" do
       apt = Sabeel.apartments.keys.sample
-      visit inactive_sabeels_path(apt)
+      visit sabeels_inactive_path(apt)
       expect(current_path).to eq login_path
       expect(page).to have_content "Not Authorized!"
     end
@@ -205,11 +205,11 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         @sabeels.each do |sabeel|
           FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id)
         end
-        visit active_sabeels_path(@apt)
+        visit sabeels_active_path(@apt)
       end
 
       scenario "a correct URL" do
-        expect(current_path).to eq active_sabeels_path(@apt)
+        expect(current_path).to eq sabeels_active_path(@apt)
       end
 
       scenario "a header" do
@@ -264,7 +264,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
           flat_no = sabeel.flat_no
           click_button flat_no.to_s
           expect(current_path).to eql sabeel_path(sabeel)
-          visit active_sabeels_path(@apt)
+          visit sabeels_active_path(@apt)
         end
       end
 
@@ -273,7 +273,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
           thaali = sabeel.thaali_takhmeens.first
           click_button thaali.number.to_s
           expect(current_path).to eql takhmeen_path(thaali)
-          visit active_sabeels_path(@apt)
+          visit sabeels_active_path(@apt)
         end
       end
     end
@@ -283,11 +283,11 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
       before do
         @apt = Sabeel.apartments.keys.sample
         @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
-        visit inactive_sabeels_path(@apt)
+        visit sabeels_inactive_path(@apt)
       end
 
       scenario "a correct URL" do
-        expect(current_path).to eq inactive_sabeels_path(@apt)
+        expect(current_path).to eq sabeels_inactive_path(@apt)
       end
 
       scenario "a header" do
@@ -340,14 +340,14 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         scenario "'active' button that routes to 'active' page" do
           within("div#maimoon_a") do
             click_on "Active: "
-            expect(current_path).to eql(active_sabeels_path("maimoon_a"))
+            expect(current_path).to eql(sabeels_active_path("maimoon_a"))
           end
         end
 
         scenario "'inactive' button that routes to 'inactive' page" do
           within("div#maimoon_a") do
             click_on "Inactive: "
-            expect(current_path).to eql(inactive_sabeels_path("maimoon_a"))
+            expect(current_path).to eql(sabeels_inactive_path("maimoon_a"))
           end
         end
 
@@ -391,14 +391,14 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         scenario "'active' button that routes to 'active' page" do
           within("div#maimoon_b") do
             click_on "Active: "
-            expect(current_path).to eql(active_sabeels_path("maimoon_b"))
+            expect(current_path).to eql(sabeels_active_path("maimoon_b"))
           end
         end
 
         scenario "'inactive' button that routes to 'inactive' page" do
           within("div#maimoon_b") do
             click_on "Inactive: "
-            expect(current_path).to eql(inactive_sabeels_path("maimoon_b"))
+            expect(current_path).to eql(sabeels_inactive_path("maimoon_b"))
           end
         end
 

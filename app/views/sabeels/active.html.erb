@@ -7,7 +7,7 @@
 <%# * Generate PDF %>
 <div class="mt-4 text-center">
     <%= button_to '<i class=" fa-regular fa-file-pdf fa-lg"></i> Generate PDF'.html_safe,
-                    active_sabeels_path(@apt, format: :pdf), method: :get, form: {target: '_blank'},
+                    sabeels_active_path(@apt, format: :pdf), method: :get, form: {target: '_blank'},
                     class: "btn btn-primary" %>
 </div>
 
@@ -17,7 +17,7 @@
     <% if @sabeels.any? %>
         <%= render partial: "active_theader" %>
         <div id="sabeels"></div>
-        <%= turbo_frame_tag :pagination, loading: :lazy, src: active_sabeels_path(format: :turbo_stream) %>
+        <%= turbo_frame_tag :pagination, loading: :lazy, src: sabeels_active_path(format: :turbo_stream) %>
     <% else %>
         <%= render partial: "shared/no_results" %>
     <% end %>
