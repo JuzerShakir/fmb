@@ -22,11 +22,8 @@ class ApplicationController < ActionController::Base
     un_authorize_redirect if current_user&.viewer?
   end
 
-  def authorize_member_viewer
-    if (current_user&.member? && current_user.its.to_s != params[:id]) || current_user&.viewer?
-      flash[:alert] = "Not Authorized!"
-      redirect_to root_path
-    end
+  def authorize_admin_n_member_as_user
+    un_authorize_redirect unless current_user&.admin? || (current_user&.member? && current_user.its.to_s == params[:id])
   end
 
   def authorize_admin

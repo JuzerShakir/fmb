@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authorize
-  before_action :authorize_member_viewer, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_admin_n_member_as_user, only: [:show, :edit, :update, :destroy]
   before_action :authorize_admin, only: [:new, :create, :index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
