@@ -1,13 +1,13 @@
 <% @sabeels.each do |sabeel| %>
-    <div class="row py-3 border-bottom border-light">
-        <div class="col">
-            <%= button_to sabeel.its, sabeel, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
-        </div>
-        <div class="col fw-bold text-truncate">
-            <%= sabeel.name %>
-        </div>
-        <div class="col text-secondary">
-            <%= sabeel.apartment.titleize %>
-        </div>
+  <div class="row py-3 border-bottom border-light">
+    <div class="col">
+      <%= button_to sabeel.its, sabeel, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
     </div>
+    <div class="col fw-bold text-truncate">
+      <%= sabeel.name %>
+    </div>
+    <div class="col text-secondary">
+      <%= sabeel.apartment.titleize %>
+    </div>
+  </div>
 <% end %>

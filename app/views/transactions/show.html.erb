@@ -1,17 +1,21 @@
 <%# * Title %>
-<h2 class="text-center">Transaction <span class="text-muted">#<%= @transaction.recipe_no %></span></h2>
+<h2 class="text-center">Transaction
+  <span class="text-muted">#<%= @transaction.recipe_no %></span>
+</h2>
 
 <h4 class="text-center">of thaali
-     <%= link_to @thaali_takhmeen.number, takhmeen_path(@thaali_takhmeen), class: "btn btn-outline-primary" %>
-     <span class="text-muted">(<%= @transaction.thaali_takhmeen.year %>)</span></h4>
+  <%= link_to @thaali_takhmeen.number, takhmeen_path(@thaali_takhmeen), class: "btn btn-outline-primary" %>
+  <span class="text-muted">(<%= @transaction.thaali_takhmeen.year %>)</span>
+</h4>
 
 <%# * show %>
 <%= render partial: "show" %>
 
 <%# * action buttons %>
-<%= render partial: "shared/actions",
-      locals: {edit_path: edit_transaction_path(@transaction)} %>
+<%= render partial: "shared/actions", locals: {edit_path: edit_transaction_path(@transaction)} %>
 
 <%# * destroy Modal %>
-<%= render partial: "shared/destroy_modal",
-      locals: {destroy_path: @transaction, message: "delete Transaction reciepe no: #{@transaction.recipe_no}?"} %>
+<%= render partial: "shared/destroy_modal", locals: {
+  destroy_path: @transaction,
+  message: "delete Transaction reciepe no: #{@transaction.recipe_no}?"
+} %>

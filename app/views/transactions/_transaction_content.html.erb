@@ -1,16 +1,16 @@
 <% @transactions.each do |transaction| %>
-    <div class="row py-3 border-bottom border-light">
-        <div class="col">
-            <%= button_to transaction.recipe_no, transaction, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
-        </div>
-        <div class="col fst-italic fw-bold">
-            <i class="fa-solid fa-indian-rupee-sign"></i><%= transaction.amount.to_s %>
-        </div>
-        <div class="col">
-            <%= button_to transaction.thaali_takhmeen.number, takhmeen_path(transaction.thaali_takhmeen), method: :get, class: "btn btn-outline-secondary btn-sm py-1" %>
-        </div>
-        <div class="col text-secondary">
-            <%= time_ago_in_words(transaction.date) %>
-        </div>
+  <div class="row py-3 border-bottom border-light">
+    <div class="col">
+      <%= button_to transaction.recipe_no, transaction, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
     </div>
+    <div class="col fst-italic fw-bold">
+      <%= rupees transaction.amount %>
+    </div>
+    <div class="col">
+      <%= button_to transaction.thaali_takhmeen.number, takhmeen_path(transaction.thaali_takhmeen), method: :get, class: "btn btn-outline-secondary btn-sm py-1" %>
+    </div>
+    <div class="col text-secondary">
+      <%= time_ago_in_words(transaction.date) %>
+    </div>
+  </div>
 <% end %>

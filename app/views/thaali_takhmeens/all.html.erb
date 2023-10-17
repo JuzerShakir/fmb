@@ -5,5 +5,8 @@
 <p class="fs-5 mt-5 fw-bold text-info text-center">Total number of Takhmeens: <%= @total %></p>
 
 <%# * show all takhmeens %>
-<%= render partial: "shared/results",
-      locals: {instances: @thaalis, id: "thaalis", path: thaali_takhmeens_all_path(format: :turbo_stream)} %>
+<%= render partial: "shared/results", locals: {
+  instances: @thaalis,
+  id: "thaalis",
+  path: thaali_takhmeens_all_path(format: :turbo_stream)
+} %>

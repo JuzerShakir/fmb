@@ -5,5 +5,8 @@
 <p class="fs-5 mt-5 fw-bold text-info text-center">Total number of Pending Takhmeens: <%= @total %></p>
 
 <%# * show all Pending Takhmeens %>
-<%= render partial: "shared/results",
-      locals: {instances: @thaalis, id: "thaalis", path: thaali_takhmeens_pending_path(format: :turbo_stream)} %>
+<%= render partial: "shared/results", locals: {
+  instances: @thaalis,
+  id: "thaalis",
+  path: thaali_takhmeens_pending_path(format: :turbo_stream)
+} %>

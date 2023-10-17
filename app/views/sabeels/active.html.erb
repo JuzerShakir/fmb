@@ -6,7 +6,7 @@
 
 <%# * Generate PDF %>
 <div class="mt-4 text-center">
-    <%= button_to '<i class=" fa-regular fa-file-pdf fa-lg"></i> Generate PDF'.html_safe,
+    <%= button_to pdf_button,
           sabeels_active_path(@apt, format: :pdf), method: :get, form: {target: "_blank"},
           class: "btn btn-primary" %>
 </div>
