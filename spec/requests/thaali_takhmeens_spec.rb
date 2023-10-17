@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
