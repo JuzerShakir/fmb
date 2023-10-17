@@ -1,0 +1,10 @@
+###########################
+# Configuration for rubocop
+# in .rubocop.yml
+# Most of these are disabling existing cops, primarily
+# due to a smattering of different styles and loose
+# guidelines for contributions.
+#
+# Any of these may be changed.
+# AllCops:
+#   TargetRubyVersion: "3.1.2"
