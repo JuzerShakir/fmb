@@ -116,8 +116,8 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         scenario "'year', 'total', 'balance' attributes" do
           @thaalis.each do |thaali|
             expect(page).to have_content(thaali.year)
-            expect(page).to have_content(thaali.total)
-            expect(page).to have_content(thaali.balance)
+            expect(page).to have_content(number_with_delimiter(thaali.total))
+            expect(page).to have_content(number_with_delimiter(thaali.balance))
             if thaali.is_complete
               expect(page).to have_css(".fa-check")
             else

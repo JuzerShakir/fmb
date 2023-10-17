@@ -79,12 +79,9 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
       end
 
       scenario "details of a ThaaliTakhmeen" do
-        atrbs = FactoryBot.attributes_for(:thaali_takhmeen).keys - %i[size is_complete]
-        atrbs.each do |attrb|
-          expect(page).to have_content(@thaali.send(attrb))
-        end
-
         expect(page).to have_content(@thaali.size.humanize)
+        expect(page).to have_content(number_with_delimiter(@thaali.total))
+        expect(page).to have_content(number_with_delimiter(@thaali.balance))
 
         if @thaali.is_complete
           expect(page).to have_css(".fa-check")
@@ -120,7 +117,7 @@ RSpec.describe "ThaaliTakhmeen accessed by users who are 👉" do
         scenario "'recipe_no', 'amount', 'date' values" do
           @transactions.each do |trans|
             expect(page).to have_content(trans.recipe_no)
-            expect(page).to have_content(trans.amount)
+            expect(page).to have_content(number_with_delimiter(trans.amount))
             expect(page).to have_content(time_ago_in_words(trans.date))
           end
         end

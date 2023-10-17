@@ -60,7 +60,7 @@ RSpec.describe "Transaction accessed by users who are 👉" do
 
       scenario "'recipe_no', 'amount', 'date' & 'mode' details" do
         expect(page).to have_content(@transaction.recipe_no)
-        expect(page).to have_content(@transaction.amount)
+        expect(page).to have_content(number_with_delimiter(@transaction.amount))
         expect(page).to have_content(@transaction.date.to_time.strftime("%A, %b %d %Y"))
         expect(page).to have_content(@transaction.mode.humanize)
       end
@@ -90,7 +90,7 @@ RSpec.describe "Transaction accessed by users who are 👉" do
 
       scenario "'amount', 'thaali_number' & 'date' details of all transactions" do
         @transactions.each do |tran|
-          expect(page).to have_content(tran.amount)
+          expect(page).to have_content(number_with_delimiter(tran.amount))
           expect(page).to have_content(time_ago_in_words(tran.date))
           thaali = tran.thaali_takhmeen
           expect(page).to have_content(thaali.number)

@@ -38,7 +38,8 @@ RSpec.describe "Transaction request - user type 👉", type: :request do
 
       it "should render the instance that was passed in the params" do
         # it could be any attribute, not only amount
-        expect(response.body).to include(@transaction.amount.to_s)
+        amount = number_with_delimiter(@transaction.amount)
+        expect(response.body).to include(amount)
       end
     end
   end
