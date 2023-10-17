@@ -36,7 +36,7 @@ group :test do
   gem "rails-controller-testing", "~> 1.0.5"
   gem "selenium-webdriver", "~> 4.7"
   gem "shoulda-callback-matchers", "~> 1.1.1"
-  gem "shoulda-matchers", git: "https://github.com/thoughtbot/shoulda-matchers.git"
+  gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
 end
 
