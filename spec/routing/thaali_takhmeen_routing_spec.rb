@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe ThaaliTakhmeen do
   # * INDEX
-  context "index action" do
+  describe "index action" do
     it "is accessible by / route" do
       expect(get("/")).to route_to("thaali_takhmeens#index")
     end
@@ -15,7 +15,7 @@ RSpec.describe ThaaliTakhmeen do
   end
 
   #  * NEW
-  context "new action" do
+  describe "new action" do
     it "is accessible by /sabeels/1/takhmeens/new route" do
       expect(get("/sabeels/1/takhmeens/new")).to route_to("thaali_takhmeens#new", sabeel_id: "1")
     end
@@ -26,7 +26,7 @@ RSpec.describe ThaaliTakhmeen do
   end
 
   # * CREATE
-  context "create action" do
+  describe "create action" do
     it "is accessible by /sabeels/1/takhmeens route" do
       expect(post("/sabeels/1/takhmeens")).to route_to("thaali_takhmeens#create", sabeel_id: "1")
     end
@@ -37,7 +37,7 @@ RSpec.describe ThaaliTakhmeen do
   end
 
   # * SHOW
-  context "show action" do
+  describe "show action" do
     it "is accessible by /takhmeen route" do
       expect(get("/takhmeens/1")).to route_to("thaali_takhmeens#show", id: "1")
     end
@@ -48,7 +48,7 @@ RSpec.describe ThaaliTakhmeen do
   end
 
   # * EDIT
-  context "edit action" do
+  describe "edit action" do
     it "is accessible by /takhmeens/1/edit route" do
       expect(get("/takhmeens/1/edit")).to route_to("thaali_takhmeens#edit", id: "1")
     end
@@ -59,7 +59,7 @@ RSpec.describe ThaaliTakhmeen do
   end
 
   # * UPDATE
-  context "update action" do
+  describe "update action" do
     it "is accessible by /takhmeens/1 route" do
       expect(patch("/takhmeens/1")).to route_to("thaali_takhmeens#update", id: "1")
     end
@@ -70,7 +70,7 @@ RSpec.describe ThaaliTakhmeen do
   end
 
   #  * DESTROY
-  context "destroy action" do
+  describe "destroy action" do
     it "is accessible by /takhmeens/1 route" do
       expect(delete("/takhmeens/1")).to route_to("thaali_takhmeens#destroy", id: "1")
     end
@@ -81,7 +81,7 @@ RSpec.describe ThaaliTakhmeen do
   end
 
   # * STATS
-  context "stats action" do
+  describe "stats action" do
     it "is accessible by /takhmeens/stats route" do
       expect(get("/takhmeens/stats")).to route_to("thaali_takhmeens#stats")
     end
@@ -92,7 +92,7 @@ RSpec.describe ThaaliTakhmeen do
   end
 
   #  * COMPLETE
-  context "complete action" do
+  describe "complete action" do
     it "is accessible by /takhmeens/2022/complete route" do
       expect(get("/takhmeens/2022/complete")).to route_to("thaali_takhmeens#complete", year: "2022")
     end
@@ -103,7 +103,7 @@ RSpec.describe ThaaliTakhmeen do
   end
 
   # * PENDING
-  context "pending action" do
+  describe "pending action" do
     it "is accessible by /takhmeens/2022/pending route" do
       expect(get("/takhmeens/2022/pending")).to route_to("thaali_takhmeens#pending", year: "2022")
     end
@@ -114,7 +114,7 @@ RSpec.describe ThaaliTakhmeen do
   end
 
   # * ALL
-  context "all action" do
+  describe "all action" do
     it "is accessible by /takhmeens/2021/all route" do
       expect(get("/takhmeens/2021/all")).to route_to("thaali_takhmeens#all", year: "2021")
     end

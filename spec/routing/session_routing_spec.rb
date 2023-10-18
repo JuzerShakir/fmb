@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Session" do
   # * NEW
-  context "new action" do
+  describe "new action" do
     it "is accessible by /login route" do
       expect(get("/login")).to route_to("sessions#new")
     end
@@ -15,7 +15,7 @@ RSpec.describe "Session" do
   end
 
   # * CREATE
-  context "create action" do
+  describe "create action" do
     it "is accessible by /signup route" do
       expect(post("/signup")).to route_to("sessions#create")
     end
@@ -26,7 +26,7 @@ RSpec.describe "Session" do
   end
 
   # * DESTROY
-  context "destroy action" do
+  describe "destroy action" do
     it "is accessible by /destroy route" do
       expect(delete("/destroy")).to route_to("sessions#destroy")
     end

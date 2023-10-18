@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe User do
   # * NEW
-  context "new action" do
+  describe "new action" do
     it "is accessible by /users/new route" do
       expect(get("/users/new")).to route_to("users#new")
     end
@@ -15,7 +15,7 @@ RSpec.describe User do
   end
 
   # * CREATE
-  context "create action" do
+  describe "create action" do
     it "is accessible by /users route" do
       expect(post("/users")).to route_to("users#create")
     end
@@ -26,7 +26,7 @@ RSpec.describe User do
   end
 
   # * INDEX
-  context "index action" do
+  describe "index action" do
     it "is accessible by /users route" do
       expect(get("/users")).to route_to("users#index")
     end
@@ -37,7 +37,7 @@ RSpec.describe User do
   end
 
   # * SHOW
-  context "show action" do
+  describe "show action" do
     it "is accessible by /user/:id route" do
       expect(get("/users/1")).to route_to("users#show", id: "1")
     end
@@ -48,7 +48,7 @@ RSpec.describe User do
   end
 
   #  * EDIT
-  context "edit action" do
+  describe "edit action" do
     it "is accessible by /users/:id/edit route" do
       expect(get("/users/1/edit")).to route_to("users#edit", id: "1")
     end
@@ -59,7 +59,7 @@ RSpec.describe User do
   end
 
   # * UPDATE
-  context "update action" do
+  describe "update action" do
     it "is accessible by /users/:id route" do
       expect(patch("/users/1")).to route_to("users#update", id: "1")
     end
@@ -70,7 +70,7 @@ RSpec.describe User do
   end
 
   # * DESTROY
-  context "destroy action" do
+  describe "destroy action" do
     it "is accessible by /users/:id route" do
       expect(delete("/users/1")).to route_to("users#destroy", id: "1")
     end
