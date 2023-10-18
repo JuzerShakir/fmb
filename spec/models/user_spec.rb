@@ -3,9 +3,9 @@
 require "rails_helper"
 
 RSpec.describe User do
-  context "when validating" do
-    subject { build(:user) }
+  subject(:user) { build(:user) }
 
+  context "when validating" do
     context "with ITS" do
       it { is_expected.to validate_numericality_of(:its).only_integer.with_message("must be a number") }
 
@@ -38,8 +38,6 @@ RSpec.describe User do
   end
 
   context "when saving" do
-    subject(:user) { build(:user) }
-
     describe "#titleize_name" do
       it { is_expected.to callback(:titleize_name).before(:save).if(:will_save_change_to_name?) }
 
