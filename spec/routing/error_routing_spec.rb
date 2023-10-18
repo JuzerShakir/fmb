@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Error", type: :routing do
+RSpec.describe "Error" do
   context "404 (Not Found) if user visits an unkonwn link" do
     it "redirects to 'not_found' action" do
       expect(get("/404")).to route_to("errors#not_found")

@@ -44,9 +44,9 @@ class Sabeel < ApplicationRecord
 
   scope :in_phase_3, -> { where(apartment: PHASE_3) }
 
-  scope :active_takhmeen, ->(current_year) { joins(:thaali_takhmeens).where(thaali_takhmeens: {year: current_year}) }
+  scope :active_takhmeen, ->(year) { joins(:thaali_takhmeens).where(thaali_takhmeens: {year: year}) }
 
-  scope :inactive_takhmeen, ->(apt) {
+  scope :inactive_apt_takhmeen, ->(apt) {
     where(apartment: apt).where("id NOT IN (
                                 SELECT sabeel_id
                                 FROM thaali_takhmeens
@@ -64,8 +64,8 @@ class Sabeel < ApplicationRecord
 
   scope :phase_3_size, ->(size) { in_phase_3.with_the_size(size) }
 
-  def takhmeen_complete_of_last_year(year)
-    thaali_takhmeens.where(year: year - 1, is_complete: true).any?
+  def takhmeen_complete_of_last_year?
+    thaali_takhmeens.where(year: PREV_YR, is_complete: true).any?
   end
 
   private

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Sabeel, type: :routing do
+RSpec.describe Sabeel do
   # * INDEX
   context "index action" do
     it "is accessible by /sabeels route" do

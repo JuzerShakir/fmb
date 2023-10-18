@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe ThaaliTakhmeen, type: :routing do
+RSpec.describe ThaaliTakhmeen do
   # * INDEX
   context "index action" do
     it "is accessible by / route" do

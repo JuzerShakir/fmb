@@ -4,52 +4,52 @@ require "rails_helper"
 
 RSpec.describe "Sabeel accessed by users who are 👉" do
   before do
-    @sabeel = FactoryBot.create(:sabeel)
+    @sabeel = create(:sabeel)
   end
 
   # * NON-LOGGED-IN users
   context "not-logged-in will NOT render template" do
-    scenario "'new'" do
+    it "'new'" do
       visit new_sabeel_path
-      expect(current_path).to eq login_path
+      expect(page).to have_current_path login_path, ignore_query: true
       expect(page).to have_content "Not Authorized!"
     end
 
-    scenario "'show'" do
+    it "'show'" do
       visit sabeel_path(@sabeel)
-      expect(current_path).to eq login_path
+      expect(page).to have_current_path login_path, ignore_query: true
       expect(page).to have_content "Not Authorized!"
     end
 
-    scenario "'edit'" do
+    it "'edit'" do
       visit edit_sabeel_path(@sabeel)
-      expect(current_path).to eq login_path
+      expect(page).to have_current_path login_path, ignore_query: true
       expect(page).to have_content "Not Authorized!"
     end
 
-    scenario "'index'" do
+    it "'index'" do
       visit sabeels_path
-      expect(current_path).to eq login_path
+      expect(page).to have_current_path login_path, ignore_query: true
       expect(page).to have_content "Not Authorized!"
     end
 
-    scenario "'stats'" do
+    it "'stats'" do
       visit stats_sabeels_path
-      expect(current_path).to eq login_path
+      expect(page).to have_current_path login_path, ignore_query: true
       expect(page).to have_content "Not Authorized!"
     end
 
-    scenario "'active'" do
+    it "'active'" do
       apt = Sabeel.apartments.keys.sample
       visit sabeels_active_path(apt)
-      expect(current_path).to eq login_path
+      expect(page).to have_current_path login_path, ignore_query: true
       expect(page).to have_content "Not Authorized!"
     end
 
-    scenario "'inactive'" do
+    it "'inactive'" do
       apt = Sabeel.apartments.keys.sample
       visit sabeels_inactive_path(apt)
-      expect(current_path).to eq login_path
+      expect(page).to have_current_path login_path, ignore_query: true
       expect(page).to have_content "Not Authorized!"
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
   # * ALL user types
   context "logged-in WILL render template" do
     before do
-      @user = FactoryBot.create(:user)
+      @user = create(:user)
       page.set_rack_session(user_id: @user.id)
       visit root_path
     end
@@ -68,54 +68,54 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         visit sabeel_path(@sabeel)
       end
 
-      scenario "correct URL" do
-        expect(current_path).to eq sabeel_path(@sabeel)
+      it "correct URL" do
+        expect(page).to have_current_path sabeel_path(@sabeel), ignore_query: true
       end
 
-      scenario "sabeel details" do
-        attrbs = FactoryBot.attributes_for(:sabeel).except!(:apartment, :flat_no)
+      it "sabeel details" do
+        attrbs = attributes_for(:sabeel).except!(:apartment, :flat_no)
 
         attrbs.keys.each do |attrb|
           expect(page).to have_content(@sabeel.send(attrb).to_s)
         end
       end
 
-      scenario "an edit link" do
+      it "an edit link" do
         expect(page).to have_link("Edit")
       end
 
-      scenario "a 'delete' link" do
+      it "a 'delete' link" do
         expect(page).to have_button("Delete")
       end
 
-      scenario "a 'New Takhmeen' button if sabeel is NOT actively taking thaali" do
-        FactoryBot.create(:previous_takhmeen, sabeel_id: @sabeel.id)
+      it "a 'New Takhmeen' button if sabeel is NOT actively taking thaali" do
+        create(:previous_takhmeen, sabeel_id: @sabeel.id)
         visit sabeel_path(@sabeel)
 
         expect(page).to have_button("New Takhmeen")
       end
 
-      scenario "NO 'New Takhmeen' button if sabeel IS ACTIVELY taking thaali" do
-        FactoryBot.create(:active_takhmeen, sabeel_id: @sabeel.id)
+      it "NO 'New Takhmeen' button if sabeel IS ACTIVELY taking thaali" do
+        create(:active_takhmeen, sabeel_id: @sabeel.id)
         visit sabeel_path(@sabeel)
 
-        expect(page).to have_no_button("New Takhmeen")
+        expect(page).not_to have_button("New Takhmeen")
       end
 
-      context "takhmeen details, such as - " do
+      context "takhmeen details, such as -" do
         before do
           2.times do |i|
-            FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: CURR_YR - i)
+            create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: CURR_YR - i)
           end
           visit sabeel_path(@sabeel)
           @thaalis = @sabeel.thaali_takhmeens
         end
 
-        scenario "total number of takhmeens" do
+        it "total number of takhmeens" do
           expect(page).to have_content("Total number of Takhmeens: #{@thaalis.count}")
         end
 
-        scenario "'year', 'total', 'balance' attributes" do
+        it "'year', 'total', 'balance' attributes" do
           @thaalis.each do |thaali|
             expect(page).to have_content(thaali.year)
             expect(page).to have_content(number_with_delimiter(thaali.total))
@@ -128,7 +128,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
           end
         end
 
-        scenario "'year' button that routes to thaali show page" do
+        it "'year' button that routes to thaali show page" do
           @thaalis.each do |thaali|
             year = thaali.year
             click_button year.to_s
@@ -140,21 +140,21 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
     end
 
     # * INDEX
-    context "'index' should have", js: true do
+    context "'index' should have", :js do
       before do
-        @sabeels = FactoryBot.create_list(:sabeel, 3)
+        @sabeels = create_list(:sabeel, 3)
         visit sabeels_path
       end
 
-      scenario "a correct URL" do
-        expect(current_path).to eq sabeels_path
+      it "a correct URL" do
+        expect(page).to have_current_path sabeels_path, ignore_query: true
       end
 
-      scenario "a heading" do
+      it "a heading" do
         expect(page).to have_css("h2", text: "Sabeels")
       end
 
-      scenario "a 'ITS' button that routes to thaali show page" do
+      it "a 'ITS' button that routes to thaali show page" do
         @sabeels.each do |sabeel|
           its = sabeel.its
           expect(page).to have_content(its)
@@ -165,7 +165,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         end
       end
 
-      scenario "'name' & 'apartment' of all sabeels" do
+      it "'name' & 'apartment' of all sabeels" do
         @sabeels.each do |sabeel|
           expect(page).to have_content(sabeel.name)
           expect(page).to have_content(sabeel.apartment.titleize)
@@ -173,7 +173,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
       end
 
       context "search that returns sabeels with the" do
-        scenario "ITS number searched for" do
+        it "ITS number searched for" do
           searched_its = @sabeels.first.its
           un_searched_its = @sabeels.last.its
 
@@ -185,7 +185,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
           end
         end
 
-        scenario "HOF name searched for" do
+        it "HOF name searched for" do
           searched_name = @sabeels.first.name
           un_searched_name = @sabeels.last.name
 
@@ -200,36 +200,36 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
     end
 
     # * ACTIVE
-    context "'active' should have", js: true do
+    context "'active' should have", :js do
       before do
         @apt = Sabeel.apartments.keys.sample
-        @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
+        @sabeels = create_list(:sabeel, 3, apartment: @apt)
         @sabeels.each do |sabeel|
-          FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id)
+          create(:active_takhmeen, sabeel_id: sabeel.id)
         end
         visit sabeels_active_path(@apt)
       end
 
-      scenario "a correct URL" do
-        expect(current_path).to eq sabeels_active_path(@apt)
+      it "a correct URL" do
+        expect(page).to have_current_path sabeels_active_path(@apt), ignore_query: true
       end
 
-      scenario "a header" do
+      it "a header" do
         expect(page).to have_css("h2", text: "Active Sabeels: #{@apt.titleize}")
       end
 
-      scenario "a button with font-awesome icon" do
+      it "a button with font-awesome icon" do
         expect(page).to have_button("Generate PDF")
         expect(page).to have_css(".fa-file-pdf")
       end
 
-      context "a button that generates PDF with - " do
+      context "a button that generates PDF with -" do
         before do
           @pdf_window = window_opened_by { click_on "Generate PDF" }
         end
 
         # FIXME: use another logic to wait the test until the header appears
-        scenario "a header" do
+        it "a header" do
           within_window @pdf_window do
             # for the test to pass in github actions
             sleep 5
@@ -237,7 +237,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
           end
         end
 
-        scenario "details of such as 'flat_no', 'name', 'mobile', 'number' & 'size'" do
+        it "details of such as 'flat_no', 'name', 'mobile', 'number' & 'size'" do
           within_window @pdf_window do
             @sabeels.each do |sabeel|
               expect(page).to have_content(sabeel.flat_no)
@@ -251,7 +251,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         end
       end
 
-      scenario "details of all active sabeels of an apartment such as 'flat_no', 'name', 'number' & 'size'" do
+      it "details of all active sabeels of an apartment such as 'flat_no', 'name', 'number' & 'size'" do
         @sabeels.each do |sabeel|
           expect(page).to have_content(sabeel.flat_no)
           expect(page).to have_content(sabeel.name)
@@ -261,7 +261,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         end
       end
 
-      scenario "'flat_no' button that routes to corresponding sabeel show page" do
+      it "'flat_no' button that routes to corresponding sabeel show page" do
         @sabeels.each do |sabeel|
           flat_no = sabeel.flat_no
           click_button flat_no.to_s
@@ -270,7 +270,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         end
       end
 
-      scenario "'number' button that routes to corresponding thaali show page" do
+      it "'number' button that routes to corresponding thaali show page" do
         @sabeels.each do |sabeel|
           thaali = sabeel.thaali_takhmeens.first
           click_button thaali.number.to_s
@@ -281,22 +281,22 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
     end
 
     # * INACTIVE
-    context "'inactive' should have", js: true do
+    context "'inactive' should have", :js do
       before do
         @apt = Sabeel.apartments.keys.sample
-        @sabeels = FactoryBot.create_list(:sabeel, 3, apartment: @apt)
+        @sabeels = create_list(:sabeel, 3, apartment: @apt)
         visit sabeels_inactive_path(@apt)
       end
 
-      scenario "a correct URL" do
-        expect(current_path).to eq sabeels_inactive_path(@apt)
+      it "a correct URL" do
+        expect(page).to have_current_path sabeels_inactive_path(@apt), ignore_query: true
       end
 
-      scenario "a header" do
+      it "a header" do
         expect(page).to have_css("h2", text: "Inactive Sabeels: #{@apt.titleize}")
       end
 
-      scenario "all details of inactive sabeels of an apartment such as 'its' & 'name'" do
+      it "all details of inactive sabeels of an apartment such as 'its' & 'name'" do
         @sabeels.each do |sabeel|
           expect(page).to have_content(sabeel.its)
           expect(page).to have_content(sabeel.name)
@@ -311,27 +311,28 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         visit stats_sabeels_path
       end
 
-      scenario "a correct URL" do
-        expect(current_path).to eq stats_sabeels_path
+      it "a correct URL" do
+        expect(page).to have_current_path stats_sabeels_path, ignore_query: true
       end
 
-      scenario "a header" do
+      it "a header" do
         expect(page).to have_css("h2", text: "Sabeel Statistics: #{CURR_YR}")
       end
 
-      context "detials of Maimoon A, such as - " do
+      context "detials of Maimoon A, such as -" do
         before do
-          @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "maimoon_a")
+          @sabeels = create_list(:sabeel, 5, apartment: "maimoon_a")
           @sabeels.first(3).each.with_index do |sabeel, i|
-            FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+            create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
           end
           visit stats_sabeels_path
         end
-        scenario "a title" do
+
+        it "a title" do
           expect(page).to have_css("h3", text: "Maimoon A")
         end
 
-        scenario "total number of active sabeels" do
+        it "total number of active sabeels" do
           within("div#maimoon_a") do
             count = Sabeel.maimoon_a.active_takhmeen(CURR_YR).count
             expect(page).to have_selector(:link_or_button,
@@ -339,28 +340,28 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
           end
         end
 
-        scenario "'active' button that routes to 'active' page" do
+        it "'active' button that routes to 'active' page" do
           within("div#maimoon_a") do
             click_on "Active: "
             expect(current_path).to eql(sabeels_active_path("maimoon_a"))
           end
         end
 
-        scenario "'inactive' button that routes to 'inactive' page" do
+        it "'inactive' button that routes to 'inactive' page" do
           within("div#maimoon_a") do
             click_on "Inactive: "
             expect(current_path).to eql(sabeels_inactive_path("maimoon_a"))
           end
         end
 
-        scenario "total number of inactive sabeels" do
+        it "total number of inactive sabeels" do
           within("div#maimoon_a") do
-            count = Sabeel.inactive_takhmeen("maimoon_a").count
+            count = Sabeel.inactive_apt_takhmeen("maimoon_a").count
             expect(page).to have_selector(:link_or_button, "Inactive: #{count}")
           end
         end
 
-        scenario "total number of thaali sizes" do
+        it "total number of thaali sizes" do
           within("div#maimoon_a") do
             @sizes.each do |size|
               expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_a.active_takhmeen(CURR_YR).with_the_size(size).count}")
@@ -369,20 +370,20 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         end
       end
 
-      context "detials of Maimoon B, such as - " do
+      context "detials of Maimoon B, such as -" do
         before do
-          @sabeels = FactoryBot.create_list(:sabeel, 5, apartment: "maimoon_b")
+          @sabeels = create_list(:sabeel, 5, apartment: "maimoon_b")
           @sabeels.first(3).each.with_index do |sabeel, i|
-            FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
+            create(:active_takhmeen, sabeel_id: sabeel.id, size: @sizes[i])
           end
           visit stats_sabeels_path
         end
 
-        scenario "a title" do
+        it "a title" do
           expect(page).to have_css("h3", text: "Maimoon B")
         end
 
-        scenario "total number of active sabeels" do
+        it "total number of active sabeels" do
           within("div#maimoon_b") do
             count = Sabeel.maimoon_b.active_takhmeen(CURR_YR).count
             expect(page).to have_selector(:link_or_button,
@@ -390,28 +391,28 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
           end
         end
 
-        scenario "'active' button that routes to 'active' page" do
+        it "'active' button that routes to 'active' page" do
           within("div#maimoon_b") do
             click_on "Active: "
             expect(current_path).to eql(sabeels_active_path("maimoon_b"))
           end
         end
 
-        scenario "'inactive' button that routes to 'inactive' page" do
+        it "'inactive' button that routes to 'inactive' page" do
           within("div#maimoon_b") do
             click_on "Inactive: "
             expect(current_path).to eql(sabeels_inactive_path("maimoon_b"))
           end
         end
 
-        scenario "total number of inactive sabeels" do
+        it "total number of inactive sabeels" do
           within("div#maimoon_b") do
-            count = Sabeel.inactive_takhmeen("maimoon_b").count
+            count = Sabeel.inactive_apt_takhmeen("maimoon_b").count
             expect(page).to have_selector(:link_or_button, "Inactive: #{count}")
           end
         end
 
-        scenario "total number of thaali sizes" do
+        it "total number of thaali sizes" do
           within("div#maimoon_b") do
             @sizes.each do |size|
               expect(page).to have_content("#{size.humanize}: #{Sabeel.maimoon_b.active_takhmeen(CURR_YR).with_the_size(size).count}")
@@ -425,14 +426,14 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
   # * ONLY Admin types
   context "'Admin' WILL render template" do
     before do
-      @admin = FactoryBot.create(:admin_user)
+      @admin = create(:admin_user)
       page.set_rack_session(user_id: @admin.id)
       visit root_path
     end
 
     # * NEW
     context "'new' should have" do
-      scenario "a correct url & a heading" do
+      it "a correct url & a heading" do
         click_on "Create Sabeel"
         expect(current_path).to eql new_sabeel_path
         expect(page).to have_css("h2", text: "New Sabeel")
@@ -442,7 +443,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
     #  * CREATE
     context "creating action" do
       before do
-        attributes = FactoryBot.attributes_for(:sabeel)
+        attributes = attributes_for(:sabeel)
         @apt = attributes.extract!(:apartment)
 
         visit new_sabeel_path
@@ -452,7 +453,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         end
       end
 
-      scenario "should be able to create with valid values" do
+      it "is able to create with valid values" do
         select @apt.fetch(:apartment).titleize, from: :sabeel_apartment
 
         click_button "Create Sabeel"
@@ -462,7 +463,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         expect(page).to have_content("Sabeel created successfully")
       end
 
-      scenario "should NOT be able to create with invalid values" do
+      it "is not able to create with invalid values" do
         # we haven't selected any apartment, which is required, hence sabeel will not be saved
 
         click_button "Create Sabeel"
@@ -473,30 +474,30 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
     end
 
     # * DELETE
-    context "'deleting' action", js: true do
+    context "'deleting' action", :js do
       before do
         visit sabeel_path(@sabeel)
         click_on "Delete"
       end
 
       context "clicking on delete button" do
-        scenario "opens a destroy modal" do
+        it "opens a destroy modal" do
           expect(page).to have_css("#destroyModal")
         end
 
-        scenario "shows confirmation heading" do
+        it "shows confirmation heading" do
           within(".modal-header") do
             expect(page).to have_css("h1", text: "Confirm Deletion")
           end
         end
 
-        scenario "shows confirmation message" do
+        it "shows confirmation message" do
           within(".modal-body") do
             expect(page).to have_content("Are you sure you want to delete Sabeel ITS no: #{@sabeel.its}? This action cannot be undone.")
           end
         end
 
-        scenario "show action buttons" do
+        it "show action buttons" do
           within(".modal-footer") do
             expect(page).to have_css(".btn-secondary", text: "Cancel")
             expect(page).to have_css(".btn-primary", text: "Yes, delete it!")
@@ -509,11 +510,11 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
           click_on "Yes, delete it!"
         end
 
-        scenario "returns to root path" do
+        it "returns to root path" do
           expect(current_path).to eql root_path("format=html")
         end
 
-        scenario "shows success flash message" do
+        it "shows success flash message" do
           expect(page).to have_content("Sabeel deleted successfully")
         end
       end
@@ -523,24 +524,24 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
   # * NOT ACCESSED by 'member' & 'viewer'
   context "'Member' & 'viewer' will NOT render template" do
     before do
-      @user = FactoryBot.create(:user_other_than_admin)
+      @user = create(:user_other_than_admin)
       page.set_rack_session(user_id: @user.id)
       visit root_path
     end
 
     # * NEW
-    scenario "'new'" do
+    it "'new'" do
       visit new_sabeel_path
-      expect(current_path).to eq root_path
+      expect(page).to have_current_path root_path, ignore_query: true
       expect(page).to have_content "Not Authorized!"
     end
 
     # * DELETE
-    scenario "destroy" do
+    it "destroy" do
       visit sabeel_path(@sabeel)
       click_on "Delete"
       click_on "Yes, delete it!"
-      expect(current_path).to eq sabeel_path(@sabeel)
+      expect(page).to have_current_path sabeel_path(@sabeel), ignore_query: true
       expect(page).to have_content "Not Authorized!"
     end
   end
@@ -548,7 +549,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
   # * ONLY Admins & Members
   context "'Admin' & 'Member' WIlL render template" do
     before do
-      @user = FactoryBot.create(:user_other_than_viewer)
+      @user = create(:user_other_than_viewer)
       page.set_rack_session(user_id: @user.id)
       visit root_path
     end
@@ -559,7 +560,7 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
         visit edit_sabeel_path(@sabeel)
       end
 
-      scenario "form fields of sabeel to update details with valid inputs" do
+      it "form fields of sabeel to update details with valid inputs" do
         fill_in "sabeel_mobile", with: Faker::Number.number(digits: 10)
 
         click_on "Update Sabeel"
@@ -572,14 +573,14 @@ RSpec.describe "Sabeel accessed by users who are 👉" do
   # * NOT ACCESSED by Viewers
   context "'Viewer' will NOT render template" do
     before do
-      @viewer = FactoryBot.create(:viewer_user)
+      @viewer = create(:viewer_user)
       page.set_rack_session(user_id: @viewer.id)
       visit sabeel_path(@sabeel)
     end
 
-    scenario "'edit'" do
+    it "'edit'" do
       click_on "Edit"
-      expect(current_path).to eq sabeel_path(@sabeel)
+      expect(page).to have_current_path sabeel_path(@sabeel), ignore_query: true
       expect(page).to have_content "Not Authorized!"
     end
   end

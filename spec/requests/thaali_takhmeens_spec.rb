@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
+RSpec.describe "ThaaliTakhmeen request - user type 👉" do
   before do
     @password = Faker::Internet.password(min_length: 6, max_length: 72)
   end
@@ -10,7 +10,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
   # * Accessible by all
   context "any user can access 👉" do
     before do
-      @user = FactoryBot.create(:user, password: @password)
+      @user = create(:user, password: @password)
       post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
     end
 
@@ -20,7 +20,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
         get root_path
       end
 
-      it "should render an index template with 200 status code" do
+      it "renders an index template with 200 status code" do
         expect(response).to have_http_status(:ok)
         expect(response).to render_template(:index)
       end
@@ -29,16 +29,16 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
     # * SHOW
     context "GET show" do
       before do
-        @thaali = FactoryBot.create(:thaali_takhmeen)
+        @thaali = create(:thaali_takhmeen)
         get takhmeen_path(@thaali.id)
       end
 
-      it "should render a show template" do
+      it "renders a show template" do
         expect(response).to render_template(:show)
         expect(response).to have_http_status(:ok)
       end
 
-      it "should render the instance that was passed in the params" do
+      it "renders the instance that was passed in the params" do
         # it could be any attribute, not only number
         expect(response.body).to include(@thaali.number.to_s)
       end
@@ -50,7 +50,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
         get takhmeens_stats_path
       end
 
-      it "should render a stats template" do
+      it "renders a stats template" do
         expect(response).to render_template(:stats)
         expect(response).to have_http_status(:ok)
       end
@@ -62,7 +62,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
         get thaali_takhmeens_complete_path(CURR_YR)
       end
 
-      it "should render a complete template" do
+      it "renders a complete template" do
         expect(response).to render_template(:complete)
         expect(response).to have_http_status(:ok)
       end
@@ -74,7 +74,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
         get thaali_takhmeens_pending_path(CURR_YR)
       end
 
-      it "should render a pending template" do
+      it "renders a pending template" do
         expect(response).to render_template(:pending)
         expect(response).to have_http_status(:ok)
       end
@@ -86,7 +86,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
         get thaali_takhmeens_all_path(PREV_YR)
       end
 
-      it "should render a all template" do
+      it "renders a all template" do
         expect(response).to render_template(:all)
         expect(response).to have_http_status(:ok)
       end
@@ -96,18 +96,18 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
   # * Accessible by Admins & Members
   context "'admin' & 'member' can access 👉" do
     before do
-      @user = FactoryBot.create(:user_other_than_viewer, password: @password)
+      @user = create(:user_other_than_viewer, password: @password)
       post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
     end
 
     # * NEW
     context "GET new" do
       before do
-        @sabeel = FactoryBot.create(:sabeel)
+        @sabeel = create(:sabeel)
       end
 
       context "if sabeel HAS NOT registered for currrent-year thaali" do
-        it "SHOULD RENDER a new template with 200 status code" do
+        it "RENDERS a new template with 200 status code" do
           get new_sabeel_takhmeen_path(@sabeel)
           expect(response).to have_http_status(:ok)
           expect(response).to render_template(:new)
@@ -115,10 +115,11 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
 
         context "and if sabeel has taken previous year thaali" do
           before do
-            @prev_thaali = FactoryBot.create(:previous_takhmeen, sabeel_id: @sabeel.id)
+            @prev_thaali = create(:previous_takhmeen, sabeel_id: @sabeel.id)
             get new_sabeel_takhmeen_path(@sabeel)
           end
-          it "should show 'number' & 'size' attribute values in the form" do
+
+          it "shows 'number' & 'size' attribute values in the form" do
             expect(response.body).to include(@prev_thaali.number.to_s)
             expect(response.body).to include(@prev_thaali.size)
           end
@@ -127,9 +128,10 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
 
       context "if sabeel HAS registered for currrent-year thaali" do
         before do
-          @cur_thaali = FactoryBot.create(:active_takhmeen, sabeel_id: @sabeel.id)
+          @cur_thaali = create(:active_takhmeen, sabeel_id: @sabeel.id)
         end
-        it "SHOULD NOT render new tempelate" do
+
+        it "DOES NOT render new tempelate" do
           get new_sabeel_takhmeen_path(@sabeel)
           expect(response).to redirect_to sabeel_path(@sabeel)
         end
@@ -139,21 +141,21 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
     # * CREATE
     context "POST create" do
       before do
-        @sabeel = FactoryBot.create(:sabeel)
+        @sabeel = create(:sabeel)
       end
 
       context "with valid attributes" do
         before do
-          @valid_attributes = FactoryBot.attributes_for(:thaali_takhmeen)
+          @valid_attributes = attributes_for(:thaali_takhmeen)
           post sabeel_takhmeens_path(sabeel_id: @sabeel.id), params: {thaali_takhmeen: @valid_attributes}
           @thaali = @sabeel.thaali_takhmeens.first
         end
 
-        it "should create a new Thaali" do
+        it "creates a new Thaali" do
           expect(@thaali).to be_truthy
         end
 
-        it "should redirect to created thaali" do
+        it "redirects to created thaali" do
           expect(response).to have_http_status(:found)
           expect(response).to redirect_to takhmeen_path(@thaali)
         end
@@ -161,7 +163,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
 
       context "with invalid attributes" do
         before do
-          @invalid_attributes = FactoryBot.attributes_for(:thaali_takhmeen, size: nil)
+          @invalid_attributes = attributes_for(:thaali_takhmeen, size: nil)
           post sabeel_takhmeens_path(sabeel_id: @sabeel.id), params: {thaali_takhmeen: @invalid_attributes}
           @thaali = @sabeel.thaali_takhmeens.first
         end
@@ -170,7 +172,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
           expect(@thaali).to be_nil
         end
 
-        it "should render a new template" do
+        it "renders a new template" do
           expect(response).to render_template(:new)
           expect(response).to have_http_status(:unprocessable_entity)
         end
@@ -180,16 +182,16 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
     # * EDIT
     context "GET edit" do
       before do
-        @thaali = FactoryBot.create(:thaali_takhmeen)
+        @thaali = create(:thaali_takhmeen)
         get edit_takhmeen_path(@thaali.id)
       end
 
-      it "should render render an edit template" do
+      it "renders render an edit template" do
         expect(response).to render_template(:edit)
         expect(response).to have_http_status(:ok)
       end
 
-      it "should render the instance that was passed in the params" do
+      it "renders the instance that was passed in the params" do
         # it could be any attribute, not only size
         expect(response.body).to include(@thaali.size)
       end
@@ -198,7 +200,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
     # * UPDATE
     context "PATCH update" do
       before do
-        @thaali = FactoryBot.create(:thaali_takhmeen)
+        @thaali = create(:thaali_takhmeen)
       end
 
       context "with valid attributes" do
@@ -207,7 +209,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
           patch takhmeen_path(@thaali), params: {thaali_takhmeen: @thaali.attributes}
         end
 
-        it "should redirect to updated thaali page" do
+        it "redirects to updated thaali page" do
           expect(response).to redirect_to takhmeen_path("#{@thaali.year}-#{@thaali.number}")
         end
       end
@@ -218,7 +220,7 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
           patch takhmeen_path(@thaali), params: {thaali_takhmeen: @thaali.attributes}
         end
 
-        it "should render an edit template" do
+        it "renders an edit template" do
           expect(response).to render_template(:edit)
         end
       end
@@ -227,18 +229,18 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
     # * DESTROY
     context "DELETE destroy" do
       before do
-        @sabeel = FactoryBot.create(:sabeel)
-        thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+        @sabeel = create(:sabeel)
+        thaali = create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         delete takhmeen_path(thaali)
         # find method will raise an error
         @thaali = ThaaliTakhmeen.find_by(id: thaali.id)
       end
 
-      it "should destroy the thaali" do
+      it "destroys the thaali" do
         expect(@thaali).to be_nil
       end
 
-      it "should redirect to its sabeel page" do
+      it "redirects to its sabeel page" do
         expect(response).to redirect_to sabeel_path(@sabeel)
       end
     end
@@ -247,9 +249,9 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
   # * NOT Accessible by Viewers
   context "'viewer' CANNOT access 👉" do
     before do
-      @viewer = FactoryBot.create(:viewer_user, password: @password)
+      @viewer = create(:viewer_user, password: @password)
       post signup_path, params: {sessions: @viewer.attributes.merge({password: @password})}
-      @sabeel = FactoryBot.create(:sabeel)
+      @sabeel = create(:sabeel)
     end
 
     # * NEW
@@ -258,15 +260,15 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
         get new_sabeel_takhmeen_path(@sabeel)
       end
 
-      scenario "should NOT render a new template" do
+      it "does not render a new template" do
         expect(response).not_to render_template(:new)
       end
 
-      scenario "should respond with status code '302' (found)" do
+      it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end
@@ -274,19 +276,19 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
     # * EDIT
     context "GET edit" do
       before do
-        @thaali = FactoryBot.create(:thaali_takhmeen)
+        @thaali = create(:thaali_takhmeen)
         get edit_takhmeen_path(@thaali)
       end
 
-      scenario "should NOT render a edit template" do
+      it "does not render a edit template" do
         expect(response).not_to render_template(:edit)
       end
 
-      scenario "should respond with status code '302' (found)" do
+      it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end
@@ -294,17 +296,17 @@ RSpec.describe "ThaaliTakhmeen request - user type 👉", type: :request do
     # * DETROY
     context "DELETE destroy" do
       before do
-        thaali = FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id)
+        thaali = create(:thaali_takhmeen, sabeel_id: @sabeel.id)
         delete takhmeen_path(thaali)
         # find method will raise an error
         @thaali = ThaaliTakhmeen.find_by(id: thaali.id)
       end
 
-      scenario "should NOT destroy the thaali" do
+      it "does not destroy the thaali" do
         expect(@thaali).not_to be_nil
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end

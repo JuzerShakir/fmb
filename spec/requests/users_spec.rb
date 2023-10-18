@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "User request - user type 👉", type: :request do
+RSpec.describe "User request - user type 👉" do
   before do
     @password = Faker::Internet.password(min_length: 6, max_length: 72)
   end
@@ -10,7 +10,7 @@ RSpec.describe "User request - user type 👉", type: :request do
   # * Accessible by Admin & Member
   context "'Admin' & 'Member' can access 👉" do
     before do
-      @user = FactoryBot.create(:user_other_than_viewer, password: @password)
+      @user = create(:user_other_than_viewer, password: @password)
       post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
     end
 
@@ -20,12 +20,12 @@ RSpec.describe "User request - user type 👉", type: :request do
         get user_path(@user)
       end
 
-      scenario "should render a show template" do
+      it "renders a show template" do
         expect(response).to render_template(:show)
         expect(response).to have_http_status(:ok)
       end
 
-      scenario "should render the instance that was passed in the params" do
+      it "renders the instance that was passed in the params" do
         # it could be any attribute, not only ITS
         expect(response.body).to include(@user.its.to_s)
       end
@@ -37,7 +37,7 @@ RSpec.describe "User request - user type 👉", type: :request do
         get edit_user_path(@user)
       end
 
-      it "should render render an edit template" do
+      it "renders render an edit template" do
         expect(response).to render_template(:edit)
         expect(response).to have_http_status(:ok)
       end
@@ -46,7 +46,7 @@ RSpec.describe "User request - user type 👉", type: :request do
     # * UPDATE
     context "PATCH update" do
       context "with valid attributes" do
-        scenario "should redirect to updated user" do
+        it "redirects to updated user" do
           new_password = Faker::Internet.password(min_length: 6, max_length: 72)
           password = new_password
           password_confirmation = new_password
@@ -61,7 +61,7 @@ RSpec.describe "User request - user type 👉", type: :request do
       end
 
       context "with invalid attributes" do
-        scenario "should render an edit template" do
+        it "renders an edit template" do
           password = nil
           password_confirmation = nil
 
@@ -82,11 +82,11 @@ RSpec.describe "User request - user type 👉", type: :request do
         @user = User.find_by(id: @user.id)
       end
 
-      scenario "should destroy the user" do
+      it "destroys the user" do
         expect(@user).to be_nil
       end
 
-      scenario "should redirect to the login path" do
+      it "redirects to the login path" do
         expect(response).to redirect_to login_path
       end
     end
@@ -95,7 +95,7 @@ RSpec.describe "User request - user type 👉", type: :request do
   # * NOT ACCESSIBLE by viewer
   context "'Viewer' CANNOT access 👉" do
     before do
-      @viewer = FactoryBot.create(:viewer_user, password: @password)
+      @viewer = create(:viewer_user, password: @password)
       post signup_path, params: {sessions: @viewer.attributes.merge({password: @password})}
     end
 
@@ -103,15 +103,15 @@ RSpec.describe "User request - user type 👉", type: :request do
     context "GET show" do
       before { get user_path(@viewer) }
 
-      scenario "should NOT render the 'show' template" do
+      it "does not render the 'show' template" do
         expect(response).not_to render_template(:show)
       end
 
-      scenario "should respond with status code '302' (found)" do
+      it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end
@@ -120,15 +120,15 @@ RSpec.describe "User request - user type 👉", type: :request do
     context "GET edit" do
       before { get edit_user_path(@viewer) }
 
-      scenario "should NOT render the 'edit' template" do
+      it "does not render the 'edit' template" do
         expect(response).not_to render_template(:edit)
       end
 
-      scenario "should respond with status code '302' (found)" do
+      it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end
@@ -140,11 +140,11 @@ RSpec.describe "User request - user type 👉", type: :request do
         @viewer = User.find_by(id: @viewer.id)
       end
 
-      scenario "should destroy the user" do
-        expect(@viewer).to_not be_nil
+      it "destroys the user" do
+        expect(@viewer).not_to be_nil
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end
@@ -153,16 +153,16 @@ RSpec.describe "User request - user type 👉", type: :request do
   # * Accessible by ADMIN
   context "'Admin' can access 👉" do
     before do
-      @admin = FactoryBot.create(:admin_user, password: @password)
+      @admin = create(:admin_user, password: @password)
       post signup_path, params: {sessions: @admin.attributes.merge({password: @password})}
-      @user = FactoryBot.create(:user, password: @password)
+      @user = create(:user, password: @password)
     end
 
     # * NEW
     context "GET new" do
       before { get new_user_path }
 
-      scenario "should render a new template with 200 status code" do
+      it "renders a new template with 200 status code" do
         expect(response).to render_template(:new)
         expect(response).to have_http_status(:ok)
       end
@@ -172,8 +172,8 @@ RSpec.describe "User request - user type 👉", type: :request do
     context "POST create" do
       before do
         get new_user_path
-        @valid = FactoryBot.attributes_for(:user)
-        @invalid = FactoryBot.attributes_for(:invalid_user)
+        @valid = attributes_for(:user)
+        @invalid = attributes_for(:invalid_user)
       end
 
       context "with valid attributes" do
@@ -182,11 +182,11 @@ RSpec.describe "User request - user type 👉", type: :request do
           @user = User.find_by(its: @valid[:its])
         end
 
-        scenario "should create a new User" do
+        it "creates a new User" do
           expect(@user).to be_truthy
         end
 
-        scenario "should redirect to index path of User" do
+        it "redirects to index path of User" do
           expect(response).to have_http_status(:found)
           expect(response).to redirect_to users_path
         end
@@ -198,11 +198,11 @@ RSpec.describe "User request - user type 👉", type: :request do
           @invalid_user = User.find_by(its: @invalid[:its])
         end
 
-        scenario "does not create a new User" do
+        it "does not create a new User" do
           expect(@invalid_user).to be_nil
         end
 
-        scenario "should render a new template" do
+        it "renders a new template" do
           expect(response).to render_template(:new)
           expect(response).to have_http_status(:unprocessable_entity)
         end
@@ -215,12 +215,12 @@ RSpec.describe "User request - user type 👉", type: :request do
         get user_path(@user)
       end
 
-      scenario "should render a show template" do
+      it "renders a show template" do
         expect(response).to render_template(:show)
         expect(response).to have_http_status(:ok)
       end
 
-      scenario "should render the instance that was passed in the params" do
+      it "renders the instance that was passed in the params" do
         # it could be any attribute, not only ITS
         expect(response.body).to include(@user.its.to_s)
       end
@@ -230,7 +230,7 @@ RSpec.describe "User request - user type 👉", type: :request do
     context "GET index" do
       before { get users_path }
 
-      scenario "should render a index template with 200 status code" do
+      it "renders a index template with 200 status code" do
         expect(response).to render_template(:index)
         expect(response).to have_http_status(:ok)
       end
@@ -243,11 +243,11 @@ RSpec.describe "User request - user type 👉", type: :request do
         @user = User.find_by(id: @user.id)
       end
 
-      scenario "should destroy the other user" do
+      it "destroys the other user" do
         expect(@user).to be_nil
       end
 
-      scenario "should redirect to the login path" do
+      it "redirects to the login path" do
         expect(response).to redirect_to users_path
       end
     end
@@ -256,41 +256,41 @@ RSpec.describe "User request - user type 👉", type: :request do
   # * NOT ADMIN
   context "NOT an 'admin', CANNOT access 👉" do
     before do
-      @user = FactoryBot.create(:user_other_than_admin, password: @password)
+      @user = create(:user_other_than_admin, password: @password)
       post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
-      @other_user = FactoryBot.create(:user_other_than_admin, password: @password)
+      @other_user = create(:user_other_than_admin, password: @password)
     end
 
     # * NEW
     context "GET new" do
       before { get new_user_path }
 
-      scenario "should NOT render the 'new' template" do
+      it "does not render the 'new' template" do
         expect(response).not_to render_template(:new)
       end
 
-      scenario "should respond with status code '302' (found)" do
+      it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end
 
     # * SHOW page of other users
-    context "GET show  of other user" do
+    context "GET show of other user" do
       before { get user_path(@other_user) }
 
-      scenario "should NOT render the 'show' template" do
+      it "does not render the 'show' template" do
         expect(response).not_to render_template(:show)
       end
 
-      scenario "should respond with status code '302' (found)" do
+      it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end
@@ -299,15 +299,15 @@ RSpec.describe "User request - user type 👉", type: :request do
     context "GET index" do
       before { get users_path }
 
-      scenario "should NOT render the 'index' template" do
+      it "does not render the 'index' template" do
         expect(response).not_to render_template(:index)
       end
 
-      scenario "should respond with status code '302' (found)" do
+      it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end

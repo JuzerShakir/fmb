@@ -2,36 +2,36 @@
 
 require "rails_helper"
 
-RSpec.describe "Footer shows", js: true do
+RSpec.describe "Footer shows", :js do
   before do
     visit login_path
   end
 
-  scenario "fontawesome '©' logo" do
+  it "fontawesome '©' logo" do
     within "footer" do
       expect(page).to have_css(".fa-copyright")
     end
   end
 
-  scenario "dynammic year" do
+  it "dynammic year" do
     within "footer" do
       expect(page).to have_content(Date.current.year.to_s)
     end
   end
 
-  scenario "role of the creator" do
+  it "role of the creator" do
     within "footer" do
       expect(page).to have_content("Developed & Designed")
     end
   end
 
-  scenario "fontawesome '❤' logo" do
+  it "fontawesome '❤' logo" do
     within "footer" do
       expect(page).to have_css(".fa-heart")
     end
   end
 
-  scenario "creator name linking to its portfolio site" do
+  it "creator name linking to its portfolio site" do
     within "footer" do
       expect(page).to have_link("Juzer Shakir")
       @window = window_opened_by { click_on "Juzer Shakir" }

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Session", type: :routing do
+RSpec.describe "Session" do
   # * NEW
   context "new action" do
     it "is accessible by /login route" do

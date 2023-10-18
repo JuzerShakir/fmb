@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Transaction, type: :routing do
+RSpec.describe Transaction do
   # * ALL
   context "all action" do
     it "is accessible by /transactions route" do

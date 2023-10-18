@@ -2,7 +2,7 @@
   <%= search_form_for @q, url: path, data: {controller: "search", debounce_target: "form", turbo_frame: :results} do |f| %>
 
     <% f.search_field search, placeholder: "Search By #{message}", class: "form-control", type: "search", autocomplete: "off", data: {action: "input->search#submit"},
-      # disables search with enter keypress
-      onkeypress: "return event.keyCode != 13;" %>
+         # disables search with enter keypress
+         onkeypress: "return event.keyCode != 13;" %>
   <% end %>
 </div>

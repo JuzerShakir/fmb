@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe User, type: :routing do
+RSpec.describe User do
   # * NEW
   context "new action" do
     it "is accessible by /users/new route" do

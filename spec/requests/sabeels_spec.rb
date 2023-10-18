@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Sabeel request - user type 👉", type: :request do
+RSpec.describe "Sabeel request - user type 👉" do
   before do
     @password = Faker::Internet.password(min_length: 6, max_length: 72)
   end
@@ -10,18 +10,18 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
   # * Accessible by all
   context "any user can access 👉" do
     before do
-      @user = FactoryBot.create(:user, password: @password)
+      @user = create(:user, password: @password)
       post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
     end
 
     # * INDEX
     context "GET index" do
       before do
-        FactoryBot.create_list(:sabeel, 2)
+        create_list(:sabeel, 2)
         get sabeels_path
       end
 
-      it "should render an index template with 200 status code" do
+      it "renders an index template with 200 status code" do
         expect(response).to render_template(:index)
         expect(response).to have_http_status(:ok)
       end
@@ -30,19 +30,19 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
     # * SHOW
     context "GET show" do
       before do
-        @sabeel = FactoryBot.create(:sabeel)
+        @sabeel = create(:sabeel)
         3.times do |i|
-          FactoryBot.create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: i)
+          create(:thaali_takhmeen, sabeel_id: @sabeel.id, year: i)
         end
         get sabeel_path(@sabeel.id)
       end
 
-      it "should render a show template" do
+      it "renders a show template" do
         expect(response).to render_template(:show)
         expect(response).to have_http_status(:ok)
       end
 
-      it "should render the instance that was passed in the params" do
+      it "renders the instance that was passed in the params" do
         # it could be any attribute, not only ITS
         expect(response.body).to include(@sabeel.its.to_s)
       end
@@ -58,7 +58,7 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
         get stats_sabeels_path
       end
 
-      it "should render a stats template" do
+      it "renders a stats template" do
         expect(response).to render_template(:stats)
         expect(response).to have_http_status(:ok)
       end
@@ -70,13 +70,13 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
         @apts = Sabeel.apartments.keys
       end
 
-      it "should render a active template" do
+      it "renders a active template" do
         get sabeels_active_path(@apts.sample)
         expect(response).to render_template(:active)
         expect(response).to have_http_status(:ok)
       end
 
-      it "should render a pdf response" do
+      it "renders a pdf response" do
         get sabeels_active_path(@apts.sample, format: :pdf)
         expect(response).to have_http_status(:ok)
       end
@@ -89,7 +89,7 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
         get sabeels_inactive_path(apts.sample)
       end
 
-      it "should render a inactive template" do
+      it "renders a inactive template" do
         expect(response).to render_template(:inactive)
         expect(response).to have_http_status(:ok)
       end
@@ -99,7 +99,7 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
   # * Accessible by Admins
   context "'admin' can access 👉" do
     before do
-      @admin = FactoryBot.create(:admin_user, password: @password)
+      @admin = create(:admin_user, password: @password)
       post signup_path, params: {sessions: @admin.attributes.merge({password: @password})}
     end
 
@@ -107,7 +107,7 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
     context "GET new" do
       before { get new_user_path }
 
-      scenario "should render a new template with 200 status code" do
+      it "renders a new template with 200 status code" do
         expect(response).to render_template(:new)
         expect(response).to have_http_status(:ok)
       end
@@ -116,8 +116,8 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
     # * CREATE
     context "POST create" do
       before do
-        @valid_attributes = FactoryBot.attributes_for(:sabeel)
-        @invalid_attributes = FactoryBot.attributes_for(:sabeel, its: nil)
+        @valid_attributes = attributes_for(:sabeel)
+        @invalid_attributes = attributes_for(:sabeel, its: nil)
       end
 
       context "with valid attributes" do
@@ -126,11 +126,11 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
           @sabeel = Sabeel.find_by(its: @valid_attributes[:its])
         end
 
-        it "should create a new Sabeel" do
+        it "creates a new Sabeel" do
           expect(@sabeel).to be_truthy
         end
 
-        it "should redirect to created sabeel" do
+        it "redirects to created sabeel" do
           expect(response).to have_http_status(:found)
           expect(response).to redirect_to @sabeel
         end
@@ -146,7 +146,7 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
           expect(@invalid_sabeel).to be_nil
         end
 
-        it "should render a new template" do
+        it "renders a new template" do
           expect(response).to render_template(:new)
           expect(response).to have_http_status(:unprocessable_entity)
         end
@@ -156,16 +156,16 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
     # * DESTROY
     context "DELETE destroy" do
       before do
-        sabeel = FactoryBot.create(:sabeel)
+        sabeel = create(:sabeel)
         delete sabeel_path(sabeel.id)
         @sabeel = Sabeel.find_by(id: sabeel.id)
       end
 
-      it "should destroy the sabeel" do
+      it "destroys the sabeel" do
         expect(@sabeel).to be_nil
       end
 
-      it "should redirect to the homepage" do
+      it "redirects to the homepage" do
         expect(response).to redirect_to root_path.concat("?format=html")
       end
     end
@@ -174,7 +174,7 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
   # * NOT Accessibile by other types (except admin)
   context "NOT an 'admin' CANNOT access 👉" do
     before do
-      @user = FactoryBot.create(:user_other_than_admin, password: @password)
+      @user = create(:user_other_than_admin, password: @password)
       post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
     end
 
@@ -182,15 +182,15 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
     context "GET new" do
       before { get new_sabeel_path }
 
-      scenario "should NOT render a new template" do
+      it "does not render a new template" do
         expect(response).not_to render_template(:new)
       end
 
-      scenario "should respond with status code '302' (found)" do
+      it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end
@@ -198,19 +198,19 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
     # * DESTROY
     context "DELETE destroy" do
       before do
-        @sabeel = FactoryBot.create(:sabeel)
+        @sabeel = create(:sabeel)
         delete sabeel_path(@sabeel.id)
       end
 
-      scenario "should NOT be able to delete sabeel" do
-        expect(@sabeel.persisted?).to be_truthy
+      it "is not able to delete sabeel" do
+        expect(@sabeel).to be_persisted
       end
 
-      scenario "should respond with status code '302' (found)" do
+      it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end
@@ -219,23 +219,23 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
   # * Accessible by all user types, except 'viewers'
   context "'admin' & 'member' can access 👉" do
     before do
-      @user = FactoryBot.create(:user_other_than_viewer, password: @password)
+      @user = create(:user_other_than_viewer, password: @password)
       post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
     end
 
     # * EDIT
     context "GET edit" do
       before do
-        @sabeel = FactoryBot.create(:sabeel)
+        @sabeel = create(:sabeel)
         get edit_sabeel_path(@sabeel.id)
       end
 
-      it "should render an edit template" do
+      it "renders an edit template" do
         expect(response).to render_template(:edit)
         expect(response).to have_http_status(:ok)
       end
 
-      it "should render the instance that was passed in the params" do
+      it "renders the instance that was passed in the params" do
         # it could be any attribute, not only apartment
         expect(response.body).to include(@sabeel.apartment)
       end
@@ -244,7 +244,7 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
     # * UPDATE
     context "PATCH update" do
       before do
-        @sabeel = FactoryBot.create(:sabeel)
+        @sabeel = create(:sabeel)
       end
 
       context "with valid attributes" do
@@ -253,11 +253,11 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
           patch sabeel_path(@sabeel.id), params: {sabeel: @sabeel.attributes}
         end
 
-        it "should redirect to updated sabeel" do
+        it "redirects to updated sabeel" do
           expect(response).to redirect_to @sabeel
         end
 
-        it "should show the updated value" do
+        it "shows the updated value" do
           get sabeel_path(@sabeel.id)
           expect(response.body).to include("Mohammedi")
         end
@@ -265,11 +265,11 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
 
       context "with invalid attributes" do
         before do
-          @invalid_attributes = FactoryBot.attributes_for(:sabeel, its: nil)
+          @invalid_attributes = attributes_for(:sabeel, its: nil)
           patch sabeel_path(@sabeel.id), params: {sabeel: @invalid_attributes}
         end
 
-        it "should render an edit template" do
+        it "renders an edit template" do
           expect(response).to render_template(:edit)
         end
       end
@@ -279,26 +279,26 @@ RSpec.describe "Sabeel request - user type 👉", type: :request do
   # * NOT ACCESSIBLE by 'viewer' types
   context "'viewer' CANNOT access 👉" do
     before do
-      @viewer = FactoryBot.create(:viewer_user, password: @password)
+      @viewer = create(:viewer_user, password: @password)
       post signup_path, params: {sessions: @viewer.attributes.merge({password: @password})}
     end
 
     # * EDIT
     context "GET edit" do
       before do
-        @sabeel = FactoryBot.create(:sabeel)
+        @sabeel = create(:sabeel)
         get edit_sabeel_path(@sabeel.id)
       end
 
-      scenario "should NOT render an edit template" do
+      it "does not render an edit template" do
         expect(response).not_to render_template(:edit)
       end
 
-      scenario "should respond with status code '302' (found)" do
+      it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
 
-      scenario "should redirect to the root path" do
+      it "redirects to the root path" do
         expect(response).to redirect_to root_path
       end
     end

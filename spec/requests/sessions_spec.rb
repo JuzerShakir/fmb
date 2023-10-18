@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Session request - session value is 👉", type: :request do
+RSpec.describe "Session request - session value is 👉" do
   before do
     @password = Faker::Internet.password(min_length: 6, max_length: 72)
   end
@@ -13,7 +13,7 @@ RSpec.describe "Session request - session value is 👉", type: :request do
     context "GET new" do
       before { get login_path }
 
-      it "should render a new template with 200 status code" do
+      it "renders a new template with 200 status code" do
         expect(response).to render_template(:new)
         expect(response).to have_http_status(:ok)
       end
@@ -25,12 +25,12 @@ RSpec.describe "Session request - session value is 👉", type: :request do
     # * NEW
     context "GET new" do
       before do
-        @user = FactoryBot.create(:user, password: @password)
+        @user = create(:user, password: @password)
         post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
         get login_path
       end
 
-      it "should redirect to root path with 302 status code" do
+      it "redirects to root path with 302 status code" do
         expect(response).to redirect_to root_path
         expect(response).to have_http_status(:found)
       end

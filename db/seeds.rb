@@ -73,7 +73,7 @@ end
 cur_takhmeen_comp = ThaaliTakhmeen.in_the_year(CURR_YR).sample(active_sabeel.count * 0.3)
 
 cur_takhmeen_comp.each do |thaali|
-  if thaali.sabeel.takhmeen_complete_of_last_year(CURR_YR)
+  if thaali.sabeel.takhmeen_complete_of_last_year?
     12.times do
       thaali.transactions.create(
         amount: 5000,

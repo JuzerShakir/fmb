@@ -12,5 +12,3 @@ require "rails_helper"
 #     end
 #   end
 # end
-RSpec.describe TransactionsHelper, type: :helper do
-end

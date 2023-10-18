@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Sessions accessed by user who are 👉" do
   before do
     @password = Faker::Internet.password(min_length: 6, max_length: 72)
-    @user = FactoryBot.create(:user, password: @password)
+    @user = create(:user, password: @password)
   end
 
   context "NOT-logged-in will render template" do
@@ -15,7 +15,7 @@ RSpec.describe "Sessions accessed by user who are 👉" do
 
     # * NEW
     context "'new'" do
-      scenario "should have a correct url and a heading" do
+      it "has a correct url and a heading" do
         expect(current_path).to eql login_path
         expect(page).to have_css("h2", text: "Faizul Mawaid il Burhaniyah")
       end
@@ -23,7 +23,7 @@ RSpec.describe "Sessions accessed by user who are 👉" do
 
     # * CREATE
     context "creating session" do
-      scenario "should be able to login with valid credentials" do
+      it "is able to login with valid credentials" do
         fill_in "sessions_its", with: @user[:its]
         fill_in "sessions_password", with: @password
 
@@ -41,7 +41,7 @@ RSpec.describe "Sessions accessed by user who are 👉" do
         expect(page).to have_content(flash_msg)
       end
 
-      scenario "should NOT be able to login with invalid credentials" do
+      it "is not able to login with invalid credentials" do
         fill_in "sessions_its", with: @user[:its]
         fill_in "sessions_password", with: ""
 
@@ -49,7 +49,7 @@ RSpec.describe "Sessions accessed by user who are 👉" do
         expect(page).to have_content("Invalid credentials!")
       end
 
-      scenario "should show footer" do
+      it "shows footer" do
         expect(page).to have_css("#footer")
       end
     end
@@ -62,8 +62,8 @@ RSpec.describe "Sessions accessed by user who are 👉" do
     end
 
     context "'new'" do
-      scenario "should redirect to the root path" do
-        expect(current_path).to eq root_path
+      it "redirects to the root path" do
+        expect(page).to have_current_path root_path, ignore_query: true
       end
     end
   end
@@ -80,12 +80,12 @@ RSpec.describe "Sessions accessed by user who are 👉" do
         click_on "Log out"
       end
 
-      scenario "should redirect to login_path with flash message" do
+      it "redirects to login_path with flash message" do
         expect(current_path).to eql login_path
         expect(page).to have_content("Logged Out!")
       end
 
-      scenario "should NOT show the navbar" do
+      it "does not show the navbar" do
         expect(page).not_to have_css(".navbar")
       end
     end

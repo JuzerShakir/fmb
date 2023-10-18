@@ -12,6 +12,7 @@ FactoryBot.define do
     sequence :size, ThaaliTakhmeen.sizes.keys.cycle
 
     trait :current_year do
+      sabeel
       year { CURR_YR }
     end
 
@@ -24,10 +25,20 @@ FactoryBot.define do
       paid { total }
     end
 
+    trait :large do
+      size { "large" }
+    end
+
+    trait :small do
+      size { "small" }
+    end
+
     factory :active_takhmeen, traits: [:current_year]
     factory :previous_takhmeen, traits: [:previous_year]
     factory :completed_takhmeens, traits: [:complete]
     factory :prev_completed_takhmeens, traits: [:previous_year, :complete]
     factory :active_completed_takhmeens, traits: [:current_year, :complete]
+    factory :small_thaali, traits: [:small]
+    factory :large_thaali, traits: [:large]
   end
 end
