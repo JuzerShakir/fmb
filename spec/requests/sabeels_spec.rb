@@ -12,9 +12,7 @@ RSpec.describe "Sabeel request" do
 
     # * INDEX
     describe "GET /index" do
-      before do
-        get sabeels_path
-      end
+      before { get sabeels_path }
 
       it "renders index template" do
         expect(response).to render_template(:index)
@@ -54,9 +52,7 @@ RSpec.describe "Sabeel request" do
 
     # * STATISTICS
     describe "GET /stats" do
-      before do
-        get stats_sabeels_path
-      end
+      before { get stats_sabeels_path }
 
       it "renders stats template" do
         expect(response).to render_template(:stats)
@@ -72,9 +68,7 @@ RSpec.describe "Sabeel request" do
       let(:apt) { Sabeel.apartments.keys.sample }
 
       context "with /html" do
-        before do
-          get sabeels_active_path(apt)
-        end
+        before { get sabeels_active_path(apt) }
 
         it "renders active template" do
           expect(response).to render_template(:active)
@@ -135,9 +129,7 @@ RSpec.describe "Sabeel request" do
       let(:sabeel) { attributes_for(:sabeel) }
 
       context "with valid values" do
-        before do
-          post sabeels_path, params: {sabeel:}
-        end
+        before { post sabeels_path, params: {sabeel:} }
 
         it "redirects to new sabeel" do
           new_sabeel = Sabeel.find_by(its: sabeel[:its])
@@ -150,9 +142,7 @@ RSpec.describe "Sabeel request" do
       end
 
       context "with invalid values" do
-        before do
-          post sabeels_path, params: {sabeel: sabeel.merge(name: nil)}
-        end
+        before { post sabeels_path, params: {sabeel: sabeel.merge(name: nil)} }
 
         it "renders new template" do
           expect(response).to render_template(:new)
@@ -168,9 +158,7 @@ RSpec.describe "Sabeel request" do
     describe "DESTROY /destroy" do
       let(:sabeel) { create(:sabeel) }
 
-      before do
-        delete sabeel_path(sabeel.id)
-      end
+      before { delete sabeel_path(sabeel.id) }
 
       it "destroys the sabeel" do
         expect(Sabeel.find_by(id: sabeel.id)).to be_nil
@@ -209,9 +197,7 @@ RSpec.describe "Sabeel request" do
     describe "DESTROY /destroy" do
       let(:sabeel) { create(:sabeel) }
 
-      before do
-        delete sabeel_path(sabeel.id)
-      end
+      before { delete sabeel_path(sabeel.id) }
 
       it "is not able to delete sabeel" do
         expect(Sabeel.find_by(id: sabeel.id)).not_to be_nil
@@ -292,9 +278,7 @@ RSpec.describe "Sabeel request" do
     describe "GET edit" do
       let(:sabeel) { create(:sabeel) }
 
-      before do
-        get edit_sabeel_path(sabeel.id)
-      end
+      before { get edit_sabeel_path(sabeel.id) }
 
       it "does not render an edit template" do
         expect(response).not_to render_template(:edit)
