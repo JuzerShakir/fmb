@@ -6,14 +6,10 @@ RSpec.describe "Footer displays" do
   before { visit login_path }
 
   it "dynammic year" do
-    within "footer" do
-      expect(page).to have_content(Date.current.year.to_s)
-    end
+    within("footer") { expect(page).to have_content(Date.current.year.to_s) }
   end
 
   it "creator name linking to its portfolio site" do
-    within "footer" do
-      expect(page).to have_link("Juzer Shakir", href: "https://juzershakir.github.io/")
-    end
+    within("footer") { expect(page).to have_link("Juzer Shakir", href: "https://juzershakir.github.io/") }
   end
 end
