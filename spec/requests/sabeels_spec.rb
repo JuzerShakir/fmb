@@ -5,10 +5,12 @@ require "rails_helper"
 RSpec.describe "Sabeel request" do
   # * Accessible by ALL
   describe "'Anyone' who have logged in can access 👉" do
-    before do
+    # rubocop:disable RSpec/BeforeAfterAll
+    before(:all) do
       user = create(:user)
       post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
     end
+    # rubocop:enable RSpec/BeforeAfterAll
 
     # * INDEX
     describe "GET /index" do
@@ -106,10 +108,12 @@ RSpec.describe "Sabeel request" do
 
   # * Accessible by Admins
   describe "only 'admin' can access 👉" do
-    before do
+    # rubocop:disable RSpec/BeforeAfterAll
+    before(:all) do
       admin = create(:admin_user)
       post signup_path, params: {sessions: admin.attributes.merge({password: admin.password})}
     end
+    # rubocop:enable RSpec/BeforeAfterAll
 
     # * NEW
     describe "GET /new" do
@@ -171,10 +175,12 @@ RSpec.describe "Sabeel request" do
   end
 
   describe "'Members' & 'Viewers' CANNOT access 👉" do
-    before do
+    # rubocop:disable RSpec/BeforeAfterAll
+    before(:all) do
       user = create(:user_other_than_admin)
       post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
     end
+    # rubocop:enable RSpec/BeforeAfterAll
 
     # * NEW
     describe "GET /new" do
@@ -207,10 +213,12 @@ RSpec.describe "Sabeel request" do
 
   # * Accessible by all user types, except 'viewers'
   describe "'Admin' & 'Member' can access 👉" do
-    before do
+    # rubocop:disable RSpec/BeforeAfterAll
+    before(:all) do
       user = create(:user_other_than_viewer)
       post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
     end
+    # rubocop:enable RSpec/BeforeAfterAll
 
     # * EDIT
     describe "GET /edit" do
@@ -267,15 +275,17 @@ RSpec.describe "Sabeel request" do
     end
   end
 
-  # * NOT ACCESSIBLE by 'viewer' types
+  # * NOT ACCESSIBLE by 'viewer'
   describe "'Viewer' CANNOT access 👉" do
-    before do
+    # rubocop:disable RSpec/BeforeAfterAll
+    before(:all) do
       viewer = create(:viewer_user)
       post signup_path, params: {sessions: viewer.attributes.merge({password: viewer.password})}
     end
+    # rubocop:enable RSpec/BeforeAfterAll
 
     # * EDIT
-    describe "GET edit" do
+    describe "GET /edit" do
       let(:sabeel) { create(:sabeel) }
 
       before { get edit_sabeel_path(sabeel.id) }

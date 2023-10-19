@@ -144,7 +144,7 @@ RSpec.describe "ThaaliTakhmeen request" do
       context "with valid attributes" do
         before do
           valid_attributes = attributes_for(:thaali_takhmeen)
-          post sabeel_takhmeens_path(sabeel_id: sabeel.id), params: {thaali_takhmeen: valid_attributes}
+          post sabeel_takhmeens_path(sabeel), params: {thaali_takhmeen: valid_attributes}
         end
 
         it "redirects to created thaali" do
@@ -159,7 +159,7 @@ RSpec.describe "ThaaliTakhmeen request" do
       context "with invalid attributes" do
         before do
           invalid_attributes = attributes_for(:thaali_takhmeen, size: nil)
-          post sabeel_takhmeens_path(sabeel_id: sabeel.id), params: {thaali_takhmeen: invalid_attributes}
+          post sabeel_takhmeens_path(sabeel), params: {thaali_takhmeen: invalid_attributes}
         end
 
         it "renders a new template" do
