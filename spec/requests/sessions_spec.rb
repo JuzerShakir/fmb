@@ -2,36 +2,37 @@
 
 require "rails_helper"
 
-RSpec.describe "Session request - session value is 👉" do
-  before do
-    @password = Faker::Internet.password(min_length: 6, max_length: 72)
-  end
+RSpec.describe "Session request" do
+  let(:user) { create(:user) }
 
-  # * NULL
-  context "'null' CAN access" do
+  describe "'Anyone' who haven't logged in can access 👉" do
     # * NEW
-    context "GET new" do
+    describe "new action" do
       before { get login_path }
 
-      it "renders a new template with 200 status code" do
+      it "renders new template" do
         expect(response).to render_template(:new)
+      end
+
+      it "returns with 200 status code" do
         expect(response).to have_http_status(:ok)
       end
     end
   end
 
-  # * NOT NULL
-  context "NOT 'null' CANNOT access" do
+  describe "Users who have logged in cannot access 👉" do
+    before do
+      post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
+      get login_path
+    end
+
     # * NEW
-    context "GET new" do
-      before do
-        @user = create(:user, password: @password)
-        post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
-        get login_path
+    describe "new action" do
+      it "redirects to root path" do
+        expect(response).to redirect_to root_path
       end
 
-      it "redirects to root path with 302 status code" do
-        expect(response).to redirect_to root_path
+      it "returns with 302 redirect status code" do
         expect(response).to have_http_status(:found)
       end
     end
