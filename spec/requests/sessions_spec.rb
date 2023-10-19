@@ -7,7 +7,7 @@ RSpec.describe "Session request" do
 
   describe "'Anyone' who haven't logged in can access 👉" do
     # * NEW
-    describe "new action" do
+    describe "GET /new" do
       before { get login_path }
 
       it "renders new template" do
@@ -27,7 +27,7 @@ RSpec.describe "Session request" do
     end
 
     # * NEW
-    describe "new action" do
+    describe "GET /new" do
       it "redirects to root path" do
         expect(response).to redirect_to root_path
       end
