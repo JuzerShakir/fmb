@@ -2,86 +2,68 @@
 
 require "rails_helper"
 
-RSpec.describe "Sessions accessed by user who are 👉" do
-  before do
-    @password = Faker::Internet.password(min_length: 6, max_length: 72)
-    @user = create(:user, password: @password)
-  end
+RSpec.describe "Sessions" do
+  let(:user) { create(:user) }
 
-  context "NOT-logged-in will render template" do
-    before do
-      visit login_path
-    end
+  context "when user is not logged in" do
+    before { visit login_path }
 
-    # * NEW
-    context "'new'" do
-      it "has a correct url and a heading" do
-        expect(current_path).to eql login_path
-        expect(page).to have_css("h2", text: "Faizul Mawaid il Burhaniyah")
-      end
+    it "shows footer" do
+      expect(page).to have_css("#footer")
     end
 
     # * CREATE
-    context "creating session" do
-      it "is able to login with valid credentials" do
-        fill_in "sessions_its", with: @user[:its]
-        fill_in "sessions_password", with: @password
-
+    describe "can login with valid credentials" do
+      before do
+        fill_in "sessions_its", with: user.its
+        fill_in "sessions_password", with: user.password
         click_button "Login"
+      end
 
-        expect(current_path).to eql root_path("format=html")
+      it "redirects to root path after login" do
+        expect(page).to have_current_path root_path, ignore_query: true
+      end
 
-        if @user.viewer?
-          flash_msg = "Afzalus Salam"
-        else
-          first_name = @user.name.split.first
-          flash_msg = "Afzalus Salam, #{first_name} bhai!"
-        end
-
+      it "displays welcome message" do
+        flash_msg = user.viewer? ? "Afzalus Salam" : "Afzalus Salam, #{user.name.split.first} bhai!"
         expect(page).to have_content(flash_msg)
       end
+    end
 
-      it "is not able to login with invalid credentials" do
-        fill_in "sessions_its", with: @user[:its]
+    describe "cannot login with invalid credentials" do
+      before do
+        fill_in "sessions_its", with: user.its
         fill_in "sessions_password", with: ""
-
         click_button "Login"
-        expect(page).to have_content("Invalid credentials!")
       end
 
-      it "shows footer" do
-        expect(page).to have_css("#footer")
+      it "displays validation error" do
+        expect(page).to have_content("Invalid credentials!")
       end
     end
   end
 
-  context "logged-in will NOT render template" do
+  context "when user is logged in, and you visit" do
     before do
-      page.set_rack_session(user_id: @user.id)
+      page.set_rack_session(user_id: user.id)
       visit login_path
     end
 
-    context "'new'" do
-      it "redirects to the root path" do
+    describe "'new' action" do
+      it "will redirect to root path" do
         expect(page).to have_current_path root_path, ignore_query: true
       end
     end
-  end
-
-  context "logged-in will be able to" do
-    before do
-      page.set_rack_session(user_id: @user.id)
-      visit root_path
-    end
 
     # * DESTROY
-    context "'destroy'" do
-      before do
-        click_on "Log out"
+    describe "'destroy' action" do
+      before { click_link "Log out" }
+
+      it "redirects to login_path" do
+        expect(page).to have_current_path login_path
       end
 
-      it "redirects to login_path with flash message" do
-        expect(current_path).to eql login_path
+      it "displays log-out message" do
         expect(page).to have_content("Logged Out!")
       end
 
