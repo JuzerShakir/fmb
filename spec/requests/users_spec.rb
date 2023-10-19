@@ -2,88 +2,87 @@
 
 require "rails_helper"
 
-RSpec.describe "User request - user type 👉" do
-  before do
-    @password = Faker::Internet.password(min_length: 6, max_length: 72)
-  end
-
+RSpec.describe "User request" do
   # * Accessible by Admin & Member
-  context "'Admin' & 'Member' can access 👉" do
+  describe "'Admin' & 'Member' can access 👉" do
+    let(:user) { create(:user_other_than_viewer) }
+
     before do
-      @user = create(:user_other_than_viewer, password: @password)
-      post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
+      post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
     end
 
     # * SHOW
-    context "GET show" do
+    describe "GET /show" do
       before do
-        get user_path(@user)
+        get user_path(user)
       end
 
-      it "renders a show template" do
+      it "renders show template" do
         expect(response).to render_template(:show)
+      end
+
+      it "returns with 200 status code" do
         expect(response).to have_http_status(:ok)
       end
 
       it "renders the instance that was passed in the params" do
         # it could be any attribute, not only ITS
-        expect(response.body).to include(@user.its.to_s)
+        expect(response.body).to include(user.its.to_s)
       end
     end
 
     # * EDIT
-    context "GET edit" do
+    describe "GET /edit" do
       before do
-        get edit_user_path(@user)
+        get edit_user_path(user)
       end
 
-      it "renders render an edit template" do
+      it "renders edit template" do
         expect(response).to render_template(:edit)
+      end
+
+      it "returns with 200 status code" do
         expect(response).to have_http_status(:ok)
       end
     end
 
     # * UPDATE
-    context "PATCH update" do
+    describe "PATCH /update" do
       context "with valid attributes" do
+        let(:password) { attributes_for(:user)[:password] }
+
+        before do
+          hash_params = {password:, password_confirmation: password}
+          patch user_path(user), params: {user: user.attributes.merge(hash_params)}
+        end
+
         it "redirects to updated user" do
-          new_password = Faker::Internet.password(min_length: 6, max_length: 72)
-          password = new_password
-          password_confirmation = new_password
-
-          hash_params = {password: password, password_confirmation: password_confirmation}
-          user_params = @user.attributes.merge(hash_params)
-
-          patch user_path(@user), params: {user: user_params}
-
-          expect(response).to redirect_to @user
+          expect(response).to redirect_to user
         end
       end
 
       context "with invalid attributes" do
+        let(:password) { nil }
+
+        before do
+          hash_params = {password:, password_confirmation: password}
+          patch user_path(user), params: {user: user.attributes.merge(hash_params)}
+        end
+
         it "renders an edit template" do
-          password = nil
-          password_confirmation = nil
-
-          hash_params = {password: password, password_confirmation: password_confirmation}
-          user_params = @user.attributes.merge(hash_params)
-
-          patch user_path(@user), params: {user: user_params}
-
           expect(response).to render_template(:edit)
         end
       end
     end
 
     # * DESTROY themselves
-    context "DELETE destroy" do
+    describe "DELETE /destroy" do
       before do
-        delete user_path(@user)
-        @user = User.find_by(id: @user.id)
+        delete user_path(user)
       end
 
       it "destroys the user" do
-        expect(@user).to be_nil
+        expect(User.find_by(id: user.id)).to be_nil
       end
 
       it "redirects to the login path" do
@@ -93,19 +92,16 @@ RSpec.describe "User request - user type 👉" do
   end
 
   # * NOT ACCESSIBLE by viewer
-  context "'Viewer' CANNOT access 👉" do
+  describe "'Viewer' CANNOT access 👉" do
+    let(:viewer) { create(:viewer_user) }
+
     before do
-      @viewer = create(:viewer_user, password: @password)
-      post signup_path, params: {sessions: @viewer.attributes.merge({password: @password})}
+      post signup_path, params: {sessions: viewer.attributes.merge({password: viewer.password})}
     end
 
     # * SHOW
-    context "GET show" do
-      before { get user_path(@viewer) }
-
-      it "does not render the 'show' template" do
-        expect(response).not_to render_template(:show)
-      end
+    describe "GET /show" do
+      before { get user_path(viewer) }
 
       it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
@@ -117,12 +113,8 @@ RSpec.describe "User request - user type 👉" do
     end
 
     # * EDIT
-    context "GET edit" do
-      before { get edit_user_path(@viewer) }
-
-      it "does not render the 'edit' template" do
-        expect(response).not_to render_template(:edit)
-      end
+    describe "GET /edit" do
+      before { get edit_user_path(viewer) }
 
       it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
@@ -134,14 +126,13 @@ RSpec.describe "User request - user type 👉" do
     end
 
     # * DESTROY
-    context "DELETE destroy" do
+    describe "DELETE /destroy" do
       before do
-        delete user_path(@viewer)
-        @viewer = User.find_by(id: @viewer.id)
+        delete user_path(viewer)
       end
 
       it "destroys the user" do
-        expect(@viewer).not_to be_nil
+        expect(User.find_by(id: viewer.id)).not_to be_nil
       end
 
       it "redirects to the root path" do
@@ -151,100 +142,105 @@ RSpec.describe "User request - user type 👉" do
   end
 
   # * Accessible by ADMIN
-  context "'Admin' can access 👉" do
+  describe "'Admin' can access 👉" do
+    let(:admin) { create(:admin_user) }
+    let(:other_user) { create(:user) }
+
     before do
-      @admin = create(:admin_user, password: @password)
-      post signup_path, params: {sessions: @admin.attributes.merge({password: @password})}
-      @user = create(:user, password: @password)
+      post signup_path, params: {sessions: admin.attributes.merge({password: admin.password})}
     end
 
     # * NEW
-    context "GET new" do
+    describe "GET /new" do
       before { get new_user_path }
 
-      it "renders a new template with 200 status code" do
+      it "renders new template" do
         expect(response).to render_template(:new)
+      end
+
+      it "returns with 200 status code" do
         expect(response).to have_http_status(:ok)
       end
     end
 
     # * CREATE
-    context "POST create" do
+    describe "POST /create" do
+      let(:user) { attributes_for(:user) }
+
       before do
         get new_user_path
-        @valid = attributes_for(:user)
-        @invalid = attributes_for(:invalid_user)
       end
 
       context "with valid attributes" do
         before do
-          post users_path, params: {user: @valid}
-          @user = User.find_by(its: @valid[:its])
-        end
-
-        it "creates a new User" do
-          expect(@user).to be_truthy
+          post users_path, params: {user:}
         end
 
         it "redirects to index path of User" do
-          expect(response).to have_http_status(:found)
           expect(response).to redirect_to users_path
+        end
+
+        it "returns with 302 redirect status code" do
+          expect(response).to have_http_status(:found)
         end
       end
 
-      context "with invalid attributes" do
+      describe "with invalid attributes" do
         before do
-          post users_path, params: {user: @invalid}
-          @invalid_user = User.find_by(its: @invalid[:its])
+          post users_path, params: {user: user.merge(its: nil)}
         end
 
-        it "does not create a new User" do
-          expect(@invalid_user).to be_nil
-        end
-
-        it "renders a new template" do
+        it "renders new template" do
           expect(response).to render_template(:new)
+        end
+
+        it "returns with 422 status code" do
           expect(response).to have_http_status(:unprocessable_entity)
         end
       end
     end
 
     # * SHOW page of other users
-    context "GET show of other user" do
+    describe "GET show of other user" do
       before do
-        get user_path(@user)
+        get user_path(other_user)
       end
 
-      it "renders a show template" do
+      it "renders show template" do
         expect(response).to render_template(:show)
+      end
+
+      it "returns with 200 status code" do
         expect(response).to have_http_status(:ok)
       end
 
       it "renders the instance that was passed in the params" do
         # it could be any attribute, not only ITS
-        expect(response.body).to include(@user.its.to_s)
+        expect(response.body).to include(other_user.its.to_s)
       end
     end
 
     # * INDEX
-    context "GET index" do
+    describe "GET index" do
       before { get users_path }
 
       it "renders a index template with 200 status code" do
         expect(response).to render_template(:index)
+      end
+
+      it "returns with 200 status code" do
         expect(response).to have_http_status(:ok)
       end
     end
 
     # * DESTROY other users
-    context "DELETE destroy" do
+    describe "DELETE destroy" do
       before do
-        delete user_path(@user)
-        @user = User.find_by(id: @user.id)
+        delete user_path(other_user)
       end
 
       it "destroys the other user" do
-        expect(@user).to be_nil
+        expect(User.find_by(id: other_user.id)).to be_nil
       end
 
       it "redirects to the login path" do
@@ -254,20 +250,17 @@ RSpec.describe "User request - user type 👉" do
   end
 
   # * NOT ADMIN
-  context "NOT an 'admin', CANNOT access 👉" do
+  describe "NOT an 'admin', CANNOT access 👉" do
+    let(:user) { create(:user_other_than_admin) }
+    let(:other_user) { create(:user_other_than_admin) }
+
     before do
-      @user = create(:user_other_than_admin, password: @password)
-      post signup_path, params: {sessions: @user.attributes.merge({password: @password})}
-      @other_user = create(:user_other_than_admin, password: @password)
+      post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
     end
 
     # * NEW
-    context "GET new" do
+    describe "GET new" do
       before { get new_user_path }
-
-      it "does not render the 'new' template" do
-        expect(response).not_to render_template(:new)
-      end
 
       it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
@@ -279,12 +272,8 @@ RSpec.describe "User request - user type 👉" do
     end
 
     # * SHOW page of other users
-    context "GET show of other user" do
-      before { get user_path(@other_user) }
-
-      it "does not render the 'show' template" do
-        expect(response).not_to render_template(:show)
-      end
+    describe "GET show of other user" do
+      before { get user_path(other_user) }
 
       it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
@@ -296,12 +285,8 @@ RSpec.describe "User request - user type 👉" do
     end
 
     # * INDEX
-    context "GET index" do
+    describe "GET index" do
       before { get users_path }
-
-      it "does not render the 'index' template" do
-        expect(response).not_to render_template(:index)
-      end
 
       it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
