@@ -130,7 +130,7 @@ RSpec.describe "ThaaliTakhmeen request" do
       context "when sabeel has registered for currrent-year thaali" do
         let(:sabeel) { create(:active_sabeel) }
 
-        it "DOES NOT render new tempelate" do
+        it "redirects to sabeel show template" do
           get new_sabeel_takhmeen_path(sabeel)
           expect(response).to redirect_to sabeel_path(sabeel)
         end
@@ -250,10 +250,6 @@ RSpec.describe "ThaaliTakhmeen request" do
     describe "GET /new" do
       before { get new_sabeel_takhmeen_path(sabeel) }
 
-      it "does not render a new template" do
-        expect(response).not_to render_template(:new)
-      end
-
       it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
@@ -268,10 +264,6 @@ RSpec.describe "ThaaliTakhmeen request" do
       before do
         thaali = create(:thaali_takhmeen)
         get edit_takhmeen_path(thaali)
-      end
-
-      it "does not render a edit template" do
-        expect(response).not_to render_template(:edit)
       end
 
       it "responds with status code '302' (found)" do

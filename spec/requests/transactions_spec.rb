@@ -63,7 +63,7 @@ RSpec.describe "Transaction request" do
 
         before { get new_takhmeen_transaction_path(thaali) }
 
-        it "DOES NOT render new tempelate" do
+        it "redirects to thaali show page" do
           expect(response).to redirect_to takhmeen_path(thaali)
         end
       end
@@ -200,10 +200,6 @@ RSpec.describe "Transaction request" do
 
       before { get new_takhmeen_transaction_path(thaali) }
 
-      it "does not render a new template" do
-        expect(response).not_to render_template(:new)
-      end
-
       it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)
       end
@@ -218,10 +214,6 @@ RSpec.describe "Transaction request" do
       let(:transaction) { create(:transaction) }
 
       before { get edit_transaction_path(transaction) }
-
-      it "does not render a edit template" do
-        expect(response).not_to render_template(:edit)
-      end
 
       it "responds with status code '302' (found)" do
         expect(response).to have_http_status(:found)

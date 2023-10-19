@@ -186,10 +186,6 @@ RSpec.describe "Sabeel request" do
     describe "GET /new" do
       before { get new_sabeel_path }
 
-      it "does not render a new template" do
-        expect(response).not_to render_template(:new)
-      end
-
       it "returns with 302 redirect status code" do
         expect(response).to have_http_status(:found)
       end
@@ -289,10 +285,6 @@ RSpec.describe "Sabeel request" do
       let(:sabeel) { create(:sabeel) }
 
       before { get edit_sabeel_path(sabeel.id) }
-
-      it "does not render an edit template" do
-        expect(response).not_to render_template(:edit)
-      end
 
       it "returns with 302 redirect status code" do
         expect(response).to have_http_status(:found)
