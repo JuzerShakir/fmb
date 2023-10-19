@@ -3,12 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Navbar" do
-  # rubocop:disable RSpec/BeforeAfterAll
   before do
     page.set_rack_session(user_id: user.id)
     visit root_path
   end
-  # rubocop:enable RSpec/BeforeAfterAll
 
   describe "'Anyone' who have logged in displays" do
     let(:user) { create(:user) }
