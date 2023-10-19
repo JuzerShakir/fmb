@@ -3,17 +3,15 @@
 require "rails_helper"
 
 RSpec.describe "Sabeel request" do
-  let(:password) { Faker::Internet.password(min_length: 6, max_length: 72) }
-
-  # * Accessible by all
-  describe "'Anyone' can access 👉" do
+  # * Accessible by ALL
+  describe "'Anyone' who have logged in can access 👉" do
     before do
-      user = create(:user, password:)
-      post signup_path, params: {sessions: user.attributes.merge({password:})}
+      user = create(:user)
+      post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
     end
 
     # * INDEX
-    describe "GET index" do
+    describe "GET /index" do
       before do
         get sabeels_path
       end
@@ -28,15 +26,11 @@ RSpec.describe "Sabeel request" do
     end
 
     # * SHOW
-    describe "GET show" do
+    describe "GET /show" do
       let(:sabeel) { create(:sabeel) }
+      let(:thaalis) { create_list(:thaali_takhmeen, 2, sabeel: sabeel) }
 
-      before do
-        3.times do |i|
-          create(:thaali_takhmeen, sabeel_id: sabeel.id, year: i)
-        end
-        get sabeel_path(sabeel.id)
-      end
+      before { get sabeel_path(sabeel.id) }
 
       it "renders show template" do
         expect(response).to render_template(:show)
@@ -46,18 +40,20 @@ RSpec.describe "Sabeel request" do
         expect(response).to have_http_status(:ok)
       end
 
-      it "renders the instance that was passed in the params" do
+      it "renders ITS number" do
         # it could be any attribute, not only ITS
         expect(response.body).to include(sabeel.its.to_s)
       end
 
-      it "total count of takhmeens of a sabeel" do
-        expect(response.body).to include("Total number of Takhmeens: 3")
+      it "renders total takhmeens of a sabeel" do
+        count = thaalis.count
+        get sabeel_path(sabeel.id)
+        expect(response.body).to include("Total number of Takhmeens: #{count}")
       end
     end
 
     # * STATISTICS
-    describe "GET stats" do
+    describe "GET /stats" do
       before do
         get stats_sabeels_path
       end
@@ -72,10 +68,10 @@ RSpec.describe "Sabeel request" do
     end
 
     # * ACTIVE
-    describe "GET active" do
+    describe "GET /active" do
       let(:apt) { Sabeel.apartments.keys.sample }
 
-      context "with html format" do
+      context "with /html" do
         before do
           get sabeels_active_path(apt)
         end
@@ -89,7 +85,7 @@ RSpec.describe "Sabeel request" do
         end
       end
 
-      context "with PDF format" do
+      context "with /pdf" do
         it "returns with 200 status code" do
           get sabeels_active_path(apt, format: :pdf)
           expect(response).to have_http_status(:ok)
@@ -98,7 +94,7 @@ RSpec.describe "Sabeel request" do
     end
 
     # * INACTIVE
-    describe "GET inactive" do
+    describe "GET /inactive" do
       before do
         apts = Sabeel.apartments.keys
         get sabeels_inactive_path(apts.sample)
@@ -115,17 +111,17 @@ RSpec.describe "Sabeel request" do
   end
 
   # * Accessible by Admins
-  describe "'admin' can access 👉" do
+  describe "only 'admin' can access 👉" do
     before do
-      admin = create(:admin_user, password:)
-      post signup_path, params: {sessions: admin.attributes.merge({password:})}
+      admin = create(:admin_user)
+      post signup_path, params: {sessions: admin.attributes.merge({password: admin.password})}
     end
 
     # * NEW
-    describe "GET new" do
+    describe "GET /new" do
       before { get new_user_path }
 
-      it "renders new template returns with 200 status code" do
+      it "renders new template" do
         expect(response).to render_template(:new)
       end
 
@@ -135,22 +131,17 @@ RSpec.describe "Sabeel request" do
     end
 
     # * CREATE
-    describe "POST create" do
-      let(:sabeel) { Sabeel.find_by(its: valid_attributes[:its]) }
+    describe "POST /create" do
+      let(:sabeel) { attributes_for(:sabeel) }
 
-      context "with valid attributes" do
-        let(:valid_attributes) { attributes_for(:sabeel) }
-
+      context "with valid values" do
         before do
-          post sabeels_path, params: {sabeel: valid_attributes}
+          post sabeels_path, params: {sabeel:}
         end
 
-        it "creates a new Sabeel" do
-          expect(sabeel).to be_truthy
-        end
-
-        it "redirects to created sabeel" do
-          expect(response).to redirect_to sabeel
+        it "redirects to new sabeel" do
+          new_sabeel = Sabeel.find_by(its: sabeel[:its])
+          expect(response).to redirect_to new_sabeel
         end
 
         it "returns with 302 redirect status code" do
@@ -158,16 +149,9 @@ RSpec.describe "Sabeel request" do
         end
       end
 
-      context "with invalid attributes" do
-        let(:invalid_attributes) { attributes_for(:sabeel, its: nil) }
-        let(:invalid_sabeel) { Sabeel.find_by(its: invalid_attributes[:its]) }
-
+      context "with invalid values" do
         before do
-          post sabeels_path, params: {sabeel: invalid_attributes}
-        end
-
-        it "does not create a new Sabeel" do
-          expect(invalid_sabeel).to be_nil
+          post sabeels_path, params: {sabeel: sabeel.merge(name: nil)}
         end
 
         it "renders new template" do
@@ -181,7 +165,7 @@ RSpec.describe "Sabeel request" do
     end
 
     # * DESTROY
-    describe "DELETE destroy" do
+    describe "DESTROY /destroy" do
       let(:sabeel) { create(:sabeel) }
 
       before do
@@ -198,15 +182,14 @@ RSpec.describe "Sabeel request" do
     end
   end
 
-  # * NOT Accessibile by other types (except admin)
-  describe "NOT an 'admin' CANNOT access 👉" do
+  describe "'Members' & 'Viewers' CANNOT access 👉" do
     before do
-      user = create(:user_other_than_admin, password:)
-      post signup_path, params: {sessions: user.attributes.merge({password:})}
+      user = create(:user_other_than_admin)
+      post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
     end
 
     # * NEW
-    describe "GET new" do
+    describe "GET /new" do
       before { get new_sabeel_path }
 
       it "does not render a new template" do
@@ -223,7 +206,7 @@ RSpec.describe "Sabeel request" do
     end
 
     # * DESTROY
-    describe "DELETE destroy" do
+    describe "DESTROY /destroy" do
       let(:sabeel) { create(:sabeel) }
 
       before do
@@ -237,14 +220,14 @@ RSpec.describe "Sabeel request" do
   end
 
   # * Accessible by all user types, except 'viewers'
-  describe "'admin' & 'member' can access 👉" do
+  describe "'Admin' & 'Member' can access 👉" do
     before do
-      user = create(:user_other_than_viewer, password:)
-      post signup_path, params: {sessions: user.attributes.merge({password:})}
+      user = create(:user_other_than_viewer)
+      post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
     end
 
     # * EDIT
-    describe "GET edit" do
+    describe "GET /edit" do
       let(:sabeel) { create(:sabeel) }
 
       before do
@@ -266,10 +249,10 @@ RSpec.describe "Sabeel request" do
     end
 
     # * UPDATE
-    describe "PATCH update" do
+    describe "PATCH /update" do
       let(:sabeel) { create(:sabeel) }
 
-      context "with valid attributes" do
+      context "with valid values" do
         before do
           sabeel.apartment = "mohammedi"
           patch sabeel_path(sabeel.id), params: {sabeel: sabeel.attributes}
@@ -285,11 +268,10 @@ RSpec.describe "Sabeel request" do
         end
       end
 
-      context "with invalid attributes" do
-        let(:invalid_attributes) { attributes_for(:sabeel, its: nil) }
-
+      context "with invalid values" do
         before do
-          patch sabeel_path(sabeel.id), params: {sabeel: invalid_attributes}
+          sabeel.apartment = ""
+          patch sabeel_path(sabeel.id), params: {sabeel: sabeel.attributes}
         end
 
         it "renders edit template" do
@@ -300,10 +282,10 @@ RSpec.describe "Sabeel request" do
   end
 
   # * NOT ACCESSIBLE by 'viewer' types
-  describe "'viewer' CANNOT access 👉" do
+  describe "'Viewer' CANNOT access 👉" do
     before do
-      viewer = create(:viewer_user, password:)
-      post signup_path, params: {sessions: viewer.attributes.merge({password:})}
+      viewer = create(:viewer_user)
+      post signup_path, params: {sessions: viewer.attributes.merge({password: viewer.password})}
     end
 
     # * EDIT
