@@ -87,16 +87,16 @@ RSpec.describe Transaction do
 
   context "when using scope" do
     describe "returns all transactions for the given date" do
-      let(:todays_transactions) { create(:today_transactions) }
-      let(:yesterdays_transactions) { create(:yesterday_transactions) }
       let(:today) { Time.zone.now.to_date }
 
-      it "returns all the transactions that occured on the given date" do
-        expect(described_class.that_occured_on(:today)).to contain_exactly(todays_transactions)
+      it "for today" do
+        todays_transactions = create(:today_transactions)
+        expect(described_class.that_occured_on(today)).to contain_exactly(todays_transactions)
       end
 
-      it "does not return the transactions that occured on some other day" do
-        expect(described_class.that_occured_on(:today)).not_to contain_exactly(yesterdays_transactions)
+      it "Not of yesterdays" do
+        yesterdays_transactions = create(:yesterday_transactions)
+        expect(described_class.that_occured_on(today)).not_to contain_exactly(yesterdays_transactions)
       end
     end
   end
