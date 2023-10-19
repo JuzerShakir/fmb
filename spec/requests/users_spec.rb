@@ -13,9 +13,7 @@ RSpec.describe "User request" do
 
     # * SHOW
     describe "GET /show" do
-      before do
-        get user_path(user)
-      end
+      before { get user_path(user) }
 
       it "renders show template" do
         expect(response).to render_template(:show)
@@ -33,9 +31,7 @@ RSpec.describe "User request" do
 
     # * EDIT
     describe "GET /edit" do
-      before do
-        get edit_user_path(user)
-      end
+      before { get edit_user_path(user) }
 
       it "renders edit template" do
         expect(response).to render_template(:edit)
@@ -77,9 +73,7 @@ RSpec.describe "User request" do
 
     # * DESTROY themselves
     describe "DELETE /destroy" do
-      before do
-        delete user_path(user)
-      end
+      before { delete user_path(user) }
 
       it "destroys the user" do
         expect(User.find_by(id: user.id)).to be_nil
@@ -127,9 +121,7 @@ RSpec.describe "User request" do
 
     # * DESTROY
     describe "DELETE /destroy" do
-      before do
-        delete user_path(viewer)
-      end
+      before { delete user_path(viewer) }
 
       it "destroys the user" do
         expect(User.find_by(id: viewer.id)).not_to be_nil
@@ -167,14 +159,10 @@ RSpec.describe "User request" do
     describe "POST /create" do
       let(:user) { attributes_for(:user) }
 
-      before do
-        get new_user_path
-      end
+      before { get new_user_path }
 
       context "with valid attributes" do
-        before do
-          post users_path, params: {user:}
-        end
+        before { post users_path, params: {user:} }
 
         it "redirects to index path of User" do
           expect(response).to redirect_to users_path
@@ -186,9 +174,7 @@ RSpec.describe "User request" do
       end
 
       describe "with invalid attributes" do
-        before do
-          post users_path, params: {user: user.merge(its: nil)}
-        end
+        before { post users_path, params: {user: user.merge(its: nil)} }
 
         it "renders new template" do
           expect(response).to render_template(:new)
@@ -202,9 +188,7 @@ RSpec.describe "User request" do
 
     # * SHOW page of other users
     describe "GET show of other user" do
-      before do
-        get user_path(other_user)
-      end
+      before { get user_path(other_user) }
 
       it "renders show template" do
         expect(response).to render_template(:show)
@@ -235,9 +219,7 @@ RSpec.describe "User request" do
 
     # * DESTROY other users
     describe "DELETE destroy" do
-      before do
-        delete user_path(other_user)
-      end
+      before { delete user_path(other_user) }
 
       it "destroys the other user" do
         expect(User.find_by(id: other_user.id)).to be_nil
