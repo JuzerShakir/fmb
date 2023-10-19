@@ -170,13 +170,17 @@ RSpec.describe Sabeel do
 
     context "with Apartment" do
       describe "returns sabeels who are currently not taking thaali" do
-        subject { described_class.inactive_apt_takhmeen("burhani") }
+        subject(:thaali) { described_class.inactive_apt_takhmeen("burhani") }
 
-        let(:inactive_takhmeen) { create(:inactive_sabeel_burhani) }
-        let(:active_takhmeen) { create(:active_sabeel_burhani) }
+        it {
+          inactive_takhmeen = create(:inactive_sabeel_burhani)
+          expect(thaali).to contain_exactly(inactive_takhmeen)
+        }
 
-        it { is_expected.to contain_exactly(inactive_takhmeen) }
-        it { is_expected.not_to contain_exactly(active_takhmeen) }
+        it {
+          active_takhmeen = create(:active_sabeel_burhani)
+          expect(thaali).not_to contain_exactly(active_takhmeen)
+        }
       end
     end
   end
