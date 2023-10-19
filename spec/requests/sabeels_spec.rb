@@ -148,7 +148,7 @@ RSpec.describe "Sabeel request" do
           expect(response).to render_template(:new)
         end
 
-        it "returns with 200 status code" do
+        it "returns with 422 status code" do
           expect(response).to have_http_status(:unprocessable_entity)
         end
       end
