@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :thaali_takhmeen do
     sabeel
-    year { Random.rand(CURR_YR - 30...Date.today.year) }
+    year { Random.rand(1..CURR_YR) }
     total { Faker::Number.number(digits: 5) }
     paid { 0 }
     balance { total - paid }
