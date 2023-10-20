@@ -7,6 +7,7 @@ RSpec.describe "User request" do
   describe "Logged out users cannot access" do
     let(:user) { create(:user) }
 
+    # * NEW
     describe "GET /new" do
       before { get new_user_path }
 
@@ -14,21 +15,24 @@ RSpec.describe "User request" do
       it { expect(response).to redirect_to login_path }
     end
 
-    describe "'show'" do
+    # * SHOW
+    describe "GET /show" do
       before { get user_path(user) }
 
       it { expect(response).to have_http_status(:found) }
       it { expect(response).to redirect_to login_path }
     end
 
-    describe "'edit'" do
+    # * EDIT
+    describe "GET /edit" do
       before { get edit_user_path(user) }
 
       it { expect(response).to have_http_status(:found) }
       it { expect(response).to redirect_to login_path }
     end
 
-    describe "'index'" do
+    # * INDEX
+    describe "GET /index" do
       before { get users_path }
 
       it { expect(response).to have_http_status(:found) }
@@ -124,6 +128,14 @@ RSpec.describe "User request" do
 
     before do
       post signup_path, params: {sessions: viewer.attributes.merge({password: viewer.password})}
+    end
+
+    #  * NEW
+    describe "GET /new" do
+      before { get new_user_path }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
     end
 
     # * SHOW
@@ -264,7 +276,7 @@ RSpec.describe "User request" do
     end
   end
 
-  # * NOT ADMIN
+  # * Member & Viewer CANNOT
   describe "'Member' & 'Viewer', CANNOT access 👉" do
     let(:user) { create(:user_other_than_admin) }
     let(:other_user) { create(:user_other_than_admin) }
