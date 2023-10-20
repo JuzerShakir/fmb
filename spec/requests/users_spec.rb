@@ -3,6 +3,39 @@
 require "rails_helper"
 
 RSpec.describe "User request" do
+  # * Log Out users
+  describe "Logged out users cannot access" do
+    let(:user) { create(:user) }
+
+    describe "GET /new" do
+      before { get new_user_path }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    describe "'show'" do
+      before { get user_path(user) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    describe "'edit'" do
+      before { get edit_user_path(user) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    describe "'index'" do
+      before { get users_path }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+  end
+
   # * Accessible by Admin & Member
   describe "'Admin' & 'Member' can access 👉" do
     let(:user) { create(:user_other_than_viewer) }
