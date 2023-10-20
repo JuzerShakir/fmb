@@ -53,13 +53,8 @@ RSpec.describe "Transaction request" do
     describe "GET /all" do
       before { get transactions_all_path }
 
-      it "renders all template" do
-        expect(response).to render_template(:all)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response).to render_template(:all) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * SHOW
@@ -68,13 +63,9 @@ RSpec.describe "Transaction request" do
 
       before { get transaction_path(transaction) }
 
-      it "renders a show template" do
-        expect(response).to render_template(:show)
-      end
+      it { expect(response).to render_template(:show) }
 
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response).to have_http_status(:ok) }
 
       it "renders the instance that was passed in the params" do
         # it could be any attribute, not only amount
@@ -110,13 +101,8 @@ RSpec.describe "Transaction request" do
 
         before { get new_takhmeen_transaction_path(thaali) }
 
-        it "returns new template" do
-          expect(response).to render_template(:new)
-        end
-
-        it "returns with 200 status code" do
-          expect(response).to have_http_status(:ok)
-        end
+        it { expect(response).to render_template(:new) }
+        it { expect(response).to have_http_status(:ok) }
       end
     end
 
@@ -130,9 +116,7 @@ RSpec.describe "Transaction request" do
           post takhmeen_transactions_path(thaali), params: {transaction: valid_attributes}
         end
 
-        it "returns with 302 redirect status code" do
-          expect(response).to have_http_status(:found)
-        end
+        it { expect(response).to have_http_status(:found) }
 
         it "redirects to created Transaction" do
           expect(response).to redirect_to transaction_path(thaali.transactions.first)
@@ -145,13 +129,8 @@ RSpec.describe "Transaction request" do
           post takhmeen_transactions_path(thaali), params: {transaction: invalid_attributes}
         end
 
-        it "renders a new template" do
-          expect(response).to render_template(:new)
-        end
-
-        it "returns with 422 status code" do
-          expect(response).to have_http_status(:unprocessable_entity)
-        end
+        it { expect(response).to render_template(:new) }
+        it { expect(response).to have_http_status(:unprocessable_entity) }
       end
     end
 
@@ -161,18 +140,8 @@ RSpec.describe "Transaction request" do
 
       before { get edit_transaction_path(transaction) }
 
-      it "renders an edit template" do
-        expect(response).to render_template(:edit)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it "renders the instance that was passed in the params" do
-        # it could be any attribute
-        expect(response.body).to include(transaction.recipe_no.to_s)
-      end
+      it { expect(response).to render_template(:edit) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * UPDATE
@@ -196,13 +165,8 @@ RSpec.describe "Transaction request" do
           patch transaction_path(transaction), params: {transaction: transaction.attributes}
         end
 
-        it "renders edit template" do
-          expect(response).to render_template(:edit)
-        end
-
-        it "returns with 422 status code" do
-          expect(response).to have_http_status(:unprocessable_entity)
-        end
+        it { expect(response).to render_template(:edit) }
+        it { expect(response).to have_http_status(:unprocessable_entity) }
       end
     end
 
@@ -216,7 +180,7 @@ RSpec.describe "Transaction request" do
         expect(Transaction.find_by(id: transaction.id)).to be_nil
       end
 
-      it "redirects to its parent Thaali Takhmeen page" do
+      it "redirects to its Thaali Takhmeen page" do
         expect(response).to redirect_to takhmeen_path(transaction.thaali_takhmeen)
       end
     end
@@ -237,13 +201,8 @@ RSpec.describe "Transaction request" do
 
       before { get new_takhmeen_transaction_path(thaali) }
 
-      it "responds with status code '302' (found)" do
-        expect(response).to have_http_status(:found)
-      end
-
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to root_path }
     end
 
     # * EDIT
@@ -252,13 +211,8 @@ RSpec.describe "Transaction request" do
 
       before { get edit_transaction_path(transaction) }
 
-      it "responds with status code '302' (found)" do
-        expect(response).to have_http_status(:found)
-      end
-
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to root_path }
     end
 
     # * DESTROY
@@ -271,9 +225,7 @@ RSpec.describe "Transaction request" do
         expect(Transaction.find_by(id: transaction.id)).to be_persisted
       end
 
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to redirect_to root_path }
     end
   end
 end

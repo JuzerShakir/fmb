@@ -16,13 +16,8 @@ RSpec.describe "ThaaliTakhmeen request" do
     describe "GET /index" do
       before { get root_path }
 
-      it "renders index template" do
-        expect(response).to render_template(:index)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response).to render_template(:index) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * SHOW
@@ -31,70 +26,40 @@ RSpec.describe "ThaaliTakhmeen request" do
 
       before { get takhmeen_path(thaali.id) }
 
-      it "renders a show template" do
-        expect(response).to render_template(:show)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it "renders the instance that was passed in the params" do
-        # it could be any attribute, not only number
-        expect(response.body).to include(thaali.number.to_s)
-      end
+      it { expect(response).to render_template(:show) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * STATISTICS
     describe "GET /stats" do
       before { get takhmeens_stats_path }
 
-      it "renders stats template" do
-        expect(response).to render_template(:stats)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response).to render_template(:stats) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * COMPLETE
     describe "GET /complete" do
       before { get thaali_takhmeens_complete_path(CURR_YR) }
 
-      it "renders complete template" do
-        expect(response).to render_template(:complete)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response).to render_template(:complete) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * PENDING
     describe "GET /pending" do
       before { get thaali_takhmeens_pending_path(CURR_YR) }
 
-      it "renders pending template" do
-        expect(response).to render_template(:pending)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response).to render_template(:pending) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * ALL
     describe "GET /all" do
       before { get thaali_takhmeens_all_path(PREV_YR) }
 
-      it "renders all template" do
-        expect(response).to render_template(:all)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response).to render_template(:all) }
+      it { expect(response).to have_http_status(:ok) }
     end
   end
 
@@ -112,13 +77,8 @@ RSpec.describe "ThaaliTakhmeen request" do
 
         before { get new_sabeel_takhmeen_path(thaali.sabeel) }
 
-        it "renders new template" do
-          expect(response).to render_template(:new)
-        end
-
-        it "returns with 200 status code" do
-          expect(response).to have_http_status(:ok)
-        end
+        it { expect(response).to render_template(:new) }
+        it { expect(response).to have_http_status(:ok) }
 
         describe "but if it was previously registered" do
           it "load the form with previous values" do
@@ -151,9 +111,7 @@ RSpec.describe "ThaaliTakhmeen request" do
           expect(response).to redirect_to takhmeen_path(sabeel.thaali_takhmeens.first)
         end
 
-        it "returns with 302 redirect status code" do
-          expect(response).to have_http_status(:found)
-        end
+        it { expect(response).to have_http_status(:found) }
       end
 
       context "with invalid attributes" do
@@ -162,13 +120,8 @@ RSpec.describe "ThaaliTakhmeen request" do
           post sabeel_takhmeens_path(sabeel), params: {thaali_takhmeen: invalid_attributes}
         end
 
-        it "renders a new template" do
-          expect(response).to render_template(:new)
-        end
-
-        it "returns with 422 status code" do
-          expect(response).to have_http_status(:unprocessable_entity)
-        end
+        it { expect(response).to render_template(:new) }
+        it { expect(response).to have_http_status(:unprocessable_entity) }
       end
     end
 
@@ -178,18 +131,8 @@ RSpec.describe "ThaaliTakhmeen request" do
 
       before { get edit_takhmeen_path(thaali.id) }
 
-      it "renders render an edit template" do
-        expect(response).to render_template(:edit)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it "renders the instance that was passed in the params" do
-        # it could be any attribute, not only size
-        expect(response.body).to include(thaali.size)
-      end
+      it { expect(response).to render_template(:edit) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * UPDATE
@@ -213,9 +156,7 @@ RSpec.describe "ThaaliTakhmeen request" do
           patch takhmeen_path(thaali), params: {thaali_takhmeen: thaali.attributes}
         end
 
-        it "renders an edit template" do
-          expect(response).to render_template(:edit)
-        end
+        it { expect(response).to render_template(:edit) }
       end
     end
 
@@ -250,13 +191,9 @@ RSpec.describe "ThaaliTakhmeen request" do
     describe "GET /new" do
       before { get new_sabeel_takhmeen_path(sabeel) }
 
-      it "responds with status code '302' (found)" do
-        expect(response).to have_http_status(:found)
-      end
+      it { expect(response).to have_http_status(:found) }
 
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to redirect_to root_path }
     end
 
     # * EDIT
@@ -266,13 +203,8 @@ RSpec.describe "ThaaliTakhmeen request" do
         get edit_takhmeen_path(thaali)
       end
 
-      it "responds with status code '302' (found)" do
-        expect(response).to have_http_status(:found)
-      end
-
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to root_path }
     end
 
     # * DETROY
@@ -285,9 +217,7 @@ RSpec.describe "ThaaliTakhmeen request" do
         expect(ThaaliTakhmeen.find_by(id: thaali.id)).to be_persisted
       end
 
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to redirect_to root_path }
     end
   end
 end

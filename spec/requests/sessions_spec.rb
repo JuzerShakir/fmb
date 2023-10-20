@@ -10,13 +10,8 @@ RSpec.describe "Session request" do
     describe "GET /new" do
       before { get login_path }
 
-      it "renders new template" do
-        expect(response).to render_template(:new)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response).to render_template(:new) }
+      it { expect(response).to have_http_status(:ok) }
     end
   end
 
@@ -28,13 +23,8 @@ RSpec.describe "Session request" do
 
     # * NEW
     describe "GET /new" do
-      it "redirects to root path" do
-        expect(response).to redirect_to root_path
-      end
-
-      it "returns with 302 redirect status code" do
-        expect(response).to have_http_status(:found)
-      end
+      it { expect(response).to redirect_to root_path }
+      it { expect(response).to have_http_status(:found) }
     end
   end
 end

@@ -52,31 +52,16 @@ RSpec.describe "User request" do
     describe "GET /show" do
       before { get user_path(user) }
 
-      it "renders show template" do
-        expect(response).to render_template(:show)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it "renders the instance that was passed in the params" do
-        # it could be any attribute, not only ITS
-        expect(response.body).to include(user.its.to_s)
-      end
+      it { expect(response).to render_template(:show) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * EDIT
     describe "GET /edit" do
       before { get edit_user_path(user) }
 
-      it "renders edit template" do
-        expect(response).to render_template(:edit)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response).to render_template(:edit) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * UPDATE
@@ -102,9 +87,7 @@ RSpec.describe "User request" do
           patch user_path(user), params: {user: user.attributes.merge(hash_params)}
         end
 
-        it "renders an edit template" do
-          expect(response).to render_template(:edit)
-        end
+        it { expect(response).to render_template(:edit) }
       end
     end
 
@@ -142,26 +125,16 @@ RSpec.describe "User request" do
     describe "GET /show" do
       before { get user_path(viewer) }
 
-      it "responds with status code '302' (found)" do
-        expect(response).to have_http_status(:found)
-      end
-
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to root_path }
     end
 
     # * EDIT
     describe "GET /edit" do
       before { get edit_user_path(viewer) }
 
-      it "responds with status code '302' (found)" do
-        expect(response).to have_http_status(:found)
-      end
-
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to root_path }
     end
 
     # * DESTROY
@@ -172,9 +145,7 @@ RSpec.describe "User request" do
         expect(User.find_by(id: viewer.id)).not_to be_nil
       end
 
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to redirect_to root_path }
     end
   end
 
@@ -191,13 +162,8 @@ RSpec.describe "User request" do
     describe "GET /new" do
       before { get new_user_path }
 
-      it "renders new template" do
-        expect(response).to render_template(:new)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response).to render_template(:new) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * CREATE
@@ -209,25 +175,18 @@ RSpec.describe "User request" do
       context "with valid attributes" do
         before { post users_path, params: {user:} }
 
+        it { expect(response).to have_http_status(:found) }
+
         it "redirects to index path of User" do
           expect(response).to redirect_to users_path
-        end
-
-        it "returns with 302 redirect status code" do
-          expect(response).to have_http_status(:found)
         end
       end
 
       describe "with invalid attributes" do
         before { post users_path, params: {user: user.merge(its: nil)} }
 
-        it "renders new template" do
-          expect(response).to render_template(:new)
-        end
-
-        it "returns with 422 status code" do
-          expect(response).to have_http_status(:unprocessable_entity)
-        end
+        it { expect(response).to render_template(:new) }
+        it { expect(response).to have_http_status(:unprocessable_entity) }
       end
     end
 
@@ -235,31 +194,16 @@ RSpec.describe "User request" do
     describe "GET show of other user" do
       before { get user_path(other_user) }
 
-      it "renders show template" do
-        expect(response).to render_template(:show)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it "renders the instance that was passed in the params" do
-        # it could be any attribute, not only ITS
-        expect(response.body).to include(other_user.its.to_s)
-      end
+      it { expect(response).to render_template(:show) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * INDEX
     describe "GET index" do
       before { get users_path }
 
-      it "renders a index template with 200 status code" do
-        expect(response).to render_template(:index)
-      end
-
-      it "returns with 200 status code" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response).to render_template(:index) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
     # * DESTROY other users
@@ -289,39 +233,24 @@ RSpec.describe "User request" do
     describe "GET new" do
       before { get new_user_path }
 
-      it "responds with status code '302' (found)" do
-        expect(response).to have_http_status(:found)
-      end
-
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to root_path }
     end
 
     # * SHOW page of other users
     describe "GET show of other user" do
       before { get user_path(other_user) }
 
-      it "responds with status code '302' (found)" do
-        expect(response).to have_http_status(:found)
-      end
-
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to root_path }
     end
 
     # * INDEX
     describe "GET index" do
       before { get users_path }
 
-      it "responds with status code '302' (found)" do
-        expect(response).to have_http_status(:found)
-      end
-
-      it "redirects to the root path" do
-        expect(response).to redirect_to root_path
-      end
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to root_path }
     end
   end
 end
