@@ -49,6 +49,7 @@ RSpec.describe "Sessions" do
       visit login_path
     end
 
+    # * New
     describe "'new' action" do
       it "will redirect to root path" do
         expect(page).to have_current_path root_path, ignore_query: true
@@ -59,11 +60,11 @@ RSpec.describe "Sessions" do
     describe "'destroy' action" do
       before { click_link "Log out" }
 
-      it "redirects to login_path" do
+      it do
         expect(page).to have_current_path login_path
       end
 
-      it "displays log-out message" do
+      it do
         expect(page).to have_content("Logged Out!")
       end
 
