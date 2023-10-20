@@ -162,7 +162,7 @@ RSpec.describe "Transaction" do
     end
 
     # * DELETE
-    describe "destroying transaction", :js do
+    describe "destroying transaction" do
       let(:transaction) { create(:transaction) }
 
       before do
