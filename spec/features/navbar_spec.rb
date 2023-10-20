@@ -8,31 +8,32 @@ RSpec.describe "Navbar" do
     visit root_path
   end
 
+  # * Accessibile by ALL
   describe "'Anyone' who have logged in displays" do
     let(:user) { create(:user) }
 
     # * Statistics
     describe "Statistics dropdown menu" do
-      it "has link of sabeels stats" do
+      it do
         within("#statistics") { expect(page).to have_link("Sabeels", href: stats_sabeels_path) }
       end
 
-      it "has link of thaali takhmeen stats" do
+      it do
         within("#statistics") { expect(page).to have_link("Thaali Takhmeen", href: takhmeens_stats_path) }
       end
     end
 
     # * Resources
     describe "Resources dropdown menu" do
-      it "has link of sabeels index action" do
+      it do
         within("#resources") { expect(page).to have_link("Sabeels", href: sabeels_path) }
       end
 
-      it "has link of thaali takhmeen index action" do
+      it do
         within("#resources") { expect(page).to have_link("Thaali Takhmeens", href: root_path) }
       end
 
-      it "has link of transactions index action" do
+      it do
         within("#resources") { expect(page).to have_link("Transactions", href: transactions_all_path) }
       end
     end
@@ -43,45 +44,33 @@ RSpec.describe "Navbar" do
     describe "has logged in, it displays" do
       let(:user) { create(:admin_user) }
 
-      it "'Admin' dropdown" do
+      it do
         within(".navbar-nav") { expect(page).to have_css("#admin", text: "Admin") }
       end
 
       # * New Sabeel
-      it "'Create Sabeel' link" do
+      it do
         within(".navbar-nav") { expect(page).to have_link("Create Sabeel", href: new_sabeel_path) }
       end
 
       # * My Profile
-      it "'My Profile' link" do
+      it do
         within("#admin") { expect(page).to have_link("My Profile", href: user_path(user)) }
       end
 
       # * New User
-      it "'New User' link" do
+      it do
         within("#admin") { expect(page).to have_link("New User", href: new_user_path) }
       end
 
       # * Home
-      it "'Home' link" do
+      it do
         within("#admin") { expect(page).to have_link("Home", href: users_path) }
       end
 
       # * Log Out
-      it "'Log out' link" do
+      it do
         within("#admin") { expect(page).to have_link("Log out", href: destroy_path) }
-      end
-    end
-
-    # * NOT Admin
-    describe "has NOT logged in, do NOT display" do
-      let(:user) { create(:user_other_than_admin) }
-
-      # * New Sabeel
-      it "'Create Sabeel' link" do
-        within(".navbar-nav") do
-          expect(page).not_to have_content("Create Sabeel")
-        end
       end
     end
   end
@@ -90,25 +79,17 @@ RSpec.describe "Navbar" do
   context "when Member, it displays" do
     let(:user) { create(:member_user) }
 
-    it "'Member' dropdown" do
+    it do
       within(".navbar-nav") { expect(page).to have_css("#member", text: "Member") }
     end
 
     # * My Profile
-    it "'My Profile' link" do
+    it do
       within("#member") { expect(page).to have_link("My Profile", href: user_path(user)) }
     end
 
-    it "NO 'New User' link" do
-      within("#member") { expect(page).not_to have_content("New User") }
-    end
-
-    it "NO 'Home' link" do
-      within("#member") { expect(page).not_to have_content("Home") }
-    end
-
     # * Log Out
-    it "'Log out' link" do
+    it do
       within("#member") { expect(page).to have_link("Log out", href: destroy_path) }
     end
   end
@@ -121,22 +102,34 @@ RSpec.describe "Navbar" do
       within(".navbar-nav") { expect(page).to have_css("#viewer") }
     end
 
+    # * Log Out
+    it do
+      within("#viewer") { expect(page).to have_link("Log out", href: destroy_path) }
+    end
+  end
+
+  # * Member or Viewer
+  describe "Member or Viewer, do NOT display" do
+    let(:user) { create(:user_other_than_admin) }
+
+    # * New Sabeel
+    it do
+      within(".navbar-nav") { expect(page).not_to have_content("Create Sabeel") }
+    end
+
     # * My Profile
-    it "NO 'My Profile' link" do
+    it do
       within("#viewer") { expect(page).not_to have_content("My Profile") }
     end
 
-    it "NO 'Home' link" do
+    # * Home
+    it do
       within("#viewer") { expect(page).not_to have_content("Home") }
     end
 
-    it "NO 'New User' link" do
+    # * New User
+    it do
       within("#viewer") { expect(page).not_to have_content("New User") }
-    end
-
-    # * Log Out
-    it "'Log out' link" do
-      within("#viewer") { expect(page).to have_link("Log out", href: destroy_path) }
     end
   end
 end
