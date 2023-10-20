@@ -3,6 +3,75 @@
 require "rails_helper"
 
 RSpec.describe "ThaaliTakhmeen request" do
+  # * Log Out users
+  describe "Logged out users cannot access" do
+    let(:thaali) { create(:thaali_takhmeen) }
+
+    # * NEW
+    describe "GET /new" do
+      before { get new_sabeel_takhmeen_path(thaali.sabeel) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * SHOW
+    describe "GET /show" do
+      before { get takhmeen_path(thaali) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * INDEX
+    describe "GET /" do
+      before { get root_path }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * EDIT
+    describe "GET /edit" do
+      before { get edit_takhmeen_path(thaali) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * STATS
+    describe "GET /stats" do
+      before { get takhmeens_stats_path(thaali) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * Complete
+    describe "GET /complete" do
+      before { get thaali_takhmeens_complete_path(CURR_YR) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * Pending
+    describe "GET /pending" do
+      before { get thaali_takhmeens_pending_path(PREV_YR) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * All
+    describe "GET /all" do
+      before { get thaali_takhmeens_all_path(PREV_YR) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+  end
+
   # * Accessible by all
   describe "'Anyone' who have logged in can access 👉" do
     # rubocop:disable RSpec/BeforeAfterAll
