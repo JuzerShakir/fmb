@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Footer displays" do
   before { visit login_path }
 
-  it "dynammic year" do
+  it "dynamic year" do
     within("footer") { expect(page).to have_content(Date.current.year.to_s) }
   end
 
