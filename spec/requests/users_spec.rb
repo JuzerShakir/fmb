@@ -135,7 +135,7 @@ RSpec.describe "User request" do
       before { get new_user_path }
 
       it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to login_path }
+      it { expect(response).to redirect_to root_path }
     end
 
     # * SHOW

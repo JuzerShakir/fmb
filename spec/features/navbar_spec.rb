@@ -76,21 +76,35 @@ RSpec.describe "Navbar" do
   end
 
   # * Member
-  context "when Member, it displays" do
+  context "when Member" do
     let(:user) { create(:member_user) }
 
-    it do
-      within(".navbar-nav") { expect(page).to have_css("#member", text: "Member") }
+    describe "it displays" do
+      it do
+        within(".navbar-nav") { expect(page).to have_css("#member", text: "Member") }
+      end
+
+      # * My Profile
+      it do
+        within("#member") { expect(page).to have_link("My Profile", href: user_path(user)) }
+      end
+
+      # * Log Out
+      it do
+        within("#member") { expect(page).to have_link("Log out", href: destroy_path) }
+      end
     end
 
-    # * My Profile
-    it do
-      within("#member") { expect(page).to have_link("My Profile", href: user_path(user)) }
+    describe "doesn't display" do
+      # * Home
+      it do
+        within("#member") { expect(page).not_to have_content("Home") }
+      end
     end
 
-    # * Log Out
+    # * New User
     it do
-      within("#member") { expect(page).to have_link("Log out", href: destroy_path) }
+      within("#member") { expect(page).not_to have_content("New User") }
     end
   end
 
@@ -106,16 +120,6 @@ RSpec.describe "Navbar" do
     it do
       within("#viewer") { expect(page).to have_link("Log out", href: destroy_path) }
     end
-  end
-
-  # * Member or Viewer
-  describe "Member or Viewer, do NOT display" do
-    let(:user) { create(:user_other_than_admin) }
-
-    # * New Sabeel
-    it do
-      within(".navbar-nav") { expect(page).not_to have_content("Create Sabeel") }
-    end
 
     # * My Profile
     it do
@@ -130,6 +134,16 @@ RSpec.describe "Navbar" do
     # * New User
     it do
       within("#viewer") { expect(page).not_to have_content("New User") }
+    end
+  end
+
+  # * Member or Viewer
+  describe "Member or Viewer, do NOT display" do
+    let(:user) { create(:user_other_than_admin) }
+
+    # * New Sabeel
+    it do
+      within(".navbar-nav") { expect(page).not_to have_content("Create Sabeel") }
     end
   end
 end

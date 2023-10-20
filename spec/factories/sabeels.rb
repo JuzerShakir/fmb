@@ -26,6 +26,14 @@ FactoryBot.define do
       apartment { "burhani" }
     end
 
+    trait :associate_with_active_takhmeen do
+      thaali_takhmeens { [association(:active_takhmeen)] }
+    end
+
+    trait :associate_with_previous_takhmeen do
+      thaali_takhmeens { [association(:previous_takhmeen)] }
+    end
+
     trait :associate_with_small_thaali do
       thaali_takhmeens { [association(:small_thaali)] }
     end
@@ -38,10 +46,7 @@ FactoryBot.define do
     factory :sabeel_phase2, traits: [:in_phase_2]
     factory :sabeel_phase3, traits: [:in_phase_3]
 
-    factory :sabeel_phase1_small do
-      associate_with_small_thaali
-      in_phase_1
-    end
+    factory :sabeel_phase1_small, traits: [:associate_with_small_thaali, :in_phase_1]
 
     factory :sabeel_phase1_large do
       associate_with_large_thaali
@@ -69,11 +74,11 @@ FactoryBot.define do
     end
 
     factory :active_sabeel do
-      thaali_takhmeens { [association(:active_takhmeen)] }
+      associate_with_active_takhmeen
     end
 
     factory :inactive_sabeel do
-      thaali_takhmeens { [association(:previous_takhmeen)] }
+      associate_with_previous_takhmeen
     end
 
     factory :sabeel_small_thaali do
@@ -85,12 +90,12 @@ FactoryBot.define do
     end
 
     factory :active_sabeel_burhani do
-      thaali_takhmeens { [association(:active_takhmeen)] }
+      associate_with_active_takhmeen
       in_burhani
     end
 
     factory :inactive_sabeel_burhani do
-      thaali_takhmeens { [association(:previous_takhmeen)] }
+      associate_with_previous_takhmeen
       in_burhani
     end
 
@@ -99,7 +104,7 @@ FactoryBot.define do
     end
 
     factory :sabeel_with_dues_pending_prev_year do
-      thaali_takhmeens { [association(:previous_takhmeen)] }
+      associate_with_previous_takhmeen
     end
   end
 end

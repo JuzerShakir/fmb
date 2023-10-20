@@ -33,7 +33,7 @@ RSpec.describe "User" do
 
       describe "update user detials" do
         context "with valid values" do
-          let(:new_password) { Random.rand(999999) }
+          let(:new_password) { attributes_for(:user)[:password].to_s }
 
           it "is successful" do
             fill_in "user_password", with: new_password
