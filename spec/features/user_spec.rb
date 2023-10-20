@@ -28,57 +28,53 @@ RSpec.describe "User" do
     end
 
     # * EDIT / UPDATE
-    describe "'edit' template" do
+    describe "editing user details" do
       before { visit edit_user_path(user) }
 
-      describe "update user detials" do
-        context "with valid values" do
-          let(:new_password) { attributes_for(:user)[:password].to_s }
+      context "with valid values" do
+        let(:new_password) { attributes_for(:user)[:password].to_s }
 
-          it "is successful" do
-            fill_in "user_password", with: new_password
-            fill_in "user_password_confirmation", with: new_password
+        it "is successful" do
+          fill_in "user_password", with: new_password
+          fill_in "user_password_confirmation", with: new_password
 
-            click_button "Update Password"
-            expect(page).to have_content("User updated successfully")
-          end
+          click_button "Update Password"
+          expect(page).to have_content("User updated successfully")
         end
+      end
 
-        context "with invalid values" do
-          before { click_button "Update Password" }
+      context "with invalid values" do
+        before { click_button "Update Password" }
 
-          it "render validation error messages for 'password' field" do
-            expect(page).to have_content("Password must be more than 6 characters")
-          end
+        it "render validation error messages for 'password' field" do
+          expect(page).to have_content("Password must be more than 6 characters")
         end
       end
     end
 
     # * DELETE
-    describe "'destroy' action" do
+    describe "destroying user" do
       before do
         visit user_path(user)
         click_button "Delete"
       end
 
-      describe "on deleting user" do
-        it "shows confirmation message" do
-          within(".modal-body") do
-            expect(page).to have_content("Are you sure you want to delete User: #{user.name}? This action cannot be undone.")
-          end
+      it "shows confirmation message" do
+        within(".modal-body") do
+          expect(page).to have_content("Are you sure you want to delete User: #{user.name}? This action cannot be undone.")
         end
+      end
 
-        context "with action buttons" do
-          it { within(".modal-footer") { expect(page).to have_css(".btn-secondary", text: "Cancel") } }
-          it { within(".modal-footer") { expect(page).to have_css(".btn-primary", text: "Yes, delete it!") } }
-        end
+      context "with action buttons" do
+        it { within(".modal-footer") { expect(page).to have_css(".btn-secondary", text: "Cancel") } }
+        it { within(".modal-footer") { expect(page).to have_css(".btn-primary", text: "Yes, delete it!") } }
+      end
 
-        describe "delete user" do
-          before { click_button "Yes, delete it!" }
+      describe "destroy" do
+        before { click_button "Yes, delete it!" }
 
-          it { expect(page).to have_current_path login_path }
-          it { expect(page).to have_content("User deleted successfully") }
-        end
+        it { expect(page).to have_current_path login_path }
+        it { expect(page).to have_content("User deleted successfully") }
       end
     end
   end
@@ -92,7 +88,7 @@ RSpec.describe "User" do
       visit root_path
     end
 
-    #  * CREATE
+    # * NEW / CREATE
     describe "'new' template to create new user" do
       before do
         find_by_id("new_user").click
