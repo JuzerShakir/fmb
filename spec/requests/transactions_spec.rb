@@ -3,6 +3,43 @@
 require "rails_helper"
 
 RSpec.describe "Transaction request" do
+  # * Log Out users
+  describe "Logged out users cannot access" do
+    let(:transaction) { create(:transaction) }
+
+    # * NEW
+    describe "GET /new" do
+      before { get new_takhmeen_transaction_path(transaction.thaali_takhmeen) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * SHOW
+    describe "GET show" do
+      before { get transaction_path(transaction) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * SHOW
+    describe "GET /edit" do
+      before { get edit_transaction_path(transaction) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    #  * INDEX
+    describe "GET /index" do
+      before { get transactions_all_path }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+  end
+
   # * Accessible by all
   describe "'Anyone' who have logged in can access 👉" do
     # rubocop:disable RSpec/BeforeAfterAll
@@ -224,7 +261,7 @@ RSpec.describe "Transaction request" do
       end
     end
 
-    # * DETROY
+    # * DESTROY
     describe "DELETE /destroy" do
       let(:transaction) { create(:transaction) }
 
