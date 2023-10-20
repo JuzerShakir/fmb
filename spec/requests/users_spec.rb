@@ -232,7 +232,7 @@ RSpec.describe "User request" do
   end
 
   # * NOT ADMIN
-  describe "NOT an 'admin', CANNOT access 👉" do
+  describe "'Member' & 'Viewer', CANNOT access 👉" do
     let(:user) { create(:user_other_than_admin) }
     let(:other_user) { create(:user_other_than_admin) }
 
