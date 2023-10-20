@@ -173,7 +173,7 @@ RSpec.describe Sabeel do
         subject(:thaali) { described_class.inactive_apt_takhmeen("burhani") }
 
         it {
-          inactive_takhmeen = create(:inactive_sabeel_burhani)
+          inactive_takhmeen = create(:burhani_sabeel_with_previous_takhmeen)
           expect(thaali).to contain_exactly(inactive_takhmeen)
         }
 
@@ -189,7 +189,7 @@ RSpec.describe Sabeel do
     describe "returns true if sabeel has NO previous year dues pending" do
       subject { sabeel.takhmeen_complete_of_last_year? }
 
-      let(:sabeel) { create(:sabeel_with_no_dues_pending_prev_year) }
+      let(:sabeel) { create(:sabeel_with_prev_completed_takhmeens) }
 
       it { is_expected.to be_truthy }
     end
@@ -197,7 +197,7 @@ RSpec.describe Sabeel do
     describe "returns false if sabeel has previous year dues pending" do
       subject { sabeel.takhmeen_complete_of_last_year? }
 
-      let(:sabeel) { create(:sabeel_with_dues_pending_prev_year) }
+      let(:sabeel) { create(:sabeel_with_previous_takhmeen) }
 
       it { is_expected.to be_falsy }
     end

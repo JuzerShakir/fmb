@@ -10,6 +10,39 @@ FactoryBot.define do
     mobile { Faker::Number.number(digits: 10) }
     email { Faker::Internet.free_email }
 
+    # * PHASE 1
+    factory :sabeel_phase1, traits: [:in_phase_1]
+    factory :sabeel_phase1_small, traits: [:associate_with_small_thaali, :in_phase_1]
+    factory :sabeel_phase1_large, traits: [:associate_with_large_thaali, :in_phase_1]
+
+    # * PHASE 2
+    factory :sabeel_phase2, traits: [:in_phase_2]
+    factory :sabeel_phase2_small, traits: [:associate_with_small_thaali, :in_phase_2]
+    factory :sabeel_phase2_large, traits: [:associate_with_large_thaali, :in_phase_2]
+
+    # * PHASE 3
+    factory :sabeel_phase3, traits: [:in_phase_3]
+    factory :sabeel_phase3_small, traits: [:associate_with_small_thaali, :in_phase_3]
+    factory :sabeel_phase3_large, traits: [:associate_with_large_thaali, :in_phase_3]
+
+    # * Active
+    factory :active_sabeel, traits: [:associate_with_active_takhmeen]
+    factory :active_sabeel_burhani, traits: [:associate_with_active_takhmeen, :in_burhani]
+
+    # * Inactive
+    factory :sabeel_with_previous_takhmeen, traits: [:associate_with_previous_takhmeen]
+    factory :burhani_sabeel_with_previous_takhmeen, traits: [:associate_with_previous_takhmeen, :in_burhani]
+
+    # * Thaali Size
+    factory :sabeel_small_thaali, traits: [:associate_with_small_thaali]
+    factory :sabeel_large_thaali, traits: [:associate_with_large_thaali]
+
+    # * Thaali Amount Pending
+    factory :sabeel_with_prev_completed_takhmeens do
+      thaali_takhmeens { [association(:prev_completed_takhmeens)] }
+    end
+
+    # * TRAITS
     trait :in_phase_1 do
       apartment { PHASE_1.sample }
     end
@@ -40,71 +73,6 @@ FactoryBot.define do
 
     trait :associate_with_large_thaali do
       thaali_takhmeens { [association(:large_thaali)] }
-    end
-
-    factory :sabeel_phase1, traits: [:in_phase_1]
-    factory :sabeel_phase2, traits: [:in_phase_2]
-    factory :sabeel_phase3, traits: [:in_phase_3]
-
-    factory :sabeel_phase1_small, traits: [:associate_with_small_thaali, :in_phase_1]
-
-    factory :sabeel_phase1_large do
-      associate_with_large_thaali
-      in_phase_1
-    end
-
-    factory :sabeel_phase2_small do
-      associate_with_small_thaali
-      in_phase_2
-    end
-
-    factory :sabeel_phase2_large do
-      associate_with_large_thaali
-      in_phase_2
-    end
-
-    factory :sabeel_phase3_small do
-      associate_with_small_thaali
-      in_phase_3
-    end
-
-    factory :sabeel_phase3_large do
-      associate_with_large_thaali
-      in_phase_3
-    end
-
-    factory :active_sabeel do
-      associate_with_active_takhmeen
-    end
-
-    factory :inactive_sabeel do
-      associate_with_previous_takhmeen
-    end
-
-    factory :sabeel_small_thaali do
-      associate_with_small_thaali
-    end
-
-    factory :sabeel_large_thaali do
-      associate_with_large_thaali
-    end
-
-    factory :active_sabeel_burhani do
-      associate_with_active_takhmeen
-      in_burhani
-    end
-
-    factory :inactive_sabeel_burhani do
-      associate_with_previous_takhmeen
-      in_burhani
-    end
-
-    factory :sabeel_with_no_dues_pending_prev_year do
-      thaali_takhmeens { [association(:prev_completed_takhmeens)] }
-    end
-
-    factory :sabeel_with_dues_pending_prev_year do
-      associate_with_previous_takhmeen
     end
   end
 end
