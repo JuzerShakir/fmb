@@ -38,7 +38,14 @@ FactoryBot.define do
     factory :completed_takhmeens, traits: [:complete]
     factory :prev_completed_takhmeens, traits: [:previous_year, :complete]
     factory :active_completed_takhmeens, traits: [:current_year, :complete]
+
+    # * Size
     factory :small_thaali, traits: [:small]
     factory :large_thaali, traits: [:large]
+
+    # * Transaction
+    factory :thaali_with_transaction do
+      transactions { [association(:transaction)] }
+    end
   end
 end
