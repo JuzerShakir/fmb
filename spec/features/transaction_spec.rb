@@ -84,7 +84,7 @@ RSpec.describe "Transaction" do
     let(:user) { create(:user_other_than_viewer) }
 
     # * CREATE
-    describe "creating transaction" do
+    describe "creating it" do
       before do
         thaali = create(:thaali_takhmeen)
         visit new_takhmeen_transaction_path(thaali)
@@ -119,13 +119,13 @@ RSpec.describe "Transaction" do
     end
 
     # * EDIT / UPDATE
-    describe "editiing transaction detials" do
+    describe "editing it" do
       let!(:transaction) { create(:transaction) }
       let(:total) { transaction.thaali_takhmeen.total }
 
       before { visit edit_transaction_path(transaction) }
 
-      describe "updating transaction" do
+      describe "updating it" do
         it "displays correct amount limit (total) as a hint" do
           within(".transaction_amount") do
             expect(page).to have_css("small", text: "Amount shouldn't be greater than: #{total.humanize}")
