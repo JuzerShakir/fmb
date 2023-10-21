@@ -3,6 +3,68 @@
 require "rails_helper"
 
 RSpec.describe "Sabeel request" do
+  # * Log Out users
+  describe "Logged out users cannot access" do
+    let(:sabeel) { create(:sabeel) }
+    let(:apartment) { Sabeel.apartments.keys.sample }
+
+    # * NEW
+    describe "GET /new" do
+      before { get new_sabeel_path }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * SHOW
+    describe "GET /show" do
+      before { get sabeel_path(sabeel) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * EDIT
+    describe "GET /get" do
+      before { get edit_sabeel_path(sabeel) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * INDEX
+    describe "GET /index" do
+      before { get sabeels_path }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * STATS
+    describe "GET /stats" do
+      before { get stats_sabeels_path }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * ACTIVE
+    describe "GET /active" do
+      before { get sabeels_active_path(apartment) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+
+    # * INACTIVE
+    describe "GET /inactive" do
+      before { get sabeels_inactive_path(apartment) }
+
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to login_path }
+    end
+  end
+
   # * Accessible by ALL
   describe "'Anyone' who have logged in can access 👉" do
     # rubocop:disable RSpec/BeforeAfterAll
