@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Session request" do
   let(:user) { create(:user) }
 
-  describe "Logged out users can access 👉" do
+  describe "Logged out users can access" do
     # * NEW
     describe "GET /new" do
       before { get login_path }
@@ -15,7 +15,7 @@ RSpec.describe "Session request" do
     end
   end
 
-  describe "Logged in users cannot access 👉" do
+  describe "Logged in users cannot access" do
     before do
       post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
       get login_path
