@@ -2,7 +2,9 @@
 
 FactoryBot.define do
   factory :sabeel do
+    # rubocop:disable RSpec/NoExpectationExample
     its { Faker::Number.number(digits: 8) }
+    # rubocop:enable RSpec/NoExpectationExample
 
     name { Faker::Name.name }
     apartment { Sabeel.apartments.keys.sample }
