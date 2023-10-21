@@ -42,12 +42,10 @@ RSpec.describe "Transaction request" do
 
   # * Accessible by all
   describe "'Anyone' who have logged in can access 👉" do
-    # rubocop:disable RSpec/BeforeAfterAll
-    before(:all) do
+    before do
       user = create(:user)
       post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
     end
-    # rubocop:enable RSpec/BeforeAfterAll
 
     # * ALL
     describe "GET /all" do
@@ -77,12 +75,10 @@ RSpec.describe "Transaction request" do
 
   # * Accessible by Admins & Members
   describe "'Admin' & 'Member' can access 👉" do
-    # rubocop:disable RSpec/BeforeAfterAll
-    before(:all) do
+    before do
       user = create(:user_other_than_viewer)
       post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
     end
-    # rubocop:enable RSpec/BeforeAfterAll
 
     # * NEW
     describe "GET /new" do
@@ -188,12 +184,10 @@ RSpec.describe "Transaction request" do
 
   # * NOT Accessible by Viewers
   describe "'Viewer' CANNOT access 👉" do
-    # rubocop:disable RSpec/BeforeAfterAll
-    before(:all) do
+    before do
       viewer = create(:viewer_user)
       post signup_path, params: {sessions: viewer.attributes.merge({password: viewer.password})}
     end
-    # rubocop:enable RSpec/BeforeAfterAll
 
     # * NEW
     describe "GET /new" do

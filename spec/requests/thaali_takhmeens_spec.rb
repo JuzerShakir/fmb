@@ -74,12 +74,10 @@ RSpec.describe "ThaaliTakhmeen request" do
 
   # * Accessible by all
   describe "'Anyone' who have logged in can access 👉" do
-    # rubocop:disable RSpec/BeforeAfterAll
-    before(:all) do
+    before do
       user = create(:user)
       post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
     end
-    # rubocop:enable RSpec/BeforeAfterAll
 
     # * INDEX
     describe "GET /index" do
@@ -249,12 +247,10 @@ RSpec.describe "ThaaliTakhmeen request" do
   describe "'Viewer' CANNOT access 👉" do
     let(:sabeel) { create(:sabeel) }
 
-    # rubocop:disable RSpec/BeforeAfterAll
-    before(:all) do
+    before do
       viewer = create(:viewer_user)
       post signup_path, params: {sessions: viewer.attributes.merge({password: viewer.password})}
     end
-    # rubocop:enable RSpec/BeforeAfterAll
 
     # * NEW
     describe "GET /new" do
