@@ -5,10 +5,6 @@ require "rails_helper"
 RSpec.describe "ThaaliTakhmeen" do
   before { page.set_rack_session(user_id: user.id) }
 
-  # rubocop:disable RSpec/BeforeAfterAll
-  after(:all) { Sabeel.destroy_all }
-  # rubocop:enable RSpec/BeforeAfterAll
-
   # * ALL user types
   describe "Any logged-in users can visit" do
     let(:user) { create(:user) }
@@ -164,14 +160,11 @@ RSpec.describe "ThaaliTakhmeen" do
       describe "show statistic details of all thaalis for current year" do
         let(:thaalis) { ThaaliTakhmeen.in_the_year(CURR_YR) }
 
-        # rubocop:disable RSpec/BeforeAfterAll
-        before(:all) do
+        before do
           create_list(:active_takhmeen, 2)
           create_list(:active_completed_takhmeens, 2)
+          visit takhmeens_stats_path
         end
-        # rubocop:enable RSpec/BeforeAfterAll
-
-        before { visit takhmeens_stats_path }
 
         it "Total" do
           within("div##{CURR_YR}") do
