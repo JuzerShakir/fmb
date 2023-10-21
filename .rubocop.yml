@@ -31,4 +31,4 @@ RSpec/DescribeClass:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 RSpec/NestedGroups:
-  Max: 5
+  Max: 6
