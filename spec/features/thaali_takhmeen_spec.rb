@@ -78,7 +78,7 @@ RSpec.describe "ThaaliTakhmeen" do
     end
 
     # * COMPLETE
-    describe "'complete' template", :js do
+    describe "'complete' template" do
       let(:thaalis) { ThaaliTakhmeen.first(2) }
 
       before do
@@ -86,7 +86,7 @@ RSpec.describe "ThaaliTakhmeen" do
         visit thaali_takhmeens_complete_path(CURR_YR)
       end
 
-      describe "show all its details" do
+      describe "show all its details", :js do
         it "thaali_number" do
           thaalis.each do |thaali|
             number = thaali.number
@@ -104,7 +104,7 @@ RSpec.describe "ThaaliTakhmeen" do
     end
 
     # * PENDING
-    describe "'pending' template", :js do
+    describe "'pending' template" do
       let(:thaalis) { ThaaliTakhmeen.first(2) }
 
       before do
@@ -112,7 +112,7 @@ RSpec.describe "ThaaliTakhmeen" do
         visit thaali_takhmeens_pending_path(CURR_YR)
       end
 
-      describe "show all its details" do
+      describe "show all its details", :js do
         it "thaali_number" do
           thaalis.each do |thaali|
             number = thaali.number
@@ -130,7 +130,7 @@ RSpec.describe "ThaaliTakhmeen" do
     end
 
     # * ALL
-    describe "'all' template", :js do
+    describe "'all' template" do
       let(:thaalis) { ThaaliTakhmeen.first(2) }
 
       before do
@@ -138,7 +138,7 @@ RSpec.describe "ThaaliTakhmeen" do
         visit thaali_takhmeens_all_path(PREV_YR)
       end
 
-      describe "show all its details" do
+      describe "show all its details", :js do
         it "thaali_number" do
           thaalis.each do |thaali|
             number = thaali.number
