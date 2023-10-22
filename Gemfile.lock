@@ -263,7 +263,7 @@ GEM
     rubocop-performance (1.16.0)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.21.2)
+    rubocop-rails (2.21.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
@@ -362,7 +362,7 @@ DEPENDENCIES
   ransack (~> 3.2.1)
   redis (~> 4.0)
   rspec-rails (~> 6.0.1)
-  rubocop-rails
+  rubocop-rails (= 2.21.1)
   rubocop-rspec
   selenium-webdriver (~> 4.7)
   shoulda-callback-matchers (~> 1.1.1)

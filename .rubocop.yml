@@ -8,7 +8,7 @@
 # Any of these may be changed.
 require:
   - standard
-  # - rubocop-rails
+  - rubocop-rails
   - rubocop-rspec
   - rubocop-capybara
 
@@ -22,8 +22,8 @@ AllCops:
     - public/**/*
     - vendor/**/*
 
-# Rails:
-#   Enabled: true # enable rubocop-rails cops
+Rails:
+  Enabled: true # enable rubocop-rails cops
 RSpec:
   Enabled: true # enable rubocop-rspec cops
 
