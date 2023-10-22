@@ -71,7 +71,7 @@ class Sabeel < ApplicationRecord
   private
 
   def titleize_name
-    self.name = name.split(" ").map(&:capitalize).join(" ") unless name.nil?
+    self.name = name.split.map(&:capitalize).join(" ") unless name.nil?
   end
 
   def set_up_address
