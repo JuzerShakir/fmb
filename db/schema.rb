@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_19_054211) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_26_231421) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,9 +33,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_054211) do
     t.string "address", null: false
     t.bigint "mobile", null: false
     t.string "email"
+    t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
     t.index ["its"], name: "index_sabeels_on_its", unique: true
     t.index ["name", "its"], name: "index_sabeels_on_name_and_its", unique: true
     t.index ["slug"], name: "index_sabeels_on_slug", unique: true
@@ -50,9 +50,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_054211) do
     t.boolean "is_complete", default: false, null: false
     t.integer "number", null: false
     t.integer "size", null: false
+    t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
     t.index ["sabeel_id"], name: "index_thaali_takhmeens_on_sabeel_id"
     t.index ["slug"], name: "index_thaali_takhmeens_on_slug", unique: true
     t.index ["year", "number"], name: "index_thaali_takhmeens_on_year_and_number", unique: true
@@ -61,26 +61,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_054211) do
 
   create_table "transactions", force: :cascade do |t|
     t.bigint "thaali_takhmeen_id", null: false
+    t.integer "recipe_no", default: 1, null: false
     t.integer "mode", null: false
     t.integer "amount", null: false
     t.date "date", null: false
+    t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "recipe_no", null: false
-    t.string "slug"
-    t.index ["recipe_no"], name: "index_transactions_on_recipe_no"
+    t.index ["recipe_no"], name: "index_transactions_on_recipe_no", unique: true
     t.index ["slug"], name: "index_transactions_on_slug", unique: true
     t.index ["thaali_takhmeen_id"], name: "index_transactions_on_thaali_takhmeen_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.integer "its", null: false
+    t.integer "role", null: false
     t.string "name", null: false
     t.string "password_digest", null: false
+    t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
-    t.integer "role", null: false
     t.index ["its"], name: "index_users_on_its", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end

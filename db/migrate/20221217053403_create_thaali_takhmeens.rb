@@ -9,6 +9,7 @@ class CreateThaaliTakhmeens < ActiveRecord::Migration[7.0]
       t.boolean :is_complete, null: false, default: false
       t.integer :number, null: false
       t.integer :size, null: false
+      t.string :slug, null: false, index: {unique: true}
 
       t.timestamps
     end

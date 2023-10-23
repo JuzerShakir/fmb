@@ -1,17 +1,17 @@
 class CreateSabeel < ActiveRecord::Migration[7.0]
   def change
     create_table :sabeels do |t|
-      t.integer :its, null: false
-      t.string :hof_name, null: false
+      t.integer :its, null: false, index: {unique: true}
+      t.string :name, null: false
       t.integer :apartment, null: false
       t.integer :flat_no, null: false
       t.string :address, null: false
       t.integer :mobile, limit: 8, null: false
       t.string :email
+      t.string :slug, null: false, index: {unique: true}
 
       t.timestamps
     end
-    add_index :sabeels, :its, unique: true
-    add_index :sabeels, [:hof_name, :its], unique: true
+    add_index :sabeels, [:name, :its], unique: true
   end
 end
