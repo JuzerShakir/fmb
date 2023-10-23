@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_its(params[:sessions][:its])
+    user = User.find_by(its: params[:sessions][:its])
     if user&.authenticate(params[:sessions][:password])
       session[:user_id] = user.id
       if user.viewer?

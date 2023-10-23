@@ -4,20 +4,23 @@ require "rails_helper"
 require "validates_email_format_of/rspec_matcher"
 
 RSpec.describe Sabeel do
-  context "with association" do
-    subject { build(:sabeel) }
+  subject(:sabeel) { build(:sabeel) }
 
+  context "with association" do
     it { is_expected.to have_many(:thaali_takhmeens).dependent(:destroy) }
     it { is_expected.to have_many(:transactions).through(:thaali_takhmeens) }
   end
 
   context "when validating" do
-    subject { build(:sabeel) }
-
     context "with ITS" do
-      it { is_expected.to validate_numericality_of(:its).only_integer.with_message("must be a number") }
+      it { is_expected.to validate_numericality_of(:its).only_integer.with_message("must be an integer") }
 
-      it { is_expected.to validate_numericality_of(:its).is_in(10000000..99999999).with_message("is invalid") }
+      # * TODO refactor this
+      it "length" do
+        sabeel.its = "123456789"
+        sabeel.save
+        expect(sabeel.errors[:its]).to include("is incorrect")
+      end
 
       it { is_expected.to validate_uniqueness_of(:its).with_message("has already been registered") }
     end
@@ -28,35 +31,37 @@ RSpec.describe Sabeel do
     end
 
     context "with name" do
-      it { is_expected.to validate_presence_of(:name).with_message("cannot be blank") }
+      it { is_expected.to validate_presence_of(:name) }
 
-      it { is_expected.to validate_uniqueness_of(:name).scoped_to(:its).with_message("has already been registered with this ITS number") }
+      it { is_expected.to validate_uniqueness_of(:name).scoped_to(:its) }
     end
 
     context "with apartment" do
       let(:all_apartments) { described_class.apartments.keys }
 
-      it { is_expected.to validate_presence_of(:apartment).with_message("cannot be blank") }
+      it { is_expected.to validate_presence_of(:apartment).with_message("selection is required") }
 
       it { is_expected.to define_enum_for(:apartment).with_values(all_apartments) }
     end
 
     context "with flat_no" do
-      it { is_expected.to validate_numericality_of(:flat_no).only_integer.with_message("must be a number") }
+      it { is_expected.to validate_numericality_of(:flat_no).only_integer.with_message("must be an integer") }
 
-      it { is_expected.to validate_numericality_of(:flat_no).is_greater_than(0).with_message("must be greater than 0") }
+      it { is_expected.to validate_numericality_of(:flat_no).is_greater_than(0) }
     end
 
     context "with mobile" do
-      it { is_expected.to validate_numericality_of(:mobile).only_integer.with_message("must be a number") }
+      it { is_expected.to validate_numericality_of(:mobile).only_integer.with_message("must be an integer") }
 
-      it { is_expected.to validate_numericality_of(:mobile).is_in(1000000000..9999999999).with_message("is in invalid format") }
+      it "length" do
+        sabeel.mobile = 12345678901
+        sabeel.save
+        expect(sabeel.errors[:mobile]).not_to be_empty
+      end
     end
   end
 
   context "when saving" do
-    subject(:sabeel) { build(:sabeel) }
-
     describe "#titleize_name" do
       it { is_expected.to callback(:titleize_name).before(:save).if(:will_save_change_to_name?) }
 

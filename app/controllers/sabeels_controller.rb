@@ -11,8 +11,16 @@ class SabeelsController < ApplicationController
     @pagy, @sabeels = pagy_countless(sabeels)
   end
 
+  def show
+    @thaalis = @sabeel.thaali_takhmeens.order(year: :DESC)
+    @thaali_inactive = @thaalis.in_the_year(CURR_YR).empty?
+  end
+
   def new
     @sabeel = Sabeel.new
+  end
+
+  def edit
   end
 
   def create
@@ -23,14 +31,6 @@ class SabeelsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def show
-    @thaalis = @sabeel.thaali_takhmeens.order(year: :DESC)
-    @thaali_inactive = @thaalis.in_the_year(CURR_YR).empty?
-  end
-
-  def edit
   end
 
   def update

@@ -5,11 +5,17 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all.where.not(id: current_user.id)
+    @users = User.where.not(id: current_user.id)
+  end
+
+  def show
   end
 
   def new
     @user = User.new
+  end
+
+  def edit
   end
 
   def create
@@ -20,12 +26,6 @@ class UsersController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def show
-  end
-
-  def edit
   end
 
   def update

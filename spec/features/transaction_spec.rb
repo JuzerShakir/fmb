@@ -113,7 +113,7 @@ RSpec.describe "Transaction" do
         before { click_button "Create Transaction" }
 
         it "shows validation error messsage for mode field" do
-          expect(page).to have_content("Mode must be selected")
+          expect(page).to have_content(I18n.t("activerecord.errors.models.transaction.attributes.mode.blank"))
         end
       end
     end

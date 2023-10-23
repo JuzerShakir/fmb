@@ -13,6 +13,11 @@ class ThaaliTakhmeensController < ApplicationController
     @pagy, @thaalis = pagy_countless(thaalis)
   end
 
+  def show
+    @transactions = @thaali_takhmeen.transactions.order(date: :DESC)
+    @sabeel = @thaali_takhmeen.sabeel
+  end
+
   def new
     prev_takhmeen = @sabeel.thaali_takhmeens.where(year: PREV_YR).first
 
@@ -26,6 +31,9 @@ class ThaaliTakhmeensController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def create
     @sabeel = Sabeel.find(params[:sabeel_id])
     @thaali_takhmeen = @sabeel.thaali_takhmeens.new(thaali_takhmeen_params)
@@ -37,14 +45,6 @@ class ThaaliTakhmeensController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def show
-    @transactions = @thaali_takhmeen.transactions.order(date: :DESC)
-    @sabeel = @thaali_takhmeen.sabeel
-  end
-
-  def edit
   end
 
   def update

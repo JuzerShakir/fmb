@@ -20,15 +20,14 @@ class Transaction < ApplicationRecord
 
   # * Validations
   # mode
-  validates_presence_of :mode, message: "must be selected"
+  validates :mode, presence: true
   # date
-  validates_presence_of :date, message: "must be selected"
+  validates :date, presence: true
   validates_date :date, on_or_before: :today, if: :will_save_change_to_date?
   # amount
-  validates_numericality_of :amount, :recipe_no, only_integer: true, message: "must be a number"
-  validates_numericality_of :amount, :recipe_no, greater_than: 0, message: "must be greater than 0"
+  validates :amount, :recipe_no, numericality: {only_integer: true, greater_than: 0}
   # recipe no
-  validates_uniqueness_of :recipe_no, message: "has already been registered"
+  validates :recipe_no, uniqueness: true
 
   # * Custom Validations
   validate :amount_should_be_less_than_the_balance, if: :will_save_change_to_amount?
@@ -62,11 +61,11 @@ class Transaction < ApplicationRecord
         total_takhmeen_paid += transaction.amount if transaction.persisted?
       end
 
-      takhmeen.update_attribute(:paid, total_takhmeen_paid)
+      takhmeen.update(paid: total_takhmeen_paid)
 
     # below logic won't run if takhmeen instance has been destroyed
     elsif takhmeen.persisted?
-      takhmeen.update_attribute(:paid, 0)
+      takhmeen.update(paid: 0)
     end
   end
 end

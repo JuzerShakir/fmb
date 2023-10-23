@@ -15,13 +15,13 @@ RSpec.describe Transaction do
     context "with mode" do
       let(:mode_of_payments) { %i[cash cheque bank] }
 
-      it { is_expected.to validate_presence_of(:mode).with_message("must be selected") }
+      it { is_expected.to validate_presence_of(:mode).with_message("selection is required") }
       it { is_expected.to define_enum_for(:mode).with_values(mode_of_payments) }
     end
 
     context "with amount" do
-      it { is_expected.to validate_numericality_of(:amount).only_integer.with_message("must be a number") }
-      it { is_expected.to validate_numericality_of(:amount).is_greater_than(0).with_message("must be greater than 0") }
+      it { is_expected.to validate_numericality_of(:amount).only_integer.with_message("must be an integer") }
+      it { is_expected.to validate_numericality_of(:amount).is_greater_than(0) }
       it { expect(transaction.amount).to be_present }
 
       it "will raise an error if amount is greater than balance" do
@@ -40,12 +40,12 @@ RSpec.describe Transaction do
     context "with date" do
       today_str = Date.current.strftime("%e %B %Y")
 
-      it { is_expected.to validate_presence_of(:date).with_message("must be selected") }
+      it { is_expected.to validate_presence_of(:date).with_message("selection is required") }
 
       it { expect(transaction.date).to be_an_instance_of(Date) }
 
-      describe "will NOT raise an error if it's less than or equal to the current date" do
-        subject { create(:today_transactions).errors[:date] }
+      describe "will NOT raise an error for past dates" do
+        subject { create(:transaction).errors[:date] }
 
         it { is_expected.not_to include("must be on or before #{today_str}") }
       end
@@ -58,9 +58,9 @@ RSpec.describe Transaction do
     end
 
     context "with recipe_no" do
-      it { is_expected.to validate_numericality_of(:recipe_no).only_integer.with_message("must be a number") }
-      it { is_expected.to validate_numericality_of(:recipe_no).is_greater_than(0).with_message("must be greater than 0") }
-      it { is_expected.to validate_uniqueness_of(:recipe_no).with_message("has already been registered") }
+      it { is_expected.to validate_numericality_of(:recipe_no).only_integer.with_message("must be an integer") }
+      it { is_expected.to validate_numericality_of(:recipe_no).is_greater_than(0) }
+      it { is_expected.to validate_uniqueness_of(:recipe_no).with_message("has already been invoiced") }
     end
   end
 

@@ -24,18 +24,18 @@ class ThaaliTakhmeen < ApplicationRecord
   end
 
   # * Validations
-  validates_numericality_of :number, :total, :year, :paid, only_integer: true, message: "must be a number"
-
   # number & total
-  validates_numericality_of :number, :total, greater_than: 0, message: "must be greater than 0"
+  validates :number, :total, numericality: {only_integer: true, greater_than: 0}
   # number
-  validates_uniqueness_of :number, scope: :year, message: "has already been taken for the selected year"
-  validates_presence_of :size, message: "cannot be blank"
+  # * TODO remove this constraint
+  validates :number, uniqueness: {scope: :year}
+  # size
+  validates :size, presence: true
   # year
-  validates_uniqueness_of :year, scope: :sabeel_id, message: "sabeel is already taking thaali for selected year"
-  validates_numericality_of :year, less_than_or_equal_to: CURR_YR, message: "must be less than or equal to #{CURR_YR}"
+  validates :year, uniqueness: {scope: :sabeel_id}
+  validates :year, numericality: {only_integer: true, less_than_or_equal_to: CURR_YR}
   # paid
-  validates_numericality_of :paid, greater_than_or_equal_to: 0
+  validates :paid, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
   # * Enums
   enum :size, %i[small medium large]

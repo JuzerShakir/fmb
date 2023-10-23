@@ -228,7 +228,7 @@ RSpec.describe "Sabeel" do
       context "with invalid values" do
         before { click_button "Create Sabeel" }
 
-        it { expect(page).to have_content("Apartment cannot be blank") }
+        it { expect(page).to have_content(I18n.t("activerecord.errors.models.sabeel.attributes.apartment.blank")) }
       end
     end
 

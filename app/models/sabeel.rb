@@ -21,15 +21,15 @@ class Sabeel < ApplicationRecord
   # Email
   validates_email_format_of :email, allow_blank: true, message: "is in invalid format"
   # name
-  validates_uniqueness_of :name, scope: :its, message: "has already been registered with this ITS number"
+  # * TODO remove this constraint
+  validates :name, uniqueness: {scope: :its}
   # apartment
-  validates_presence_of :apartment, :name, message: "cannot be blank"
+  validates :apartment, :name, presence: true
   # Flat No
-  validates_numericality_of :flat_no, only_integer: true, message: "must be a number"
-  validates_numericality_of :flat_no, greater_than: 0, message: "must be greater than 0"
+  validates :flat_no, numericality: {only_integer: true, greater_than: 0}
   # mobile
-  validates_numericality_of :mobile, only_integer: true, message: "must be a number"
-  validates_numericality_of :mobile, in: 1_000_000_000..9_999_999_999, message: "is in invalid format"
+  validates :mobile, numericality: {only_integer: true}
+  validates :mobile, length: {is: 10}
 
   # * Enums
   # apartment

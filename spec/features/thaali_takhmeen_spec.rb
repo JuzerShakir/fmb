@@ -271,7 +271,7 @@ RSpec.describe "ThaaliTakhmeen" do
       context "with invalid values" do
         before { click_button "Create Thaali takhmeen" }
 
-        it { expect(page).to have_content("Size cannot be blank") }
+        it { expect(page).to have_content(I18n.t("activerecord.errors.models.thaali_takhmeen.attributes.size.blank")) }
       end
     end
 

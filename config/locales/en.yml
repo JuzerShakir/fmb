@@ -30,10 +30,67 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-    hello: "Hello world"
-    activerecord:
-        attributes:
-            sabeel:
-                its: "ITS"
-            user:
-                its: "ITS"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            its:
+              not_a_number: "must be an integer"
+              wrong_length: "is incorrect"
+              taken: "has already been registered"
+            name:
+              too_short: "must be more than 3 characters"
+              too_long: "must be less than 35 characters"
+            password:
+              too_short: "must be more than 6 characters"
+            password_confirmation:
+              too_short: "must be more than 6 characters"
+            role:
+              blank: "selection is required"
+        sabeel:
+          attributes:
+            its:
+              not_a_number: "must be an integer"
+              wrong_length: "is incorrect"
+              taken: "has already been registered"
+            apartment:
+              blank: "selection is required"
+            flat_no:
+              not_a_number: "must be an integer"
+            mobile:
+              not_a_number: "must be an integer"
+        thaali_takhmeen:
+          attributes:
+            number:
+              not_a_number: "must be an integer"
+            total:
+              not_a_number: "must be an integer"
+            year:
+              not_a_number: "must be an integer"
+            paid:
+              not_a_number: "must be an integer"
+            size:
+              blank: "selection is required"
+        transaction:
+          attributes:
+            mode:
+              blank: "selection is required"
+            date:
+              blank: "selection is required"
+            amount:
+              not_a_number: "must be an integer"
+              greater_than: "must be greater than 0"
+            recipe_no:
+              not_a_number: "must be an integer"
+              greater_than: "must be greater than 0"
+              taken: "has already been invoiced"
+
+    attributes:
+      sabeel:
+        its: "ITS"
+      user:
+        its: "ITS"
+  flash:
+    un_authorize: "Not Authorized"
+    active_session: "Already logged in!"

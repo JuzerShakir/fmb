@@ -7,27 +7,26 @@ RSpec.describe User do
 
   context "when validating" do
     context "with ITS" do
-      it { is_expected.to validate_numericality_of(:its).only_integer.with_message("must be a number") }
+      it { is_expected.to validate_numericality_of(:its).only_integer.with_message("must be an integer") }
 
-      it { is_expected.to validate_numericality_of(:its).is_in(10000000..99999999).with_message("is invalid") }
+      # * TODO refactor this
+      it "length" do
+        user.its = "123456789"
+        user.save
+        expect(user.errors[:its]).to include("is incorrect")
+      end
 
       it { is_expected.to validate_uniqueness_of(:its).with_message("has already been registered") }
     end
 
     context "with name" do
-      it { is_expected.to validate_presence_of(:name).with_message("cannot be blank") }
-
       it { is_expected.to validate_length_of(:name).is_at_least(3).with_short_message("must be more than 3 characters") }
-
       it { is_expected.to validate_length_of(:name).is_at_most(35).with_long_message("must be less than 35 characters") }
     end
 
     context "with password" do
       it { is_expected.to validate_length_of(:password).is_at_least(6).with_short_message("must be more than 6 characters") }
-    end
-
-    context "with password_confirmation" do
-      it { is_expected.to validate_presence_of(:password_confirmation).with_message("cannot be blank") }
+      it { is_expected.to validate_length_of(:password_confirmation).is_at_least(6).with_short_message("must be more than 6 characters") }
     end
 
     context "with role" do

@@ -11,11 +11,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def logged_in?
-    redirect_to root_path, notice: "Already logged in!" if session[:user_id]
+    redirect_to root_path, notice: t("flash.active_session") if session[:user_id]
   end
 
   def authorize
-    redirect_to login_path, alert: "Not Authorized!" if current_user.nil?
+    redirect_to login_path, alert: t("flash.un_authorize") if current_user.nil?
   end
 
   def authorize_admin_member
@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
 
   def un_authorize_redirect
     previuos_path = request.referer || root_path
-    flash[:alert] = "Not Authorized!"
+    flash[:alert] = t("flash.un_authorize")
     redirect_to previuos_path
   end
 end

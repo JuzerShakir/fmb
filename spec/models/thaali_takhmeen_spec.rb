@@ -12,29 +12,29 @@ RSpec.describe ThaaliTakhmeen do
 
   context "when validating" do
     context "with number" do
-      it { is_expected.to validate_numericality_of(:number).only_integer.with_message("must be a number") }
-      it { is_expected.to validate_numericality_of(:number).is_greater_than(0).with_message("must be greater than 0") }
-      it { is_expected.to validate_uniqueness_of(:number).scoped_to(:year).with_message("has already been taken for the selected year") }
+      it { is_expected.to validate_numericality_of(:number).only_integer.with_message("must be an integer") }
+      it { is_expected.to validate_numericality_of(:number).is_greater_than(0) }
+      it { is_expected.to validate_uniqueness_of(:number).scoped_to(:year) }
     end
 
     context "with size" do
       it { is_expected.to define_enum_for(:size).with_values([:small, :medium, :large]) }
-      it { is_expected.to validate_presence_of(:size).with_message("cannot be blank") }
+      it { is_expected.to validate_presence_of(:size).with_message("selection is required") }
     end
 
     context "with year" do
-      it { is_expected.to validate_numericality_of(:year).only_integer.with_message("must be a number") }
-      it { is_expected.to validate_numericality_of(:year).is_less_than_or_equal_to(CURR_YR).with_message("must be less than or equal to #{CURR_YR}") }
-      it { is_expected.to validate_uniqueness_of(:year).scoped_to(:sabeel_id).with_message("sabeel is already taking thaali for selected year") }
+      it { is_expected.to validate_numericality_of(:year).only_integer.with_message("must be an integer") }
+      it { is_expected.to validate_numericality_of(:year).is_less_than_or_equal_to(CURR_YR) }
+      it { is_expected.to validate_uniqueness_of(:year).scoped_to(:sabeel_id) }
     end
 
     context "with total" do
-      it { is_expected.to validate_numericality_of(:total).only_integer.with_message("must be a number") }
-      it { is_expected.to validate_numericality_of(:total).is_greater_than(0).with_message("must be greater than 0") }
+      it { is_expected.to validate_numericality_of(:total).only_integer.with_message("must be an integer") }
+      it { is_expected.to validate_numericality_of(:total).is_greater_than(0) }
     end
 
     context "with paid" do
-      it { is_expected.to validate_numericality_of(:paid).only_integer.with_message("must be a number") }
+      it { is_expected.to validate_numericality_of(:paid).only_integer.with_message("must be an integer") }
       it { is_expected.to validate_numericality_of(:paid).is_greater_than_or_equal_to(0) }
       it { expect(thaali.paid).to be_eql(0) }
     end

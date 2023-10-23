@@ -11,9 +11,17 @@ class TransactionsController < ApplicationController
     @pagy, @transactions = pagy_countless(trans)
   end
 
+  def show
+    @sabeel = @thaali_takhmeen.sabeel
+  end
+
   def new
     @transaction = @thaali_takhmeen.transactions.new
     @total_balance = @thaali_takhmeen.balance.humanize
+  end
+
+  def edit
+    @total_balance = (@thaali_takhmeen.balance + @transaction.amount).humanize
   end
 
   def create
@@ -27,14 +35,6 @@ class TransactionsController < ApplicationController
       @total_balance = @thaali_takhmeen.balance.humanize
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def show
-    @sabeel = @thaali_takhmeen.sabeel
-  end
-
-  def edit
-    @total_balance = (@thaali_takhmeen.balance + @transaction.amount).humanize
   end
 
   def update
