@@ -18,6 +18,7 @@ class ThaaliTakhmeensController < ApplicationController
     @sabeel = @thaali_takhmeen.sabeel
   end
 
+  # * TODO fill the values in the view
   def new
     prev_takhmeen = @sabeel.thaali_takhmeens.where(year: PREV_YR).first
 

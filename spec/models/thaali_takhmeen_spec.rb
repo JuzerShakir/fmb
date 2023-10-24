@@ -14,7 +14,6 @@ RSpec.describe ThaaliTakhmeen do
     context "with number" do
       it { is_expected.to validate_numericality_of(:number).only_integer.with_message("must be an integer") }
       it { is_expected.to validate_numericality_of(:number).is_greater_than(0) }
-      it { is_expected.to validate_uniqueness_of(:number).scoped_to(:year) }
     end
 
     context "with size" do

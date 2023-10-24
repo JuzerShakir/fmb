@@ -15,6 +15,5 @@ class CreateThaaliTakhmeens < ActiveRecord::Migration[7.0]
     end
 
     add_index :thaali_takhmeens, [:year, :sabeel_id], unique: true
-    add_index :thaali_takhmeens, [:year, :number], unique: true
   end
 end

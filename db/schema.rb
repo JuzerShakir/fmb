@@ -54,7 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_26_231421) do
     t.datetime "updated_at", null: false
     t.index ["sabeel_id"], name: "index_thaali_takhmeens_on_sabeel_id"
     t.index ["slug"], name: "index_thaali_takhmeens_on_slug", unique: true
-    t.index ["year", "number"], name: "index_thaali_takhmeens_on_year_and_number", unique: true
     t.index ["year", "sabeel_id"], name: "index_thaali_takhmeens_on_year_and_sabeel_id", unique: true
   end
 

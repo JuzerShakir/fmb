@@ -26,9 +26,6 @@ class ThaaliTakhmeen < ApplicationRecord
   # * Validations
   # number & total
   validates :number, :total, numericality: {only_integer: true, greater_than: 0}
-  # number
-  # * TODO remove this constraint
-  validates :number, uniqueness: {scope: :year}
   # size
   validates :size, presence: true
   # year
