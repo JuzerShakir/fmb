@@ -36,7 +36,7 @@ en:
         user:
           attributes:
             its:
-              not_a_number: "must be an integer"
+              not_a_number: &not_a_number "must be an integer"
               wrong_length: "is incorrect"
               taken: "has already been registered"
             name:
@@ -47,42 +47,42 @@ en:
             password_confirmation:
               too_short: "must be more than 6 characters"
             role:
-              blank: "selection is required"
+              blank: &blank "selection is required"
         sabeel:
           attributes:
             its:
-              not_a_number: "must be an integer"
+              not_a_number: *not_a_number
               wrong_length: "is incorrect"
               taken: "has already been registered"
             apartment:
-              blank: "selection is required"
+              blank: *blank
             flat_no:
-              not_a_number: "must be an integer"
+              not_a_number: *not_a_number
             mobile:
-              not_a_number: "must be an integer"
+              not_a_number: *not_a_number
         thaali_takhmeen:
           attributes:
             number:
-              not_a_number: "must be an integer"
+              not_a_number: *not_a_number
             total:
-              not_a_number: "must be an integer"
+              not_a_number: *not_a_number
             year:
-              not_a_number: "must be an integer"
+              not_a_number: *not_a_number
             paid:
-              not_a_number: "must be an integer"
+              not_a_number: *not_a_number
             size:
-              blank: "selection is required"
+              blank: *blank
         transaction:
           attributes:
             mode:
-              blank: "selection is required"
+              blank: *blank
             date:
-              blank: "selection is required"
+              blank: *blank
             amount:
-              not_a_number: "must be an integer"
+              not_a_number: *not_a_number
               greater_than: "must be greater than 0"
             recipe_no:
-              not_a_number: "must be an integer"
+              not_a_number: *not_a_number
               greater_than: "must be greater than 0"
               taken: "has already been invoiced"
 
