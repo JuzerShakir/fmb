@@ -20,10 +20,7 @@ class Sabeel < ApplicationRecord
   include ITSValidation
   # Email
   validates_email_format_of :email, allow_blank: true, message: "is in invalid format"
-  # name
-  # * TODO remove this constraint
-  validates :name, uniqueness: {scope: :its}
-  # apartment
+  # name & apartment
   validates :apartment, :name, presence: true
   # Flat No
   validates :flat_no, numericality: {only_integer: true, greater_than: 0}

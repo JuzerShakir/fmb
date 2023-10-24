@@ -32,8 +32,6 @@ RSpec.describe Sabeel do
 
     context "with name" do
       it { is_expected.to validate_presence_of(:name) }
-
-      it { is_expected.to validate_uniqueness_of(:name).scoped_to(:its) }
     end
 
     context "with apartment" do

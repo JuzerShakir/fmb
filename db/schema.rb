@@ -37,7 +37,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_26_231421) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["its"], name: "index_sabeels_on_its", unique: true
-    t.index ["name", "its"], name: "index_sabeels_on_name_and_its", unique: true
     t.index ["slug"], name: "index_sabeels_on_slug", unique: true
   end
 
