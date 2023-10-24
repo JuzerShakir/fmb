@@ -27,7 +27,7 @@ class SabeelsController < ApplicationController
     @sabeel = Sabeel.new(sabeel_params)
     if @sabeel.valid?
       @sabeel.save
-      redirect_to @sabeel, success: "Sabeel created successfully"
+      redirect_to @sabeel, success: t(".success")
     else
       render :new, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class SabeelsController < ApplicationController
 
   def update
     if @sabeel.update(sabeel_params)
-      redirect_to @sabeel, success: "Sabeel updated successfully"
+      redirect_to @sabeel, success: t(".success")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -44,7 +44,7 @@ class SabeelsController < ApplicationController
   def destroy
     @sabeel.destroy
     respond_to do |format|
-      format.all { redirect_to root_path(format: :html), success: "Sabeel deleted successfully" }
+      format.all { redirect_to root_path(format: :html), success: t(".success") }
     end
   end
 

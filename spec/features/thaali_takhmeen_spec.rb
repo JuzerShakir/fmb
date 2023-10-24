@@ -265,13 +265,13 @@ RSpec.describe "ThaaliTakhmeen" do
           expect(page).to have_current_path takhmeen_path(thaali_takhmeen)
         end
 
-        it { expect(page).to have_content("Thaali Takhmeen created successfully") }
+        it { expect(page).to have_content("Thaali created successfully") }
       end
 
       context "with invalid values" do
         before { click_button "Create Thaali takhmeen" }
 
-        it { expect(page).to have_content(I18n.t("activerecord.errors.models.thaali_takhmeen.attributes.size.blank")) }
+        it { expect(page).to have_content("selection is required") }
       end
     end
 
@@ -287,7 +287,7 @@ RSpec.describe "ThaaliTakhmeen" do
           click_button "Update Thaali takhmeen"
         end
 
-        it { expect(page).to have_content("Thaali Takhmeen updated successfully") }
+        it { expect(page).to have_content("Thaali updated successfully") }
       end
 
       context "with invalid values" do
@@ -324,7 +324,7 @@ RSpec.describe "ThaaliTakhmeen" do
         before { click_button "Yes, delete it!" }
 
         it { expect(page).to have_current_path sabeel_path(thaali.sabeel) }
-        it { expect(page).to have_content("Thaali Takhmeen destroyed successfully") }
+        it { expect(page).to have_content("Thaali destroyed successfully") }
       end
     end
   end

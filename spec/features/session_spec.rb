@@ -25,8 +25,7 @@ RSpec.describe "Sessions" do
       end
 
       it "displays welcome message" do
-        flash_msg = user.viewer? ? "Afzalus Salam" : "Afzalus Salam, #{user.name.split.first} bhai!"
-        expect(page).to have_content(flash_msg)
+        expect(page).to have_content("Afzalus Salaam")
       end
     end
 
@@ -38,7 +37,7 @@ RSpec.describe "Sessions" do
       end
 
       it "displays validation error" do
-        expect(page).to have_content("Invalid credentials!")
+        expect(page).to have_content("Invalid credentials")
       end
     end
   end
@@ -65,7 +64,7 @@ RSpec.describe "Sessions" do
       end
 
       it do
-        expect(page).to have_content("Logged Out!")
+        expect(page).to have_content("Logged out")
       end
 
       it "does not show the navbar" do

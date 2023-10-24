@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.valid?
       @user.save
-      redirect_to users_path, success: "User created successfully"
+      redirect_to users_path, success: t(".success")
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, success: "User updated successfully"
+      redirect_to @user, success: t(".success")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -39,10 +39,10 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     if current_user.admin? && current_user != @user
-      redirect_to users_path, success: "User deleted successfully"
+      redirect_to users_path, success: t(".non_self")
     else
       session[:user_id] = nil
-      redirect_to login_path, success: "User deleted successfully"
+      redirect_to login_path, success: t(".self")
     end
   end
 

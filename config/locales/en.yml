@@ -85,6 +85,43 @@ en:
               not_a_number: *not_a_number
               greater_than: "must be greater than 0"
               taken: "has already been invoiced"
+  users:
+    create:
+      success: "User created successfully"
+    update:
+      success: "User updated successfully"
+    destroy:
+      non_self: "User deleted successfully"
+      self: "Your account has been deleted"
+  sessions:
+    create:
+      success: "Afzalus Salaam"
+      error: "Invalid credentials"
+    destroy:
+      success: "Logged out"
+  sabeels:
+    create:
+      success: "Sabeel created successfully"
+    update:
+      success: "Sabeel updated successfully"
+    destroy:
+      success: "Sabeel deleted successfully"
+  thaali_takhmeens:
+    create:
+      success: "Thaali created successfully"
+    update:
+      success: "Thaali updated successfully"
+    destroy:
+      success: "Thaali destroyed successfully"
+  transactions:
+    new:
+      notice: "Thaali has no outstanding balance"
+    create:
+      success: "Transaction created successfully"
+    update:
+      success: "Transaction updated successfully"
+    destroy:
+      success: "Transaction destroyed successfully"
 
     attributes:
       sabeel:
