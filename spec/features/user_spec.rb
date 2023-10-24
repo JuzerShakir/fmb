@@ -57,15 +57,15 @@ RSpec.describe "User" do
         click_button "Delete"
       end
 
-      it "shows confirmation message" do
-        within(".modal-body") do
-          expect(page).to have_content("Are you sure you want to delete your account? This action cannot be undone.")
-        end
-      end
-
       context "with action buttons" do
         it { within(".modal-footer") { expect(page).to have_css(".btn-secondary", text: "Cancel") } }
         it { within(".modal-footer") { expect(page).to have_css(".btn-primary", text: "Yes, delete it!") } }
+      end
+
+      it "shows confirmation message" do
+        within(".modal-body") do
+          expect(page).to have_content("Are you sure you want to delete this your account? This action cannot be undone.")
+        end
       end
 
       describe "destroy" do
@@ -142,6 +142,29 @@ RSpec.describe "User" do
 
       it "will not show current admin details" do
         expect(page).not_to have_content(admin.name)
+      end
+    end
+
+    # * DELETE OTHER USERS
+    describe "destroying other users" do
+      let(:other_user) { create(:user) }
+
+      before do
+        visit user_path(other_user)
+        click_button "Delete"
+      end
+
+      it "shows confirmation message" do
+        within(".modal-body") do
+          expect(page).to have_content("Are you sure you want to delete this User? This action cannot be undone.")
+        end
+      end
+
+      describe "destroy" do
+        before { click_button "Yes, delete it!" }
+
+        it { expect(page).to have_current_path users_path }
+        it { expect(page).to have_content("User deleted successfully") }
       end
     end
   end
