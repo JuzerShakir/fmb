@@ -5,7 +5,7 @@ sizes = ThaaliTakhmeen.sizes.keys
 modes = Transaction.modes.keys
 
 #  CREATE SABEEL
-1000.times do |i|
+100.times do |i|
   Sabeel.create(
     its: 10000000 + i,
     name: Faker::Name.name,
@@ -16,7 +16,7 @@ modes = Transaction.modes.keys
   )
 end
 
-#  90% of sabeels have taken thaali in previous year  -->  (900 sabeels, 900 prev thaali)
+#  90% of sabeels have taken thaali in previous year  -->  (90 sabeels meaning 90 thaalis of prev year)
 sabeel_prev_thaali = Sabeel.all.sample(Sabeel.count * 0.9)
 
 sabeel_prev_thaali.each.with_index do |sabeel, i|
@@ -28,7 +28,7 @@ sabeel_prev_thaali.each.with_index do |sabeel, i|
   )
 end
 
-#  have 80% of thaalis to have a complete payment of prev year --> (8640 transactions from 720 thaalis)
+#  have 80% of thaalis to have a complete payment of prev year --> (864 transactions from 72 thaalis)
 prev_takhmeen_comp = ThaaliTakhmeen.in_the_year(PREV_YR).sample(sabeel_prev_thaali.count * 0.8)
 
 prev_takhmeen_comp.each do |thaali|
@@ -42,7 +42,7 @@ prev_takhmeen_comp.each do |thaali|
   end
 end
 
-#  have rest of the thaalis created of prev year be pending  ---> (maximum: 1980 transactions from 180 thaalis)
+#  have rest of the thaalis created of prev year be pending  ---> (maximum: 198 transactions from 18 thaalis)
 prev_takhmeen_pend = ThaaliTakhmeen.pending_year(PREV_YR)
 
 prev_takhmeen_pend.each do |thaali|
@@ -57,7 +57,7 @@ prev_takhmeen_pend.each do |thaali|
   end
 end
 
-#  95% of sabeels have had taken thaali in previous year are continuing in current year --> (855 thaali of 855 sabeels)
+#  95% of sabeels have had taken thaali in previous year are continuing in current year --> (85 thaali of 85 sabeels)
 active_sabeel = sabeel_prev_thaali.sample(sabeel_prev_thaali.count * 0.95)
 
 active_sabeel.each.with_index do |sabeel, i|
@@ -69,7 +69,7 @@ active_sabeel.each.with_index do |sabeel, i|
   )
 end
 
-#  have ~30% thaalis complete the takhmeens of current year but only if their last year takhmeen is complete ---> (maximum thaalis: 256 thaalis)
+#  have ~30% thaalis complete the takhmeens of current year but only if their last year takhmeen is complete ---> (maximum thaalis: 25 thaalis)
 cur_takhmeen_comp = ThaaliTakhmeen.in_the_year(CURR_YR).sample(active_sabeel.count * 0.3)
 
 cur_takhmeen_comp.each do |thaali|
