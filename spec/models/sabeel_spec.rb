@@ -15,7 +15,6 @@ RSpec.describe Sabeel do
     context "with ITS" do
       it { is_expected.to validate_numericality_of(:its).only_integer.with_message("must be an integer") }
 
-      # * TODO refactor this
       it "length" do
         sabeel.its = "123456789"
         sabeel.save
