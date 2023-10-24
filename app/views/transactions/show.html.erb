@@ -17,5 +17,5 @@
 <%# * destroy Modal %>
 <%= render partial: "shared/destroy_modal", locals: {
   destroy_path: @transaction,
-  message: "delete Transaction reciepe no: #{@transaction.recipe_no}?"
+  message: @transaction.class.name
 } %>

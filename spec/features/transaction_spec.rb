@@ -172,7 +172,7 @@ RSpec.describe "Transaction" do
 
       it "shows confirmation message" do
         within(".modal-body") do
-          expect(page).to have_content("Are you sure you want to delete Transaction reciepe no: #{transaction.recipe_no}? This action cannot be undone.")
+          expect(page).to have_content("Are you sure you want to delete this Transaction? This action cannot be undone.")
         end
       end
 

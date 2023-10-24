@@ -50,7 +50,7 @@ RSpec.describe "User" do
       end
     end
 
-    # * DELETE
+    # * DELETE SELF
     describe "destroying self" do
       before do
         visit user_path(user)
@@ -59,7 +59,7 @@ RSpec.describe "User" do
 
       it "shows confirmation message" do
         within(".modal-body") do
-          expect(page).to have_content("Are you sure you want to delete User: #{user.name}? This action cannot be undone.")
+          expect(page).to have_content("Are you sure you want to delete your account? This action cannot be undone.")
         end
       end
 

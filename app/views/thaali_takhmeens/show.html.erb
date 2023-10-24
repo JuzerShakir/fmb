@@ -19,7 +19,7 @@
 <%# * destroy Modal %>
 <%= render partial: "shared/destroy_modal", locals: {
   destroy_path: takhmeen_path(@thaali_takhmeen),
-  message: "delete Thaali no: #{@thaali_takhmeen.number}?"
+  message: @thaali_takhmeen.class.name
 } %>
 
 <%# * Transactions %>

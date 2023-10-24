@@ -311,7 +311,7 @@ RSpec.describe "ThaaliTakhmeen" do
 
       it "shows confirmation message" do
         within(".modal-body") do
-          expect(page).to have_content("Are you sure you want to delete Thaali no: #{thaali.number}? This action cannot be undone.")
+          expect(page).to have_content("Are you sure you want to delete this ThaaliTakhmeen? This action cannot be undone.")
         end
       end
 
