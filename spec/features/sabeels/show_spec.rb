@@ -12,41 +12,39 @@ RSpec.describe "Sabeel Show template" do
   end
 
   # * ALL user types
-  describe "visited by any user type" do
-    describe "can view" do
-      describe "sabeel details" do
-        it { expect(page).to have_content(sabeel.its) }
-        it { expect(page).to have_content(sabeel.name) }
-        it { expect(page).to have_content(sabeel.address) }
-        it { expect(page).to have_content(sabeel.mobile) }
-        it { expect(page).to have_content(sabeel.email) }
+  describe "visited by any user type can view" do
+    describe "sabeel details" do
+      it { expect(page).to have_content(sabeel.its) }
+      it { expect(page).to have_content(sabeel.name) }
+      it { expect(page).to have_content(sabeel.address) }
+      it { expect(page).to have_content(sabeel.mobile) }
+      it { expect(page).to have_content(sabeel.email) }
+    end
+
+    describe "action buttons" do
+      it { expect(page).to have_link("Edit") }
+      it { expect(page).to have_button("Delete") }
+    end
+
+    describe "thaali details" do
+      context "when it's NOT actively taking it" do
+        it { expect(page).to have_button("New Takhmeen") }
       end
 
-      describe "action buttons" do
-        it { expect(page).to have_link("Edit") }
-        it { expect(page).to have_button("Delete") }
-      end
+      context "when it's ACTIVELY taking it" do
+        let(:active_sabeel) { create(:active_sabeel) }
+        let(:count) { active_sabeel.thaali_takhmeens.count }
+        let(:thaali) { active_sabeel.thaali_takhmeens.first }
 
-      describe "thaali details" do
-        context "when it's NOT actively taking it" do
-          it { expect(page).to have_button("New Takhmeen") }
-        end
+        before { visit sabeel_path(active_sabeel) }
 
-        context "when it's ACTIVELY taking it" do
-          let(:active_sabeel) { create(:active_sabeel) }
-          let(:count) { active_sabeel.thaali_takhmeens.count }
-          let(:thaali) { active_sabeel.thaali_takhmeens.first }
+        it { expect(page).not_to have_button("New Takhmeen") }
 
-          before { visit sabeel_path(active_sabeel) }
-
-          it { expect(page).not_to have_button("New Takhmeen") }
-
-          describe "show all its details" do
-            it { expect(page).to have_content("Total number of Takhmeens: #{count}") }
-            it { expect(page).to have_content(thaali.year) }
-            it { expect(page).to have_content(number_with_delimiter(thaali.total)) }
-            it { expect(page).to have_content(number_with_delimiter(thaali.balance)) }
-          end
+        describe "show all its details" do
+          it { expect(page).to have_content("Total number of Takhmeens: #{count}") }
+          it { expect(page).to have_content(thaali.year) }
+          it { expect(page).to have_content(number_with_delimiter(thaali.total)) }
+          it { expect(page).to have_content(number_with_delimiter(thaali.balance)) }
         end
       end
     end
