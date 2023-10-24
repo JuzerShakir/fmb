@@ -8,23 +8,34 @@ gem "rails", "~> 7.0.4"
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
 gem "cssbundling-rails"
+gem "faker", "~> 3.1.0"
+gem "friendly_id", "~> 5.5.0"
+gem "humanize", "~> 2.5"
 gem "jbuilder"
 gem "jsbundling-rails"
+gem "pagy", "~> 6.0"
 gem "pg", "~> 1.1"
+gem "prawn", "~> 2.4"
+gem "prawn-table", "~> 0.2.2"
 gem "propshaft"
 gem "puma", "~> 5.0"
+gem "rails-i18n"
+gem "ransack", "~> 3.2.1"
 gem "redis", "~> 4.0"
+gem "simple_form", "~> 5.1"
 gem "stimulus-rails"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
+gem "validates_email_format_of", "~> 1.7.2"
+gem "validates_timeliness", "~> 7.0.0.beta1"
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "factory_bot_rails", "~> 6.2.0"
   gem "rspec-rails", "~> 6.0.1"
-  gem "standard", require: false
   gem "rubocop-rails", "2.21.1", require: false
   gem "rubocop-rspec", require: false
+  gem "standard", require: false
 end
 
 group :development do
@@ -45,15 +56,3 @@ end
 group :productiom do
   gem "matrix", "~> 0.4.2"
 end
-
-gem "faker", "~> 3.1.0"
-gem "friendly_id", "~> 5.5.0"
-gem "humanize", "~> 2.5"
-gem "pagy", "~> 6.0"
-gem "prawn", "~> 2.4"
-gem "prawn-table", "~> 0.2.2"
-gem "ransack", "~> 3.2.1"
-gem "simple_form", "~> 5.1"
-gem "validates_email_format_of", "~> 1.7.2"
-gem "validates_timeliness", "~> 7.0.0.beta1"
-gem "rails-i18n"
