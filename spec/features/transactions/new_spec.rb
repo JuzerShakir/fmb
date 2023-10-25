@@ -3,20 +3,22 @@
 require "rails_helper"
 
 RSpec.describe "Transaction new template" do
-  let(:user) { create(:user_other_than_viewer) }
-
   before do
     page.set_rack_session(user_id: user.id)
     thaali = create(:thaali_takhmeen)
     visit new_takhmeen_transaction_path(thaali)
-
-    attributes_for(:transaction).except(:mode, :date).each do |k, v|
-      fill_in "transaction_#{k}", with: v
-    end
   end
 
   # * Admins & Members
   describe "Admin or Member can create it" do
+    let(:user) { create(:user_other_than_viewer) }
+
+    before do
+      attributes_for(:transaction).except(:mode, :date).each do |k, v|
+        fill_in "transaction_#{k}", with: v
+      end
+    end
+
     context "with valid values" do
       let(:new_transaction) { Transaction.last }
 
@@ -39,5 +41,13 @@ RSpec.describe "Transaction new template" do
         expect(page).to have_content("selection is required")
       end
     end
+  end
+
+  # * Viewer
+  describe "visited by 'Viewer'" do
+    let(:user) { create(:viewer_user) }
+
+    it { expect(page).to have_content("Not Authorized") }
+    it { expect(page).to have_current_path root_path }
   end
 end

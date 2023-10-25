@@ -3,16 +3,17 @@
 require "rails_helper"
 
 RSpec.describe "User index template" do
-  let(:admin) { create(:admin_user) }
   let!(:other_user) { create(:user) }
 
   before do
-    page.set_rack_session(user_id: admin.id)
+    page.set_rack_session(user_id: user.id)
     visit users_path
   end
 
   # * Admin
   describe "visited by admin" do
+    let(:user) { create(:admin_user) }
+
     describe "can see all users details" do
       it "name" do
         expect(page).to have_content(other_user.name)
@@ -29,7 +30,15 @@ RSpec.describe "User index template" do
     end
 
     it "will not show current admin details" do
-      expect(page).not_to have_content(admin.name)
+      expect(page).not_to have_content(user.name)
     end
+  end
+
+  # * Member or Viewer
+  describe "visited by Member or Viewer" do
+    let(:user) { create(:user_other_than_admin) }
+
+    it { expect(page).to have_content("Not Authorized") }
+    it { expect(page).to have_current_path root_path }
   end
 end

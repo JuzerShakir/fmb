@@ -12,7 +12,7 @@ RSpec.describe "ThaaliTakhmeen edit template" do
   end
 
   # * Admins & Members
-  describe "Admin or Member" do
+  describe "by Admin or Member" do
     describe "updating it" do
       context "with valid values" do
         before do
@@ -32,5 +32,13 @@ RSpec.describe "ThaaliTakhmeen edit template" do
         it { expect(page).to have_content("Number must be greater than 0") }
       end
     end
+  end
+
+  # * Viewer
+  describe "visited by Viewer" do
+    let(:user) { create(:viewer_user) }
+
+    it { expect(page).to have_content("Not Authorized") }
+    it { expect(page).to have_current_path root_path }
   end
 end

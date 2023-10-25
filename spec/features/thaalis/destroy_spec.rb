@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "ThaaliTakhmeen destroy" do
-  let(:user) { create(:user_other_than_viewer) }
+  let(:user) { create(:user) }
   let(:thaali) { create(:thaali_takhmeen) }
 
   before do
@@ -12,26 +12,34 @@ RSpec.describe "ThaaliTakhmeen destroy" do
     click_button "Delete"
   end
 
-  # * Admins & Members
-  describe "Admin or Member" do
-    describe "deleting it" do
-      it "shows confirmation message" do
-        within(".modal-body") do
-          expect(page).to have_content("Are you sure you want to delete this ThaaliTakhmeen? This action cannot be undone.")
-        end
-      end
+  it "shows confirmation message" do
+    within(".modal-body") do
+      expect(page).to have_content("Are you sure you want to delete this ThaaliTakhmeen? This action cannot be undone.")
+    end
+  end
 
-      context "with action buttons" do
-        it { within(".modal-footer") { expect(page).to have_css(".btn-secondary", text: "Cancel") } }
-        it { within(".modal-footer") { expect(page).to have_css(".btn-primary", text: "Yes, delete it!") } }
-      end
+  context "with action buttons" do
+    it { within(".modal-footer") { expect(page).to have_css(".btn-secondary", text: "Cancel") } }
+    it { within(".modal-footer") { expect(page).to have_css(".btn-primary", text: "Yes, delete it!") } }
+  end
 
-      describe "destroy" do
-        before { click_button "Yes, delete it!" }
+  describe "by" do
+    before { click_button "Yes, delete it!" }
 
-        it { expect(page).to have_current_path sabeel_path(thaali.sabeel) }
-        it { expect(page).to have_content("Thaali destroyed successfully") }
-      end
+    # * Admin or Member
+    describe "Admin or Member" do
+      let(:user) { create(:user_other_than_viewer) }
+
+      it { expect(page).to have_current_path sabeel_path(thaali.sabeel) }
+      it { expect(page).to have_content("Thaali destroyed successfully") }
+    end
+
+    # * Viewer
+    describe "by Viewer" do
+      let(:user) { create(:viewer_user) }
+
+      it { expect(page).to have_content("Not Authorized") }
+      it { expect(page).to have_current_path takhmeen_path(thaali) }
     end
   end
 end

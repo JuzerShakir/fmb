@@ -13,6 +13,7 @@ RSpec.describe "Thaali Stats template" do
     visit takhmeens_stats_path
   end
 
+  # * All user types
   describe "shows statistic details of all thaalis for current year" do
     it "Total" do
       within("div##{CURR_YR}") do

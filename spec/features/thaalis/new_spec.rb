@@ -3,7 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "ThaaliTakhmeen new template" do
-  let(:user) { create(:user_other_than_viewer) }
   let(:sabeel) { create(:sabeel) }
 
   before do
@@ -12,8 +11,9 @@ RSpec.describe "ThaaliTakhmeen new template" do
   end
 
   # * Admins & Members
-  # * New
   describe "Admin or Member" do
+    let(:user) { create(:user_other_than_viewer) }
+
     context "when sabeel DIDN'T take it in previous year" do
       describe "displays with empty form fields" do
         it { expect(find_field("Number").value).to be_nil }
@@ -61,5 +61,13 @@ RSpec.describe "ThaaliTakhmeen new template" do
         it { expect(page).to have_content("selection is required") }
       end
     end
+  end
+
+  # * Viewer
+  describe "visited by Viewer" do
+    let(:user) { create(:viewer_user) }
+
+    it { expect(page).to have_content("Not Authorized") }
+    it { expect(page).to have_current_path root_path }
   end
 end

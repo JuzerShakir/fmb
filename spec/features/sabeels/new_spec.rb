@@ -3,18 +3,21 @@
 require "rails_helper"
 
 RSpec.describe "Sabeel New template" do
-  let(:user) { create(:admin_user) }
-
   before do
     page.set_rack_session(user_id: user.id)
     visit new_sabeel_path
-    attributes_for(:sabeel).except(:apartment).each do |k, v|
-      fill_in "sabeel_#{k}", with: v
-    end
   end
 
-  # * ONLY Admin types
-  describe "admin creating it" do
+  # * Admin
+  describe "Admin creating it" do
+    let(:user) { create(:admin_user) }
+
+    before do
+      attributes_for(:sabeel).except(:apartment).each do |k, v|
+        fill_in "sabeel_#{k}", with: v
+      end
+    end
+
     context "with valid values" do
       let(:apartment) { Sabeel.apartments.keys.sample.titleize }
 
@@ -36,5 +39,13 @@ RSpec.describe "Sabeel New template" do
 
       it { expect(page).to have_content("selection is required") }
     end
+  end
+
+  # * Member or Viewer
+  describe "visited by Member or Viewer" do
+    let(:user) { create(:user_other_than_admin) }
+
+    it { expect(page).to have_content("Not Authorized") }
+    it { expect(page).to have_current_path root_path }
   end
 end
