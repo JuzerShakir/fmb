@@ -3,10 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Transaction Show request" do
+  let(:transaction) { create(:transaction) }
+
   # * NOT ACCESSIBLE
   context "when made by logged out user" do
-    let(:transaction) { create(:transaction) }
-
     before { get transaction_path(transaction) }
 
     it { expect(response).to have_http_status(:found) }

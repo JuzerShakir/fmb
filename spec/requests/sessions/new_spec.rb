@@ -3,8 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "Session New request" do
-  let(:user) { create(:user) }
-
   # * ACCESSIBLE
   context "when made by logged out user" do
     before { get login_path }
@@ -15,6 +13,8 @@ RSpec.describe "Session New request" do
 
   # * NOT ACCESSIBLE
   context "when made by logged in users" do
+    let(:user) { create(:user) }
+
     before do
       post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
       get login_path

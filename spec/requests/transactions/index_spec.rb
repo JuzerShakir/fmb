@@ -5,8 +5,6 @@ require "rails_helper"
 RSpec.describe "Transaction Index request" do
   # * NOT ACCESSIBLE
   context "when made by logged out user" do
-    let(:transaction) { create(:transaction) }
-
     before { get transactions_all_path }
 
     it { expect(response).to have_http_status(:found) }

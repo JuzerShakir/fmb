@@ -3,10 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Thaali New request" do
+  let(:sabeel) { create(:sabeel) }
+
   # * NOT ACCESSIBLE
   context "when made by logged out user" do
-    let(:sabeel) { create(:sabeel) }
-
     before { get new_sabeel_takhmeen_path(sabeel) }
 
     it { expect(response).to have_http_status(:found) }
@@ -22,7 +22,6 @@ RSpec.describe "Thaali New request" do
     # * NOT ACCESSIBLE
     describe "Viewer" do
       let(:user) { create(:viewer_user) }
-      let(:sabeel) { create(:sabeel) }
 
       it { expect(response).to have_http_status(:found) }
       it { expect(response).to redirect_to root_path }
