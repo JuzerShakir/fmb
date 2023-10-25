@@ -16,23 +16,23 @@ RSpec.describe Transaction do
 
   # * NEW
   describe "new action" do
-    it "is accessible by /takhmeens/:takhmeen_id/transactions/new route" do
-      expect(get("/takhmeens/1/transactions/new")).to route_to("transactions#new", takhmeen_id: "1")
+    it "is accessible by /thaalis/:thaali_id/transactions/new route" do
+      expect(get("/thaalis/1/transactions/new")).to route_to("transactions#new", thaali_id: "1")
     end
 
-    it "is accessible by new_takhmeen_transaction_path url helper" do
-      expect(get: new_takhmeen_transaction_path(1)).to route_to(controller: "transactions", action: "new", takhmeen_id: "1")
+    it "is accessible by new_thaali_transaction_path url helper" do
+      expect(get: new_thaali_transaction_path(1)).to route_to(controller: "transactions", action: "new", thaali_id: "1")
     end
   end
 
   # * CREATE
   describe "create action" do
-    it "is accessible by /sabeel/takhmeen/transactions route" do
-      expect(post("/takhmeens/1/transactions")).to route_to("transactions#create", takhmeen_id: "1")
+    it "is accessible by /thaalis/:thaali_id/transactions route" do
+      expect(post("/thaalis/1/transactions")).to route_to("transactions#create", thaali_id: "1")
     end
 
-    it "is accessible by takhmeen_transactions_path url helper" do
-      expect(post: takhmeen_transactions_path(1)).to route_to(controller: "transactions", action: "create", takhmeen_id: "1")
+    it "is accessible by thaali_transactions_path url helper" do
+      expect(post: thaali_transactions_path(1)).to route_to(controller: "transactions", action: "create", thaali_id: "1")
     end
   end
 

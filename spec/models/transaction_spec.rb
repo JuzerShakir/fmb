@@ -8,7 +8,7 @@ RSpec.describe Transaction do
   context "with assocaition" do
     subject { create(:transaction) }
 
-    it { is_expected.to belong_to(:thaali_takhmeen) }
+    it { is_expected.to belong_to(:thaali) }
   end
 
   context "when validating" do
@@ -25,13 +25,13 @@ RSpec.describe Transaction do
       it { expect(transaction.amount).to be_present }
 
       it "will raise an error if amount is greater than balance" do
-        transaction.amount = transaction.thaali_takhmeen.balance + Faker::Number.non_zero_digit
+        transaction.amount = transaction.thaali.balance + Faker::Number.non_zero_digit
         transaction.validate
         expect(transaction.errors[:amount]).to include("cannot be greater than the balance")
       end
 
       it "will NOT raise an error if amount is less than or equal to balance" do
-        transaction.amount = transaction.thaali_takhmeen.balance - Faker::Number.non_zero_digit
+        transaction.amount = transaction.thaali.balance - Faker::Number.non_zero_digit
         transaction.validate
         expect(transaction.errors[:amount]).not_to include("cannot be greater than the balance")
       end
@@ -66,21 +66,21 @@ RSpec.describe Transaction do
 
   context "when saving" do
     describe "#add_all_transaction_amounts_to_paid_amount" do
-      let(:takhmeen) { transaction.thaali_takhmeen }
-      let(:all_transactions_of_a_takhmeen) { takhmeen.transactions }
+      let(:thaali) { transaction.thaali }
+      let(:all_transactions_of_a_thaali) { thaali.transactions }
 
       it { is_expected.to callback(:add_all_transaction_amounts_to_paid_amount).after(:commit) }
 
       it "adds all the transaction amounts if it has ONE OR MORE transactions" do
         transaction.save
 
-        total_takhmeen = all_transactions_of_a_takhmeen.pluck(:amount).sum(0)
-        expect(takhmeen.paid).to eq(total_takhmeen)
+        paid_amount = all_transactions_of_a_thaali.pluck(:amount).sum(0)
+        expect(thaali.paid).to eq(paid_amount)
       end
 
       it "paid amount is 0 if it has NO transactions" do
         transaction.destroy
-        expect(transaction.thaali_takhmeen.paid).to eq(0)
+        expect(transaction.thaali.paid).to eq(0)
       end
     end
   end

@@ -2,13 +2,13 @@
 
 require "rails_helper"
 
-RSpec.describe "ThaaliTakhmeen show template" do
+RSpec.describe "Thaali show template" do
   let(:user) { create(:user) }
   let(:thaali) { create(:thaali_with_transaction) }
 
   before do
     page.set_rack_session(user_id: user.id)
-    visit takhmeen_path(thaali)
+    visit thaali_path(thaali)
   end
 
   # * ALL user types

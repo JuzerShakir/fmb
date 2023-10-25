@@ -1,6 +1,6 @@
 class Transaction < ApplicationRecord
   # * Associations
-  belongs_to :thaali_takhmeen
+  belongs_to :thaali
 
   # * Callbacks
   after_commit :add_all_transaction_amounts_to_paid_amount
@@ -34,10 +34,10 @@ class Transaction < ApplicationRecord
 
   def amount_should_be_less_than_the_balance
     if persisted?
-      balance = amount_was + thaali_takhmeen.balance
+      balance = amount_was + thaali.balance
       errors.add(:amount, "cannot be greater than the balance") if amount > balance
 
-    elsif present? && (amount > thaali_takhmeen.balance)
+    elsif present? && (amount > thaali.balance)
       errors.add(:amount, "cannot be greater than the balance")
     end
   end
@@ -51,21 +51,20 @@ class Transaction < ApplicationRecord
   private
 
   def add_all_transaction_amounts_to_paid_amount
-    takhmeen = thaali_takhmeen
-    all_transactions_of_a_takhmeen = takhmeen.transactions
+    transactions = thaali.transactions
 
-    if all_transactions_of_a_takhmeen.any?
-      total_takhmeen_paid = 0
+    if transactions.any?
+      total_paid = 0
 
-      all_transactions_of_a_takhmeen.each do |transaction|
-        total_takhmeen_paid += transaction.amount if transaction.persisted?
+      transactions.each do |transaction|
+        total_paid += transaction.amount if transaction.persisted?
       end
 
-      takhmeen.update(paid: total_takhmeen_paid)
+      thaali.update(paid: total_paid)
 
-    # below logic won't run if takhmeen instance has been destroyed
-    elsif takhmeen.persisted?
-      takhmeen.update(paid: 0)
+    # below logic won't run if thaali instance has been destroyed
+    elsif thaali.persisted?
+      thaali.update(paid: 0)
     end
   end
 end

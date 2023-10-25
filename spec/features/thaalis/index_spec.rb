@@ -2,13 +2,13 @@
 
 require "rails_helper"
 
-RSpec.describe "ThaaliTakhmeen index template" do
+RSpec.describe "Thaali index template" do
   let(:user) { create(:user) }
-  let(:thaalis) { ThaaliTakhmeen.first(2) }
+  let(:thaalis) { Thaali.first(2) }
 
   before do
     page.set_rack_session(user_id: user.id)
-    create_list(:active_takhmeen, 2)
+    create_list(:active_thaali, 2)
 
     visit root_path
   end
@@ -33,7 +33,7 @@ RSpec.describe "ThaaliTakhmeen index template" do
 
     describe "search" do
       context "with thaali number" do
-        let(:thaali_numbers) { ThaaliTakhmeen.pluck(:number) }
+        let(:thaali_numbers) { Thaali.pluck(:number) }
 
         before { fill_in "q_number_cont", with: thaali_numbers.first }
 

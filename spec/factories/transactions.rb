@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :transaction do
-    thaali_takhmeen
+    thaali
     sequence :mode, Transaction.modes.keys.cycle
     amount { Faker::Number.number(digits: 4) }
     date { Faker::Date.backward }

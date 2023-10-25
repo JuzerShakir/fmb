@@ -2,37 +2,37 @@ class TransactionsController < ApplicationController
   before_action :authorize
   before_action :authorize_admin_member, except: %i[all show]
   before_action :set_transaction, only: %i[show edit update destroy]
-  before_action :check_if_takhmeen_is_complete, only: [:new]
+  before_action :check_if_thaali_has_balance, only: [:new]
 
   def all
-    @q = Transaction.includes(:thaali_takhmeen).ransack(params[:q])
+    @q = Transaction.includes(:thaali).ransack(params[:q])
 
     trans = @q.result(distinct: true).order(date: :DESC)
     @pagy, @transactions = pagy_countless(trans)
   end
 
   def show
-    @sabeel = @thaali_takhmeen.sabeel
+    @sabeel = @thaali.sabeel
   end
 
   def new
-    @transaction = @thaali_takhmeen.transactions.new
-    @total_balance = @thaali_takhmeen.balance.humanize
+    @transaction = @thaali.transactions.new
+    @total_balance = @thaali.balance.humanize
   end
 
   def edit
-    @total_balance = (@thaali_takhmeen.balance + @transaction.amount).humanize
+    @total_balance = (@thaali.balance + @transaction.amount).humanize
   end
 
   def create
-    @thaali_takhmeen = ThaaliTakhmeen.find(params[:takhmeen_id])
-    @transaction = @thaali_takhmeen.transactions.new(transaction_params)
+    @thaali = Thaali.find(params[:thaali_id])
+    @transaction = @thaali.transactions.new(transaction_params)
 
     if @transaction.valid?
       @transaction.save
       redirect_to @transaction, success: t(".success")
     else
-      @total_balance = @thaali_takhmeen.balance.humanize
+      @total_balance = @thaali.balance.humanize
       render :new, status: :unprocessable_entity
     end
   end
@@ -41,14 +41,14 @@ class TransactionsController < ApplicationController
     if @transaction.update(transaction_params)
       redirect_to @transaction, success: t(".success")
     else
-      @total_balance = (@thaali_takhmeen.balance + @transaction.amount_was).humanize
+      @total_balance = (@thaali.balance + @transaction.amount_was).humanize
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @transaction.destroy
-    redirect_to takhmeen_path(@thaali_takhmeen), success: t(".success")
+    redirect_to thaali_path(@thaali), success: t(".success")
   end
 
   private
@@ -59,14 +59,14 @@ class TransactionsController < ApplicationController
 
   def set_transaction
     @transaction = Transaction.find(params[:id])
-    @thaali_takhmeen = @transaction.thaali_takhmeen
+    @thaali = @transaction.thaali
   end
 
-  def check_if_takhmeen_is_complete
-    @thaali_takhmeen = ThaaliTakhmeen.find(params[:takhmeen_id])
+  def check_if_thaali_has_balance
+    @thaali = Thaali.find(params[:thaali_id])
 
-    if @thaali_takhmeen.is_complete
-      redirect_back fallback_location: takhmeen_path(@thaali_takhmeen), notice: t(".notice")
+    if @thaali.is_complete
+      redirect_back fallback_location: thaali_path(@thaali), notice: t(".notice")
     end
   end
 end

@@ -4,8 +4,8 @@
 </h2>
 
 <h4 class="text-center">of thaali
-  <%= link_to @thaali_takhmeen.number, takhmeen_path(@thaali_takhmeen), class: "btn btn-outline-primary" %>
-  <span class="text-muted">(<%= @transaction.thaali_takhmeen.year %>)</span>
+  <%= link_to @thaali.number, thaali_path(@thaali), class: "btn btn-outline-primary" %>
+  <span class="text-muted">(<%= @transaction.thaali.year %>)</span>
 </h4>
 
 <%# * show %>

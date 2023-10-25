@@ -7,8 +7,8 @@ RSpec.describe Sabeel do
   subject(:sabeel) { build(:sabeel) }
 
   context "with association" do
-    it { is_expected.to have_many(:thaali_takhmeens).dependent(:destroy) }
-    it { is_expected.to have_many(:transactions).through(:thaali_takhmeens) }
+    it { is_expected.to have_many(:thaalis).dependent(:destroy) }
+    it { is_expected.to have_many(:transactions).through(:thaalis) }
   end
 
   context "when validating" do
@@ -112,7 +112,7 @@ RSpec.describe Sabeel do
       thaali_size = :small
 
       describe "returns sabeels who are currently taking thaali" do
-        subject { described_class.active_takhmeen(CURR_YR) }
+        subject { described_class.active_thaalis(CURR_YR) }
 
         let(:active_sabeel) { create(:active_sabeel) }
 
@@ -120,7 +120,7 @@ RSpec.describe Sabeel do
       end
 
       describe "returns sabeels who have never taken thaali" do
-        subject { described_class.never_done_takhmeen }
+        subject { described_class.never_taken_thaali }
 
         let(:sabeel) { create(:sabeel) }
 
@@ -172,16 +172,16 @@ RSpec.describe Sabeel do
 
     context "with Apartment" do
       describe "returns sabeels who are currently not taking thaali" do
-        subject(:thaali) { described_class.inactive_apt_takhmeen("burhani") }
+        subject(:thaali) { described_class.inactive_apt_thaalis("burhani") }
 
         it {
-          inactive_takhmeen = create(:burhani_sabeel_with_previous_takhmeen)
-          expect(thaali).to contain_exactly(inactive_takhmeen)
+          inactive_thaali = create(:burhani_sabeel_with_previous_thaali)
+          expect(thaali).to contain_exactly(inactive_thaali)
         }
 
         it {
-          active_takhmeen = create(:active_sabeel_burhani)
-          expect(thaali).not_to contain_exactly(active_takhmeen)
+          active_thaali = create(:active_sabeel_burhani)
+          expect(thaali).not_to contain_exactly(active_thaali)
         }
       end
     end
@@ -189,17 +189,17 @@ RSpec.describe Sabeel do
 
   context "when using instance methods" do
     describe "returns true if sabeel has NO previous year dues pending" do
-      subject { sabeel.takhmeen_complete_of_last_year? }
+      subject { sabeel.last_year_thaali_balance_due? }
 
-      let(:sabeel) { create(:sabeel_with_prev_completed_takhmeens) }
+      let(:sabeel) { create(:sabeel_prev_thaali_no_dues) }
 
       it { is_expected.to be_truthy }
     end
 
     describe "returns false if sabeel has previous year dues pending" do
-      subject { sabeel.takhmeen_complete_of_last_year? }
+      subject { sabeel.last_year_thaali_balance_due? }
 
-      let(:sabeel) { create(:sabeel_with_previous_takhmeen) }
+      let(:sabeel) { create(:sabeel_with_previous_thaali) }
 
       it { is_expected.to be_falsy }
     end

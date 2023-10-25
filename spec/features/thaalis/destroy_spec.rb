@@ -2,19 +2,19 @@
 
 require "rails_helper"
 
-RSpec.describe "ThaaliTakhmeen destroy" do
+RSpec.describe "Thaali destroy" do
   let(:user) { create(:user) }
-  let(:thaali) { create(:thaali_takhmeen) }
+  let(:thaali) { create(:thaali) }
 
   before do
     page.set_rack_session(user_id: user.id)
-    visit takhmeen_path(thaali)
+    visit thaali_path(thaali)
     click_button "Delete"
   end
 
   it "shows confirmation message" do
     within(".modal-body") do
-      expect(page).to have_content("Are you sure you want to delete this ThaaliTakhmeen? This action cannot be undone.")
+      expect(page).to have_content("Are you sure you want to delete this Thaali? This action cannot be undone.")
     end
   end
 
@@ -39,7 +39,7 @@ RSpec.describe "ThaaliTakhmeen destroy" do
       let(:user) { create(:viewer_user) }
 
       it { expect(page).to have_content("Not Authorized") }
-      it { expect(page).to have_current_path takhmeen_path(thaali) }
+      it { expect(page).to have_current_path thaali_path(thaali) }
     end
   end
 end

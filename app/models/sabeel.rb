@@ -1,7 +1,7 @@
 class Sabeel < ApplicationRecord
   # * Associations
-  has_many :thaali_takhmeens, dependent: :destroy
-  has_many :transactions, through: :thaali_takhmeens
+  has_many :thaalis, dependent: :destroy
+  has_many :transactions, through: :thaalis
 
   # * Callbacks
   before_save :set_up_address
@@ -41,19 +41,19 @@ class Sabeel < ApplicationRecord
 
   scope :in_phase_3, -> { where(apartment: PHASE_3) }
 
-  scope :active_takhmeen, ->(year) { joins(:thaali_takhmeens).where(thaali_takhmeens: {year: year}) }
+  scope :active_thaalis, ->(year) { joins(:thaalis).where(thaalis: {year: year}) }
 
-  scope :inactive_apt_takhmeen, ->(apt) {
+  scope :inactive_apt_thaalis, ->(apt) {
     where(apartment: apt).where("id NOT IN (
                                 SELECT sabeel_id
-                                FROM thaali_takhmeens
+                                FROM thaalis
                                 WHERE year = #{CURR_YR}
                                 )")
   }
 
-  scope :never_done_takhmeen, -> { where.missing(:thaali_takhmeens) }
+  scope :never_taken_thaali, -> { where.missing(:thaalis) }
 
-  scope :with_the_size, ->(size) { joins(:thaali_takhmeens).where(thaali_takhmeens: {size:}) }
+  scope :with_the_size, ->(size) { joins(:thaalis).where(thaalis: {size:}) }
 
   scope :phase_1_size, ->(size) { in_phase_1.with_the_size(size) }
 
@@ -61,8 +61,8 @@ class Sabeel < ApplicationRecord
 
   scope :phase_3_size, ->(size) { in_phase_3.with_the_size(size) }
 
-  def takhmeen_complete_of_last_year?
-    thaali_takhmeens.where(year: PREV_YR, is_complete: true).any?
+  def last_year_thaali_balance_due?
+    thaalis.where(year: PREV_YR, is_complete: true).any?
   end
 
   private

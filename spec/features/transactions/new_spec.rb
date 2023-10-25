@@ -5,8 +5,8 @@ require "rails_helper"
 RSpec.describe "Transaction new template" do
   before do
     page.set_rack_session(user_id: user.id)
-    thaali = create(:thaali_takhmeen)
-    visit new_takhmeen_transaction_path(thaali)
+    thaali = create(:thaali)
+    visit new_thaali_transaction_path(thaali)
   end
 
   # * Admins & Members

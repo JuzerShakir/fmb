@@ -28,20 +28,20 @@ FactoryBot.define do
     factory :sabeel_phase3_large, traits: [:associate_with_large_thaali, :in_phase_3]
 
     # * Active
-    factory :active_sabeel, traits: [:associate_with_active_takhmeen]
-    factory :active_sabeel_burhani, traits: [:associate_with_active_takhmeen, :in_burhani]
+    factory :active_sabeel, traits: [:associate_with_active_thaali]
+    factory :active_sabeel_burhani, traits: [:associate_with_active_thaali, :in_burhani]
 
     # * Inactive
-    factory :sabeel_with_previous_takhmeen, traits: [:associate_with_previous_takhmeen]
-    factory :burhani_sabeel_with_previous_takhmeen, traits: [:associate_with_previous_takhmeen, :in_burhani]
+    factory :sabeel_with_previous_thaali, traits: [:associate_with_previous_thaali]
+    factory :burhani_sabeel_with_previous_thaali, traits: [:associate_with_previous_thaali, :in_burhani]
 
     # * Thaali Size
     factory :sabeel_small_thaali, traits: [:associate_with_small_thaali]
     factory :sabeel_large_thaali, traits: [:associate_with_large_thaali]
 
-    # * Thaali Amount Pending
-    factory :sabeel_with_prev_completed_takhmeens do
-      thaali_takhmeens { [association(:prev_completed_takhmeens)] }
+    # * Thaali with NO dues pending
+    factory :sabeel_prev_thaali_no_dues do
+      thaalis { [association(:prev_thaali_no_dues)] }
     end
 
     # * TRAITS
@@ -61,20 +61,20 @@ FactoryBot.define do
       apartment { "burhani" }
     end
 
-    trait :associate_with_active_takhmeen do
-      thaali_takhmeens { [association(:active_takhmeen)] }
+    trait :associate_with_active_thaali do
+      thaalis { [association(:active_thaali)] }
     end
 
-    trait :associate_with_previous_takhmeen do
-      thaali_takhmeens { [association(:previous_takhmeen)] }
+    trait :associate_with_previous_thaali do
+      thaalis { [association(:previous_thaali)] }
     end
 
     trait :associate_with_small_thaali do
-      thaali_takhmeens { [association(:small_thaali)] }
+      thaalis { [association(:small_thaali)] }
     end
 
     trait :associate_with_large_thaali do
-      thaali_takhmeens { [association(:large_thaali)] }
+      thaalis { [association(:large_thaali)] }
     end
   end
 end

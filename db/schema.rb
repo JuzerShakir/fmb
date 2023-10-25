@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_26_231421) do
     t.index ["slug"], name: "index_sabeels_on_slug", unique: true
   end
 
-  create_table "thaali_takhmeens", force: :cascade do |t|
+  create_table "thaalis", force: :cascade do |t|
     t.bigint "sabeel_id", null: false
     t.integer "year", null: false
     t.integer "total", null: false
@@ -52,13 +52,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_26_231421) do
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["sabeel_id"], name: "index_thaali_takhmeens_on_sabeel_id"
-    t.index ["slug"], name: "index_thaali_takhmeens_on_slug", unique: true
-    t.index ["year", "sabeel_id"], name: "index_thaali_takhmeens_on_year_and_sabeel_id", unique: true
+    t.index ["sabeel_id"], name: "index_thaalis_on_sabeel_id"
+    t.index ["slug"], name: "index_thaalis_on_slug", unique: true
+    t.index ["year", "sabeel_id"], name: "index_thaalis_on_year_and_sabeel_id", unique: true
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.bigint "thaali_takhmeen_id", null: false
+    t.bigint "thaali_id", null: false
     t.integer "recipe_no", default: 1, null: false
     t.integer "mode", null: false
     t.integer "amount", null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_26_231421) do
     t.datetime "updated_at", null: false
     t.index ["recipe_no"], name: "index_transactions_on_recipe_no", unique: true
     t.index ["slug"], name: "index_transactions_on_slug", unique: true
-    t.index ["thaali_takhmeen_id"], name: "index_transactions_on_thaali_takhmeen_id"
+    t.index ["thaali_id"], name: "index_transactions_on_thaali_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -83,6 +83,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_26_231421) do
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
-  add_foreign_key "thaali_takhmeens", "sabeels"
-  add_foreign_key "transactions", "thaali_takhmeens"
+  add_foreign_key "thaalis", "sabeels"
+  add_foreign_key "transactions", "thaalis"
 end

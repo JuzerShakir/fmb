@@ -2,13 +2,13 @@
 
 require "rails_helper"
 
-RSpec.describe "ThaaliTakhmeen edit template" do
+RSpec.describe "Thaali edit template" do
   let(:user) { create(:user_other_than_viewer) }
-  let(:thaali) { create(:thaali_takhmeen) }
+  let(:thaali) { create(:thaali) }
 
   before do
     page.set_rack_session(user_id: user.id)
-    visit edit_takhmeen_path(thaali)
+    visit edit_thaali_path(thaali)
   end
 
   # * Admins & Members
@@ -16,8 +16,8 @@ RSpec.describe "ThaaliTakhmeen edit template" do
     describe "updating it" do
       context "with valid values" do
         before do
-          fill_in "thaali_takhmeen_number", with: Random.rand(1..400)
-          click_button "Update Thaali takhmeen"
+          fill_in "thaali_number", with: Random.rand(1..400)
+          click_button "Update Thaali"
         end
 
         it { expect(page).to have_content("Thaali updated successfully") }
@@ -25,8 +25,8 @@ RSpec.describe "ThaaliTakhmeen edit template" do
 
       context "with invalid values" do
         before do
-          fill_in "thaali_takhmeen_number", with: 0
-          click_button "Update Thaali takhmeen"
+          fill_in "thaali_number", with: 0
+          click_button "Update Thaali"
         end
 
         it { expect(page).to have_content("Number must be greater than 0") }

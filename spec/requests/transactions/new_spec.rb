@@ -5,9 +5,9 @@ require "rails_helper"
 RSpec.describe "Transaction New request" do
   # * NOT ACCESSIBLE
   context "when made by logged out user" do
-    let(:thaali) { create(:thaali_takhmeen) }
+    let(:thaali) { create(:thaali) }
 
-    before { get new_takhmeen_transaction_path(thaali) }
+    before { get new_thaali_transaction_path(thaali) }
 
     it { expect(response).to have_http_status(:found) }
     it { expect(response).to redirect_to login_path }
@@ -16,13 +16,13 @@ RSpec.describe "Transaction New request" do
   context "when made by -" do
     before do
       post signup_path, params: {sessions: user.attributes.merge({password: user.password})}
-      get new_takhmeen_transaction_path(thaali)
+      get new_thaali_transaction_path(thaali)
     end
 
     # * NOT ACCESSIBLE
     describe "Viewer" do
       let(:user) { create(:viewer_user) }
-      let(:thaali) { create(:thaali_takhmeen) }
+      let(:thaali) { create(:thaali) }
 
       it { expect(response).to have_http_status(:found) }
       it { expect(response).to redirect_to root_path }
@@ -32,14 +32,14 @@ RSpec.describe "Transaction New request" do
     describe "Admin or Member" do
       let(:user) { create(:user_other_than_viewer) }
 
-      context "when thaali_takhmeen IS COMPLETED" do
-        let(:thaali) { create(:completed_takhmeens) }
+      context "when thaali IS COMPLETED" do
+        let(:thaali) { create(:thaali_no_dues) }
 
-        it { expect(response).to redirect_to takhmeen_path(thaali) }
+        it { expect(response).to redirect_to thaali_path(thaali) }
       end
 
-      context "when thaali_takhmeen IS NOT COMPLETED" do
-        let(:thaali) { create(:thaali_takhmeen) }
+      context "when thaali IS NOT COMPLETED" do
+        let(:thaali) { create(:thaali) }
 
         it { expect(response).to render_template(:new) }
         it { expect(response).to have_http_status(:ok) }

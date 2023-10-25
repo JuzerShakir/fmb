@@ -12,7 +12,7 @@ class SabeelsController < ApplicationController
   end
 
   def show
-    @thaalis = @sabeel.thaali_takhmeens.order(year: :DESC)
+    @thaalis = @sabeel.thaalis.order(year: :DESC)
     @thaali_inactive = @thaalis.in_the_year(CURR_YR).empty?
   end
 
@@ -54,20 +54,20 @@ class SabeelsController < ApplicationController
 
     apartments.each do |apartment|
       total_sabeels = Sabeel.send(apartment)
-      active_takhmeens = total_sabeels.active_takhmeen(CURR_YR)
-      inactive = total_sabeels - active_takhmeens
+      active_thaalis = total_sabeels.active_thaalis(CURR_YR)
+      inactive = total_sabeels - active_thaalis
       @apts[apartment] = {}
-      @apts[apartment].store(:active_takhmeens, active_takhmeens.count)
+      @apts[apartment].store(:active_thaalis, active_thaalis.count)
       @apts[apartment].store(:total_sabeels, total_sabeels.count)
-      @apts[apartment].store(:inactive_takhmeens, inactive.count)
-      ThaaliTakhmeen.sizes.keys.each do |size|
-        @apts[apartment].store(size.to_sym, active_takhmeens.with_the_size(size).count)
+      @apts[apartment].store(:inactive_thaalis, inactive.count)
+      Thaali.sizes.keys.each do |size|
+        @apts[apartment].store(size.to_sym, active_thaalis.with_the_size(size).count)
       end
     end
   end
 
   def active
-    @s = Sabeel.send(@apt).active_takhmeen(CURR_YR).order(flat_no: :ASC).includes(:thaali_takhmeens)
+    @s = Sabeel.send(@apt).active_thaalis(CURR_YR).order(flat_no: :ASC).includes(:thaalis)
     @total = @s.count
     @pagy, @sabeels = pagy_countless(@s)
 
@@ -79,7 +79,7 @@ class SabeelsController < ApplicationController
   end
 
   def inactive
-    sabeels = Sabeel.inactive_apt_takhmeen(@apt).order(flat_no: :ASC)
+    sabeels = Sabeel.inactive_apt_thaalis(@apt).order(flat_no: :ASC)
     @total = sabeels.count
     @pagy, @sabeels = pagy_countless(sabeels)
   end

@@ -1,7 +1,7 @@
 Sabeel.destroy_all
 
 apartments = Sabeel.apartments.keys
-sizes = ThaaliTakhmeen.sizes.keys
+sizes = Thaali.sizes.keys
 modes = Transaction.modes.keys
 
 #  CREATE SABEEL
@@ -20,7 +20,7 @@ end
 sabeel_prev_thaali = Sabeel.all.sample(Sabeel.count * 0.9)
 
 sabeel_prev_thaali.each.with_index do |sabeel, i|
-  sabeel.thaali_takhmeens.create(
+  sabeel.thaalis.create(
     year: PREV_YR,
     total: 48000,
     number: i + 1,
@@ -29,9 +29,9 @@ sabeel_prev_thaali.each.with_index do |sabeel, i|
 end
 
 #  have 80% of thaalis to have a complete payment of prev year --> (864 transactions from 72 thaalis)
-prev_takhmeen_comp = ThaaliTakhmeen.in_the_year(PREV_YR).sample(sabeel_prev_thaali.count * 0.8)
+thaalis_no_dues = Thaali.in_the_year(PREV_YR).sample(sabeel_prev_thaali.count * 0.8)
 
-prev_takhmeen_comp.each do |thaali|
+thaalis_no_dues.each do |thaali|
   12.times do
     thaali.transactions.create(
       amount: 4000,
@@ -43,9 +43,9 @@ prev_takhmeen_comp.each do |thaali|
 end
 
 #  have rest of the thaalis created of prev year be pending  ---> (maximum: 198 transactions from 18 thaalis)
-prev_takhmeen_pend = ThaaliTakhmeen.pending_year(PREV_YR)
+thaalis_has_dues = Thaali.pending_year(PREV_YR)
 
-prev_takhmeen_pend.each do |thaali|
+thaalis_has_dues.each do |thaali|
   num = Random.rand(1...12)
   num.times do
     thaali.transactions.create(
@@ -61,7 +61,7 @@ end
 active_sabeel = sabeel_prev_thaali.sample(sabeel_prev_thaali.count * 0.95)
 
 active_sabeel.each.with_index do |sabeel, i|
-  sabeel.thaali_takhmeens.create(
+  sabeel.thaalis.create(
     year: CURR_YR,
     total: 60000,
     number: i + 1,
@@ -70,10 +70,10 @@ active_sabeel.each.with_index do |sabeel, i|
 end
 
 #  have ~30% thaalis complete the takhmeens of current year but only if their last year takhmeen is complete ---> (maximum thaalis: 25 thaalis)
-cur_takhmeen_comp = ThaaliTakhmeen.in_the_year(CURR_YR).sample(active_sabeel.count * 0.3)
+thaalis_no_prev_dues = Thaali.in_the_year(CURR_YR).sample(active_sabeel.count * 0.3)
 
-cur_takhmeen_comp.each do |thaali|
-  if thaali.sabeel.takhmeen_complete_of_last_year?
+thaalis_no_prev_dues.each do |thaali|
+  if thaali.sabeel.last_year_thaali_balance_due?
     12.times do
       thaali.transactions.create(
         amount: 5000,
@@ -86,9 +86,9 @@ cur_takhmeen_comp.each do |thaali|
 end
 
 #  have takhmeen pending for rest (~70%) of the thaalis created of current year
-cur_takhmeen_pend = ThaaliTakhmeen.pending_year(CURR_YR)
+thaalis_has_prev_dues = Thaali.pending_year(CURR_YR)
 
-cur_takhmeen_pend.each do |thaali|
+thaalis_has_prev_dues.each do |thaali|
   num = Random.rand(1...12)
   num.times do
     thaali.transactions.create(
@@ -100,6 +100,6 @@ cur_takhmeen_pend.each do |thaali|
   end
 end
 
-# *CREATES TOTAL Sabeel --> 1000
-# *CREATES TOTAL ThaaliTakhmeens --> 1755 (900 + 855)
-# *CREATES TOTAL Transactions --> ~16k
+# *CREATES TOTAL Sabeel --> 100
+# *CREATES TOTAL Thaalis --> 175 (90 + 85)
+# *CREATES TOTAL Transactions --> ~1.1k

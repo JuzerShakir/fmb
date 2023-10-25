@@ -60,7 +60,7 @@ en:
               not_a_number: *not_a_number
             mobile:
               not_a_number: *not_a_number
-        thaali_takhmeen:
+        thaali:
           attributes:
             number:
               not_a_number: *not_a_number
@@ -106,7 +106,7 @@ en:
       success: "Sabeel updated successfully"
     destroy:
       success: "Sabeel deleted successfully"
-  thaali_takhmeens:
+  thaalis:
     create:
       success: "Thaali created successfully"
     update:

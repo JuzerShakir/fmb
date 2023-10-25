@@ -37,7 +37,7 @@ RSpec.describe "Transaction index template" do
 
       it "thaali number" do
         transactions.each do |transaction|
-          number = transaction.thaali_takhmeen.number
+          number = transaction.thaali.number
           expect(page).to have_content(number)
         end
       end

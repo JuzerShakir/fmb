@@ -30,7 +30,7 @@ RSpec.describe "Transaction destroy" do
     describe "Admin or Member" do
       let(:user) { create(:user_other_than_viewer) }
 
-      it { expect(page).to have_current_path takhmeen_path(transaction.thaali_takhmeen) }
+      it { expect(page).to have_current_path thaali_path(transaction.thaali) }
       it { expect(page).to have_content("Transaction destroyed successfully") }
     end
 

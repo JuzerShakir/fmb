@@ -2,15 +2,15 @@
 
 require "rails_helper"
 
-RSpec.describe "ThaaliTakhmeen pending template" do
+RSpec.describe "Thaali pending template" do
   let(:user) { create(:user) }
-  let(:thaalis) { ThaaliTakhmeen.first(2) }
+  let(:thaalis) { Thaali.first(2) }
 
   before do
     page.set_rack_session(user_id: user.id)
-    create_list(:active_takhmeen, 2)
+    create_list(:active_thaali, 2)
 
-    visit thaali_takhmeens_pending_path(CURR_YR)
+    visit thaalis_pending_path(CURR_YR)
   end
 
   # * ALL user types

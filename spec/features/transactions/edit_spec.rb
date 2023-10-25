@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Transaction edit template" do
   let!(:transaction) { create(:transaction) }
-  let(:total) { transaction.thaali_takhmeen.total }
+  let(:total) { transaction.thaali.total }
 
   before do
     page.set_rack_session(user_id: user.id)

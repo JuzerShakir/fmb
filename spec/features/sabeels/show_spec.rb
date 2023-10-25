@@ -28,20 +28,20 @@ RSpec.describe "Sabeel Show template" do
 
     describe "thaali details" do
       context "when it's NOT actively taking it" do
-        it { expect(page).to have_button("New Takhmeen") }
+        it { expect(page).to have_button("New Thaali") }
       end
 
       context "when it's ACTIVELY taking it" do
         let(:active_sabeel) { create(:active_sabeel) }
-        let(:count) { active_sabeel.thaali_takhmeens.count }
-        let(:thaali) { active_sabeel.thaali_takhmeens.first }
+        let(:count) { active_sabeel.thaalis.count }
+        let(:thaali) { active_sabeel.thaalis.first }
 
         before { visit sabeel_path(active_sabeel) }
 
-        it { expect(page).not_to have_button("New Takhmeen") }
+        it { expect(page).not_to have_button("New Thaali") }
 
         describe "show all its details" do
-          it { expect(page).to have_content("Total number of Takhmeens: #{count}") }
+          it { expect(page).to have_content("Total number of Thaalis: #{count}") }
           it { expect(page).to have_content(thaali.year) }
           it { expect(page).to have_content(number_with_delimiter(thaali.total)) }
           it { expect(page).to have_content(number_with_delimiter(thaali.balance)) }
