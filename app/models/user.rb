@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   # * Callbacks
-  before_save :titleize_name, if: :will_save_change_to_name?
+  include NameCallback
 
   # * FRIENDLY_ID
   include ITSFriendlyId
@@ -22,10 +22,4 @@ class User < ApplicationRecord
 
   # * Enums
   enum :role, %i[admin member viewer]
-
-  private
-
-  def titleize_name
-    self.name = name.split.map(&:capitalize).join(" ")
-  end
 end

@@ -4,7 +4,7 @@ class Sabeel < ApplicationRecord
   has_many :transactions, through: :thaalis
 
   # * Callbacks
-  before_save :titleize_name, if: :will_save_change_to_name?
+  include NameCallback
 
   # * FRIENDLY_ID
   include ITSFriendlyId
@@ -31,14 +31,10 @@ class Sabeel < ApplicationRecord
   enum :apartment, %i[mohammedi taiyebi burhani maimoon_a maimoon_b]
 
   # * Scopes
-  scope :active_thaalis, ->(year) { joins(:thaalis).where(thaalis: {year: year}) }
+  scope :active_thaalis, ->(year) { joins(:thaalis).where(thaalis: {year:}) }
 
-  scope :inactive_apt_thaalis, ->(apt) {
-    where(apartment: apt).where("id NOT IN (
-                                SELECT sabeel_id
-                                FROM thaalis
-                                WHERE year = #{CURR_YR}
-                                )")
+  scope :inactive_apt_thaalis, ->(apartemnt) {
+    where(apartment: apartemnt).where("id NOT IN (SELECT sabeel_id FROM thaalis WHERE year = #{CURR_YR})")
   }
 
   scope :never_taken_thaali, -> { where.missing(:thaalis) }
@@ -51,11 +47,5 @@ class Sabeel < ApplicationRecord
 
   def last_year_thaali_balance_due?
     thaalis.where(year: PREV_YR, is_complete: true).any?
-  end
-
-  private
-
-  def titleize_name
-    self.name = name.split.map(&:capitalize).join(" ") unless name.nil?
   end
 end
