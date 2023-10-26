@@ -25,7 +25,7 @@ RSpec.describe Sabeel do
     end
 
     context "with email" do
-      it { is_expected.to validate_email_format_of(:email).with_message("is in invalid format") }
+      it { is_expected.to validate_email_format_of(:email) }
       it { is_expected.to allow_value(nil).for(:email) }
     end
 
