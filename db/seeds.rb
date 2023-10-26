@@ -1,7 +1,5 @@
 Sabeel.destroy_all
 
-modes = Transaction.modes.keys
-
 #  CREATE SABEEL
 100.times do |i|
   Sabeel.create(
@@ -35,7 +33,7 @@ thaalis_no_dues.each do |thaali|
       amount: 4000,
       date: Faker::Date.in_date_period(year: PREV_YR),
       recipe_no: Random.rand(1..2000000),
-      mode: modes.sample
+      mode: MODES.sample
     )
   end
 end
@@ -50,7 +48,7 @@ thaalis_has_dues.each do |thaali|
       amount: 4000,
       date: Faker::Date.in_date_period(year: PREV_YR),
       recipe_no: Random.rand(2000001..3000000),
-      mode: modes.sample
+      mode: MODES.sample
     )
   end
 end
@@ -63,7 +61,7 @@ active_sabeel.each.with_index do |sabeel, i|
     year: CURR_YR,
     total: 60000,
     number: i + 1,
-    size: sizes.sample
+    size: SIZE.sample
   )
 end
 
@@ -77,7 +75,7 @@ thaalis_no_prev_dues.each do |thaali|
         amount: 5000,
         date: Faker::Date.in_date_period(year: CURR_YR),
         recipe_no: Random.rand(3000001..6000000),
-        mode: modes.sample
+        mode: MODES.sample
       )
     end
   end
@@ -93,7 +91,7 @@ thaalis_has_prev_dues.each do |thaali|
       amount: 5000,
       date: Faker::Date.in_date_period(year: CURR_YR),
       recipe_no: Random.rand(6000000..10000000),
-      mode: modes.sample
+      mode: MODES.sample
     )
   end
 end

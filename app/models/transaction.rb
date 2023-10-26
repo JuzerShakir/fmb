@@ -5,6 +5,9 @@ class Transaction < ApplicationRecord
   # * Callbacks
   after_commit :add_all_transaction_amounts_to_paid_amount
 
+  # * Enums
+  enum :mode, MODES
+
   # * FRIENDLY_ID
   extend FriendlyId
   friendly_id :recipe_no, use: [:slugged, :finders, :history]
@@ -18,53 +21,42 @@ class Transaction < ApplicationRecord
     Arel.sql("to_char(\"#{table_name}\".\"recipe_no\", '99999999')")
   end
 
-  # * Validations
-  # mode
-  validates :mode, presence: true
-  # date
-  validates :date, presence: true
-  validates_date :date, on_or_before: :today, if: :will_save_change_to_date?
-  # amount
-  validates :amount, :recipe_no, numericality: {only_integer: true, greater_than: 0}
-  # recipe no
-  validates :recipe_no, uniqueness: true
-
-  # * Custom Validations
-  validate :amount_should_be_less_than_the_balance, if: :will_save_change_to_amount?
-
-  def amount_should_be_less_than_the_balance
-    if persisted?
-      balance = amount_was + thaali.balance
-      errors.add(:amount, "cannot be greater than the balance") if amount > balance
-
-    elsif present? && (amount > thaali.balance)
-      errors.add(:amount, "cannot be greater than the balance")
-    end
-  end
-
-  # * Enums
-  enum :mode, %i[cash cheque bank]
-
   # * Scopes
   scope :that_occured_on, ->(date) { where(date: date) }
+
+  # * Validations
+  # amount
+  validates :amount, :recipe_no, numericality: {only_integer: true, greater_than: 0}
+  validate :amount_to_be_less_than_balance, if: :will_save_change_to_amount?
+  # date
+  validates_date :date, on_or_before: :today, if: :will_save_change_to_date?
+  # date & mode
+  validates :mode, :date, presence: true
+  # recipe no
+  validates :recipe_no, uniqueness: true
 
   private
 
   def add_all_transaction_amounts_to_paid_amount
     transactions = thaali.transactions
+    total_paid = 0
 
     if transactions.any?
-      total_paid = 0
-
-      transactions.each do |transaction|
-        total_paid += transaction.amount if transaction.persisted?
-      end
-
+      total_paid = transactions.map(&:amount).sum
       thaali.update(paid: total_paid)
 
-    # below logic won't run if thaali instance has been destroyed
+      # below logic won't run if thaali instance has been destroyed
     elsif thaali.persisted?
-      thaali.update(paid: 0)
+      thaali.update(paid: total_paid)
+    end
+  end
+
+  # * Custom Validations
+  def amount_to_be_less_than_balance
+    balance = persisted? ? amount_was + thaali.balance : thaali.balance
+
+    if amount > balance
+      errors.add(:amount, "cannot be greater than the balance")
     end
   end
 end

@@ -23,7 +23,7 @@ RSpec.describe "Transaction new template" do
       let(:new_transaction) { Transaction.last }
 
       before do
-        select Transaction.modes.keys.sample.to_s.titleize, from: :transaction_mode
+        select MODES.sample.titleize, from: :transaction_mode
         click_button "Create Transaction"
       end
 
