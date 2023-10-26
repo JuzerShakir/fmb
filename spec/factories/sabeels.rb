@@ -12,21 +12,6 @@ FactoryBot.define do
     mobile { Faker::Number.number(digits: 10) }
     email { Faker::Internet.free_email }
 
-    # * PHASE 1
-    factory :sabeel_phase1, traits: [:in_phase_1]
-    factory :sabeel_phase1_small, traits: [:associate_with_small_thaali, :in_phase_1]
-    factory :sabeel_phase1_large, traits: [:associate_with_large_thaali, :in_phase_1]
-
-    # * PHASE 2
-    factory :sabeel_phase2, traits: [:in_phase_2]
-    factory :sabeel_phase2_small, traits: [:associate_with_small_thaali, :in_phase_2]
-    factory :sabeel_phase2_large, traits: [:associate_with_large_thaali, :in_phase_2]
-
-    # * PHASE 3
-    factory :sabeel_phase3, traits: [:in_phase_3]
-    factory :sabeel_phase3_small, traits: [:associate_with_small_thaali, :in_phase_3]
-    factory :sabeel_phase3_large, traits: [:associate_with_large_thaali, :in_phase_3]
-
     # * Active
     factory :active_sabeel, traits: [:associate_with_active_thaali]
     factory :active_sabeel_burhani, traits: [:associate_with_active_thaali, :in_burhani]
@@ -45,18 +30,6 @@ FactoryBot.define do
     end
 
     # * TRAITS
-    trait :in_phase_1 do
-      apartment { PHASE_1.sample }
-    end
-
-    trait :in_phase_2 do
-      apartment { PHASE_2.sample }
-    end
-
-    trait :in_phase_3 do
-      apartment { PHASE_3.sample }
-    end
-
     trait :in_burhani do
       apartment { "burhani" }
     end

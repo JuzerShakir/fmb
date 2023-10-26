@@ -72,33 +72,6 @@ RSpec.describe Sabeel do
   end
 
   context "when using scope" do
-    context "with Phases" do
-      let(:phase_1_sabeel) { create(:sabeel_phase1) }
-      let(:phase_2_sabeel) { create(:sabeel_phase2) }
-      let(:phase_3_sabeel) { create(:sabeel_phase3) }
-
-      describe "returns sabeels of only Phase 1" do
-        subject { described_class.in_phase_1 }
-
-        it { is_expected.to match_array(phase_1_sabeel) }
-        it { is_expected.not_to match_array(phase_2_sabeel) }
-      end
-
-      describe "returns sabeels of only Phase 2" do
-        subject { described_class.in_phase_2 }
-
-        it { is_expected.to match_array(phase_2_sabeel) }
-        it { is_expected.not_to match_array(phase_1_sabeel) }
-      end
-
-      describe "returns sabeels returns sabeels of only Phase 3" do
-        subject { described_class.in_phase_3 }
-
-        it { is_expected.to match_array(phase_3_sabeel) }
-        it { is_expected.not_to match_array(phase_2_sabeel) }
-      end
-    end
-
     context "with thaali" do
       thaali_size = :small
 
@@ -126,38 +99,6 @@ RSpec.describe Sabeel do
 
         it { is_expected.to match_array(small_thaali) }
         it { is_expected.not_to match_array(large_thaali) }
-      end
-
-      context "with different Phases" do
-        describe "returns thaalis of Phase 1 for the given size" do
-          subject { described_class.phase_1_size(thaali_size) }
-
-          let(:phase_1_small) { create(:sabeel_phase1_small) }
-          let(:phase_1_large) { create(:sabeel_phase1_large) }
-
-          it { is_expected.to match_array(phase_1_small) }
-          it { is_expected.not_to match_array(phase_1_large) }
-        end
-
-        describe "returns thaalis of Phase 2 for the given size" do
-          subject { described_class.phase_2_size(thaali_size) }
-
-          let(:phase_2_small) { create(:sabeel_phase2_small) }
-          let(:phase_2_large) { create(:sabeel_phase2_large) }
-
-          it { is_expected.to match_array(phase_2_small) }
-          it { is_expected.not_to match_array(phase_2_large) }
-        end
-
-        describe "returns thaalis of Phase 3 for the given size" do
-          subject { described_class.phase_3_size(thaali_size) }
-
-          let(:phase_3_small) { create(:sabeel_phase3_small) }
-          let(:phase_3_large) { create(:sabeel_phase3_large) }
-
-          it { is_expected.to match_array(phase_3_small) }
-          it { is_expected.not_to match_array(phase_3_large) }
-        end
       end
     end
 
