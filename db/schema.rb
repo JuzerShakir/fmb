@@ -56,7 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_26_231421) do
 
   create_table "transactions", force: :cascade do |t|
     t.bigint "thaali_id", null: false
-    t.integer "recipe_no", default: 1, null: false
+    t.integer "recipe_no", null: false
     t.integer "mode", null: false
     t.integer "amount", null: false
     t.date "date", null: false
