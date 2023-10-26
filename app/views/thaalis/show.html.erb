@@ -23,7 +23,7 @@
 } %>
 
 <%# * Transactions %>
-<%= button_to "New Transaction", new_thaali_transaction_path(@thaali), method: :get, class: "btn btn-success mt-5 vstack mx-auto" unless @thaali.is_complete %>
+<%= button_to "New Transaction", new_thaali_transaction_path(@thaali), method: :get, class: "btn btn-success mt-5 vstack mx-auto" unless @thaali.dues_cleared? %>
 
 <p class="fw-bold mt-3 text-center text-info">Total number of Transactions: <%= @transactions.count %></p>
 

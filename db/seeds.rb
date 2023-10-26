@@ -1,6 +1,5 @@
 Sabeel.destroy_all
 
-sizes = Thaali.sizes.keys
 modes = Transaction.modes.keys
 
 #  CREATE SABEEL
@@ -23,7 +22,7 @@ sabeel_prev_thaali.each.with_index do |sabeel, i|
     year: PREV_YR,
     total: 48000,
     number: i + 1,
-    size: sizes.sample
+    size: SIZES.sample
   )
 end
 
@@ -72,7 +71,7 @@ end
 thaalis_no_prev_dues = Thaali.in_the_year(CURR_YR).sample(active_sabeel.count * 0.3)
 
 thaalis_no_prev_dues.each do |thaali|
-  if thaali.sabeel.last_year_thaali_balance_due?
+  if thaali.sabeel.last_year_thaali_dues_cleared?
     12.times do
       thaali.transactions.create(
         amount: 5000,

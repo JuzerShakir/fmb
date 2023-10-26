@@ -65,7 +65,7 @@ class TransactionsController < ApplicationController
   def check_if_thaali_has_balance
     @thaali = Thaali.find(params[:thaali_id])
 
-    if @thaali.is_complete
+    if @thaali.dues_cleared?
       redirect_back fallback_location: thaali_path(@thaali), notice: t(".notice")
     end
   end

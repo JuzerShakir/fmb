@@ -69,28 +69,28 @@ class ThaalisController < ApplicationController
       thaalis = Thaali.in_the_year(y)
       @years[y] = {}
       @years[y].store(:total, thaalis.pluck(:total).sum)
-      @years[y].store(:balance, thaalis.pluck(:balance).sum)
+      @years[y].store(:balance, thaalis.map(&:balance).sum)
       @years[y].store(:count, thaalis.count)
       @years[y].store(:pending, Thaali.pending_year(y).count)
       @years[y].store(:complete, Thaali.completed_year(y).count)
-      Thaali.sizes.keys.each do |size|
+      SIZES.each do |size|
         @years[y].store(size.to_sym, thaalis.send(size).count)
       end
     end
   end
 
   def complete
-    @tt = Thaali.includes(:sabeel).completed_year(@year)
+    @thaalis = Thaali.includes(:sabeel).completed_year(@year)
     set_pagy_thaalis_total
   end
 
   def pending
-    @tt = Thaali.includes(:sabeel).pending_year(@year)
+    @thaalis = Thaali.includes(:sabeel).pending_year(@year)
     set_pagy_thaalis_total
   end
 
   def all
-    @tt = Thaali.includes(:sabeel).in_the_year(@year)
+    @thaalis = Thaali.includes(:sabeel).in_the_year(@year)
     set_pagy_thaalis_total
   end
 
@@ -109,8 +109,8 @@ class ThaalisController < ApplicationController
   end
 
   def set_pagy_thaalis_total
-    @total = @tt.count
-    @pagy, @thaalis = pagy_countless(@tt)
+    @total = @thaalis.count
+    @pagy, @thaalis = pagy_countless(@thaalis)
   end
 
   def check_thaali_for_current_year

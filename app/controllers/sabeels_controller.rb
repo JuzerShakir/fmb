@@ -59,7 +59,7 @@ class SabeelsController < ApplicationController
       @apts[apartment].store(:active_thaalis, active_thaalis.count)
       @apts[apartment].store(:total_sabeels, total_sabeels.count)
       @apts[apartment].store(:inactive_thaalis, inactive.count)
-      Thaali.sizes.keys.each do |size|
+      SIZES.each do |size|
         @apts[apartment].store(size.to_sym, active_thaalis.with_the_size(size).count)
       end
     end

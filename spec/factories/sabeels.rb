@@ -25,7 +25,7 @@ FactoryBot.define do
     factory :sabeel_large_thaali, traits: [:associate_with_large_thaali]
 
     # * Thaali with NO dues pending
-    factory :sabeel_prev_thaali_no_dues do
+    factory :sabeel_prev_thaali_dues_cleared do
       thaalis { [association(:prev_thaali_no_dues)] }
     end
 

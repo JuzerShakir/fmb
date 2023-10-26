@@ -12,7 +12,7 @@
     <% end %>
 
     <%= f.input :number, required: true %>
-    <%= f.input :size, collection: Thaali.sizes.keys.map { |size| [size.titleize, size] } %>
+    <%= f.input :size, collection: SIZES.map { |size| [size.titleize, size] } %>
     <%= f.input :total, required: true %>
     <%= f.button :submit %>
   <% end %>

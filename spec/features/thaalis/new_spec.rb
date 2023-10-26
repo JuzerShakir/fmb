@@ -43,7 +43,7 @@ RSpec.describe "Thaali new template" do
 
       context "with valid values" do
         before do
-          select thaali[:size].to_s.titleize, from: :thaali_size
+          select thaali[:size].titleize, from: :thaali_size
           click_button "Create Thaali"
         end
 

@@ -46,7 +46,7 @@ class Sabeel < ApplicationRecord
     "#{apartment.titleize} #{flat_no}"
   end
 
-  def last_year_thaali_balance_due?
-    thaalis.where(year: PREV_YR, is_complete: true).any?
+  def last_year_thaali_dues_cleared?
+    thaalis.completed_year(PREV_YR).present?
   end
 end

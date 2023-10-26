@@ -24,7 +24,7 @@ RSpec.describe "Thaali Stats template" do
 
     it "Balance" do
       within("div##{CURR_YR}") do
-        balance = thaalis.pluck(:balance).sum
+        balance = thaalis.map(&:balance).sum
         expect(page).to have_content(number_with_delimiter(balance))
       end
     end
@@ -45,8 +45,8 @@ RSpec.describe "Thaali Stats template" do
 
     it "each size" do
       within("div##{CURR_YR}") do
-        Thaali.sizes.keys.each do |size|
-          expect(page).to have_content("#{size.humanize}: #{thaalis.send(size).count}")
+        SIZES.each do |size|
+          expect(page).to have_content("#{size.titleize}: #{thaalis.send(size).count}")
         end
       end
     end

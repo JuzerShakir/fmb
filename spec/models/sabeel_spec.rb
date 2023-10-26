@@ -102,19 +102,16 @@ RSpec.describe Sabeel do
       end
     end
 
-    context "with Apartment" do
+    context "with Apartment - Burhani" do
+      let(:inactive_thaali) { create(:burhani_sabeel_with_previous_thaali) }
+      let(:active_thaali) { create(:active_sabeel_burhani) }
+
       describe "returns sabeels who are currently not taking thaali" do
-        subject(:thaali) { described_class.inactive_apt_thaalis("burhani") }
+        let(:thaalis) { described_class.inactive_apt_thaalis("burhani") }
 
-        it {
-          inactive_thaali = create(:burhani_sabeel_with_previous_thaali)
-          expect(thaali).to contain_exactly(inactive_thaali)
-        }
+        it { expect(thaalis).to include(inactive_thaali) }
 
-        it {
-          active_thaali = create(:active_sabeel_burhani)
-          expect(thaali).not_to contain_exactly(active_thaali)
-        }
+        it { expect(thaalis).not_to include(active_thaali) }
       end
     end
   end
@@ -128,17 +125,17 @@ RSpec.describe Sabeel do
       it { is_expected.to eq "#{sabeel.apartment.titleize} #{sabeel.flat_no}" }
     end
 
-    describe "last_year_thaali_balance_due?" do
-      context "when sabeel has balance due" do
-        subject { sabeel.last_year_thaali_balance_due? }
+    describe "last_year_thaali_dues_cleared?" do
+      context "when sabeel has dues cleared" do
+        subject { sabeel.last_year_thaali_dues_cleared? }
 
-        let(:sabeel) { create(:sabeel_prev_thaali_no_dues) }
+        let(:sabeel) { create(:sabeel_prev_thaali_dues_cleared) }
 
         it { is_expected.to be_truthy }
       end
 
-      context "when sabeel has NO balance due" do
-        subject { sabeel.last_year_thaali_balance_due? }
+      context "when sabeel has dues" do
+        subject { sabeel.last_year_thaali_dues_cleared? }
 
         let(:sabeel) { create(:sabeel_with_previous_thaali) }
 

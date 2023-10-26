@@ -44,8 +44,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_26_231421) do
     t.integer "year", null: false
     t.integer "total", null: false
     t.integer "paid", default: 0, null: false
-    t.integer "balance", null: false
-    t.boolean "is_complete", default: false, null: false
     t.integer "number", null: false
     t.integer "size", null: false
     t.string "slug", null: false

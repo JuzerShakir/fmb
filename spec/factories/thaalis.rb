@@ -6,10 +6,8 @@ FactoryBot.define do
     year { Random.rand(1..CURR_YR) }
     total { Faker::Number.number(digits: 5) }
     paid { 0 }
-    balance { total - paid }
-    is_complete { false }
     number { Random.rand(1..10000) }
-    sequence :size, Thaali.sizes.keys.cycle
+    sequence :size, SIZES.cycle
 
     trait :current_year do
       sabeel
@@ -20,7 +18,7 @@ FactoryBot.define do
       year { PREV_YR }
     end
 
-    trait :complete do
+    trait :cleared do
       total { Faker::Number.number(digits: 5) }
       paid { total }
     end
@@ -35,9 +33,9 @@ FactoryBot.define do
 
     factory :active_thaali, traits: [:current_year]
     factory :previous_thaali, traits: [:previous_year]
-    factory :thaali_no_dues, traits: [:complete]
-    factory :prev_thaali_no_dues, traits: [:previous_year, :complete]
-    factory :active_thaali_no_dues, traits: [:current_year, :complete]
+    factory :thaali_dues_cleared, traits: [:cleared]
+    factory :prev_thaali_no_dues, traits: [:previous_year, :cleared]
+    factory :active_thaali_no_dues, traits: [:current_year, :cleared]
 
     # * Size
     factory :small_thaali, traits: [:small]

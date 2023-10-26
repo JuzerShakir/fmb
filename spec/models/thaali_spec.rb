@@ -37,33 +37,6 @@ RSpec.describe Thaali do
       it { is_expected.to validate_numericality_of(:paid).is_greater_than_or_equal_to(0) }
       it { expect(thaali.paid).to be_eql(0) }
     end
-
-    context "with is_complete" do
-      it "must set its value to false after instance is persisted" do
-        expect(thaali.is_complete).to be_falsey
-      end
-    end
-  end
-
-  context "when saving" do
-    describe "#update_balance" do
-      it { is_expected.to callback(:update_balance).before(:save) }
-
-      it "must instantiate balance attribute with same amount as total attribute amount" do
-        thaali.save
-        expect(thaali.balance).to eq(thaali.total)
-      end
-    end
-
-    describe "#check_if_balance_is_zero" do
-      it { is_expected.to callback(:check_if_balance_is_zero).before(:save) }
-
-      it "must set is_complete attribute to truthy" do
-        thaali.paid = thaali.total = Faker::Number.number(digits: 5)
-        thaali.save
-        expect(thaali.is_complete).to be_truthy
-      end
-    end
   end
 
   context "when using scope" do
@@ -81,7 +54,7 @@ RSpec.describe Thaali do
     end
 
     describe ".pending" do
-      let!(:completed_thaalis) { create(:thaali_no_dues) }
+      let!(:completed_thaalis) { create(:thaali_dues_cleared) }
 
       it "returns all the thaalis for whos takhmeen is pending" do
         expect(described_class.pending).to contain_exactly(current_year_thaali, previous_year_thaali)
