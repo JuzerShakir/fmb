@@ -35,7 +35,7 @@ RSpec.describe "Transaction New request" do
       context "when thaali IS COMPLETED" do
         let(:thaali) { create(:thaali_dues_cleared) }
 
-        it { expect(response).to redirect_to thaali_path(thaali) }
+        it { expect(response).to redirect_to thaali }
       end
 
       context "when thaali IS NOT COMPLETED" do

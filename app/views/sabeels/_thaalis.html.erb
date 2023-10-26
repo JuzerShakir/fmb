@@ -17,7 +17,7 @@
 <% @thaalis.each do |thaali| %>
     <div id="thaali_<%= thaali.year %>" class="row py-3 border-bottom border-light">
         <div id="<%= thaali.year %>" class="col">
-            <%= button_to thaali.year, thaali_path(thaali), method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
+            <%= button_to thaali.year, thaali, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
         </div>
         <div class="col text-danger fw-bold">
             <%= rupees thaali.total %>

@@ -48,7 +48,7 @@ class TransactionsController < ApplicationController
 
   def destroy
     @transaction.destroy
-    redirect_to thaali_path(@thaali), success: t(".success")
+    redirect_to @thaali, success: t(".success")
   end
 
   private
@@ -66,7 +66,7 @@ class TransactionsController < ApplicationController
     @thaali = Thaali.find(params[:thaali_id])
 
     if @thaali.dues_cleared?
-      redirect_back fallback_location: thaali_path(@thaali), notice: t(".notice")
+      redirect_back fallback_location: @thaali, notice: t(".notice")
     end
   end
 end

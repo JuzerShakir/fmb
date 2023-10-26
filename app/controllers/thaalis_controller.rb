@@ -42,7 +42,7 @@ class ThaalisController < ApplicationController
 
     if @thaali.valid?
       @thaali.save
-      redirect_to thaali_path(@thaali), success: t(".success")
+      redirect_to @thaali, success: t(".success")
     else
       render :new, status: :unprocessable_entity
     end
@@ -50,7 +50,7 @@ class ThaalisController < ApplicationController
 
   def update
     if @thaali.update(thaalis_params)
-      redirect_to thaali_path(@thaali), success: t(".success")
+      redirect_to @thaali, success: t(".success")
     else
       render :edit, status: :unprocessable_entity
     end

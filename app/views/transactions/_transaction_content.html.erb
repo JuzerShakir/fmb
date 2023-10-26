@@ -7,7 +7,7 @@
       <%= rupees transaction.amount %>
     </div>
     <div class="col">
-      <%= button_to transaction.thaali.number, thaali_path(transaction.thaali), method: :get, class: "btn btn-outline-secondary btn-sm py-1" %>
+      <%= button_to transaction.thaali.number, transaction.thaali, method: :get, class: "btn btn-outline-secondary btn-sm py-1" %>
     </div>
     <div class="col text-secondary">
       <%= time_ago_in_words(transaction.date) %>
