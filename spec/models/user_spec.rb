@@ -37,8 +37,8 @@ RSpec.describe User do
   end
 
   context "when saving" do
-    describe "#titleize_name" do
-      it { is_expected.to callback(:titleize_name).before(:save).if(:will_save_change_to_name?) }
+    describe "#capitalize_name" do
+      it { is_expected.to callback(:capitalize_name).before(:save).if(:will_save_change_to_name?) }
 
       it "must return capitalized name" do
         user.name = Faker::Name.name.swapcase
