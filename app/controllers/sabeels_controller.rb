@@ -49,10 +49,9 @@ class SabeelsController < ApplicationController
   end
 
   def stats
-    apartments = Sabeel.apartments.keys.map(&:to_sym)
     @apts = {}
 
-    apartments.each do |apartment|
+    APARTMENTS.each do |apartment|
       total_sabeels = Sabeel.send(apartment)
       active_thaalis = total_sabeels.active_thaalis(CURR_YR)
       inactive = total_sabeels - active_thaalis

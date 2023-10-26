@@ -8,7 +8,7 @@ class Sabeel < ApplicationRecord
 
   # * Enums
   # apartment
-  enum :apartment, %i[mohammedi taiyebi burhani maimoon_a maimoon_b]
+  enum :apartment, APARTMENTS
 
   # * FRIENDLY_ID
   include ITSFriendlyId

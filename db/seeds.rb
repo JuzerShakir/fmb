@@ -1,6 +1,5 @@
 Sabeel.destroy_all
 
-apartments = Sabeel.apartments.keys
 sizes = Thaali.sizes.keys
 modes = Transaction.modes.keys
 
@@ -9,7 +8,7 @@ modes = Transaction.modes.keys
   Sabeel.create(
     its: 10000000 + i,
     name: Faker::Name.name,
-    apartment: apartments.sample,
+    apartment: APARTMENTS.sample,
     flat_no: Faker::Number.within(range: 1..9999),
     mobile: Faker::Number.number(digits: 10),
     email: Faker::Internet.free_email

@@ -7,7 +7,7 @@ FactoryBot.define do
     # rubocop:enable RSpec/NoExpectationExample
 
     name { Faker::Name.name }
-    apartment { Sabeel.apartments.keys.sample }
+    apartment { APARTMENTS.sample }
     flat_no { Faker::Number.within(range: 1..9999) }
     mobile { Faker::Number.number(digits: 10) }
     email { Faker::Internet.free_email }
