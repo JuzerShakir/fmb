@@ -69,15 +69,6 @@ RSpec.describe Sabeel do
         expect(sabeel.name).to eq(name_titleize_format)
       end
     end
-
-    describe "#set_up_address" do
-      it { is_expected.to callback(:set_up_address).before(:save) }
-
-      it "must be in a specific format" do
-        sabeel.save
-        expect(sabeel.address).to match(/\A[a-z]+\s[a-z]?\s{1}?\d+\z/i)
-      end
-    end
   end
 
   context "when using scope" do
@@ -187,21 +178,31 @@ RSpec.describe Sabeel do
     end
   end
 
-  context "when using instance methods" do
-    describe "returns true if sabeel has NO previous year dues pending" do
-      subject { sabeel.last_year_thaali_balance_due? }
+  context "when using instance method" do
+    describe "address" do
+      subject { sabeel.address }
 
-      let(:sabeel) { create(:sabeel_prev_thaali_no_dues) }
+      let(:sabeel) { create(:sabeel) }
 
-      it { is_expected.to be_truthy }
+      it { is_expected.to eq "#{sabeel.apartment.titleize} #{sabeel.flat_no}" }
     end
 
-    describe "returns false if sabeel has previous year dues pending" do
-      subject { sabeel.last_year_thaali_balance_due? }
+    describe "last_year_thaali_balance_due?" do
+      context "when sabeel has balance due" do
+        subject { sabeel.last_year_thaali_balance_due? }
 
-      let(:sabeel) { create(:sabeel_with_previous_thaali) }
+        let(:sabeel) { create(:sabeel_prev_thaali_no_dues) }
 
-      it { is_expected.to be_falsy }
+        it { is_expected.to be_truthy }
+      end
+
+      context "when sabeel has NO balance due" do
+        subject { sabeel.last_year_thaali_balance_due? }
+
+        let(:sabeel) { create(:sabeel_with_previous_thaali) }
+
+        it { is_expected.to be_falsy }
+      end
     end
   end
 end

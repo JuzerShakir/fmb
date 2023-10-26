@@ -5,7 +5,6 @@ class CreateSabeel < ActiveRecord::Migration[7.0]
       t.string :name, null: false
       t.integer :apartment, null: false
       t.integer :flat_no, null: false
-      t.string :address, null: false
       t.integer :mobile, limit: 8, null: false
       t.string :email
       t.string :slug, null: false, index: {unique: true}

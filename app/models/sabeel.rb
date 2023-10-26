@@ -4,7 +4,6 @@ class Sabeel < ApplicationRecord
   has_many :transactions, through: :thaalis
 
   # * Callbacks
-  before_save :set_up_address
   before_save :titleize_name, if: :will_save_change_to_name?
 
   # * FRIENDLY_ID
@@ -61,6 +60,10 @@ class Sabeel < ApplicationRecord
 
   scope :phase_3_size, ->(size) { in_phase_3.with_the_size(size) }
 
+  def address
+    "#{apartment.titleize} #{flat_no}"
+  end
+
   def last_year_thaali_balance_due?
     thaalis.where(year: PREV_YR, is_complete: true).any?
   end
@@ -69,9 +72,5 @@ class Sabeel < ApplicationRecord
 
   def titleize_name
     self.name = name.split.map(&:capitalize).join(" ") unless name.nil?
-  end
-
-  def set_up_address
-    self.address = "#{apartment.titleize} #{flat_no}"
   end
 end
