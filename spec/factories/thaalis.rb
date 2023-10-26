@@ -34,8 +34,8 @@ FactoryBot.define do
     factory :active_thaali, traits: [:current_year]
     factory :previous_thaali, traits: [:previous_year]
     factory :thaali_dues_cleared, traits: [:cleared]
-    factory :prev_thaali_no_dues, traits: [:previous_year, :cleared]
-    factory :active_thaali_no_dues, traits: [:current_year, :cleared]
+    factory :prev_thaali_dues_cleared, traits: [:previous_year, :cleared]
+    factory :active_thaali_dues_cleared, traits: [:current_year, :cleared]
 
     # * Size
     factory :small_thaali, traits: [:small]
