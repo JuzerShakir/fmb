@@ -3,7 +3,7 @@ class Transaction < ApplicationRecord
   belongs_to :thaali
 
   # * Callbacks
-  after_commit :add_all_transaction_amounts_to_paid_amount, if: -> { thaali.persisted? }
+  after_commit :update_paid_amount, if: -> { thaali.persisted? }
 
   # * Enums
   enum :mode, MODES
@@ -38,7 +38,7 @@ class Transaction < ApplicationRecord
   private
 
   # * Callback
-  def add_all_transaction_amounts_to_paid_amount
+  def update_paid_amount
     transactions = thaali.transactions
     amount_paid = transactions.map(&:amount).sum(0)
 
