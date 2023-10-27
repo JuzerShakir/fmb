@@ -14,7 +14,7 @@ class User < ApplicationRecord
   # ITS
   include ITSValidation
   # name
-  validates :name, length: {in: 3..35}
+  include NameValidation
   # password
   validates :password, :password_confirmation, length: {minimum: 6}
   # role

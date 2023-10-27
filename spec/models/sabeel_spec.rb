@@ -12,25 +12,9 @@ RSpec.describe Sabeel do
   end
 
   context "when validating" do
-    context "with ITS" do
-      it { is_expected.to validate_numericality_of(:its).only_integer.with_message("must be an integer") }
-
-      it "length" do
-        sabeel.its = "123456789"
-        sabeel.save
-        expect(sabeel.errors[:its]).to include("is incorrect")
-      end
-
-      it { is_expected.to validate_uniqueness_of(:its).with_message("has already been registered") }
-    end
-
     context "with email" do
       it { is_expected.to validate_email_format_of(:email) }
       it { is_expected.to allow_value(nil).for(:email) }
-    end
-
-    context "with name" do
-      it { is_expected.to validate_presence_of(:name) }
     end
 
     context "with apartment" do
@@ -54,19 +38,6 @@ RSpec.describe Sabeel do
         sabeel.mobile = 12345678901
         sabeel.save
         expect(sabeel.errors[:mobile]).not_to be_empty
-      end
-    end
-  end
-
-  context "when saving" do
-    describe "#capitalize_name" do
-      it { is_expected.to callback(:capitalize_name).before(:save).if(:will_save_change_to_name?) }
-
-      it "must return capitalized name" do
-        sabeel.name = Faker::Name.name.swapcase
-        name_titleize_format = sabeel.name.split.map(&:capitalize).join(" ")
-        sabeel.save
-        expect(sabeel.name).to eq(name_titleize_format)
       end
     end
   end

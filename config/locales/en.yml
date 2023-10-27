@@ -60,6 +60,9 @@ en:
               not_a_number: *not_a_number
             mobile:
               not_a_number: *not_a_number
+            name:
+              too_short: "must be more than 3 characters"
+              too_long: "must be less than 35 characters"
         thaali:
           attributes:
             number:
@@ -123,11 +126,11 @@ en:
     destroy:
       success: "Transaction destroyed successfully"
 
-    attributes:
-      sabeel:
-        its: "ITS"
-      user:
-        its: "ITS"
+  attributes:
+    sabeel:
+      its: "ITS"
+    user:
+      its: "ITS"
   flash:
     un_authorize: "Not Authorized"
     active_session: "Already logged in!"

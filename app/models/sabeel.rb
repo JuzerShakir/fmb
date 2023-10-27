@@ -30,14 +30,16 @@ class Sabeel < ApplicationRecord
   scope :with_the_size, ->(size) { joins(:thaalis).where(thaalis: {size:}) }
 
   # * Validations
-  # apartment & name
-  validates :apartment, :name, presence: true
+  # apartment
+  validates :apartment, presence: true
   # Email
   validates_email_format_of :email, allow_blank: true
   # Flat No
   validates :flat_no, numericality: {only_integer: true, greater_than: 0}
   # ITS
   include ITSValidation
+  # name
+  include NameValidation
   # mobile
   validates :mobile, numericality: {only_integer: true}, length: {is: 10}
 
