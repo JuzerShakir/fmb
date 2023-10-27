@@ -27,6 +27,8 @@ class Sabeel < ApplicationRecord
 
   scope :never_taken_thaali, -> { where.missing(:thaalis) }
 
+  scope :taking_thaali_in_year, ->(year) { joins(:thaalis).where(thaalis: {year:}) }
+
   scope :with_the_size, ->(size) { joins(:thaalis).where(thaalis: {size:}) }
 
   # * Validations
