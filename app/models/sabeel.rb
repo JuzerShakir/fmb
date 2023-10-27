@@ -19,7 +19,7 @@ class Sabeel < ApplicationRecord
   end
 
   # * Scopes
-  scope :active_thaalis, ->(year) { joins(:thaalis).where(thaalis: {year:}) }
+  scope :actively_taking_thaali, -> { joins(:thaalis).where(thaalis: {year: CURR_YR}) }
 
   scope :inactive_apt_thaalis, ->(apartemnt) {
     where(apartment: apartemnt).where("id NOT IN (SELECT sabeel_id FROM thaalis WHERE year = #{CURR_YR})")

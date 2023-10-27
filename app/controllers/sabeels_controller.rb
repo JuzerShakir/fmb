@@ -53,7 +53,7 @@ class SabeelsController < ApplicationController
 
     APARTMENTS.each do |apartment|
       total_sabeels = Sabeel.send(apartment)
-      active_thaalis = total_sabeels.active_thaalis(CURR_YR)
+      active_thaalis = total_sabeels.actively_taking_thaali
       inactive = total_sabeels - active_thaalis
       @apts[apartment] = {}
       @apts[apartment].store(:active_thaalis, active_thaalis.count)
@@ -66,7 +66,7 @@ class SabeelsController < ApplicationController
   end
 
   def active
-    @s = Sabeel.send(@apt).active_thaalis(CURR_YR).order(flat_no: :ASC).includes(:thaalis)
+    @s = Sabeel.send(@apt).actively_taking_thaali.order(flat_no: :ASC).includes(:thaalis)
     @total = @s.count
     @pagy, @sabeels = pagy_countless(@s)
 
