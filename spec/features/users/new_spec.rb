@@ -17,7 +17,7 @@ RSpec.describe "User new template" do
 
       attributes_for(:user).each do |k, v|
         case k
-        when :role then select User.roles.keys.sample.to_s.titleize, from: :user_role
+        when :role then select ROLES.sample.titleize, from: :user_role
         else fill_in "user_#{k}", with: v
         end
       end

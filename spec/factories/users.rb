@@ -7,7 +7,7 @@ FactoryBot.define do
     # rubocop:enable RSpec/NoExpectationExample
 
     name { Faker::Name.name }
-    role { User.roles.keys.sample }
+    role { ROLES.sample }
     password { Faker::Internet.password(min_length: 6, max_length: 72) }
     password_confirmation { password }
 
