@@ -9,7 +9,7 @@ RSpec.describe "Name attribute" do
     it { is_expected.to validate_length_of(:name).is_at_most(35).with_long_message("must be less than 35 characters") }
   end
 
-  context "when saving" do
+  context "when using callback" do
     describe "#capitalize_name" do
       it { is_expected.to callback(:capitalize_name).before(:save).if(:will_save_change_to_name?) }
 
