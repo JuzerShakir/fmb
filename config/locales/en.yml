@@ -88,6 +88,21 @@ en:
               not_a_number: *not_a_number
               greater_than: "must be greater than 0"
               taken: "has already been invoiced"
+    attributes:
+      user:
+        its: "ITS Number"
+        name: "Full Name"
+      sabeel:
+        its: "ITS Number"
+        name: "Full Name"
+        flat_no: "Flat Number"
+      thaali:
+        total: "Total Takhmeen"
+      transaction:
+        recipe_no: "Recipe Number"
+        mode: "Payment Mode"
+        date: "Billing On"
+
   users:
     create:
       success: "User created successfully"
@@ -126,11 +141,6 @@ en:
     destroy:
       success: "Transaction destroyed successfully"
 
-  attributes:
-    sabeel:
-      its: "ITS"
-    user:
-      its: "ITS"
   flash:
     un_authorize: "Not Authorized"
     active_session: "Already logged in!"
