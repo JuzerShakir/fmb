@@ -44,35 +44,35 @@ RSpec.describe Thaali do
     let!(:previous_year_thaali) { create(:previous_thaali) }
 
     describe ".in_the_year" do
-      it "returns all the thaalis of current year" do
-        expect(described_class.in_the_year(CURR_YR)).to contain_exactly(current_year_thaali)
+      subject(:thaalis) { described_class.in_the_year(CURR_YR) }
+
+      it "returns all records for the year provided" do
+        expect(thaalis).to contain_exactly(current_year_thaali)
       end
 
-      it "does not return thaalis of other years" do
-        expect(described_class.in_the_year(CURR_YR)).not_to contain_exactly(previous_year_thaali)
-      end
+      it { expect(thaalis).not_to contain_exactly(previous_year_thaali) }
     end
 
     describe ".pending" do
+      subject(:thaalis) { described_class.pending }
+
       let!(:completed_thaalis) { create(:thaali_dues_cleared) }
 
-      it "returns all the thaalis for whos takhmeen is pending" do
-        expect(described_class.pending).to contain_exactly(current_year_thaali, previous_year_thaali)
+      it "returns all records whos dues are not cleared" do
+        expect(thaalis).to contain_exactly(current_year_thaali, previous_year_thaali)
       end
 
-      it "does not return thaalis whose takhmeen is complete for any year" do
-        expect(described_class.pending).not_to contain_exactly(completed_thaalis)
-      end
+      it { expect(thaalis).not_to contain_exactly(completed_thaalis) }
     end
 
     describe ".pending_year" do
-      it "returns all the thaalis whos takhmeen is pending for the current year" do
-        expect(described_class.pending_year(CURR_YR)).to contain_exactly(current_year_thaali)
+      subject(:thaalis) { described_class.pending_year(CURR_YR) }
+
+      it "returns all recrods whos dues are not cleared for the year provided" do
+        expect(thaalis).to contain_exactly(current_year_thaali)
       end
 
-      it "does not return thaalis of current year whos takhmeen is pending for the other years" do
-        expect(described_class.pending_year(CURR_YR)).not_to contain_exactly(previous_year_thaali)
-      end
+      it { expect(thaalis).not_to contain_exactly(previous_year_thaali) }
     end
   end
 end

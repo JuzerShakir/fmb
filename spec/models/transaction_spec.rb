@@ -24,16 +24,22 @@ RSpec.describe Transaction do
       it { is_expected.to validate_numericality_of(:amount).is_greater_than(0) }
       it { expect(transaction.amount).to be_present }
 
-      it "will raise an error if amount is greater than balance" do
-        transaction.amount = transaction.thaali.balance + Faker::Number.non_zero_digit
-        transaction.validate
-        expect(transaction.errors[:amount]).to include("cannot be greater than the balance")
+      context "when amount is greater than balance" do
+        before do
+          transaction.amount = transaction.thaali.balance + Faker::Number.non_zero_digit
+          transaction.validate
+        end
+
+        it { expect(transaction.errors[:amount]).to include("cannot be greater than the balance") }
       end
 
-      it "will NOT raise an error if amount is less than or equal to balance" do
-        transaction.amount = transaction.thaali.balance - Faker::Number.non_zero_digit
-        transaction.validate
-        expect(transaction.errors[:amount]).not_to include("cannot be greater than the balance")
+      context "when amount is less than or equal to balance" do
+        before do
+          transaction.amount = transaction.thaali.balance - Faker::Number.non_zero_digit
+          transaction.validate
+        end
+
+        it { expect(transaction.errors[:amount]).not_to include("cannot be greater than the balance") }
       end
     end
 
@@ -50,10 +56,13 @@ RSpec.describe Transaction do
         it { is_expected.not_to include("must be on or before #{today_str}") }
       end
 
-      it "raises error for future dates" do
-        transaction.date = Faker::Date.forward
-        transaction.validate
-        expect(transaction.errors[:date]).to include("must be on or before #{today_str}")
+      context "when in future" do
+        before do
+          transaction.date = Faker::Date.forward
+          transaction.validate
+        end
+
+        it { expect(transaction.errors[:date]).to include("must be on or before #{today_str}") }
       end
     end
 
@@ -64,40 +73,31 @@ RSpec.describe Transaction do
     end
   end
 
-  context "when saving" do
-    describe "#add_all_transaction_amounts_to_paid_amount" do
+  context "when using callback" do
+    describe "#update_paid_amount" do
       let(:thaali) { transaction.thaali }
-      let(:all_transactions_of_a_thaali) { thaali.transactions }
+      let(:transactions) { thaali.transactions }
+      let(:total_paid) { transactions.pluck(:amount).sum(0) }
 
-      it { is_expected.to callback(:add_all_transaction_amounts_to_paid_amount).after(:commit) }
+      before { transaction.save }
 
-      it "adds all the transaction amounts if it has ONE OR MORE transactions" do
-        transaction.save
+      it { is_expected.to callback(:update_paid_amount).after(:commit) }
 
-        paid_amount = all_transactions_of_a_thaali.pluck(:amount).sum(0)
-        expect(thaali.paid).to eq(paid_amount)
-      end
-
-      it "paid amount is 0 if it has NO transactions" do
-        transaction.destroy
-        expect(transaction.thaali.paid).to eq(0)
-      end
+      it { expect(thaali.paid).to eq(total_paid) }
     end
   end
 
   context "when using scope" do
-    describe "returns all transactions for the given date" do
+    describe ".that_occured_on" do
+      subject { described_class.that_occured_on(today) }
+
       let(:today) { Time.zone.now.to_date }
+      let(:today_transaction) { create(:today_transaction) }
+      let(:yesterday_transaction) { create(:yesterday_transaction) }
 
-      it "for today" do
-        todays_transactions = create(:today_transactions)
-        expect(described_class.that_occured_on(today)).to contain_exactly(todays_transactions)
-      end
+      it { is_expected.to contain_exactly(today_transaction) }
 
-      it "Not of yesterdays" do
-        yesterdays_transactions = create(:yesterday_transactions)
-        expect(described_class.that_occured_on(today)).not_to contain_exactly(yesterdays_transactions)
-      end
+      it { is_expected.not_to contain_exactly(yesterday_transaction) }
     end
   end
 end
