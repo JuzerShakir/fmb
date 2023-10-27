@@ -13,12 +13,12 @@ FactoryBot.define do
     email { Faker::Internet.free_email }
 
     # * Active
-    factory :active_sabeel, traits: [:associate_with_active_thaali]
-    factory :active_sabeel_burhani, traits: [:associate_with_active_thaali, :in_burhani]
+    factory :sabeel_taking_thaali, traits: [:associate_with_active_thaali]
+    factory :burhani_sabeel_taking_thaali, traits: [:associate_with_active_thaali, :in_burhani]
 
     # * Inactive
-    factory :sabeel_with_previous_thaali, traits: [:associate_with_previous_thaali]
-    factory :burhani_sabeel_with_previous_thaali, traits: [:associate_with_previous_thaali, :in_burhani]
+    factory :sabeel_took_thaali, traits: [:associate_with_previous_thaali]
+    factory :burhani_sabeel_took_thaali, traits: [:associate_with_previous_thaali, :in_burhani]
 
     # * Thaali Size
     factory :sabeel_small_thaali, traits: [:associate_with_small_thaali]

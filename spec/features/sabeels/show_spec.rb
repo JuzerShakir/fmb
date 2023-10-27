@@ -32,7 +32,7 @@ RSpec.describe "Sabeel Show template" do
       end
 
       context "when it's ACTIVELY taking it" do
-        let(:active_sabeel) { create(:active_sabeel) }
+        let(:active_sabeel) { create(:sabeel_taking_thaali) }
         let(:count) { active_sabeel.thaalis.count }
         let(:thaali) { active_sabeel.thaalis.first }
 

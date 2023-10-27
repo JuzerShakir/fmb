@@ -32,7 +32,7 @@ RSpec.describe "Thaali New request" do
       let(:user) { create(:user_other_than_viewer) }
 
       context "when sabeel is currently NOT taking thaali" do
-        let(:sabeel) { create(:sabeel_with_previous_thaali) }
+        let(:sabeel) { create(:sabeel_took_thaali) }
         let(:thaali) { sabeel.thaalis.first }
 
         it { expect(response).to render_template(:new) }
@@ -46,7 +46,7 @@ RSpec.describe "Thaali New request" do
       end
 
       context "when sabeel CURRENTLY taking thaali" do
-        let(:sabeel) { create(:active_sabeel) }
+        let(:sabeel) { create(:sabeel_taking_thaali) }
 
         it { expect(response).to redirect_to sabeel_path(sabeel) }
       end

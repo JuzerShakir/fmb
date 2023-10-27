@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Sabeel Active template" do
   let(:user) { create(:user) }
-  let!(:sabeel) { create(:active_sabeel_burhani) }
+  let!(:sabeel) { create(:burhani_sabeel_taking_thaali) }
   let(:thaali) { sabeel.thaalis.first }
 
   before do

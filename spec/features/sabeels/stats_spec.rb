@@ -7,8 +7,8 @@ RSpec.describe "Sabeel Stats template" do
 
   before do
     page.set_rack_session(user_id: user.id)
-    create_list(:active_sabeel_burhani, 2)
-    create_list(:burhani_sabeel_with_previous_thaali, 2)
+    create_list(:burhani_sabeel_taking_thaali, 2)
+    create_list(:burhani_sabeel_took_thaali, 2)
     visit stats_sabeels_path
   end
 

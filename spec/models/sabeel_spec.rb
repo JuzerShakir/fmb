@@ -44,7 +44,7 @@ RSpec.describe Sabeel do
 
   context "when using scope" do
     let(:sabeel) { create(:sabeel) }
-    let(:active_sabeel) { create(:active_sabeel) }
+    let(:active_sabeel) { create(:sabeel_taking_thaali) }
 
     describe ".actively_taking_thaali" do
       subject(:sabeels) { described_class.actively_taking_thaali }
@@ -59,7 +59,7 @@ RSpec.describe Sabeel do
     describe ".taking_thaali_in_year" do
       subject(:sabeels) { described_class.taking_thaali_in_year(PREV_YR) }
 
-      let(:prev_sabeel) { create(:sabeel_with_previous_thaali) }
+      let(:prev_sabeel) { create(:sabeel_took_thaali) }
 
       it "returns records who were taking thaali for the year provided" do
         expect(sabeels).to include(prev_sabeel)
@@ -94,8 +94,8 @@ RSpec.describe Sabeel do
     describe ".inactive_apt_thaalis" do
       subject(:sabeels) { described_class.inactive_apt_thaalis("burhani") }
 
-      let(:prev_sabeel) { create(:burhani_sabeel_with_previous_thaali) }
-      let(:active_sabeel) { create(:active_sabeel_burhani) }
+      let(:prev_sabeel) { create(:burhani_sabeel_took_thaali) }
+      let(:active_sabeel) { create(:burhani_sabeel_taking_thaali) }
 
       it "returns records who are currently not taking thaali" do
         expect(sabeels).to include(prev_sabeel)
@@ -126,7 +126,7 @@ RSpec.describe Sabeel do
       context "when sabeel has dues" do
         subject { sabeel.last_year_thaali_dues_cleared? }
 
-        let(:sabeel) { create(:sabeel_with_previous_thaali) }
+        let(:sabeel) { create(:sabeel_took_thaali) }
 
         it { is_expected.to be_falsy }
       end

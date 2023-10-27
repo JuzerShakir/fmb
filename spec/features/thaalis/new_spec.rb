@@ -23,7 +23,7 @@ RSpec.describe "Thaali new template" do
     end
 
     context "when sabeel did take it in previous year" do
-      let(:sabeel) { create(:sabeel_with_previous_thaali) }
+      let(:sabeel) { create(:sabeel_took_thaali) }
       let(:thaali) { sabeel.thaalis.first }
 
       describe "displays form fields with previous values" do

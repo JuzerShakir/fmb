@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Sabeel Inactive template" do
   let(:user) { create(:user) }
-  let!(:sabeel) { create(:burhani_sabeel_with_previous_thaali) }
+  let!(:sabeel) { create(:burhani_sabeel_took_thaali) }
 
   before do
     page.set_rack_session(user_id: user.id)
