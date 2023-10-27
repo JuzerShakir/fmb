@@ -28,7 +28,7 @@ RSpec.describe "Sabeel Stats template" do
 
       it "Inactive" do
         within("div#burhani") do
-          count = Sabeel.inactive_apt_thaalis("burhani").count
+          count = Sabeel.burhani.count - active_burhani_sabeels.count
           expect(page).to have_selector(:link_or_button, "Inactive: #{count}")
         end
       end

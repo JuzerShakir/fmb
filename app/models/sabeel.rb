@@ -19,17 +19,20 @@ class Sabeel < ApplicationRecord
   end
 
   # * Scopes
-  scope :actively_taking_thaali, -> { joins(:thaalis).where(thaalis: {year: CURR_YR}) }
 
-  scope :inactive_apt_thaalis, ->(apartemnt) {
-    where(apartment: apartemnt).where("id NOT IN (SELECT sabeel_id FROM thaalis WHERE year = #{CURR_YR})")
-  }
+  scope :actively_taking_thaali, -> { thaalis.where(thaalis: {year: CURR_YR}) }
 
   scope :never_taken_thaali, -> { where.missing(:thaalis) }
 
-  scope :taking_thaali_in_year, ->(year) { joins(:thaalis).where(thaalis: {year:}) }
+  scope :previously_took_thaali, -> { thaalis.where.not(thaalis: {year: CURR_YR}) }
 
-  scope :with_the_size, ->(size) { joins(:thaalis).where(thaalis: {size:}) }
+  scope :previously_took_thaali_in, ->(apartment) { previously_took_thaali.where(apartment:) }
+
+  scope :taking_thaali_in_year, ->(year) { thaalis.where(thaalis: {year:}) }
+
+  scope :thaalis, -> { joins(:thaalis) }
+
+  scope :with_the_size, ->(size) { thaalis.where(thaalis: {size:}) }
 
   # * Validations
   # apartment

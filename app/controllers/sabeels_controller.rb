@@ -78,7 +78,7 @@ class SabeelsController < ApplicationController
   end
 
   def inactive
-    sabeels = Sabeel.inactive_apt_thaalis(@apt).order(flat_no: :ASC)
+    sabeels = Sabeel.previously_took_thaali_in(@apt).order(flat_no: :ASC)
     @total = sabeels.count
     @pagy, @sabeels = pagy_countless(sabeels)
   end
