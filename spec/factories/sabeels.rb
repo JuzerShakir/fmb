@@ -15,6 +15,7 @@ FactoryBot.define do
     # * Active
     factory :sabeel_taking_thaali, traits: [:associate_with_active_thaali]
     factory :burhani_sabeel_taking_thaali, traits: [:associate_with_active_thaali, :in_burhani]
+    factory :taiyebi_sabeel_taking_thaali, traits: [:associate_with_active_thaali, :in_taiyebi]
 
     # * Inactive
     factory :sabeel_took_thaali, traits: [:associate_with_previous_thaali]
@@ -32,6 +33,10 @@ FactoryBot.define do
     # * TRAITS
     trait :in_burhani do
       apartment { "burhani" }
+    end
+
+    trait :in_taiyebi do
+      apartment { "taiyebi" }
     end
 
     trait :associate_with_active_thaali do
