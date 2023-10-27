@@ -16,7 +16,7 @@ FactoryBot.define do
       date { Time.zone.now.to_date.yesterday }
     end
 
-    factory :today_transactions, traits: [:today]
-    factory :yesterday_transactions, traits: [:yesterday]
+    factory :today_transaction, traits: [:today]
+    factory :yesterday_transaction, traits: [:yesterday]
   end
 end
