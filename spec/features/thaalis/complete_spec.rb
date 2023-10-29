@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Thaali complete template" do
   let(:user) { create(:user) }
-  let(:thaalis) { Thaali.first(2) }
+  let(:thaalis) { Thaali.completed_year(CURR_YR) }
 
   before do
     page.set_rack_session(user_id: user.id)
