@@ -80,17 +80,17 @@ class ThaalisController < ApplicationController
   end
 
   def complete
-    @thaalis = Thaali.includes(:sabeel).completed_year(@year)
+    @thaalis = Thaali.completed_year(@year).includes(:sabeel)
     set_pagy_thaalis_total
   end
 
   def pending
-    @thaalis = Thaali.includes(:sabeel).pending_year(@year)
+    @thaalis = Thaali.pending_year(@year).includes(:sabeel)
     set_pagy_thaalis_total
   end
 
   def all
-    @thaalis = Thaali.includes(:sabeel).in_the_year(@year)
+    @thaalis = Thaali.in_the_year(@year).includes(:sabeel)
     set_pagy_thaalis_total
   end
 
