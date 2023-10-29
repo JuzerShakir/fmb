@@ -2,9 +2,6 @@ class Transaction < ApplicationRecord
   # * Associations
   belongs_to :thaali
 
-  # * Callbacks
-  after_commit :update_paid_amount, if: -> { thaali.persisted? }
-
   # * Enums
   enum :mode, MODES
 
@@ -36,14 +33,6 @@ class Transaction < ApplicationRecord
   validates :recipe_no, uniqueness: true
 
   private
-
-  # * Callback
-  def update_paid_amount
-    transactions = thaali.transactions
-    amount_paid = transactions.map(&:amount).sum(0)
-
-    thaali.update(paid: amount_paid)
-  end
 
   # * Custom Validations
   def amount_to_be_less_than_balance

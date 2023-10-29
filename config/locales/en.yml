@@ -71,8 +71,6 @@ en:
               not_a_number: *not_a_number
             year:
               not_a_number: *not_a_number
-            paid:
-              not_a_number: *not_a_number
             size:
               blank: *blank
         transaction:

@@ -73,20 +73,6 @@ RSpec.describe Transaction do
     end
   end
 
-  context "when using callback" do
-    describe "#update_paid_amount" do
-      let(:thaali) { transaction.thaali }
-      let(:transactions) { thaali.transactions }
-      let(:total_paid) { transactions.pluck(:amount).sum(0) }
-
-      before { transaction.save }
-
-      it { is_expected.to callback(:update_paid_amount).after(:commit) }
-
-      it { expect(thaali.paid).to eq(total_paid) }
-    end
-  end
-
   context "when using scope" do
     describe ".that_occured_on" do
       subject { described_class.that_occured_on(today) }
