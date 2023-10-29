@@ -71,8 +71,8 @@ class ThaalisController < ApplicationController
       @years[y].store(:total, thaalis.pluck(:total).sum)
       @years[y].store(:balance, thaalis.map(&:balance).sum)
       @years[y].store(:count, thaalis.count)
-      @years[y].store(:pending, Thaali.pending_year(y).count)
-      @years[y].store(:complete, Thaali.completed_year(y).count)
+      @years[y].store(:pending, Thaali.pending_year(y).length)
+      @years[y].store(:complete, Thaali.completed_year(y).length)
       SIZES.each do |size|
         @years[y].store(size.to_sym, thaalis.send(size).count)
       end
@@ -109,7 +109,7 @@ class ThaalisController < ApplicationController
   end
 
   def set_pagy_thaalis_total
-    @total = @thaalis.count
+    @total = @thaalis.length
     @pagy, @thaalis = pagy_countless(@thaalis)
   end
 

@@ -32,14 +32,14 @@ RSpec.describe "Thaali Stats template" do
     it "Complete" do
       within("div##{CURR_YR}") do
         expect(page).to have_selector(:link_or_button,
-          "Complete: #{Thaali.completed_year(CURR_YR).count}")
+          "Complete: #{Thaali.completed_year(CURR_YR).length}")
       end
     end
 
     it "Pending" do
       within("div##{CURR_YR}") do
         expect(page).to have_selector(:link_or_button,
-          "Pending: #{Thaali.pending_year(CURR_YR).count}")
+          "Pending: #{Thaali.pending_year(CURR_YR).length}")
       end
     end
 
