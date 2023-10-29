@@ -61,7 +61,7 @@ active_sabeel.each.with_index do |sabeel, i|
     year: CURR_YR,
     total: 60000,
     number: i + 1,
-    size: SIZE.sample
+    size: SIZES.sample
   )
 end
 
