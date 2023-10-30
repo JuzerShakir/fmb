@@ -57,8 +57,18 @@ RSpec.describe Sabeel do
       it { expect(sabeels).not_to include(sabeel) }
     end
 
-    describe ".previously_took_thaali_in" do
-      subject(:sabeels) { described_class.previously_took_thaali_in("burhani") }
+    describe ".inactive" do
+      subject(:sabeels) { described_class.inactive }
+
+      it "returns records who are actively not taking thaali" do
+        expect(sabeels).to include(prev_sabeel, sabeel)
+      end
+
+      it { expect(sabeels).not_to include(active_sabeel) }
+    end
+
+    describe ".inactive_in" do
+      subject(:sabeels) { described_class.inactive_in("burhani") }
 
       let(:active_sabeel) { create(:burhani_sabeel_taking_thaali) }
       let(:taiyebi_sabeel) { create(:taiyebi_sabeel_taking_thaali) }
@@ -84,7 +94,7 @@ RSpec.describe Sabeel do
     describe ".previously_took_thaali" do
       subject(:sabeels) { described_class.previously_took_thaali }
 
-      it "returns records who are actively taking thaali" do
+      it "returns records who previuosly took thaali" do
         expect(sabeels).to include(prev_sabeel)
       end
 
@@ -120,8 +130,6 @@ RSpec.describe Sabeel do
   context "when using instance method" do
     describe "address" do
       subject { sabeel.address }
-
-      let(:sabeel) { create(:sabeel) }
 
       it { is_expected.to eq "#{sabeel.apartment.titleize} #{sabeel.flat_no}" }
     end

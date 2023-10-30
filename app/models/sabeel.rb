@@ -22,11 +22,17 @@ class Sabeel < ApplicationRecord
 
   scope :actively_taking_thaali, -> { thaalis.where(thaalis: {year: CURR_YR}) }
 
+  scope :inactive, -> { never_taken_thaali.union(previously_took_thaali) }
+
+  scope :inactive_in, ->(apartment) { where(apartment:).inactive }
+
   scope :never_taken_thaali, -> { where.missing(:thaalis) }
 
-  scope :previously_took_thaali, -> { thaalis.where.not(thaalis: {year: CURR_YR}) }
-
-  scope :previously_took_thaali_in, ->(apartment) { previously_took_thaali.where(apartment:) }
+  scope :previously_took_thaali, -> {
+                                   left_joins(:thaalis)
+                                     .group("sabeels.id")
+                                     .having("MAX(thaalis.year) < #{CURR_YR}")
+                                 }
 
   scope :taking_thaali_in_year, ->(year) { thaalis.where(thaalis: {year:}) }
 
