@@ -17,14 +17,14 @@ RSpec.describe "Thaali Stats template" do
   describe "shows statistic details of all thaalis for current year" do
     it "Total" do
       within("div##{CURR_YR}") do
-        total = thaalis.pluck(:total).sum
+        total = thaalis.sum(:total)
         expect(page).to have_content(number_with_delimiter(total))
       end
     end
 
     it "Balance" do
       within("div##{CURR_YR}") do
-        balance = thaalis.map(&:balance).sum
+        balance = thaalis.sum(&:balance)
         expect(page).to have_content(number_with_delimiter(balance))
       end
     end

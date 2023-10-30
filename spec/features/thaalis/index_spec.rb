@@ -33,12 +33,12 @@ RSpec.describe "Thaali index template" do
 
     describe "search" do
       context "with thaali number" do
-        let(:thaali_numbers) { Thaali.pluck(:number) }
+        let(:thaali_number) { Thaali.first.number }
 
-        before { fill_in "q_number_cont", with: thaali_numbers.first }
+        before { fill_in "q_number_cont", with: thaali_number }
 
-        it { within("div#all-thaalis") { expect(page).to have_content(thaali_numbers.first) } }
-        it { within("div#all-thaalis") { expect(page).not_to have_content(thaali_numbers.last) } }
+        it { within("div#all-thaalis") { expect(page).to have_content(thaali_number) } }
+        it { within("div#all-thaalis") { expect(page).not_to have_content(Thaali.last.number) } }
       end
     end
   end

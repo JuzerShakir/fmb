@@ -68,8 +68,8 @@ class ThaalisController < ApplicationController
     years.each do |y|
       thaalis = Thaali.in_the_year(y)
       @years[y] = {}
-      @years[y].store(:total, thaalis.pluck(:total).sum)
-      @years[y].store(:balance, thaalis.map(&:balance).sum)
+      @years[y].store(:total, thaalis.sum(:total))
+      @years[y].store(:balance, thaalis.sum(&:balance))
       @years[y].store(:count, thaalis.count)
       @years[y].store(:pending, Thaali.pending_year(y).length)
       @years[y].store(:complete, Thaali.completed_year(y).length)

@@ -45,12 +45,12 @@ RSpec.describe "Transaction index template" do
 
     describe "search" do
       context "with recipe number" do
-        let!(:recipes) { transactions.pluck(:recipe_no) }
+        let!(:recipe) { transactions.first.recipe_no }
 
-        before { fill_in "q_recipe_no_cont", with: recipes.first }
+        before { fill_in "q_recipe_no_cont", with: recipe }
 
-        it { within("div#all-transactions") { expect(page).to have_content(recipes.first) } }
-        it { within("div#all-transactions") { expect(page).not_to have_content(recipes.last) } }
+        it { within("div#all-transactions") { expect(page).to have_content(recipe) } }
+        it { within("div#all-transactions") { expect(page).not_to have_content(transactions.last.recipe_no) } }
       end
     end
   end

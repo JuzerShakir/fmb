@@ -31,21 +31,21 @@ RSpec.describe "Sabeel Index template" do
 
     describe "can search" do
       context "with ITS number" do
-        let(:its_numbers) { Sabeel.pluck(:its) }
+        let(:its_number) { Sabeel.first.its }
 
-        before { fill_in "q_name_or_its_cont", with: its_numbers.first }
+        before { fill_in "q_name_or_its_cont", with: its_number }
 
-        it { within("div#all-sabeels") { expect(page).to have_content(its_numbers.first) } }
-        it { within("div#all-sabeels") { expect(page).not_to have_content(its_numbers.last) } }
+        it { within("div#all-sabeels") { expect(page).to have_content(its_number) } }
+        it { within("div#all-sabeels") { expect(page).not_to have_content(Sabeel.last.its) } }
       end
 
       context "with name" do
-        let(:names) { Sabeel.pluck(:name) }
+        let(:name) { Sabeel.first.name }
 
-        before { fill_in "q_name_or_its_cont", with: names.first }
+        before { fill_in "q_name_or_its_cont", with: name }
 
-        it { within("div#all-sabeels") { expect(page).to have_content(names.first) } }
-        it { within("div#all-sabeels") { expect(page).to have_content(names.last) } }
+        it { within("div#all-sabeels") { expect(page).to have_content(name) } }
+        it { within("div#all-sabeels") { expect(page).to have_content(Sabeel.last.name) } }
       end
     end
   end
