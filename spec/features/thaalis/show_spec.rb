@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Thaali show template" do
   let(:user) { create(:user) }
-  let(:thaali) { create(:thaali_with_transaction) }
+  let(:thaali) { create(:taking_thaali_partial_amount_paid) }
 
   before do
     page.set_rack_session(user_id: user.id)

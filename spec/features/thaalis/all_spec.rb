@@ -8,7 +8,7 @@ RSpec.describe "Thaali all template" do
 
   before do
     page.set_rack_session(user_id: user.id)
-    create_list(:previous_thaali, 2)
+    create_list(:took_thaali, 2)
 
     visit thaalis_all_path(PREV_YR)
   end

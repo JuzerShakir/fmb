@@ -13,13 +13,13 @@ FactoryBot.define do
     name { Faker::Name.name }
 
     # * Active
-    factory :burhani_sabeel_taking_thaali, traits: [:associate_with_active_thaali, :in_burhani]
-    factory :sabeel_taking_thaali, traits: [:associate_with_active_thaali]
-    factory :taiyebi_sabeel_taking_thaali, traits: [:associate_with_active_thaali, :in_taiyebi]
+    factory :burhani_sabeel_taking_thaali, traits: [:associate_with_taking_thaali, :in_burhani]
+    factory :sabeel_taking_thaali, traits: [:associate_with_taking_thaali]
+    factory :taiyebi_sabeel_taking_thaali, traits: [:associate_with_taking_thaali, :in_taiyebi]
 
     # * Inactive
-    factory :burhani_sabeel_took_thaali, traits: [:associate_with_previous_thaali, :in_burhani]
-    factory :sabeel_took_thaali, traits: [:associate_with_previous_thaali]
+    factory :burhani_sabeel_took_thaali, traits: [:associate_with_took_thaali, :in_burhani]
+    factory :sabeel_took_thaali, traits: [:associate_with_took_thaali]
 
     # * Thaali Size
     factory :sabeel_large_thaali, traits: [:associate_with_large_thaali]
@@ -27,20 +27,20 @@ FactoryBot.define do
 
     # * Thaali with NO dues pending
     factory :sabeel_prev_thaali_dues_cleared do
-      thaalis { [association(:prev_thaali_dues_cleared)] }
+      thaalis { [association(:took_thaali_dues_cleared)] }
     end
 
     # * TRAITS
-    trait :associate_with_active_thaali do
-      thaalis { [association(:active_thaali)] }
+    trait :associate_with_taking_thaali do
+      thaalis { [association(:taking_thaali)] }
     end
 
     trait :associate_with_large_thaali do
       thaalis { [association(:large_thaali)] }
     end
 
-    trait :associate_with_previous_thaali do
-      thaalis { [association(:previous_thaali)] }
+    trait :associate_with_took_thaali do
+      thaalis { [association(:took_thaali)] }
     end
 
     trait :associate_with_small_thaali do

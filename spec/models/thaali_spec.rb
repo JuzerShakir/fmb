@@ -34,10 +34,10 @@ RSpec.describe Thaali do
   end
 
   context "when using scope" do
-    let(:current_year_thaali) { create(:active_thaali) }
-    let(:previous_year_thaali) { create(:previous_thaali) }
-    let(:thaali_due) { create(:thaali_with_transaction) }
-    let(:completed_thaali) { create(:active_thaali_dues_cleared) }
+    let(:current_year_thaali) { create(:taking_thaali) }
+    let(:previous_year_thaali) { create(:took_thaali) }
+    let(:thaali_due) { create(:taking_thaali_partial_amount_paid) }
+    let(:completed_thaali) { create(:taking_thaali_dues_cleared) }
 
     describe ".dues_cleared_in" do
       subject(:thaalis) { described_class.dues_cleared_in(CURR_YR) }
@@ -66,7 +66,7 @@ RSpec.describe Thaali do
     describe ".dues_unpaid_for" do
       subject(:thaalis) { described_class.dues_unpaid_for(CURR_YR) }
 
-      let(:current_year_thaali_with_transactions) { create(:active_thaali_with_transactions) }
+      let(:current_year_thaali_with_transactions) { create(:taking_thaali_partial_amount_paid) }
 
       it "returns all recrods who have no transaction history for the year provided" do
         expect(thaalis).to include(current_year_thaali)
@@ -96,11 +96,11 @@ RSpec.describe Thaali do
         expect(thaalis).to include(current_year_thaali, previous_year_thaali)
       end
 
-      it { expect(thaalis).not_to include(thaali_due) }
+      it { expect(thaalis).not_to include(completed_thaali) }
     end
 
-    describe "partial_dues_paid" do
-      subject(:thaalis) { described_class.partial_dues_paid }
+    describe "partial_amount_paid" do
+      subject(:thaalis) { described_class.partial_amount_paid }
 
       it "returns all records whos dues are not cleared" do
         expect(thaalis).to include(thaali_due)

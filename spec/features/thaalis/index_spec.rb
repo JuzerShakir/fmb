@@ -8,7 +8,7 @@ RSpec.describe "Thaali index template" do
 
   before do
     page.set_rack_session(user_id: user.id)
-    create_list(:active_thaali, 2)
+    create_list(:taking_thaali, 2)
 
     visit root_path
   end

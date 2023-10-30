@@ -9,18 +9,15 @@ FactoryBot.define do
     year { Random.rand(1..CURR_YR) }
 
     # * Active
-    factory :active_thaali, traits: [:current_year]
-    factory :active_thaali_with_transactions, traits: [:current_year, :associate_with_transaction]
-    factory :active_thaali_dues_cleared, traits: [:current_year, :associate_with_cleared_transaction]
+    factory :taking_thaali, traits: [:current_year]
+    factory :taking_thaali_partial_amount_paid, traits: [:current_year, :associate_with_transaction]
+    factory :taking_thaali_dues_cleared, traits: [:current_year, :associate_with_cleared_transaction]
     # * Last Year
-    factory :previous_thaali, traits: [:previous_year]
-    factory :prev_thaali_dues_cleared, traits: [:previous_year, :associate_with_cleared_transaction]
+    factory :took_thaali, traits: [:previous_year]
+    factory :took_thaali_dues_cleared, traits: [:previous_year, :associate_with_cleared_transaction]
     # * Size
     factory :small_thaali, traits: [:small]
     factory :large_thaali, traits: [:large]
-    # * Transaction
-    factory :thaali_dues_cleared, traits: [:associate_with_cleared_transaction]
-    factory :thaali_with_transaction, traits: [:associate_with_transaction]
 
     # * Traits
     trait :associate_with_transaction do

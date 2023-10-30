@@ -33,7 +33,7 @@ RSpec.describe "Transaction New request" do
       let(:user) { create(:user_other_than_viewer) }
 
       context "when thaali IS COMPLETED" do
-        let(:thaali) { create(:thaali_dues_cleared) }
+        let(:thaali) { create(:taking_thaali_dues_cleared) }
 
         it { expect(response).to redirect_to thaali }
       end
