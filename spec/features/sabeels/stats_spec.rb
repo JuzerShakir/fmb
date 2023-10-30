@@ -15,7 +15,7 @@ RSpec.describe "Sabeel Stats template" do
   # * ALL user types
   describe "visited by any user type" do
     describe "shows statistics of burhani building for current year" do
-      let(:active_burhani_sabeels) { Sabeel.burhani.actively_taking_thaali }
+      let(:active_burhani_sabeels) { Sabeel.burhani.taking_thaali }
 
       it { expect(page).to have_css("h3", text: "Burhani") }
 
@@ -36,21 +36,21 @@ RSpec.describe "Sabeel Stats template" do
       describe "size count for" do
         it "small" do
           within("div#burhani") do
-            count = active_burhani_sabeels.with_the_size("small").count
+            count = active_burhani_sabeels.with_thaali_size("small").count
             expect(page).to have_content("Small: #{count}")
           end
         end
 
         it "medium" do
           within("div#burhani") do
-            count = active_burhani_sabeels.with_the_size("medium").count
+            count = active_burhani_sabeels.with_thaali_size("medium").count
             expect(page).to have_content("Medium: #{count}")
           end
         end
 
         it "large" do
           within("div#burhani") do
-            count = active_burhani_sabeels.with_the_size("large").count
+            count = active_burhani_sabeels.with_thaali_size("large").count
             expect(page).to have_content("Large: #{count}")
           end
         end

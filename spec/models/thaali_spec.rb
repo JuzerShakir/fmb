@@ -39,8 +39,8 @@ RSpec.describe Thaali do
     let(:thaali_due) { create(:thaali_with_transaction) }
     let(:completed_thaali) { create(:active_thaali_dues_cleared) }
 
-    describe ".completed_year" do
-      subject(:thaalis) { described_class.completed_year(CURR_YR) }
+    describe ".dues_cleared_in" do
+      subject(:thaalis) { described_class.dues_cleared_in(CURR_YR) }
 
       it "returns all records whos dues are not cleared" do
         expect(thaalis).to include completed_thaali
@@ -49,28 +49,8 @@ RSpec.describe Thaali do
       it { expect(thaalis).not_to include(previous_year_thaali, current_year_thaali) }
     end
 
-    describe ".in_the_year" do
-      subject(:thaalis) { described_class.in_the_year(CURR_YR) }
-
-      it "returns all records for the year provided" do
-        expect(thaalis).to contain_exactly(current_year_thaali)
-      end
-
-      it { expect(thaalis).not_to contain_exactly(previous_year_thaali) }
-    end
-
-    describe ".pending" do
-      subject(:thaalis) { described_class.pending }
-
-      it "returns all records whos dues are not cleared" do
-        expect(thaalis).to include(thaali_due)
-      end
-
-      it { expect(thaalis).not_to include(completed_thaali) }
-    end
-
-    describe ".pending_and_missing" do
-      subject(:thaalis) { described_class.pending_and_missing }
+    describe ".dues_unpaid" do
+      subject(:thaalis) { described_class.dues_unpaid }
 
       it "returns all records who have no transaction history" do
         expect(thaalis).to include(current_year_thaali, previous_year_thaali)
@@ -83,8 +63,8 @@ RSpec.describe Thaali do
       it { expect(thaalis).not_to include(completed_thaali) }
     end
 
-    describe ".pending_year" do
-      subject(:thaalis) { described_class.pending_year(CURR_YR) }
+    describe ".dues_unpaid_for" do
+      subject(:thaalis) { described_class.dues_unpaid_for(CURR_YR) }
 
       let(:current_year_thaali_with_transactions) { create(:active_thaali_with_transactions) }
 
@@ -99,14 +79,34 @@ RSpec.describe Thaali do
       it { expect(thaalis).not_to contain_exactly(previous_year_thaali) }
     end
 
-    describe ".transactions_missing" do
-      subject(:thaalis) { described_class.transactions_missing }
+    describe ".for_year" do
+      subject(:thaalis) { described_class.for_year(CURR_YR) }
+
+      it "returns all records for the year provided" do
+        expect(thaalis).to contain_exactly(current_year_thaali)
+      end
+
+      it { expect(thaalis).not_to contain_exactly(previous_year_thaali) }
+    end
+
+    describe ".no_transaction" do
+      subject(:thaalis) { described_class.no_transaction }
 
       it "returns all recrods who have no transaction history" do
         expect(thaalis).to include(current_year_thaali, previous_year_thaali)
       end
 
       it { expect(thaalis).not_to include(thaali_due) }
+    end
+
+    describe "partial_dues_paid" do
+      subject(:thaalis) { described_class.partial_dues_paid }
+
+      it "returns all records whos dues are not cleared" do
+        expect(thaalis).to include(thaali_due)
+      end
+
+      it { expect(thaalis).not_to include(completed_thaali) }
     end
   end
 end

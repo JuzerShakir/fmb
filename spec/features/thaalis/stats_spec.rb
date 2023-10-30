@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Thaali Stats template" do
   let(:user) { create(:user) }
-  let(:thaalis) { Thaali.in_the_year(CURR_YR) }
+  let(:thaalis) { Thaali.for_year(CURR_YR) }
 
   before do
     page.set_rack_session(user_id: user.id)
@@ -32,14 +32,14 @@ RSpec.describe "Thaali Stats template" do
     it "Complete" do
       within("div##{CURR_YR}") do
         expect(page).to have_selector(:link_or_button,
-          "Complete: #{Thaali.completed_year(CURR_YR).length}")
+          "Complete: #{Thaali.dues_cleared_in(CURR_YR).length}")
       end
     end
 
     it "Pending" do
       within("div##{CURR_YR}") do
         expect(page).to have_selector(:link_or_button,
-          "Pending: #{Thaali.pending_year(CURR_YR).length}")
+          "Pending: #{Thaali.dues_unpaid_for(CURR_YR).length}")
       end
     end
 

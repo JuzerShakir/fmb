@@ -19,7 +19,7 @@ class Sabeel < ApplicationRecord
   end
 
   def last_year_thaali_dues_cleared?
-    thaalis.completed_year(PREV_YR).present?
+    thaalis.dues_cleared_in(PREV_YR).present?
   end
 
   # * RANSACK
@@ -28,26 +28,21 @@ class Sabeel < ApplicationRecord
   end
 
   # * Scopes
+  scope :no_thaali, -> { where.missing(:thaalis) }
 
-  scope :actively_taking_thaali, -> { thaalis.where(thaalis: {year: CURR_YR}) }
+  scope :not_taking_thaali, -> { no_thaali.union(took_thaali) }
 
-  scope :inactive, -> { never_taken_thaali.union(previously_took_thaali) }
+  scope :not_taking_thaali_in, ->(apartment) { where(apartment:).not_taking_thaali }
 
-  scope :inactive_in, ->(apartment) { where(apartment:).inactive }
-
-  scope :never_taken_thaali, -> { where.missing(:thaalis) }
-
-  scope :previously_took_thaali, -> {
-                                   left_joins(:thaalis)
-                                     .group("sabeels.id")
-                                     .having("MAX(thaalis.year) < #{CURR_YR}")
-                                 }
+  scope :taking_thaali, -> { thaalis.where(thaalis: {year: CURR_YR}) }
 
   scope :taking_thaali_in_year, ->(year) { thaalis.where(thaalis: {year:}) }
 
   scope :thaalis, -> { joins(:thaalis) }
 
-  scope :with_the_size, ->(size) { thaalis.where(thaalis: {size:}) }
+  scope :took_thaali, -> { thaalis.group("sabeels.id").having("MAX(thaalis.year) < #{CURR_YR}") }
+
+  scope :with_thaali_size, ->(size) { thaalis.where(thaalis: {size:}) }
 
   # * Validations
   # apartment

@@ -6,7 +6,7 @@ class ThaalisController < ApplicationController
   before_action :set_year, only: %i[complete pending all]
 
   def index
-    @active_thaalis = Thaali.includes(:sabeel).in_the_year(CURR_YR)
+    @active_thaalis = Thaali.includes(:sabeel).for_year(CURR_YR)
     @q = @active_thaalis.ransack(params[:q])
 
     thaalis = @q.result(distinct: true)
@@ -66,13 +66,13 @@ class ThaalisController < ApplicationController
     @years = {}
 
     years.each do |y|
-      thaalis = Thaali.in_the_year(y)
+      thaalis = Thaali.for_year(y)
       @years[y] = {}
       @years[y].store(:total, thaalis.sum(:total))
       @years[y].store(:balance, thaalis.sum(&:balance))
       @years[y].store(:count, thaalis.count)
-      @years[y].store(:pending, Thaali.pending_year(y).length)
-      @years[y].store(:complete, Thaali.completed_year(y).length)
+      @years[y].store(:pending, Thaali.dues_unpaid_for(y).length)
+      @years[y].store(:complete, Thaali.dues_cleared_in(y).length)
       SIZES.each do |size|
         @years[y].store(size.to_sym, thaalis.send(size).count)
       end
@@ -80,17 +80,17 @@ class ThaalisController < ApplicationController
   end
 
   def complete
-    @thaalis = Thaali.completed_year(@year).includes(:sabeel)
+    @thaalis = Thaali.dues_cleared_in(@year).includes(:sabeel)
     set_pagy_thaalis_total
   end
 
   def pending
-    @thaalis = Thaali.pending_year(@year).includes(:sabeel)
+    @thaalis = Thaali.dues_unpaid_for(@year).includes(:sabeel)
     set_pagy_thaalis_total
   end
 
   def all
-    @thaalis = Thaali.in_the_year(@year).includes(:sabeel)
+    @thaalis = Thaali.for_year(@year).includes(:sabeel)
     set_pagy_thaalis_total
   end
 

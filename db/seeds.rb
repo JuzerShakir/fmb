@@ -25,7 +25,7 @@ sabeel_prev_thaali.each.with_index do |sabeel, i|
 end
 
 #  have 80% of thaalis to have a complete payment of prev year --> (864 transactions from 72 thaalis)
-thaalis_no_dues = Thaali.in_the_year(PREV_YR).sample(sabeel_prev_thaali.count * 0.8)
+thaalis_no_dues = Thaali.for_year(PREV_YR).sample(sabeel_prev_thaali.count * 0.8)
 
 thaalis_no_dues.each do |thaali|
   12.times do
@@ -39,7 +39,7 @@ thaalis_no_dues.each do |thaali|
 end
 
 #  have rest of the thaalis created of prev year be pending  ---> (maximum: 198 transactions from 18 thaalis)
-thaalis_has_dues = Thaali.pending_year(PREV_YR)
+thaalis_has_dues = Thaali.dues_unpaid_for(PREV_YR)
 
 thaalis_has_dues.each do |thaali|
   num = Random.rand(1...12)
@@ -66,7 +66,7 @@ active_sabeel.each.with_index do |sabeel, i|
 end
 
 #  have ~30% thaalis complete the takhmeens of current year but only if their last year takhmeen is complete ---> (maximum thaalis: 25 thaalis)
-thaalis_no_prev_dues = Thaali.in_the_year(CURR_YR).sample(active_sabeel.count * 0.3)
+thaalis_no_prev_dues = Thaali.for_year(CURR_YR).sample(active_sabeel.count * 0.3)
 
 thaalis_no_prev_dues.each do |thaali|
   if thaali.sabeel.last_year_thaali_dues_cleared?
@@ -82,7 +82,7 @@ thaalis_no_prev_dues.each do |thaali|
 end
 
 #  have takhmeen pending for rest (~70%) of the thaalis created of current year
-thaalis_has_prev_dues = Thaali.pending_year(CURR_YR)
+thaalis_has_prev_dues = Thaali.dues_unpaid_for(CURR_YR)
 
 thaalis_has_prev_dues.each do |thaali|
   num = Random.rand(1...12)

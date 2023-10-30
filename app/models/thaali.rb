@@ -37,26 +37,22 @@ class Thaali < ApplicationRecord
   end
 
   # * Scopes
-  scope :completed_year, ->(year) {
-                           in_the_year(year)
-                             .joins(:transactions)
-                             .group("thaalis.id")
-                             .having("thaalis.total = sum(transactions.amount)")
-                         }
+  scope :dues_cleared_in, ->(year) {
+                            for_year(year)
+                              .joins(:transactions)
+                              .group("thaalis.id")
+                              .having("thaalis.total = sum(transactions.amount)")
+                          }
 
-  scope :in_the_year, ->(year) { where(year: year).order(number: :ASC) }
+  scope :dues_unpaid, -> { no_transaction.union(partial_amount_paid) }
 
-  scope :pending, -> {
-                    left_joins(:transactions)
-                      .group("thaalis.id")
-                      .having("thaalis.total > sum(transactions.amount)")
-                  }
+  scope :dues_unpaid_for, ->(year) { for_year(year).dues_unpaid }
 
-  scope :pending_and_missing, -> { transactions_missing.union(pending) }
+  scope :for_year, ->(year) { where(year: year).order(number: :ASC) }
 
-  scope :pending_year, ->(year) { in_the_year(year).pending_and_missing }
+  scope :no_transaction, -> { where.missing(:transactions) }
 
-  scope :transactions_missing, -> { where.missing(:transactions) }
+  scope :partial_amount_paid, -> { joins(:transactions).group("thaalis.id").having("thaalis.total > sum(transactions.amount)") }
 
   # * Validations
   # number & total

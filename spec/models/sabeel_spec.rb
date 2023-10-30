@@ -47,18 +47,18 @@ RSpec.describe Sabeel do
     let(:active_sabeel) { create(:sabeel_taking_thaali) }
     let(:prev_sabeel) { create(:burhani_sabeel_took_thaali) }
 
-    describe ".actively_taking_thaali" do
-      subject(:sabeels) { described_class.actively_taking_thaali }
+    describe ".no_thaali" do
+      subject(:sabeels) { described_class.no_thaali }
 
-      it "returns records who are actively taking thaali" do
-        expect(sabeels).to include(active_sabeel)
+      it "returns records who have never taken thaali" do
+        expect(sabeels).to contain_exactly(sabeel)
       end
 
-      it { expect(sabeels).not_to include(sabeel) }
+      it { expect(sabeels).not_to include(active_sabeel) }
     end
 
-    describe ".inactive" do
-      subject(:sabeels) { described_class.inactive }
+    describe ".not_taking_thaali" do
+      subject(:sabeels) { described_class.not_taking_thaali }
 
       it "returns records who are actively not taking thaali" do
         expect(sabeels).to include(prev_sabeel, sabeel)
@@ -67,8 +67,8 @@ RSpec.describe Sabeel do
       it { expect(sabeels).not_to include(active_sabeel) }
     end
 
-    describe ".inactive_in" do
-      subject(:sabeels) { described_class.inactive_in("burhani") }
+    describe ".not_taking_thaali_in" do
+      subject(:sabeels) { described_class.not_taking_thaali_in("burhani") }
 
       let(:active_sabeel) { create(:burhani_sabeel_taking_thaali) }
       let(:taiyebi_sabeel) { create(:taiyebi_sabeel_taking_thaali) }
@@ -81,24 +81,14 @@ RSpec.describe Sabeel do
       it { expect(sabeels).not_to include(taiyebi_sabeel) }
     end
 
-    describe ".never_taken_thaali" do
-      subject(:sabeels) { described_class.never_taken_thaali }
+    describe ".taking_thaali" do
+      subject(:sabeels) { described_class.taking_thaali }
 
-      it "returns records who have never taken thaali" do
-        expect(sabeels).to contain_exactly(sabeel)
+      it "returns records who are actively taking thaali" do
+        expect(sabeels).to include(active_sabeel)
       end
 
-      it { expect(sabeels).not_to include(active_sabeel) }
-    end
-
-    describe ".previously_took_thaali" do
-      subject(:sabeels) { described_class.previously_took_thaali }
-
-      it "returns records who previuosly took thaali" do
-        expect(sabeels).to include(prev_sabeel)
-      end
-
-      it { expect(sabeels).not_to include(active_sabeel) }
+      it { expect(sabeels).not_to include(sabeel) }
     end
 
     describe ".taking_thaali_in_year" do
@@ -113,8 +103,18 @@ RSpec.describe Sabeel do
       it { expect(sabeels).not_to include(sabeel) }
     end
 
-    describe ".with_the_size" do
-      subject(:sabeels) { described_class.with_the_size(:small) }
+    describe ".took_thaali" do
+      subject(:sabeels) { described_class.took_thaali }
+
+      it "returns records who previuosly took thaali" do
+        expect(sabeels).to include(prev_sabeel)
+      end
+
+      it { expect(sabeels).not_to include(active_sabeel) }
+    end
+
+    describe ".with_thaali_size" do
+      subject(:sabeels) { described_class.with_thaali_size(:small) }
 
       let(:large_thaali) { create(:sabeel_large_thaali) }
       let(:small_thaali) { create(:sabeel_small_thaali) }
