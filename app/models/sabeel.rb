@@ -13,6 +13,15 @@ class Sabeel < ApplicationRecord
   # * FRIENDLY_ID
   include ITSFriendlyId
 
+  # * Methods
+  def address
+    "#{apartment.titleize} #{flat_no}"
+  end
+
+  def last_year_thaali_dues_cleared?
+    thaalis.completed_year(PREV_YR).present?
+  end
+
   # * RANSACK
   ransacker :its do
     Arel.sql("to_char(\"#{table_name}\".\"its\", '99999999')")
@@ -53,13 +62,4 @@ class Sabeel < ApplicationRecord
   include NameValidation
   # mobile
   validates :mobile, numericality: {only_integer: true}, length: {is: 10}
-
-  # * Methods
-  def address
-    "#{apartment.titleize} #{flat_no}"
-  end
-
-  def last_year_thaali_dues_cleared?
-    thaalis.completed_year(PREV_YR).present?
-  end
 end
