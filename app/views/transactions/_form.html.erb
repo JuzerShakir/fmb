@@ -3,7 +3,7 @@
     <%= f.error_notification %>
     <%= f.input :recipe_no, required: true %>
     <%= f.input :amount, hint: "Amount shouldn't be greater than: #{@total_balance}", required: true %>
-    <%= f.input :mode, collection: MODES.map { |mode| [mode.titleize, mode] } %>
+    <%= f.input :mode, collection: MODES.map { |mode| [mode.capitalize, mode] } %>
     <%= f.input :date, order: %i[day month year] %>
     <%= f.button :submit %>
   <% end %>

@@ -46,7 +46,7 @@ RSpec.describe "Thaali Stats template" do
     it "each size" do
       within("div##{CURR_YR}") do
         SIZES.each do |size|
-          expect(page).to have_content("#{size.titleize}: #{thaalis.send(size).count}")
+          expect(page).to have_content("#{size.capitalize}: #{thaalis.send(size).count}")
         end
       end
     end

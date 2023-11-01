@@ -19,7 +19,7 @@ RSpec.describe "Sabeel New template" do
     end
 
     context "with valid values" do
-      let(:apartment) { APARTMENTS.sample.titleize }
+      let(:apartment) { APARTMENTS.sample.to_s.titleize }
 
       before do
         select apartment, from: :sabeel_apartment
