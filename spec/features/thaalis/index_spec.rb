@@ -29,6 +29,12 @@ RSpec.describe "Thaali index template" do
           expect(page).to have_content(sabeel.name)
         end
       end
+
+      it "balance" do
+        thaalis.each do |thaali|
+          expect(page).to have_content(number_with_delimiter(thaali.balance))
+        end
+      end
     end
 
     describe "search" do

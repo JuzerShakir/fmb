@@ -6,8 +6,8 @@
     <div class="col fw-bold text-truncate">
       <%= thaali.sabeel.name %>
     </div>
-    <div class="col text-secondary">
-      <%= render partial: "shared/thaali_complete", locals: {thaali:} %>
+    <div class="col text-danger">
+      <%= rupees thaali.balance %>
     </div>
   </div>
 <% end %>

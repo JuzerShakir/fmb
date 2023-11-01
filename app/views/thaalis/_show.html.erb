@@ -41,7 +41,11 @@
       <span>TC</span>
     </div>
     <div class="col text-info">
-      <%= render partial: "shared/thaali_complete", locals: {thaali: @thaali} %>
+      <% if @thaali.dues_cleared? %>
+        <i class="fa-solid fa-check text-success"></i>
+      <% else %>
+        <i class="fa-solid fa-xmark text-danger"></i>
+      <% end %>
     </div>
   </div>
 
