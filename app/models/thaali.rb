@@ -28,7 +28,7 @@ class Thaali < ApplicationRecord
   end
 
   def paid
-    transactions.sum(:amount)
+    transactions.map(&:amount).sum(0)
   end
 
   # * RANSACK
@@ -53,6 +53,8 @@ class Thaali < ApplicationRecord
   scope :no_transaction, -> { where.missing(:transactions) }
 
   scope :partial_amount_paid, -> { joins(:transactions).group("thaalis.id").having("thaalis.total > sum(transactions.amount)") }
+
+  scope :preloading, -> { preload(:sabeel, :transactions) }
 
   # * Validations
   # number & total

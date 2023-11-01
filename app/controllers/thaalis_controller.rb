@@ -6,29 +6,23 @@ class ThaalisController < ApplicationController
   before_action :set_year, only: %i[complete pending all]
 
   def index
-    @active_thaalis = Thaali.includes(:sabeel).for_year(CURR_YR)
-    @q = @active_thaalis.ransack(params[:q])
-
-    thaalis = @q.result(distinct: true)
-    @pagy, @thaalis = pagy_countless(thaalis)
+    @q = Thaali.for_year(CURR_YR).ransack(params[:q])
+    query = @q.result(distinct: true)
+    turbo_load(query)
   end
 
   def show
-    @transactions = @thaali.transactions.order(date: :DESC)
+    @transactions = @thaali.transactions.load
     @sabeel = @thaali.sabeel
   end
 
-  # * TODO fill the values in the view
   def new
-    prev_thaali = @sabeel.thaalis.where(year: PREV_YR).first
+    @thaali = @sabeel.thaalis.new
 
-    if prev_thaali.nil?
-      @thaali = @sabeel.thaalis.new
-    else
-      prev_thaali = prev_thaali.slice(:number, :size)
-      @thaali = @sabeel.thaalis.new
-      @thaali.number = prev_thaali[:number]
-      @thaali.size = prev_thaali[:size]
+    if @sabeel.took_thaali?
+      took_thaali = @thaalis.where(year: PREV_YR).first
+      @thaali.number = took_thaali[:number]
+      @thaali.size = took_thaali[:size]
     end
   end
 
@@ -80,24 +74,30 @@ class ThaalisController < ApplicationController
   end
 
   def complete
-    @thaalis = Thaali.dues_cleared_in(@year).includes(:sabeel)
-    set_pagy_thaalis_total
+    thaalis = Thaali.dues_cleared_in(@year)
+    turbo_load(thaalis)
   end
 
   def pending
-    @thaalis = Thaali.dues_unpaid_for(@year).includes(:sabeel)
-    set_pagy_thaalis_total
+    thaalis = Thaali.dues_unpaid_for(@year)
+    turbo_load(thaalis)
   end
 
   def all
-    @thaalis = Thaali.for_year(@year).includes(:sabeel)
-    set_pagy_thaalis_total
+    thaalis = Thaali.for_year(@year)
+    turbo_load(thaalis)
   end
 
   private
 
-  def thaalis_params
-    params.require(:thaali).permit(:number, :size, :total)
+  def check_thaali_for_current_year
+    @sabeel = Sabeel.find(params[:sabeel_id])
+    @thaalis = @sabeel.thaalis
+
+    if @sabeel.taking_thaali?
+      message = "Already taking thaali"
+      redirect_back fallback_location: sabeel_path(@sabeel), notice: message
+    end
   end
 
   def set_thaali
@@ -108,18 +108,16 @@ class ThaalisController < ApplicationController
     @year = params[:year]
   end
 
-  def set_pagy_thaalis_total
-    @total = @thaalis.length
-    @pagy, @thaalis = pagy_countless(@thaalis)
+  def thaalis_params
+    params.require(:thaali).permit(:number, :size, :total)
   end
 
-  def check_thaali_for_current_year
-    @sabeel = Sabeel.find(params[:sabeel_id])
-    thaali = @sabeel.thaalis.where(year: CURR_YR).first
-
-    unless thaali.nil?
-      message = "Already taking thaali"
-      redirect_back fallback_location: sabeel_path(@sabeel), notice: message
+  def turbo_load(thaalis)
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        @pagy, @thaalis = pagy_countless(thaalis.preloading)
+      end
     end
   end
 end

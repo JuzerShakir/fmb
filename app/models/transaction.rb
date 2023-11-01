@@ -1,4 +1,6 @@
 class Transaction < ApplicationRecord
+  default_scope { order(date: :desc) }
+
   # * Associations
   belongs_to :thaali
 

@@ -1,7 +1,9 @@
-<%= turbo_stream.append :transactions do %>
-  <%= render partial: "transaction_content" %>
+<% if @transactions.any? %>
+  <%= turbo_stream.append :transactions, partial: "transaction" %>
+<% else %>
+  <%= turbo_stream.append :transactions, partial: "shared/no_results" %>
 <% end %>
 
-<%= render partial: "shared/pagy", locals: {
-  path: transactions_all_path(format: :turbo_stream, page: @pagy.next, q: params[:q]&.to_unsafe_h)
-} %>
+<%= render partial: "shared/pagy",
+  locals: {path: transactions_all_path(format: :turbo_stream, page: @pagy.next, q: params[:q]&.to_unsafe_h)}
+%>

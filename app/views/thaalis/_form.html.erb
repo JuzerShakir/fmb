@@ -6,7 +6,7 @@
     <% if @thaali.year.nil? %>
       <%= f.input :year, disabled: true, input_html: {value: CURR_YR} %>
 
-    <%# for existing thaali it will its year %>
+    <%# for existing thaali it will show its year %>
     <% else %>
       <%= f.input :year, disabled: true %>
     <% end %>

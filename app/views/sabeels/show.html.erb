@@ -1,5 +1,5 @@
 <%# * Title %>
-<h2 class="text-center">Sabeel <span class="text-secondary">#<%= @sabeel.its.to_s %></span></h2>
+<h2 class="text-center">Sabeel <span class="text-secondary">#<%= @sabeel.its %></span></h2>
 
 <%# * show %>
 <%= render partial: "show" %>
@@ -16,10 +16,14 @@
 } %>
 
 <%# * Thaalis %>
-<%= button_to "New Thaali", new_sabeel_thaali_path(@sabeel), method: :get, class: "btn btn-outline-success mt-5 vstack mx-auto" if @thaali_inactive %>
+<% if @not_taking_thaali %>
+  <%= button_to "New Thaali", new_sabeel_thaali_path(@sabeel), method: :get, class: "btn btn-outline-success mt-5 vstack mx-auto" %>
+<% end %>
 
-<div id="thaalis" class="mt-5">
-  <div class="container text-center c-bg">
-    <%= render partial: "thaalis" if @thaalis.any? %>
+<% if @thaalis.any? %>
+  <div id="thaalis" class="mt-5">
+    <div class="container text-center c-bg">
+      <%= render partial: "thaalis" %>
+    </div>
   </div>
-</div>
+<% end %>

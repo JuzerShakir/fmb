@@ -1,16 +1,7 @@
 <%# * Title %>
-<h2 class="text-center">Inactive Sabeels: <span class="text-secondary"><%= @apt.titleize.to_s %></span> </h2>
+<h2 class="text-center">Inactive Sabeels: <span class="text-secondary"><%= @apt.titleize.to_s %></span></h2>
 
-<%# * No. of Inactive Sabeels %>
-<p class="fs-5 mt-5 fw-bold text-info text-center">Total number of Inactive Sabeels: <%= @total %></p>
-
-<%# * show all Inactive sabeels %>
-<div id="all-sabeels" class="container text-center my-5 border-2 rounded-4 shadow-lg c-bg">
-  <% if @sabeels.any? %>
-    <%= render partial: "inactive_theader" %>
-    <div id="sabeels"></div>
-    <%= turbo_frame_tag :pagination, loading: :lazy, src: sabeels_inactive_path(format: :turbo_stream) %>
-  <% else %>
-    <%= render partial: "shared/no_results" %>
-  <% end %>
-</div>
+<%# * show all sabeels %>
+<%= render partial: "shared/results",
+  locals: {id: "sabeels", path: sabeels_inactive_path(format: :turbo_stream)}
+%>

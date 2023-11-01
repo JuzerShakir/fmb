@@ -18,6 +18,14 @@ class Sabeel < ApplicationRecord
     "#{apartment.titleize} #{flat_no}"
   end
 
+  def taking_thaali?
+    thaalis.exists? year: CURR_YR
+  end
+
+  def took_thaali?
+    thaalis.exists? year: PREV_YR
+  end
+
   def last_year_thaali_dues_cleared?
     thaalis.dues_cleared_in(PREV_YR).present?
   end
@@ -32,9 +40,9 @@ class Sabeel < ApplicationRecord
 
   scope :not_taking_thaali, -> { no_thaali.union(took_thaali) }
 
-  scope :not_taking_thaali_in, ->(apartment) { where(apartment:).not_taking_thaali }
+  scope :not_taking_thaali_in, ->(apartment) { where(apartment:).not_taking_thaali.order(flat_no: :asc) }
 
-  scope :taking_thaali, -> { thaalis.where(thaalis: {year: CURR_YR}) }
+  scope :taking_thaali, -> { thaalis.where(thaalis: {year: CURR_YR}).order(flat_no: :asc) }
 
   scope :taking_thaali_in_year, ->(year) { thaalis.where(thaalis: {year:}) }
 

@@ -1,5 +1,5 @@
 <% @sabeels.each do |sabeel| %>
-  <div class="row py-3 border-bottom border-light">
+  <div id= <%=dom_id(sabeel) %> class="row py-3 border-bottom border-light">
     <div class="col">
       <%= button_to sabeel.its, sabeel, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
     </div>

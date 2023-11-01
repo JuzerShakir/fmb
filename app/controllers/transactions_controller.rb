@@ -5,10 +5,15 @@ class TransactionsController < ApplicationController
   before_action :check_if_thaali_has_balance, only: [:new]
 
   def all
-    @q = Transaction.includes(:thaali).ransack(params[:q])
+    @q = Transaction.all.ransack(params[:q])
+    query = @q.result(distinct: true)
 
-    trans = @q.result(distinct: true).order(date: :DESC)
-    @pagy, @transactions = pagy_countless(trans)
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        @pagy, @transactions = pagy_countless(query.preload(:thaali))
+      end
+    end
   end
 
   def show
@@ -16,8 +21,8 @@ class TransactionsController < ApplicationController
   end
 
   def new
-    @transaction = @thaali.transactions.new
     @total_balance = @thaali.balance.humanize
+    @transaction = @thaali.transactions.new
   end
 
   def edit

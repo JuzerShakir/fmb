@@ -5,7 +5,6 @@ require "rails_helper"
 RSpec.describe "Sabeel Active template" do
   let(:user) { create(:user) }
   let!(:sabeel) { create(:burhani_sabeel_taking_thaali) }
-  let(:thaali) { sabeel.thaalis.first }
 
   before do
     page.set_rack_session(user_id: user.id)
@@ -15,6 +14,8 @@ RSpec.describe "Sabeel Active template" do
   # * ALL user types
   describe "visited by any user type", :js do
     describe "Generate PDF button" do
+      let(:thaali) { sabeel.thaalis.first }
+
       it { expect(page).to have_button("Generate PDF") }
       it { expect(page).to have_css(".fa-file-pdf") }
 
@@ -34,10 +35,9 @@ RSpec.describe "Sabeel Active template" do
     end
 
     describe "showing active sabeel details" do
-      it { expect(page).to have_content(sabeel.flat_no) }
+      it { expect(page).to have_content(sabeel.its) }
       it { expect(page).to have_content(sabeel.name) }
-      it { expect(page).to have_content(thaali.number) }
-      it { expect(page).to have_content(thaali.size.humanize.chr) }
+      it { expect(page).to have_content(sabeel.apartment.titleize) }
     end
   end
 end

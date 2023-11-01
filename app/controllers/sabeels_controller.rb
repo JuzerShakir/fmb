@@ -6,14 +6,20 @@ class SabeelsController < ApplicationController
   before_action :set_apt, only: %i[active inactive]
 
   def index
-    @q = Sabeel.ransack(params[:q])
-    sabeels = @q.result(distinct: true).order(created_at: :DESC)
-    @pagy, @sabeels = pagy_countless(sabeels)
+    @q = Sabeel.all.ransack(params[:q])
+    query = @q.result(distinct: true)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        @pagy, @sabeels = pagy_countless(query)
+      end
+    end
   end
 
   def show
-    @thaalis = @sabeel.thaalis.order(year: :DESC)
-    @thaali_inactive = @thaalis.for_year(CURR_YR).empty?
+    @thaalis = @sabeel.thaalis.preload(:transactions)
+    @not_taking_thaali = !@sabeel.taking_thaali?
   end
 
   def new
@@ -56,31 +62,40 @@ class SabeelsController < ApplicationController
       active_thaalis = total_sabeels.taking_thaali
       inactive = total_sabeels.not_taking_thaali
       @apts[apartment] = {}
-      @apts[apartment].store(:active_thaalis, active_thaalis.count)
-      @apts[apartment].store(:total_sabeels, total_sabeels.count)
-      @apts[apartment].store(:inactive_thaalis, inactive.count)
+      @apts[apartment].store(:active_thaalis, active_thaalis.length)
+      @apts[apartment].store(:total_sabeels, total_sabeels.length)
+      @apts[apartment].store(:inactive_thaalis, inactive.length)
       SIZES.each do |size|
-        @apts[apartment].store(size.to_sym, active_thaalis.with_thaali_size(size).count)
+        @apts[apartment].store(size.to_sym, active_thaalis.with_thaali_size(size).length)
       end
     end
   end
 
   def active
-    @s = Sabeel.send(@apt).taking_thaali.order(flat_no: :ASC).includes(:thaalis)
-    @total = @s.count
-    @pagy, @sabeels = pagy_countless(@s)
+    @sabeels = Sabeel.send(@apt).taking_thaali.preload(:thaalis)
 
-    if request.format.symbol == :pdf
-      pdf = ActiveSabeels.new(@s, @apt)
-      send_data pdf.render, filename: "#{@apt}-#{CURR_YR}.pdf",
-        type: "application/pdf", disposition: "inline"
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        @pagy, @sabeels = pagy_countless(@sabeels)
+      end
+      format.pdf do
+        pdf = ActiveSabeels.new(@sabeels, @apt)
+        send_data pdf.render, filename: "#{@apt}-#{CURR_YR}.pdf",
+          type: "application/pdf", disposition: "inline"
+      end
     end
   end
 
   def inactive
-    sabeels = Sabeel.not_taking_thaali_in(@apt).order(flat_no: :ASC)
-    @total = sabeels.count
-    @pagy, @sabeels = pagy_countless(sabeels)
+    @sabeels = Sabeel.not_taking_thaali_in(@apt)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        @pagy, @sabeels = pagy_countless(@sabeels)
+      end
+    end
   end
 
   private
