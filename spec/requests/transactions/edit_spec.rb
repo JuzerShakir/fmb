@@ -29,7 +29,7 @@ RSpec.describe "Transaction Edit request" do
 
     # * ACCESSIBLE
     describe "Admin or Member" do
-      let(:user) { create(:user_other_than_viewer) }
+      let(:user) { create(:user_admin_or_member) }
 
       it { expect(response).to render_template(:edit) }
       it { expect(response).to have_http_status(:ok) }

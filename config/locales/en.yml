@@ -46,7 +46,11 @@ en:
               too_short: "must be more than 6 characters"
             password_confirmation:
               too_short: "must be more than 6 characters"
-            role:
+            role_ids:
+              blank: &blank "selection is required"
+        role:
+          attributes:
+            name:
               blank: &blank "selection is required"
         sabeel:
           attributes:
@@ -90,6 +94,9 @@ en:
       user:
         its: "ITS Number"
         name: "Full Name"
+        role_ids: "Role"
+      role:
+        name: "Role"
       sabeel:
         its: "ITS Number"
         name: "Full Name"

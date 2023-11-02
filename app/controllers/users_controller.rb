@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    if current_user.admin? && current_user != @user
+    if current_user.is_admin? && current_user != @user
       redirect_to users_path, success: t(".non_self")
     else
       session[:user_id] = nil
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:its, :name, :password, :password_confirmation, :role)
+    params.require(:user).permit(:its, :name, :password, :password_confirmation, :role_ids)
   end
 
   def set_user

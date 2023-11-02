@@ -29,7 +29,7 @@ RSpec.describe "Thaali New request" do
 
     # * ACCESSIBLE
     describe "Admin or Member" do
-      let(:user) { create(:user_other_than_viewer) }
+      let(:user) { create(:user_admin_or_member) }
 
       context "when sabeel is currently NOT taking thaali" do
         let(:sabeel) { create(:sabeel_took_thaali) }

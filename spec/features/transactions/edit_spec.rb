@@ -13,7 +13,7 @@ RSpec.describe "Transaction edit template" do
 
   # * Admins & Members
   describe "visited by Admin or Member" do
-    let(:user) { create(:user_other_than_viewer) }
+    let(:user) { create(:user_admin_or_member) }
 
     it "displays correct amount limit (total) as a hint" do
       within(".transaction_amount") do

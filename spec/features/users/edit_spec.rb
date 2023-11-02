@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "User edit template" do
-  let(:user) { create(:user_other_than_viewer) }
+  let(:user) { create(:user_admin_or_member) }
 
   before do
     page.set_rack_session(user_id: user.id)

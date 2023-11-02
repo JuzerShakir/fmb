@@ -12,7 +12,7 @@ RSpec.describe "Thaali new template" do
 
   # * Admins & Members
   describe "Admin or Member" do
-    let(:user) { create(:user_other_than_viewer) }
+    let(:user) { create(:user_admin_or_member) }
 
     context "when sabeel DIDN'T take it in previous year" do
       describe "displays with empty form fields" do

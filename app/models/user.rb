@@ -1,14 +1,17 @@
 class User < ApplicationRecord
+  rolify
   has_secure_password
 
   # * Callbacks
   include NameCallback
 
-  # * Enums
-  enum :role, ROLES
-
   # * FRIENDLY_ID
   include ITSFriendlyId
+
+  # * Methods
+  def role
+    roles_name.join.capitalize
+  end
 
   # * Validations
   # ITS
@@ -18,5 +21,13 @@ class User < ApplicationRecord
   # password
   validates :password, :password_confirmation, length: {minimum: 6}
   # role
-  validates :role, presence: true
+  validate :must_have_a_role
+
+  private
+
+  def must_have_a_role
+    unless roles.any?
+      errors.add(:role_ids, "selection is required")
+    end
+  end
 end

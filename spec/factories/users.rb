@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :user do
+    roles { [association(:role)] }
     # rubocop:disable RSpec/NoExpectationExample
     its { Faker::Number.number(digits: 8) }
     # rubocop:enable RSpec/NoExpectationExample
@@ -9,38 +10,32 @@ FactoryBot.define do
     name { Faker::Name.name }
     password { Faker::Internet.password(min_length: 6, max_length: 72) }
     password_confirmation { password }
-    role { ROLES.sample }
+
+    factory :admin_user do
+      roles { [association(:admin)] }
+    end
+
+    factory :member_user do
+      roles { [association(:member)] }
+    end
+
+    factory :viewer_user do
+      roles { [association(:viewer)] }
+    end
+
+    factory :user_member_or_viewer do
+      roles { [association(:member_or_viewer)] }
+    end
+
+    factory :user_admin_or_member do
+      roles { [association(:admin_or_member)] }
+    end
 
     factory :invalid_user, traits: [:wrong_password]
-    factory :admin_user, traits: [:admin]
-    factory :member_user, traits: [:member]
-    factory :viewer_user, traits: [:viewer]
-    factory :user_other_than_admin, traits: [:member_or_viewer]
-    factory :user_other_than_viewer, traits: [:admin_or_member]
 
     # * Traits
     trait :wrong_password do
       password_confirmation { nil }
-    end
-
-    trait :admin do
-      role { "admin" }
-    end
-
-    trait :member do
-      role { "member" }
-    end
-
-    trait :viewer do
-      role { "viewer" }
-    end
-
-    trait :member_or_viewer do
-      role { ["member", "viewer"].sample }
-    end
-
-    trait :admin_or_member do
-      role { ["member", "admin"].sample }
     end
   end
 end

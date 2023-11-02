@@ -30,7 +30,7 @@ RSpec.describe "Transaction New request" do
 
     # * ACCESSIBLE
     describe "Admin or Member" do
-      let(:user) { create(:user_other_than_viewer) }
+      let(:user) { create(:user_admin_or_member) }
 
       context "when thaali IS COMPLETED" do
         let(:thaali) { create(:taking_thaali_dues_cleared) }

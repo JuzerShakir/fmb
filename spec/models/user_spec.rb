@@ -11,10 +11,13 @@ RSpec.describe User do
       it { is_expected.to validate_length_of(:password_confirmation).is_at_least(6).with_short_message("must be more than 6 characters") }
     end
 
-    context "with role" do
-      it { is_expected.to validate_presence_of(:role).with_message("selection is required") }
+    context "with roles" do
+      before do
+        user.role_ids = ""
+        user.save
+      end
 
-      it { is_expected.to define_enum_for(:role).with_values([:admin, :member, :viewer]) }
+      it { expect(user.errors[:role_ids]).to contain_exactly("selection is required") }
     end
   end
 end

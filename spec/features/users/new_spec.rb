@@ -6,6 +6,9 @@ RSpec.describe "User new template" do
   let(:user) { create(:admin_user) }
 
   before do
+    # rubocop:disable RSpec/SkipsModelValidations
+    Role.insert_all([{name: "member"}, {name: "viewer"}])
+    # rubocop:enable RSpec/SkipsModelValidations
     page.set_rack_session(user_id: user.id)
     visit root_path
   end
@@ -17,7 +20,7 @@ RSpec.describe "User new template" do
 
       attributes_for(:user).each do |k, v|
         case k
-        when :role then select ROLES.sample.capitalize, from: :user_role
+        when :roles then select ROLES.sample.capitalize, from: :user_role_ids
         else fill_in "user_#{k}", with: v
         end
       end
@@ -45,7 +48,7 @@ RSpec.describe "User new template" do
 
   # * Viewer or Member
   describe "visited by 'Viewer' or 'Member'" do
-    let(:user) { create(:user_other_than_admin) }
+    let(:user) { create(:user_member_or_viewer) }
 
     before { visit new_user_path }
 

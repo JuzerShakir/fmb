@@ -8,7 +8,7 @@ RSpec.describe "User destroy" do
   # * Admins & Members
   # * ITSELF
   describe "visited by 'Admin' & 'Member'" do
-    let(:user) { create(:user_other_than_viewer) }
+    let(:user) { create(:user_admin_or_member) }
 
     before do
       visit user_path(user)

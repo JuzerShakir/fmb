@@ -10,13 +10,13 @@ RSpec.describe "User show template" do
 
   # * Admins & Members
   describe "visited by 'Admin' & 'Member'" do
-    let(:user) { create(:user_other_than_viewer) }
+    let(:user) { create(:user_admin_or_member) }
 
     describe "can view" do
       describe "user details" do
         it { within("#show-user") { expect(page).to have_content(user.name) } }
         it { within("#show-user") { expect(page).to have_content(user.its) } }
-        it { within("#show-user") { expect(page).to have_content(user.role.humanize) } }
+        it { within("#show-user") { expect(page).to have_content(user.role) } }
       end
 
       describe "action buttons" do

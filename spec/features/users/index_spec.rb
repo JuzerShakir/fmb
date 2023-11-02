@@ -20,7 +20,7 @@ RSpec.describe "User index template" do
       end
 
       it "role" do
-        expect(page).to have_content(other_user.role.capitalize)
+        expect(page).to have_content(other_user.role)
       end
 
       it "button" do
@@ -36,7 +36,7 @@ RSpec.describe "User index template" do
 
   # * Member or Viewer
   describe "visited by Member or Viewer" do
-    let(:user) { create(:user_other_than_admin) }
+    let(:user) { create(:user_member_or_viewer) }
 
     it { expect(page).to have_content("Not Authorized") }
     it { expect(page).to have_current_path root_path }

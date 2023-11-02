@@ -29,7 +29,7 @@ RSpec.describe "User Show request" do
 
     # * NOT ACCESSIBLE
     describe "Member or Viewer" do
-      let(:user) { create(:user_other_than_admin) }
+      let(:user) { create(:user_member_or_viewer) }
       let(:other_user) { create(:user) }
 
       before { get user_path(other_user) }
@@ -40,7 +40,7 @@ RSpec.describe "User Show request" do
 
     # * ACCESSIBLE
     describe "Admin or Member" do
-      let(:user) { create(:user_other_than_viewer) }
+      let(:user) { create(:user_admin_or_member) }
 
       it { expect(response).to render_template(:show) }
       it { expect(response).to have_http_status(:ok) }

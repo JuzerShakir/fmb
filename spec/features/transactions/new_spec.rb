@@ -11,7 +11,7 @@ RSpec.describe "Transaction new template" do
 
   # * Admins & Members
   describe "Admin or Member can create it" do
-    let(:user) { create(:user_other_than_viewer) }
+    let(:user) { create(:user_admin_or_member) }
 
     before do
       attributes_for(:transaction).except(:mode, :date).each do |k, v|

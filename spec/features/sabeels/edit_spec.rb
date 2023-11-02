@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Sabeel Edit template" do
-  let(:user) { create(:user_other_than_viewer) }
+  let(:user) { create(:user_admin_or_member) }
   let(:sabeel) { create(:sabeel) }
 
   before do

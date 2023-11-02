@@ -37,7 +37,7 @@ RSpec.describe "Sabeel destroy" do
 
     # * Viewer or Member
     describe "by Viewer" do
-      let(:user) { create(:user_other_than_admin) }
+      let(:user) { create(:user_member_or_viewer) }
 
       it { expect(page).to have_content("Not Authorized") }
       it { expect(page).to have_current_path sabeel_path(sabeel) }

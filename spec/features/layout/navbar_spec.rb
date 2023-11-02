@@ -139,7 +139,7 @@ RSpec.describe "Navbar" do
 
   # * Member or Viewer
   describe "Member or Viewer, do NOT display" do
-    let(:user) { create(:user_other_than_admin) }
+    let(:user) { create(:user_member_or_viewer) }
 
     # * New Sabeel
     it do

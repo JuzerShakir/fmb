@@ -21,7 +21,7 @@ RSpec.describe "User Index request" do
 
     # * NOT ACCESSIBLE
     describe "Member or Viewer" do
-      let(:user) { create(:user_other_than_admin) }
+      let(:user) { create(:user_member_or_viewer) }
 
       it { expect(response).to have_http_status(:found) }
       it { expect(response).to redirect_to root_path }

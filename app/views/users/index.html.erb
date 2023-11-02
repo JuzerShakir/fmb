@@ -5,7 +5,7 @@
 <div id="all-users" class="col-lg-5 mt-5 container text-center shadow rounded-4 pb-4 c-bg">
   <% if @users.any? %>
     <%= render partial: "theader" %>
-    <%= render partial: "user_content" %>
+    <%= render "user" %>
   <% else %>
     <%= render partial: "shared/no_results" %>
   <% end %>

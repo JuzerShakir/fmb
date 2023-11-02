@@ -19,15 +19,15 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_admin_member
-    un_authorize_redirect if current_user&.viewer?
+    un_authorize_redirect if current_user&.is_viewer?
   end
 
   def authorize_admin_n_member_as_user
-    un_authorize_redirect unless current_user&.admin? || (current_user&.member? && current_user.its.to_s == params[:id])
+    un_authorize_redirect unless current_user&.is_admin? || (current_user&.is_member? && current_user.its.to_s == params[:id])
   end
 
   def authorize_admin
-    un_authorize_redirect unless current_user&.admin?
+    un_authorize_redirect unless current_user&.is_admin?
   end
 
   def un_authorize_redirect
