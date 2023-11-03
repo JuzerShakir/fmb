@@ -1,12 +1,9 @@
 class SabeelsController < ApplicationController
-  before_action :authorize
-  before_action :authorize_admin, only: %i[new create destroy]
-  before_action :authorize_admin_member, only: %i[edit update]
-  before_action :set_sabeel, only: %i[show update edit destroy]
+  load_and_authorize_resource
   before_action :set_apt, only: %i[active inactive]
 
   def index
-    @q = Sabeel.all.ransack(params[:q])
+    @q = @sabeels.ransack(params[:q])
     query = @q.result(distinct: true)
 
     respond_to do |format|
@@ -23,14 +20,12 @@ class SabeelsController < ApplicationController
   end
 
   def new
-    @sabeel = Sabeel.new
   end
 
   def edit
   end
 
   def create
-    @sabeel = Sabeel.new(sabeel_params)
     if @sabeel.valid?
       @sabeel.save
       redirect_to @sabeel, success: t(".success")
@@ -102,10 +97,6 @@ class SabeelsController < ApplicationController
 
   def sabeel_params
     params.require(:sabeel).permit(:its, :name, :apartment, :flat_no, :mobile, :email)
-  end
-
-  def set_sabeel
-    @sabeel = Sabeel.find(params[:id])
   end
 
   def set_apt

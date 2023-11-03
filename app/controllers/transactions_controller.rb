@@ -1,7 +1,5 @@
 class TransactionsController < ApplicationController
-  before_action :authorize
-  before_action :authorize_admin_member, except: %i[all show]
-  before_action :set_transaction, only: %i[show edit update destroy]
+  load_and_authorize_resource
   before_action :check_if_thaali_has_balance, only: [:new]
 
   def all
@@ -17,6 +15,7 @@ class TransactionsController < ApplicationController
   end
 
   def show
+    @thaali = @transaction.thaali
     @sabeel = @thaali.sabeel
   end
 
@@ -26,6 +25,7 @@ class TransactionsController < ApplicationController
   end
 
   def edit
+    @thaali = @transaction.thaali
     @total_balance = (@thaali.balance + @transaction.amount).humanize
   end
 
@@ -43,6 +43,8 @@ class TransactionsController < ApplicationController
   end
 
   def update
+    @thaali = @transaction.thaali
+
     if @transaction.update(transaction_params)
       redirect_to @transaction, success: t(".success")
     else
@@ -52,6 +54,8 @@ class TransactionsController < ApplicationController
   end
 
   def destroy
+    @thaali = @transaction.thaali
+
     @transaction.destroy
     redirect_to @thaali, success: t(".success")
   end
@@ -60,11 +64,6 @@ class TransactionsController < ApplicationController
 
   def transaction_params
     params.require(:transaction).permit(:amount, :date, :mode, :recipe_no)
-  end
-
-  def set_transaction
-    @transaction = Transaction.find(params[:id])
-    @thaali = @transaction.thaali
   end
 
   def check_if_thaali_has_balance

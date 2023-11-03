@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize
-  before_action :authorize_admin_n_member_as_user, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_admin, only: [:new, :create, :index]
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   def index
     @users = User.where.not(id: current_user.id)
@@ -12,7 +9,6 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
   end
 
   def edit
@@ -20,8 +16,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.valid?
-      @user.save
+    if @user.save
       redirect_to users_path, success: t(".success")
     else
       render :new, status: :unprocessable_entity
@@ -50,9 +45,5 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:its, :name, :password, :password_confirmation, :role_ids)
-  end
-
-  def set_user
-    @user = User.find(params[:id])
   end
 end

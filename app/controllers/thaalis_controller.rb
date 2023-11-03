@@ -1,7 +1,6 @@
 class ThaalisController < ApplicationController
-  before_action :authorize
-  before_action :authorize_admin_member, only: %i[new create edit update destroy]
-  before_action :set_thaali, only: %i[show edit update destroy]
+  load_and_authorize_resource
+
   before_action :check_thaali_for_current_year, only: [:new]
   before_action :set_year, only: %i[complete pending all]
 
@@ -31,11 +30,10 @@ class ThaalisController < ApplicationController
 
   def create
     @sabeel = Sabeel.find(params[:sabeel_id])
-    @thaali = @sabeel.thaalis.new(thaalis_params)
+    @thaali = @sabeel.thaalis.new(thaali_params)
     @thaali.year = CURR_YR
 
-    if @thaali.valid?
-      @thaali.save
+    if @thaali.save
       redirect_to @thaali, success: t(".success")
     else
       render :new, status: :unprocessable_entity
@@ -43,7 +41,7 @@ class ThaalisController < ApplicationController
   end
 
   def update
-    if @thaali.update(thaalis_params)
+    if @thaali.update(thaali_params)
       redirect_to @thaali, success: t(".success")
     else
       render :edit, status: :unprocessable_entity
@@ -100,16 +98,12 @@ class ThaalisController < ApplicationController
     end
   end
 
-  def set_thaali
-    @thaali = Thaali.find(params[:id])
-  end
-
   def set_year
     @year = params[:year]
   end
 
-  def thaalis_params
-    params.require(:thaali).permit(:number, :size, :total)
+  def thaali_params
+    params.require(:thaali).permit(:number, :size, :total, year: CURR_YR)
   end
 
   def turbo_load(thaalis)

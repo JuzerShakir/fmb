@@ -83,6 +83,7 @@ GEM
     bootsnap (1.15.0)
       msgpack (~> 1.2)
     builder (3.2.4)
+    cancancan (3.5.0)
     capybara (3.38.0)
       addressable
       matrix
@@ -346,6 +347,7 @@ DEPENDENCIES
   active_record_union
   bcrypt (~> 3.1.7)
   bootsnap
+  cancancan
   capybara
   cssbundling-rails
   debug
