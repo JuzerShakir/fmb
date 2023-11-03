@@ -5,21 +5,18 @@
 <%= render "show" %>
 
 <%# * action buttons %>
-<% if current_user == @user %>
-  <%= render partial: "shared/actions", locals: {edit_path: edit_user_path(@user)} %>
-<% else %>
-  <div class="vstack gap-2 col-sm-3 mx-auto mt-5">
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">Delete</button>
-  </div>
-<% end %>
+<div class="col-5 col-md-4 col-lg-3 col-xl-2 vstack gap-2 mx-auto mt-5 fs-6">
+  <% if current_user == @user %>
+    <%= link_to "Edit", edit_user_path(@user) , class: "btn btn-info" %>
+  <% end %>
 
-<%# * destroy Modal %>
-<% if current_user == @user %>
-  <%= render partial: "shared/destroy_modal", locals: {
-    destroy_path: @user, message: "your account"
-  } %>
-<% else %>
-    <%= render partial: "shared/destroy_modal", locals: {
-    destroy_path: @user, message: @user.class.name
-  } %>
-<% end %>
+  <!-- DESTROY Button triggers destroy modal -->
+  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
+    Delete
+  </button>
+  <%# * destroy Modal %>
+  <%= render partial: "shared/destroy_modal", locals: {destroy: @user} %>
+</div>
+
+<%# * back button %>
+<%= render partial: "shared/back" %>

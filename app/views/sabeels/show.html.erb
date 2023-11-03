@@ -5,15 +5,14 @@
 <%= render partial: "show" %>
 
 <%# * action buttons %>
-<%= render partial: "shared/actions", locals: {
-  edit_path: edit_sabeel_path(@sabeel)
-} %>
+<% unless current_user.is_viewer? %>
+  <%= render partial: "shared/actions",
+    locals: {edit_path: edit_sabeel_path(@sabeel), destroy: @sabeel}
+  %>
+<% end %>
 
-<%# * destroy Modal %>
-<%= render partial: "shared/destroy_modal", locals: {
-  destroy_path: @sabeel,
-  message: @sabeel.class.name
-} %>
+<%# * back button %>
+<%= render partial: "shared/back" %>
 
 <%# * Thaalis %>
 <% if @not_taking_thaali %>

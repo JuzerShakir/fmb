@@ -12,15 +12,14 @@
 <%= render partial: "show" %>
 
 <%# * action buttons %>
-<%= render partial: "shared/actions", locals: {
-  edit_path: edit_thaali_path(@thaali)
-} %>
+<% unless current_user.is_viewer? %>
+  <%= render partial: "shared/actions",
+    locals: {edit_path: edit_thaali_path(@thaali), destroy: @thaali}
+  %>
+<% end %>
 
-<%# * destroy Modal %>
-<%= render partial: "shared/destroy_modal", locals: {
-  destroy_path: @thaali,
-  message: @thaali.class.name
-} %>
+<%# * back button %>
+<%= render partial: "shared/back" %>
 
 <%# * Transactions %>
 <% unless @thaali.dues_cleared? %>

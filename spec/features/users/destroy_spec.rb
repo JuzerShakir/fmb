@@ -23,7 +23,7 @@ RSpec.describe "User destroy" do
 
       it "shows confirmation message" do
         within(".modal-body") do
-          expect(page).to have_content("Are you sure you want to delete this your account? This action cannot be undone.")
+          expect(page).to have_content("Are you sure you want to delete your account? This action cannot be undone.")
         end
       end
 

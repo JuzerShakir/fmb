@@ -3,7 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "Thaali show template" do
-  let(:user) { create(:user) }
   let(:thaali) { create(:taking_thaali_partial_amount_paid) }
 
   before do
@@ -13,15 +12,12 @@ RSpec.describe "Thaali show template" do
 
   # * ALL user types
   describe "visited by any user type can view" do
+    let(:user) { create(:user) }
+
     describe "thaali details" do
       it { expect(page).to have_content(thaali.size.humanize) }
       it { expect(page).to have_content(number_with_delimiter(thaali.total)) }
       it { expect(page).to have_content(number_with_delimiter(thaali.balance)) }
-    end
-
-    describe "action buttons" do
-      it { expect(page).to have_link("Edit") }
-      it { expect(page).to have_button("Delete") }
     end
 
     describe "transaction details" do
@@ -34,6 +30,24 @@ RSpec.describe "Thaali show template" do
       it { expect(page).to have_content(transaction.recipe_no.to_s) }
       it { expect(page).to have_content(number_with_delimiter(transaction.amount)) }
       it { expect(page).to have_content(time_ago_in_words(transaction.date)) }
+    end
+  end
+
+  describe "visited by admin or member can view" do
+    let(:user) { create(:user_admin_or_member) }
+
+    describe "action buttons" do
+      it { expect(page).to have_link("Edit") }
+      it { expect(page).to have_button("Delete") }
+    end
+  end
+
+  describe "visited by viewer cannot view" do
+    let(:user) { create(:viewer_user) }
+
+    describe "action buttons" do
+      it { expect(page).not_to have_link("Edit") }
+      it { expect(page).not_to have_button("Delete") }
     end
   end
 end

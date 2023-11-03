@@ -3,7 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "Sabeel Show template" do
-  let(:user) { create(:user) }
   let(:sabeel) { create(:sabeel) }
 
   before do
@@ -13,17 +12,14 @@ RSpec.describe "Sabeel Show template" do
 
   # * ALL user types
   describe "visited by any user type can view" do
+    let(:user) { create(:user) }
+
     describe "sabeel details" do
       it { expect(page).to have_content(sabeel.its) }
       it { expect(page).to have_content(sabeel.name) }
       it { expect(page).to have_content(sabeel.address) }
       it { expect(page).to have_content(sabeel.mobile) }
       it { expect(page).to have_content(sabeel.email) }
-    end
-
-    describe "action buttons" do
-      it { expect(page).to have_link("Edit") }
-      it { expect(page).to have_button("Delete") }
     end
 
     describe "thaali details" do
@@ -47,6 +43,24 @@ RSpec.describe "Sabeel Show template" do
           it { expect(page).to have_content(number_with_delimiter(thaali.balance)) }
         end
       end
+    end
+  end
+
+  describe "visited by admin or member can view" do
+    let(:user) { create(:user_admin_or_member) }
+
+    describe "action buttons" do
+      it { expect(page).to have_link("Edit") }
+      it { expect(page).to have_button("Delete") }
+    end
+  end
+
+  describe "visited by viewer cannot view" do
+    let(:user) { create(:viewer_user) }
+
+    describe "action buttons" do
+      it { expect(page).not_to have_link("Edit") }
+      it { expect(page).not_to have_button("Delete") }
     end
   end
 end
