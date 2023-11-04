@@ -12,11 +12,6 @@
 <%= render partial: "show" %>
 
 <%# * action buttons %>
-<% unless current_user.is_viewer? %>
-  <%= render partial: "shared/actions",
-    locals: {edit_path: edit_transaction_path(@transaction), destroy: @transaction}
-  %>
-<% end %>
-
-<%# * back button %>
-<%= render partial: "shared/back" %>
+<%= render partial: "shared/actions",
+  locals: {edit_path: edit_transaction_path(@transaction), destroy: @transaction}
+%>

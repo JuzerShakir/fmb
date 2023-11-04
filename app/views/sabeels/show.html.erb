@@ -5,14 +5,9 @@
 <%= render partial: "show" %>
 
 <%# * action buttons %>
-<% unless current_user.is_viewer? %>
-  <%= render partial: "shared/actions",
-    locals: {edit_path: edit_sabeel_path(@sabeel), destroy: @sabeel}
-  %>
-<% end %>
-
-<%# * back button %>
-<%= render partial: "shared/back" %>
+<%= render partial: "shared/actions",
+  locals: {edit_path: edit_sabeel_path(@sabeel), destroy: @sabeel}
+%>
 
 <%# * Thaalis %>
 <% if @not_taking_thaali && !current_user.is_viewer? %>
