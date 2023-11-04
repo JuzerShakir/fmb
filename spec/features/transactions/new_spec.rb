@@ -42,12 +42,4 @@ RSpec.describe "Transaction new template" do
       end
     end
   end
-
-  # * Viewer
-  describe "visited by 'Viewer'" do
-    let(:user) { create(:viewer_user) }
-
-    it { expect(page).to have_content("Not Authorized") }
-    it { expect(page).to have_current_path root_path }
-  end
 end

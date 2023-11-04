@@ -3,7 +3,9 @@
 require "rails_helper"
 
 RSpec.describe "Sabeel Show template" do
-  let(:sabeel) { create(:sabeel) }
+  let(:sabeel) { create(:sabeel_taking_thaali) }
+  let(:count) { sabeel.thaalis.count }
+  let(:thaali) { sabeel.thaalis.first }
 
   before do
     page.set_rack_session(user_id: user.id)
@@ -23,26 +25,10 @@ RSpec.describe "Sabeel Show template" do
     end
 
     describe "thaali details" do
-      context "when it's NOT actively taking it" do
-        it { expect(page).to have_button("New Thaali") }
-      end
-
-      context "when it's ACTIVELY taking it" do
-        let(:active_sabeel) { create(:sabeel_taking_thaali) }
-        let(:count) { active_sabeel.thaalis.count }
-        let(:thaali) { active_sabeel.thaalis.first }
-
-        before { visit sabeel_path(active_sabeel) }
-
-        it { expect(page).not_to have_button("New Thaali") }
-
-        describe "show all its details" do
-          it { expect(page).to have_content("Total number of Thaalis: #{count}") }
-          it { expect(page).to have_content(thaali.year) }
-          it { expect(page).to have_content(number_with_delimiter(thaali.total)) }
-          it { expect(page).to have_content(number_with_delimiter(thaali.balance)) }
-        end
-      end
+      it { expect(page).to have_content("Total number of Thaalis: #{count}") }
+      it { expect(page).to have_content(thaali.year) }
+      it { expect(page).to have_content(number_with_delimiter(thaali.total)) }
+      it { expect(page).to have_content(number_with_delimiter(thaali.balance)) }
     end
   end
 
@@ -53,14 +39,28 @@ RSpec.describe "Sabeel Show template" do
       it { expect(page).to have_link("Edit") }
       it { expect(page).to have_button("Delete") }
     end
+
+    describe "thaali details" do
+      context "when it's NOT CURRENTLY taking it" do
+        let(:sabeel) { create(:sabeel) }
+
+        it { expect(page).to have_button("New Thaali") }
+      end
+
+      context "when it's CURRENTLY taking it" do
+        it { expect(page).not_to have_button("New Thaali") }
+      end
+    end
   end
 
   describe "visited by viewer cannot view" do
+    let(:sabeel) { create(:sabeel) }
     let(:user) { create(:viewer_user) }
 
     describe "action buttons" do
       it { expect(page).not_to have_link("Edit") }
       it { expect(page).not_to have_button("Delete") }
+      it { expect(page).not_to have_button("New Thaali") }
     end
   end
 end

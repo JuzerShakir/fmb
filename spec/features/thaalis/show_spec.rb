@@ -39,6 +39,18 @@ RSpec.describe "Thaali show template" do
     describe "action buttons" do
       it { expect(page).to have_link("Edit") }
       it { expect(page).to have_button("Delete") }
+
+      describe "New Transaction button" do
+        context "when amount is partially paid" do
+          it { expect(page).to have_button("New Transaction") }
+        end
+
+        context "when amount is fully paid" do
+          let(:thaali) { create(:taking_thaali_dues_cleared) }
+
+          it { expect(page).not_to have_button("New Transaction") }
+        end
+      end
     end
   end
 
@@ -48,6 +60,7 @@ RSpec.describe "Thaali show template" do
     describe "action buttons" do
       it { expect(page).not_to have_link("Edit") }
       it { expect(page).not_to have_button("Delete") }
+      it { expect(page).not_to have_button("New Transaction") }
     end
   end
 end
