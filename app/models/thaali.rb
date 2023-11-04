@@ -28,7 +28,7 @@ class Thaali < ApplicationRecord
   end
 
   def paid
-    transactions.map(&:amount).sum(0)
+    transactions.filter_map(&:amount).sum(0)
   end
 
   # * RANSACK

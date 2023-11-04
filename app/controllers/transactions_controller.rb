@@ -33,8 +33,7 @@ class TransactionsController < ApplicationController
     @thaali = Thaali.find(params[:thaali_id])
     @transaction = @thaali.transactions.new(transaction_params)
 
-    if @transaction.valid?
-      @transaction.save
+    if @transaction.save
       redirect_to @transaction, success: t(".success")
     else
       @total_balance = @thaali.balance.humanize
