@@ -30,17 +30,13 @@ class Ability
       can :manage, Sabeel
       can :manage, Thaali
       can :manage, Transaction
-    end
-
-    if user.is_member?
+    elsif user.is_member?
       can [:show, :update, :destroy], User, id: user.id
       can :manage, Sabeel
       cannot [:create, :destroy], Sabeel
       can :manage, Thaali
       can :manage, Transaction
-    end
-
-    if user.is_viewer?
+    elsif user.is_viewer?
       can [:read, :stats, :active, :inactive], Sabeel
       can [:read, :stats, :complete, :pending, :all], Thaali
       can [:all, :show], Transaction
