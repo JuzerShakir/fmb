@@ -6,7 +6,6 @@
       locals: {message: "Name or ITS Nnumber.", path: sabeels_path, search: :name_or_its_cont} %>
 
 <%# * show all sabeels %>
-<%= render partial: "shared/results", locals: {
-  id: "sabeels",
-  path: sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h)
-} %>
+<%= render partial: "shared/results",
+  locals: {id: "sabeels", path: sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h)}
+%>
