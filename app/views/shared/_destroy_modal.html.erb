@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body">
         Are you sure you want to <b>delete
-          <%= current_user == @user ? "your account" : "this #{destroy.class.name}" %>?</b>
+          <%= current_user.id == @user&.id ? "your account" : "this #{destroy.class.name}" %>?</b>
         This action cannot be undone.
       </div>
       <div class="modal-footer">
