@@ -9,8 +9,12 @@ class User < ApplicationRecord
   include ITSFriendlyId
 
   # * Methods
-  def role
-    roles_name.join.capitalize
+  def cache_role
+    Rails.cache.fetch("user_#{id}_role") { roles_name.first }
+  end
+
+  def is?(role)
+    cache_role == role
   end
 
   # * Validations

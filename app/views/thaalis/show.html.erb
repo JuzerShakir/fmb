@@ -17,7 +17,7 @@
 %>
 
 <%# * Transactions %>
-<% unless @thaali.dues_cleared? || current_user.is_viewer? %>
+<% unless @thaali.dues_cleared? || current_user.is?("viewer") %>
   <%= button_to "New Transaction", new_thaali_transaction_path(@thaali), method: :get, class: "btn btn-success mt-5 vstack mx-auto" %>
 <% end %>
 

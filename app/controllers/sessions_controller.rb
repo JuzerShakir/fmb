@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    Rails.cache.delete("user_#{current_user.id}_role")
     session[:user_id] = nil
     redirect_to login_path, success: t(".success")
   end

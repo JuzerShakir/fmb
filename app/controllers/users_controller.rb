@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    if current_user.is_admin? && current_user != @user
+    if current_user.is?("admin") && current_user != @user
       redirect_to users_path, success: t(".non_self")
     else
       session[:user_id] = nil

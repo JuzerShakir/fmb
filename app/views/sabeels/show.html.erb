@@ -10,7 +10,7 @@
 %>
 
 <%# * Thaalis %>
-<% if @not_taking_thaali && !current_user.is_viewer? %>
+<% if @not_taking_thaali && !current_user.is?("viewer") %>
   <%= button_to "New Thaali", new_sabeel_thaali_path(@sabeel), method: :get, class: "btn btn-outline-success mt-5 vstack mx-auto" %>
 <% end %>
 

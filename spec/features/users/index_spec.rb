@@ -20,7 +20,7 @@ RSpec.describe "User index template" do
       end
 
       it "role" do
-        expect(page).to have_content(other_user.role)
+        expect(page).to have_content(other_user.roles_name.first.capitalize)
       end
 
       it "button" do
