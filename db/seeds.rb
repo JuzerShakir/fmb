@@ -99,3 +99,18 @@ end
 # *CREATES TOTAL Sabeel --> 100
 # *CREATES TOTAL Thaalis --> 175 (90 + 85)
 # *CREATES TOTAL Transactions --> ~1.1k
+
+ROLES.each do |role|
+  Role.create(name: role)
+end
+
+User.create(
+  its: 12345678,
+  name: "Viewer",
+  password: "12345678",
+  password_confirmation: "12345678",
+  role_ids: 3
+)
+
+# *CREATES 3 roles ie. admin, member, viewer
+# *CREATES 1 user with viewer permissions
