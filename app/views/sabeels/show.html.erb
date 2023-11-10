@@ -10,11 +10,11 @@
 %>
 
 <%# * Thaalis %>
-<% if @not_taking_thaali && !current_user.is?("viewer") %>
+<% if !@sabeel.taking_thaali? && !current_user.is?("viewer") %>
   <%= button_to "New Thaali", new_sabeel_thaali_path(@sabeel), method: :get, class: "btn btn-outline-success mt-5 vstack mx-auto" %>
 <% end %>
 
-<% if @thaalis.any? %>
+<% if @sabeel.taking_thaali? || @sabeel.took_thaali? || @thaalis.any? %>
   <div id="thaalis" class="mt-5">
     <div class="container text-center c-bg">
       <%= render partial: "thaalis" %>

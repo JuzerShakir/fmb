@@ -34,6 +34,7 @@ class ThaalisController < ApplicationController
     @thaali.year = CURR_YR
 
     if @thaali.save
+      Rails.cache.write("sabeel_#{@sabeel.id}_taking_thaali?", true)
       redirect_to @thaali, success: t(".success")
     else
       render :new, status: :unprocessable_entity
@@ -50,6 +51,9 @@ class ThaalisController < ApplicationController
 
   def destroy
     @thaali.destroy
+    if @thaali.year == CURR_YR
+      Rails.cache.write("sabeel_#{@thaali.sabeel_id}_taking_thaali?", false)
+    end
     redirect_to sabeel_path(@thaali.sabeel), success: t(".success")
   end
 

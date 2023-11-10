@@ -19,11 +19,11 @@ class Sabeel < ApplicationRecord
   end
 
   def taking_thaali?
-    thaalis.exists? year: CURR_YR
+    Rails.cache.fetch("sabeel_#{id}_taking_thaali?") { thaalis.exists? year: CURR_YR }
   end
 
   def took_thaali?
-    thaalis.exists? year: PREV_YR
+    Rails.cache.fetch("sabeel_#{id}_took_thaali?") { thaalis.exists? year: PREV_YR }
   end
 
   def last_year_thaali_dues_cleared?
