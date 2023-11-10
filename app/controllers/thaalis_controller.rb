@@ -58,7 +58,7 @@ class ThaalisController < ApplicationController
     @years = {}
 
     years.each do |y|
-      thaalis = Thaali.for_year(y)
+      thaalis = Thaali.for_year(y).preload(:transactions)
       @years[y] = {}
       @years[y].store(:total, thaalis.sum(:total))
       @years[y].store(:balance, thaalis.sum(&:balance))

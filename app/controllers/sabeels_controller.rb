@@ -16,7 +16,6 @@ class SabeelsController < ApplicationController
 
   def show
     @thaalis = @sabeel.thaalis.preload(:transactions)
-    @not_taking_thaali = !@sabeel.taking_thaali?
   end
 
   def new
@@ -26,8 +25,7 @@ class SabeelsController < ApplicationController
   end
 
   def create
-    if @sabeel.valid?
-      @sabeel.save
+    if @sabeel.save
       redirect_to @sabeel, success: t(".success")
     else
       render :new, status: :unprocessable_entity
@@ -67,7 +65,7 @@ class SabeelsController < ApplicationController
   end
 
   def active
-    @sabeels = Sabeel.send(@apt).taking_thaali.preload(:thaalis)
+    @sabeels = Sabeel.send(@apt).taking_thaali
 
     respond_to do |format|
       format.html
@@ -75,7 +73,7 @@ class SabeelsController < ApplicationController
         @pagy, @sabeels = pagy_countless(@sabeels)
       end
       format.pdf do
-        pdf = ActiveSabeels.new(@sabeels, @apt)
+        pdf = ActiveSabeels.new(@sabeels.preload(:thaalis), @apt)
         send_data pdf.render, filename: "#{@apt}-#{CURR_YR}.pdf",
           type: "application/pdf", disposition: "inline"
       end
