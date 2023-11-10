@@ -15,6 +15,9 @@ class UsersController < ApplicationController
   end
 
   def create
+    # let this be explicit to avoid PG::UniqueViolation exception in test suite
+    @user = User.new(user_params)
+
     if @user.save
       redirect_to users_path, success: t(".success")
     else
