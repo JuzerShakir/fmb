@@ -13,8 +13,7 @@
 
 <%# * action buttons %>
 <%= render partial: "shared/actions",
-  locals: {edit_path: edit_thaali_path(@thaali), destroy: @thaali}
-%>
+      locals: {edit_path: edit_thaali_path(@thaali), destroy: @thaali} %>
 
 <%# * Transactions %>
 <% unless @thaali.dues_cleared? || current_user.is?("viewer") %>

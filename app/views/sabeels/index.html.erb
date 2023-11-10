@@ -7,5 +7,4 @@
 
 <%# * show all sabeels %>
 <%= render partial: "shared/results",
-  locals: {id: "sabeels", path: sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h)}
-%>
+      locals: {id: "sabeels", path: sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h)} %>
