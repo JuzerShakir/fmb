@@ -38,8 +38,8 @@ class Transaction < ApplicationRecord
 
   # * Custom Validations
   def amount_to_be_less_than_balance
-    balance = persisted? ? amount_was + thaali.balance : thaali.balance
     return if amount.nil?
+    balance = persisted? ? amount_was + thaali.balance : thaali.balance
 
     if amount > balance
       errors.add(:amount, "cannot be greater than the balance")
