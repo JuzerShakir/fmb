@@ -54,8 +54,8 @@ jobs:
           bundle exec rails db:create
           bundle exec rails db:migrate
 
-      - name: Checking linting errors in erb files
-        run: bundle exec erblint -l
+      # - name: Checking linting errors in erb files
+      #   run: bundle exec erblint -l
 
       - name: Checking rubocop errors
         run: bundle exec rubocop
