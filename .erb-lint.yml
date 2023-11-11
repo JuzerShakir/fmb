@@ -13,6 +13,7 @@ linters:
       - "spec/**/*"
       - "config/**/*"
       - "node_modules/**/*"
+      - "vender/**/*"
     rubocop_config:
       inherit_gem:
         standard: config/base.yml
