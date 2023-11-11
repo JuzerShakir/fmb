@@ -75,4 +75,6 @@ jobs:
           DATABASE_URL: postgres://postgres:password@localhost:5432/test
           RAILS_ENV: test
           PG_USER: postgres
-        run: bundle exec rspec
+        run: |
+          rake assets:precompile
+          bundle exec rspec
