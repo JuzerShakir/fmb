@@ -35,6 +35,11 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y -qq libvips
+          yarn install --frozen-lockfile
+
       - name: Installing Bundler & Gems
         run: |
           gem install bundler
