@@ -1,16 +1,16 @@
 ---
 EnableDefaultLinters: true
-
+# exclude globally
 exclude:
   - "**/vendor/**/*"
   - "**/vendor/**/.*"
-  - "vendor/**/*"
 
 linters:
   ErbSafety:
     enabled: true
   Rubocop:
     enabled: true
+    # exclude locally
     exclude:
       - "**/vendor/**/*"
       - "**/vendor/**/.*"
