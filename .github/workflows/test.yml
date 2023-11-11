@@ -48,20 +48,6 @@ jobs:
           gem install bundler
           bundle install --jobs 4 --retry 3
 
-      # - name: Run yarn commands
-      #   run: |
-      #     yarn install
-      #     yarn run build
-
-      - name: Preparing Database
-        env:
-          DATABASE_URL: postgres://postgres:password@localhost:5432/test
-          RAILS_ENV: test
-          PG_USER: postgres
-        run: |
-          bundle exec rails db:create
-          bundle exec rails db:migrate
-
       - name: Find linting errors
         run: bundle exec erblint -l
 
@@ -76,4 +62,7 @@ jobs:
           DATABASE_URL: postgres://postgres:password@localhost:5432/test
           RAILS_ENV: test
           PG_USER: postgres
-        run: bundle exec rspec
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+          bundle exec rspec
