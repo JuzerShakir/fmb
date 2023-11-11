@@ -1,5 +1,11 @@
 ---
 EnableDefaultLinters: true
+
+exclude:
+  - "**/vendor/**/*"
+  - "**/vendor/**/.*"
+  - "vendor/**/*"
+
 linters:
   ErbSafety:
     enabled: true
@@ -13,7 +19,6 @@ linters:
       - "spec/**/*"
       - "config/**/*"
       - "node_modules/**/*"
-      - "vendor/**/*"
     rubocop_config:
       inherit_gem:
         standard: config/base.yml
