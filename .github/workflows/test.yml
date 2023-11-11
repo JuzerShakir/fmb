@@ -60,41 +60,9 @@ jobs:
       - name: Checking rubocop errors
         run: bundle exec rubocop
 
-      - name: Testing routes
+      - name: Running Tests
         env:
           DATABASE_URL: postgres://postgres:password@localhost:5432/test
           RAILS_ENV: test
           PG_USER: postgres
-        run: bundle exec rspec spec/routing
-
-      - name: Testing requests
-        env:
-          DATABASE_URL: postgres://postgres:password@localhost:5432/test
-          RAILS_ENV: test
-          PG_USER: postgres
-        run: bundle exec rspec spec/requests
-
-      - name: Testing models
-        env:
-          DATABASE_URL: postgres://postgres:password@localhost:5432/test
-          RAILS_ENV: test
-          PG_USER: postgres
-        run: bundle exec rspec spec/models
-
-      # - name: Setup Chrome
-      #   uses: browser-actions/setup-chrome@v1.1.0
-
-      # - name: setup-chromedriver
-      #   uses: nanasess/setup-chromedriver@v1.1.0
-
-      - name: Testing features
-        env:
-          DATABASE_URL: postgres://postgres:password@localhost:5432/test
-          RAILS_ENV: test
-          PG_USER: postgres
-          # export DISPLAY=:99
-          # chromedriver &
-          # sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional
-        run: |
-          bundle exec rspec spec/features
-      # 'sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional' command launches an instance of Xvfb (X Virtual Framebuffer), a virtual display server for X11 that allows running graphical applications without an actual display hardware.
+        run: bundle exec rspec
