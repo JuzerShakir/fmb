@@ -1,0 +1,39 @@
+<div id="show-thaali" class="col-5 col-md-4 col-lg-3 col-xl-2 mx-auto mt-5 rounded-5 shadow fs-6 py-3">
+
+  <div class="row border-bottom border-3 m-0 pb-3">
+    <div class="col fw-bolder text-end">
+      <span>Size</span>
+    </div>
+    <div class="col text-primary">
+      <%= @thaali.size.capitalize %>
+    </div>
+  </div>
+
+  <div class="row border-bottom border-3 m-0 py-3">
+    <div class="col fw-bolder text-end">
+      <span>Total</span>
+    </div>
+    <div class="col text-info">
+      <%= rupees @thaali.total %>
+    </div>
+  </div>
+
+  <div class="row border-bottom border-3 m-0 py-3">
+    <div class="col fw-bolder text-end">
+      <span>Paid</span>
+    </div>
+    <div class="col text-success">
+      <%= rupees @thaali.paid %>
+    </div>
+  </div>
+
+  <div class="row pt-3">
+    <div class="col fw-bolder text-end">
+      <span>Balance</span>
+    </div>
+    <div class="col text-danger">
+      <%= rupees @thaali.balance %>
+    </div>
+  </div>
+
+</div>

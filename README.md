@@ -31,21 +31,22 @@
 
 ## Table of Contents
 
--   [About FMB](#about-fmb)
-    -   [Definition of FMB](#definition-of-fmb)
--   [About project](#about-the-project)
-    -   [Hosting](#hosting)
-    -   [Schema](#schema)
-        -   [User](#user-model)
-        -   [Sabeel](#Sabeel-model)
-        -   [ThaaliTakhmeen](#thaali-takhmeen-model)
-        -   [Transaction](#transaction-model)
-    -   [Request Response Cycle](#request-response-cycle)
-    -   [Constants](#constants)
-    -   [Features](#features)
--   [Testing](#testing)
--   [Bugs](#bugs)
--   [Additional Features](#additional-features)
+- [Table of Contents](#table-of-contents)
+- [About FMB](#about-fmb)
+  - [Definition of FMB](#definition-of-fmb)
+- [About the project](#about-the-project)
+  - [Hosting](#hosting)
+  - [Schema](#schema)
+    - [User Model](#user-model)
+    - [Sabeel Model](#sabeel-model)
+    - [Thaali Takhmeen Model](#thaali-takhmeen-model)
+    - [Transaction model](#transaction-model)
+  - [Request Response Cycle](#request-response-cycle)
+  - [Constants](#constants)
+  - [Features](#features)
+- [Testing](#testing)
+- [Bugs](#bugs)
+- [Additional Features](#additional-features)
 
 ---
 
@@ -57,11 +58,11 @@ Apart from permanent staff, over 7,000 Bohra volunteers strive to keep the commu
 
 ### Definition of FMB
 
--   **Faiz** 👉 The original meaning of faiz (or fayd) indicates an effusion or outpouring, such as water gushing from a stream or a glass filled until the liquid overflows. It has come to connote anything that is profuse or in abundance; for example, abundant generosity. In the name Faiz al-Mawaid al-Burhaniyah, faiz is understood as the abundant blessings or bounties that flow from the mawaid of Syedna Mohammed Burhanuddin.
+- **Faiz** 👉 The original meaning of faiz (or fayd) indicates an effusion or outpouring, such as water gushing from a stream or a glass filled until the liquid overflows. It has come to connote anything that is profuse or in abundance; for example, abundant generosity. In the name Faiz al-Mawaid al-Burhaniyah, faiz is understood as the abundant blessings or bounties that flow from the mawaid of Syedna Mohammed Burhanuddin.
 
--   **Mawaid** 👉 Mawaid is the plural of maaidat, which refers to a dining platter filled with food, or more specifically, the thaal, the large steel platters around which Dawoodi Bohras traditionally sit and dine.
+- **Mawaid** 👉 Mawaid is the plural of maaidat, which refers to a dining platter filled with food, or more specifically, the thaal, the large steel platters around which Dawoodi Bohras traditionally sit and dine.
 
--   **Burhaniyah** 👉 An adjective that attributes the mawaid to Syedna Mohammed Burhanuddin. For the Dawoodi Bohras, the name Faiz al-Mawaid al-Burhaniyah is a continuing reminder of the blessings and benevolence of Syedna Burhanuddin.
+- **Burhaniyah** 👉 An adjective that attributes the mawaid to Syedna Mohammed Burhanuddin. For the Dawoodi Bohras, the name Faiz al-Mawaid al-Burhaniyah is a continuing reminder of the blessings and benevolence of Syedna Burhanuddin.
 
 > For further details, please visit this [link](https://www.thedawoodibohras.com/about-the-bohras/faiz-al-mawaid-al-burhaniyah/).
 
@@ -94,41 +95,41 @@ This application is hosted [here](https://fmb.fly.dev) using [Fly.io](https://fl
 
 #### User Model
 
--   The User model will hold data of the members in the FMB organization of a particular city.
+- The User model will hold data of the members in the FMB organization of a particular city.
 
--   A user has to sign-in in order to access the site with the credentials provided by the `admin`.
+- A user has to sign-in in order to access the site with the credentials provided by the `admin`.
 
--   A user can have 3 different roles such as `admin`, `member` & `viewer`.
-    -   An `admin` has access to everything and also the ability to create & delete `sabeel` & `user` with any roles which no other `role` has access to.
-    -   A `member` has access to create, update or delete routes of `thaali_takhmeen` of a `sabeel` & `transaction` of a `thaali_takhmeen`.
-    -   A `viewer` has NO access to create, update or delete routes of any models but only view the site and all its data.
+- A user can have 3 different roles such as `admin`, `member` & `viewer`.
+  - An `admin` has access to everything and also the ability to create & delete `sabeel` & `user` with any roles which no other `role` has access to.
+  - A `member` has access to create, update or delete routes of `thaali_takhmeen` of a `sabeel` & `transaction` of a `thaali_takhmeen`.
+  - A `viewer` has NO access to create, update or delete routes of any models but only view the site and all its data.
 
 > The first `admin`/`user` can only be created by the developer and then later that `admin` can create any number of users with roles of his choosing.
 
 #### Sabeel Model
 
--   **A Dawoodi Bohra family in other words is called a `sabeel`.**
--   All the sabeels listed in this model will only belong to a particular city.
--   The `ITS` attribute is an 8-digit number which is unique for all Dawoodi Bohra members. The sabeel is created with the `ITS` number of HOF member.
+- **A Dawoodi Bohra family in other words is called a `sabeel`.**
+- All the sabeels listed in this model will only belong to a particular city.
+- The `ITS` attribute is an 8-digit number which is unique for all Dawoodi Bohra members. The sabeel is created with the `ITS` number of HOF member.
 
 #### Thaali Takhmeen Model
 
--   **The term `Thaali` refers to a lunch/dinner set that is used to give meal to a sabeel.**
--   A `sabeel` can only take a `thaali` for each `year` & have multiple thaalis over the years.
--   The value of `number` attribute will be unique for each `year`, so no 2 `thaalis` can have same number in the same `year`.
--   A `sabeel` can choose a `thaali` of the size required (`small`, `medium` & `large`) to avoid food wastage.
--   **The term `takhmeen` refers to the voluntary donations done by each `sabeel` for a `thaali`.**
--   The `total`, `paid` & `balance` attributes belong to `takhmeen` which basically keeps track of donation amount.
--   The value of the `year` attribute depends on the value of the global variable `CURR_YR`. The user cannot change it and it will be automatically set by the developer.
+- **The term `Thaali` refers to a lunch/dinner set that is used to give meal to a sabeel.**
+- A `sabeel` can only take a `thaali` for each `year` & have multiple thaalis over the years.
+- The value of `number` attribute will be unique for each `year`, so no 2 `thaalis` can have same number in the same `year`.
+- A `sabeel` can choose a `thaali` of the size required (`small`, `medium` & `large`) to avoid food wastage.
+- **The term `takhmeen` refers to the voluntary donations done by each `sabeel` for a `thaali`.**
+- The `total`, `paid` & `balance` attributes belong to `takhmeen` which basically keeps track of donation amount.
+- The value of the `year` attribute depends on the value of the global variable `CURR_YR`. The user cannot change it and it will be automatically set by the developer.
 
 ---
 
 #### Transaction model
 
--   A `takhmeen` can have many `transaction`.
--   After creating or updating a transaction, the value of `balance` & `paid` attribute of parent instance is updated accordingly.
--   The `recipe_no` will be unique for all transactions.
--   A `transaction` can be of any of these 3 `mode`: `cash`, `bank` or `cheque`.
+- A `takhmeen` can have many `transaction`.
+- After creating or updating a transaction, the value of `balance` & `paid` attribute of parent instance is updated accordingly.
+- The `recipe_no` will be unique for all transactions.
+- A `transaction` can be of any of these 3 `mode`: `cash`, `bank` or `cheque`.
 
 ---
 
@@ -142,93 +143,92 @@ This application is hosted [here](https://fmb.fly.dev) using [Fly.io](https://fl
 
 Here are the list of constants declared in the `config/constant.rb` file which are accessible by the whole application:
 
--   `CURR_YR`: Holds an integer value (year) that represents which annual cycle is currently active.
--   `PREV_YR`: Holds an integer value (year) that represents previous annual cycle of `CURR_YR`.
--   `PHASE_1`, `PHASE_2` & `PHASE_3`: Lists all the name of the apartments in their respective region.
+- `CURR_YR`: Holds an integer value (year) that represents which annual cycle is currently active.
+- `PREV_YR`: Holds an integer value (year) that represents previous annual cycle of `CURR_YR`.
 
 ---
 
 ### Features
 
--   [x] A responsive website that enables users to browse the site on any device.
+- [x] A responsive website that enables users to browse the site on any device.
 
--   [x] Only logged-in users can access the content of the site.
--   [x] Redirect non-logged-in users to login page.
+- [x] Only logged-in users can access the content of the site.
+- [x] Redirect non-logged-in users to login page.
 
--   A login page must display...
+- A login page must display...
 
-    -   [x] list of benefits of using this portal for their organization.
-    -   [x] different social links to connect with the developer.
+  - [x] list of benefits of using this portal for their organization.
+  - [x] different social links to connect with the developer.
 
--   Only a user with an `admin` role is allowed to...
+- Only a user with an `admin` role is allowed to...
 
-    -   [x] create & destroy sabeels.
-    -   [x] create a user with different roles.
-    -   [x] list all the users who has access to the portal.
-    -   [x] delete any user.
+  - [x] create & destroy sabeels.
+  - [x] create a user with different roles.
+  - [x] list all the users who has access to the portal.
+  - [x] delete any user.
 
--   [x] A user with a role of `visitor` is not allowed to perform any CRUD actions on any of the models.
+- [x] A user with a role of `visitor` is not allowed to perform any CRUD actions on any of the models.
 
--   A user will not be able to create duplicate...
+- A user will not be able to create duplicate...
 
-    -   [x] sabeel with same `ITS No`.
-    -   [x] thaali with same `number` for that particular `year`.
-    -   [x] transaction with same `receipt_no`.
+  - [x] sabeel with same `ITS No`.
+  - [x] thaali with same `number` for that particular `year`.
+  - [x] transaction with same `receipt_no`.
 
--   A user is able to search for a particular...
+- A user is able to search for a particular...
 
-    -   [x] sabeel either by their name or ITS number.
-    -   [x] thaali by the thaali number.
-    -   [x] transaction by the receipt number.
+  - [x] sabeel either by their name or ITS number.
+  - [x] thaali by the thaali number.
+  - [x] transaction by the receipt number.
 
--   Show lists of all...
+- Show lists of all...
 
-    -   [x] sabeels ordered by newly created first.
-    -   [x] thaali_takhmeen ordered by thaali number.
-    -   [x] transactions ordered by the latest transaction first.
+  - [x] sabeels ordered by newly created first.
+  - [x] thaali_takhmeen ordered by thaali number.
+  - [x] transactions ordered by the latest transaction first.
 
--   Sabeels' `show` page should show...
+- Sabeels' `show` page should show...
 
-    -   [x] list of all the thaalis they have taken over the years ordered by the recent first.
-    -   [x] total number of thaalis taken over the years.
+  - [x] list of all the thaalis they have taken over the years ordered by the recent first.
+  - [x] total number of thaalis taken over the years.
 
--   Thaalis' show page should show...
+- Thaalis' show page should show...
 
-    -   [x] list of all the transactions that have been billed for that takhmeen ordered by the recent first.
-    -   [x] total number of transactions.
+  - [x] list of all the transactions that have been billed for that takhmeen ordered by the recent first.
+  - [x] total number of transactions.
 
--   Show total count of...
+- Show total count of...
 
-    -   [x] sabeels.
-    -   [x] thaali_takhmeen for each year.
-    -   [x] transactions till date.
+  - [x] sabeels.
+  - [x] thaali_takhmeen for each year.
+  - [x] transactions till date.
 
--   [x] When listing thaalis or a thaali it must show '✅' sign if the takhmeen has been completed or else show '❌' for the corresponding thaali.
+- [x] When listing thaalis or a thaali it must show '✅' sign if the takhmeen has been completed or else show '❌' for the corresponding thaali.
 
--   [x] When creating a new transaction or editing an existing one, it should show the maximum **recommended** amount it can be billed. If the billing amount exceeds the **recommended** amount then it should show an error.
+- [x] When creating a new transaction or editing an existing one, it should show the maximum **recommended** amount it can be billed. If the billing amount exceeds the **recommended** amount then it should show an error.
 
--   The designing of the `show` pages for all the models is inspired by...
+- The designing of the `show` pages for all the models is inspired by...
 
-    -   [x] an _ITS card_ for sabeel & user.
-    -   [x] a _food container_ for thaali_takhmeen.
-    -   [x] a _receipt page_ for transaction.
+  - [x] an _ITS card_ for sabeel & user.
+  - [x] a _food container_ for thaali_takhmeen.
+  - [x] a _receipt page_ for transaction.
 
--   In the Statistics page of sabeel it must show total count...
+- In the Statistics page of sabeel it must show total count...
 
-    -   [x] of sabeel.
-    -   [x] of sabeel for each apartment.
-    -   [x] & list of sabeels who are currently taking & not taking thaali for each apartment.
-    -   [x] of sabeels who are taking thaalis of different sizes for each apartment.
+  - [x] of sabeel.
+  - [x] of sabeel for each apartment.
+  - [x] & list of sabeels who are currently taking & not taking thaali for each apartment.
+  - [x] of sabeels who are taking thaalis of different sizes for each apartment.
 
--   In the Statistics page of thaali_takhmeen it must show total...
+- In the Statistics page of thaali_takhmeen it must show total...
 
-    -   [x] thaalis taken for each year.
-    -   [x] takhmeen amount promised by sabeels for each year.
-    -   [x] takhmeen amount balance for each year.
-    -   [x] thaalis taken of different sizes each year.
-    -   [x] count & list of thaalis who have & have not completed the takhmeen for each year
+  - [x] thaalis taken for each year.
+  - [x] takhmeen amount promised by sabeels for each year.
+  - [x] takhmeen amount balance for each year.
+  - [x] thaalis taken of different sizes each year.
+  - [x] count & list of thaalis who have & have not completed the takhmeen for each year
 
--   Should generate a PDF for each apartment listing all the details of the sabeels and their thaali ordered by the flat number in ascending order.
+- Should generate a PDF for each apartment listing all the details of the sabeels and their thaali ordered by the flat number in ascending order.
 
 ---
 
@@ -238,10 +238,10 @@ The development of this application utilizes TDD approach. By writing tests firs
 
 **As of Release Version 1.0.0, this application consisted of 495 test suites testing every single routes, requests, models & views.**
 
--   🎥 [Routes](https://youtu.be/9wv6zdohgsA) _(78 examples)_
--   🎥 [Requests](https://youtu.be/e86BCc_Lcvo) _(116 examples)_
--   🎥 [Models](https://youtu.be/Dks5DcOswNE) _(103 examples)_
--   🎥 [Features](https://youtu.be/ZZ51DW0-SEs) _(198 examples)_
+- 🎥 [Routes](https://youtu.be/9wv6zdohgsA) _(78 examples)_
+- 🎥 [Requests](https://youtu.be/e86BCc_Lcvo) _(116 examples)_
+- 🎥 [Models](https://youtu.be/Dks5DcOswNE) _(103 examples)_
+- 🎥 [Features](https://youtu.be/ZZ51DW0-SEs) _(198 examples)_
 
 ---
 

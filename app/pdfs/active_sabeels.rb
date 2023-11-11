@@ -36,7 +36,7 @@ class ActiveSabeels < Prawn::Document
     [["#", "Flat No.", "Thaali", "Name", "Size", "Mobile"]] +
       @sabeels.map.with_index do |sabeel, i|
         n = i + 1
-        t = sabeel.thaali_takhmeens.last
+        t = sabeel.thaalis.last
         [n, sabeel.flat_no, t.number, sabeel.name, t.size.chr.capitalize, sabeel.mobile]
       end
   end

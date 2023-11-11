@@ -1,36 +1,33 @@
 class UsersController < ApplicationController
-  before_action :authorize
-  before_action :authorize_admin_n_member_as_user, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_admin, only: [:new, :create, :index]
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   def index
-    @users = User.all.where.not(id: current_user.id)
-  end
-
-  def new
-    @user = User.new
-  end
-
-  def create
-    @user = User.new(user_params)
-    if @user.valid?
-      @user.save
-      redirect_to users_path, success: "User created successfully"
-    else
-      render :new, status: :unprocessable_entity
-    end
+    @users = User.where.not(id: current_user.id).preload(:roles)
   end
 
   def show
   end
 
+  def new
+  end
+
   def edit
+  end
+
+  def create
+    # let this be explicit to avoid PG::UniqueViolation exception in test suite
+    @user = User.new(user_params)
+
+    if @user.save
+      redirect_to users_path, success: t(".success")
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def update
     if @user.update(user_params)
-      redirect_to @user, success: "User updated successfully"
+      redirect_to @user, success: t(".success")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -38,21 +35,17 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    if current_user.admin? && current_user != @user
-      redirect_to users_path, success: "User deleted successfully"
+    if current_user.is?("admin") && current_user.id != @user&.id
+      redirect_to users_path, success: t(".non_self")
     else
       session[:user_id] = nil
-      redirect_to login_path, success: "User deleted successfully"
+      redirect_to login_path, success: t(".self")
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:its, :name, :password, :password_confirmation, :role)
-  end
-
-  def set_user
-    @user = User.find(params[:id])
+    params.require(:user).permit(:its, :name, :password, :password_confirmation, :role_ids)
   end
 end

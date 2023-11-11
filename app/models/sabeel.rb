@@ -1,80 +1,68 @@
 class Sabeel < ApplicationRecord
   # * Associations
-  has_many :thaali_takhmeens, dependent: :destroy
-  has_many :transactions, through: :thaali_takhmeens
+  has_many :thaalis, dependent: :destroy
+  has_many :transactions, through: :thaalis
 
   # * Callbacks
-  before_save :set_up_address
-  before_save :titleize_name, if: :will_save_change_to_name?
+  include NameCallback
+
+  # * Enums
+  # apartment
+  enum :apartment, APARTMENTS
 
   # * FRIENDLY_ID
   include ITSFriendlyId
+
+  # * Methods
+  def address
+    "#{apartment.titleize} #{flat_no}"
+  end
+
+  def taking_thaali?
+    Rails.cache.fetch("sabeel_#{id}_taking_thaali?") { thaalis.exists? year: CURR_YR }
+  end
+
+  def took_thaali?
+    Rails.cache.fetch("sabeel_#{id}_took_thaali?") { thaalis.exists? year: PREV_YR }
+  end
+
+  def last_year_thaali_dues_cleared?
+    thaalis.dues_cleared_in(PREV_YR).present?
+  end
 
   # * RANSACK
   ransacker :its do
     Arel.sql("to_char(\"#{table_name}\".\"its\", '99999999')")
   end
 
+  # * Scopes
+  scope :no_thaali, -> { where.missing(:thaalis) }
+
+  scope :not_taking_thaali, -> { no_thaali.union(took_thaali) }
+
+  scope :not_taking_thaali_in, ->(apartment) { where(apartment:).not_taking_thaali.order(flat_no: :asc) }
+
+  scope :taking_thaali, -> { thaalis.where(thaalis: {year: CURR_YR}).order(flat_no: :asc) }
+
+  scope :taking_thaali_in_year, ->(year) { thaalis.where(thaalis: {year:}) }
+
+  scope :thaalis, -> { joins(:thaalis) }
+
+  scope :took_thaali, -> { thaalis.group("sabeels.id").having("MAX(thaalis.year) < #{CURR_YR}") }
+
+  scope :with_thaali_size, ->(size) { thaalis.where(thaalis: {size:}) }
+
   # * Validations
+  # apartment
+  validates :apartment, presence: true
+  # Email
+  validates_email_format_of :email, allow_blank: true
+  # Flat No
+  validates :flat_no, numericality: {only_integer: true, greater_than: 0}
   # ITS
   include ITSValidation
-  # Email
-  validates_email_format_of :email, allow_blank: true, message: "is in invalid format"
   # name
-  validates_uniqueness_of :name, scope: :its, message: "has already been registered with this ITS number"
-  # apartment
-  validates_presence_of :apartment, :name, message: "cannot be blank"
-  # Flat No
-  validates_numericality_of :flat_no, only_integer: true, message: "must be a number"
-  validates_numericality_of :flat_no, greater_than: 0, message: "must be greater than 0"
+  include NameValidation
   # mobile
-  validates_numericality_of :mobile, only_integer: true, message: "must be a number"
-  validates_numericality_of :mobile, in: 1_000_000_000..9_999_999_999, message: "is in invalid format"
-
-  # * Enums
-  # apartment
-  enum :apartment, %i[mohammedi saifee jamali taiyebi imadi burhani zaini fakhri badri ezzi
-    maimoon_a maimoon_b qutbi_a qutbi_b najmi husami_a husami_b noorani_a
-    noorani_b]
-
-  # * Scopes
-  scope :in_phase_1, -> { where(apartment: PHASE_1) }
-
-  scope :in_phase_2, -> { where(apartment: PHASE_2) }
-
-  scope :in_phase_3, -> { where(apartment: PHASE_3) }
-
-  scope :active_takhmeen, ->(current_year) { joins(:thaali_takhmeens).where(thaali_takhmeens: {year: current_year}) }
-
-  scope :inactive_takhmeen, ->(apt) {
-    where(apartment: apt).where("id NOT IN (
-                                SELECT sabeel_id
-                                FROM thaali_takhmeens
-                                WHERE year = #{CURR_YR}
-                                )")
-  }
-
-  scope :never_done_takhmeen, -> { where.missing(:thaali_takhmeens) }
-
-  scope :with_the_size, ->(size) { joins(:thaali_takhmeens).where(thaali_takhmeens: {size:}) }
-
-  scope :phase_1_size, ->(size) { in_phase_1.with_the_size(size) }
-
-  scope :phase_2_size, ->(size) { in_phase_2.with_the_size(size) }
-
-  scope :phase_3_size, ->(size) { in_phase_3.with_the_size(size) }
-
-  def takhmeen_complete_of_last_year(year)
-    thaali_takhmeens.where(year: year - 1, is_complete: true).any?
-  end
-
-  private
-
-  def titleize_name
-    self.name = name.split(" ").map(&:capitalize).join(" ") unless name.nil?
-  end
-
-  def set_up_address
-    self.address = "#{apartment.titleize} #{flat_no}"
-  end
+  validates :mobile, numericality: {only_integer: true}, length: {is: 10}
 end

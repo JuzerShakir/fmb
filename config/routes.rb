@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "thaali_takhmeens#index"
+  root "thaalis#index"
 
   # * CUSTOM ROUTES
   # session
@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   post "/signup", to: "sessions#create"
   delete "/destroy", to: "sessions#destroy"
 
-  # thaali-takhmeen
-  get "/takhmeens/stats", to: "thaali_takhmeens#stats", as: :takhmeens_stats
+  # thaali
+  get "/thaalis/stats", to: "thaalis#stats", as: :thaalis_stats
 
   # * RESOURCEFUL ROUTES
   resources :users
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :sabeels, shallow: true do
     get :stats, on: :collection
 
-    resources :takhmeens, controller: "thaali_takhmeens", except: %i[index] do
+    resources :thaalis, except: %i[index] do
       resources :transactions, except: %i[index]
     end
   end
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     get :inactive
   end
 
-  namespace :thaali_takhmeens, path: "takhmeens/:year" do
+  namespace :thaalis, path: "thaalis/:year" do
     get :complete
     get :pending
     get :all

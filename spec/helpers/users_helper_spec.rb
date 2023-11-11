@@ -1,4 +1,3 @@
-require "rails_helper"
+# frozen_string_literal: true
 
-RSpec.describe UsersHelper, type: :helper do
-end
+require "rails_helper"

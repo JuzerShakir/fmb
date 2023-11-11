@@ -1,0 +1,33 @@
+<%# * Title %>
+<h2 class="text-center">Thaali
+  <span class="text-muted">#<%= @thaali.number.to_s %></span>
+</h2>
+
+<h4 class="text-center">
+  of ITS <%= link_to @sabeel.its, sabeel_path(@sabeel), class: "btn btn-outline-primary" %>
+  <span class="text-muted">(<%= @thaali.year %>)</span>
+</h4>
+
+<%# * show %>
+<%= render partial: "show" %>
+
+<%# * action buttons %>
+<%= render partial: "shared/actions",
+      locals: {edit_path: edit_thaali_path(@thaali), destroy: @thaali} %>
+
+<%# * Transactions %>
+<% unless @thaali.dues_cleared? || current_user.is?("viewer") %>
+  <%= button_to "New Transaction", new_thaali_transaction_path(@thaali), method: :get, class: "btn btn-success mt-5 vstack mx-auto" %>
+<% end %>
+
+<div id="transactions" class="mt-3">
+  <div class="container text-center c-bg">
+    <% if @transactions.any? %>
+      <p class="fw-bold mt-3 text-center text-info">
+        Total number of Transactions: <%= @transactions.size %>
+      </p>
+      <%= render "transactions/theader" %>
+      <%= render "transactions/transaction" %>
+    <% end %>
+  </div>
+</div>

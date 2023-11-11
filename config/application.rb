@@ -24,6 +24,8 @@ module Fmb
     config.load_defaults 7.0
     config.exceptions_app = routes
     config.time_zone = "Asia/Kolkata"
+    config.i18n.available_locales = [:en]
+    config.i18n.default_locale = :en
 
     # Configuration for the application, engines, and railties goes here.
     #

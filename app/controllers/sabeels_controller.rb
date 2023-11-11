@@ -1,41 +1,40 @@
 class SabeelsController < ApplicationController
-  before_action :authorize
-  before_action :authorize_admin, only: %i[new create destroy]
-  before_action :authorize_admin_member, only: %i[edit update]
-  before_action :set_sabeel, only: %i[show update edit destroy]
+  load_and_authorize_resource
   before_action :set_apt, only: %i[active inactive]
 
   def index
-    @q = Sabeel.ransack(params[:q])
-    sabeels = @q.result(distinct: true).order(created_at: :DESC)
-    @pagy, @sabeels = pagy_countless(sabeels)
-  end
+    @q = @sabeels.ransack(params[:q])
+    query = @q.result(distinct: true)
 
-  def new
-    @sabeel = Sabeel.new
-  end
-
-  def create
-    @sabeel = Sabeel.new(sabeel_params)
-    if @sabeel.valid?
-      @sabeel.save
-      redirect_to @sabeel, success: "Sabeel created successfully"
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        @pagy, @sabeels = pagy_countless(query)
+      end
     end
   end
 
   def show
-    @thaalis = @sabeel.thaali_takhmeens.order(year: :DESC)
-    @thaali_inactive = @thaalis.in_the_year(CURR_YR).empty?
+    @thaalis = @sabeel.thaalis.preload(:transactions)
+  end
+
+  def new
   end
 
   def edit
   end
 
+  def create
+    if @sabeel.save
+      redirect_to @sabeel, success: t(".success")
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def update
     if @sabeel.update(sabeel_params)
-      redirect_to @sabeel, success: "Sabeel updated successfully"
+      redirect_to @sabeel, success: t(".success")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -44,54 +43,58 @@ class SabeelsController < ApplicationController
   def destroy
     @sabeel.destroy
     respond_to do |format|
-      format.all { redirect_to root_path(format: :html), success: "Sabeel deleted successfully" }
+      format.all { redirect_to root_path(format: :html), success: t(".success") }
     end
   end
 
   def stats
-    apartments = Sabeel.apartments.keys.map(&:to_sym)
     @apts = {}
 
-    apartments.each do |apartment|
+    APARTMENTS.each do |apartment|
       total_sabeels = Sabeel.send(apartment)
-      active_takhmeens = total_sabeels.active_takhmeen(CURR_YR)
-      inactive = total_sabeels - active_takhmeens
+      active_thaalis = total_sabeels.taking_thaali
+      inactive = total_sabeels.not_taking_thaali
       @apts[apartment] = {}
-      @apts[apartment].store(:active_takhmeens, active_takhmeens.count)
-      @apts[apartment].store(:total_sabeels, total_sabeels.count)
-      @apts[apartment].store(:inactive_takhmeens, inactive.count)
-      ThaaliTakhmeen.sizes.keys.each do |size|
-        @apts[apartment].store(size.to_sym, active_takhmeens.with_the_size(size).count)
+      @apts[apartment].store(:active_thaalis, active_thaalis.length)
+      @apts[apartment].store(:total_sabeels, total_sabeels.length)
+      @apts[apartment].store(:inactive_thaalis, inactive.length)
+      SIZES.each do |size|
+        @apts[apartment].store(size.to_sym, active_thaalis.with_thaali_size(size).length)
       end
     end
   end
 
   def active
-    @s = Sabeel.send(@apt).active_takhmeen(CURR_YR).order(flat_no: :ASC).includes(:thaali_takhmeens)
-    @total = @s.count
-    @pagy, @sabeels = pagy_countless(@s)
+    @sabeels = Sabeel.send(@apt).taking_thaali
 
-    if request.format.symbol == :pdf
-      pdf = ActiveSabeels.new(@s, @apt)
-      send_data pdf.render, filename: "#{@apt}-#{CURR_YR}.pdf",
-        type: "application/pdf", disposition: "inline"
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        @pagy, @sabeels = pagy_countless(@sabeels)
+      end
+      format.pdf do
+        pdf = ActiveSabeels.new(@sabeels.preload(:thaalis), @apt)
+        send_data pdf.render, filename: "#{@apt}-#{CURR_YR}.pdf",
+          type: "application/pdf", disposition: "inline"
+      end
     end
   end
 
   def inactive
-    sabeels = Sabeel.inactive_takhmeen(@apt).order(flat_no: :ASC)
-    @total = sabeels.count
-    @pagy, @sabeels = pagy_countless(sabeels)
+    @sabeels = Sabeel.not_taking_thaali_in(@apt)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        @pagy, @sabeels = pagy_countless(@sabeels)
+      end
+    end
   end
 
   private
 
   def sabeel_params
     params.require(:sabeel).permit(:its, :name, :apartment, :flat_no, :mobile, :email)
-  end
-
-  def set_sabeel
-    @sabeel = Sabeel.find(params[:id])
   end
 
   def set_apt

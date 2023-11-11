@@ -1,9 +1,11 @@
 class Transaction < ApplicationRecord
-  # * Associations
-  belongs_to :thaali_takhmeen
+  default_scope { order(date: :desc) }
 
-  # * Callbacks
-  after_commit :add_all_transaction_amounts_to_paid_amount
+  # * Associations
+  belongs_to :thaali
+
+  # * Enums
+  enum :mode, MODES
 
   # * FRIENDLY_ID
   extend FriendlyId
@@ -18,55 +20,29 @@ class Transaction < ApplicationRecord
     Arel.sql("to_char(\"#{table_name}\".\"recipe_no\", '99999999')")
   end
 
-  # * Validations
-  # mode
-  validates_presence_of :mode, message: "must be selected"
-  # date
-  validates_presence_of :date, message: "must be selected"
-  validates_date :date, on_or_before: :today, if: :will_save_change_to_date?
-  # amount
-  validates_numericality_of :amount, :recipe_no, only_integer: true, message: "must be a number"
-  validates_numericality_of :amount, :recipe_no, greater_than: 0, message: "must be greater than 0"
-  # recipe no
-  validates_uniqueness_of :recipe_no, message: "has already been registered"
-
-  # * Custom Validations
-  validate :amount_should_be_less_than_the_balance, if: :will_save_change_to_amount?
-
-  def amount_should_be_less_than_the_balance
-    if persisted?
-      balance = amount_was + thaali_takhmeen.balance
-      errors.add(:amount, "cannot be greater than the balance") if amount > balance
-
-    elsif present? && (amount > thaali_takhmeen.balance)
-      errors.add(:amount, "cannot be greater than the balance")
-    end
-  end
-
-  # * Enums
-  enum :mode, %i[cash cheque bank]
-
   # * Scopes
   scope :that_occured_on, ->(date) { where(date: date) }
 
+  # * Validations
+  # amount
+  validates :amount, :recipe_no, numericality: {only_integer: true, greater_than: 0}
+  validate :amount_to_be_less_than_balance, if: :will_save_change_to_amount?
+  # date
+  validates_date :date, on_or_before: :today, if: :will_save_change_to_date?
+  # date & mode
+  validates :mode, :date, presence: true
+  # recipe no
+  validates :recipe_no, uniqueness: true
+
   private
 
-  def add_all_transaction_amounts_to_paid_amount
-    takhmeen = thaali_takhmeen
-    all_transactions_of_a_takhmeen = takhmeen.transactions
+  # * Custom Validations
+  def amount_to_be_less_than_balance
+    return if amount.nil?
+    balance = persisted? ? amount_was + thaali.balance : thaali.balance
 
-    if all_transactions_of_a_takhmeen.any?
-      total_takhmeen_paid = 0
-
-      all_transactions_of_a_takhmeen.each do |transaction|
-        total_takhmeen_paid += transaction.amount if transaction.persisted?
-      end
-
-      takhmeen.update_attribute(:paid, total_takhmeen_paid)
-
-    # below logic won't run if takhmeen instance has been destroyed
-    elsif takhmeen.persisted?
-      takhmeen.update_attribute(:paid, 0)
+    if amount > balance
+      errors.add(:amount, "cannot be greater than the balance")
     end
   end
 end

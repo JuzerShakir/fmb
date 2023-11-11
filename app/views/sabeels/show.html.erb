@@ -1,22 +1,22 @@
 <%# * Title %>
-<h2 class="text-center">Sabeel <span class="text-secondary">#<%= @sabeel.its.to_s %></span></h2>
+<h2 class="text-center">Sabeel <span class="text-secondary">#<%= @sabeel.its %></span></h2>
 
 <%# * show %>
 <%= render partial: "show" %>
 
 <%# * action buttons %>
 <%= render partial: "shared/actions",
-      locals: {edit_path: edit_sabeel_path(@sabeel)} %>
+      locals: {edit_path: edit_sabeel_path(@sabeel), destroy: @sabeel} %>
 
-<%# * destroy Modal %>
-<%= render partial: "shared/destroy_modal",
-      locals: {destroy_path: @sabeel, message: "delete Sabeel ITS no: #{@sabeel.its}?"} %>
+<%# * Thaalis %>
+<% if !@sabeel.taking_thaali? && !current_user.is?("viewer") %>
+  <%= button_to "New Thaali", new_sabeel_thaali_path(@sabeel), method: :get, class: "btn btn-outline-success mt-5 vstack mx-auto" %>
+<% end %>
 
-<%# * Thaali Takhmeens %>
-<%= button_to "New Takhmeen", new_sabeel_takhmeen_path(@sabeel), method: :get, class: "btn btn-outline-success mt-5 vstack mx-auto" if @thaali_inactive %>
-
-<div id="thaalis" class="mt-5">
+<% if @sabeel.taking_thaali? || @sabeel.took_thaali? || @thaalis.any? %>
+  <div id="thaalis" class="mt-5">
     <div class="container text-center c-bg">
-        <%= render partial: "takhmeens" if @thaalis.any? %>
+      <%= render partial: "thaalis" %>
     </div>
-</div>
+  </div>
+<% end %>

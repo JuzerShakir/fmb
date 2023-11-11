@@ -1,0 +1,9 @@
+<% if @thaalis.any? %>
+  <%= turbo_stream.append :thaalis, partial: "thaali" %>
+<% else %>
+  <%= turbo_stream.append :thaalis, partial: "shared/no_results" %>
+<% end %>
+
+<%= render partial: "shared/pagy",
+  locals: {path: thaalis_complete_path(format: :turbo_stream, page: @pagy.next)}
+%>

@@ -30,10 +30,122 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-    hello: "Hello world"
-    activerecord:
-        attributes:
-            sabeel:
-                its: "ITS"
-            user:
-                its: "ITS"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            its:
+              not_a_number: &not_a_number "must be an integer"
+              wrong_length: "is incorrect"
+              taken: "has already been registered"
+            name:
+              too_short: "must be more than 3 characters"
+              too_long: "must be less than 35 characters"
+            password:
+              too_short: "must be more than 6 characters"
+            password_confirmation:
+              too_short: "must be more than 6 characters"
+            role_ids:
+              blank: &blank "selection is required"
+        role:
+          attributes:
+            name:
+              blank: &blank "selection is required"
+        sabeel:
+          attributes:
+            its:
+              not_a_number: *not_a_number
+              wrong_length: "is incorrect"
+              taken: "has already been registered"
+            apartment:
+              blank: *blank
+            flat_no:
+              not_a_number: *not_a_number
+            mobile:
+              not_a_number: *not_a_number
+            name:
+              too_short: "must be more than 3 characters"
+              too_long: "must be less than 35 characters"
+        thaali:
+          attributes:
+            number:
+              not_a_number: *not_a_number
+            total:
+              not_a_number: *not_a_number
+            year:
+              not_a_number: *not_a_number
+            size:
+              blank: *blank
+        transaction:
+          attributes:
+            mode:
+              blank: *blank
+            date:
+              blank: *blank
+            amount:
+              not_a_number: *not_a_number
+              greater_than: "must be greater than 0"
+            recipe_no:
+              not_a_number: *not_a_number
+              greater_than: "must be greater than 0"
+              taken: "has already been invoiced"
+    attributes:
+      user:
+        its: "ITS Number"
+        name: "Full Name"
+        role_ids: "Role"
+      role:
+        name: "Role"
+      sabeel:
+        its: "ITS Number"
+        name: "Full Name"
+        flat_no: "Flat Number"
+      thaali:
+        total: "Total Takhmeen"
+      transaction:
+        recipe_no: "Recipe Number"
+        mode: "Payment Mode"
+        date: "Billing On"
+
+  users:
+    create:
+      success: "User created successfully"
+    update:
+      success: "User updated successfully"
+    destroy:
+      non_self: "User deleted successfully"
+      self: "Your account has been deleted"
+  sessions:
+    create:
+      success: "Afzalus Salaam"
+      error: "Invalid credentials"
+    destroy:
+      success: "Logged out"
+  sabeels:
+    create:
+      success: "Sabeel created successfully"
+    update:
+      success: "Sabeel updated successfully"
+    destroy:
+      success: "Sabeel deleted successfully"
+  thaalis:
+    create:
+      success: "Thaali created successfully"
+    update:
+      success: "Thaali updated successfully"
+    destroy:
+      success: "Thaali destroyed successfully"
+  transactions:
+    new:
+      notice: "Thaali has no outstanding balance"
+    create:
+      success: "Transaction created successfully"
+    update:
+      success: "Transaction updated successfully"
+    destroy:
+      success: "Transaction destroyed successfully"
+
+  flash:
+    un_authorize: "Not Authorized"
+    active_session: "Already logged in!"

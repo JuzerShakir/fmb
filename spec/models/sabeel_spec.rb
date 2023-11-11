@@ -1,263 +1,154 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 require "validates_email_format_of/rspec_matcher"
 
-RSpec.describe Sabeel, type: :model do
-  subject { build(:sabeel) }
-  available_sizes = ThaaliTakhmeen.sizes.keys
-  n = Random.rand(1..4)
+RSpec.describe Sabeel do
+  subject(:sabeel) { build(:sabeel) }
 
-  context "assocaition" do
-    it { should have_many(:thaali_takhmeens).dependent(:destroy) }
-    it { should have_many(:transactions).through(:thaali_takhmeens) }
+  context "with association" do
+    it { is_expected.to have_many(:thaalis).dependent(:destroy) }
+    it { is_expected.to have_many(:transactions).through(:thaalis) }
   end
 
-  context "validations of attribute" do
-    context "ITS" do
-      it { should validate_numericality_of(:its).only_integer.with_message("must be a number") }
-
-      it { should validate_numericality_of(:its).is_in(10000000..99999999).with_message("is invalid") }
-
-      it { should validate_uniqueness_of(:its).with_message("has already been registered") }
+  context "when validating" do
+    context "with email" do
+      it { is_expected.to validate_email_format_of(:email) }
+      it { is_expected.to allow_value(nil).for(:email) }
     end
 
-    context "email" do
-      it { should validate_email_format_of(:email).with_message("is in invalid format") }
-      it { should allow_value(nil).for(:email) }
+    context "with apartment" do
+      let(:all_apartments) { described_class.apartments.keys }
+
+      it { is_expected.to validate_presence_of(:apartment).with_message("selection is required") }
+
+      it { is_expected.to define_enum_for(:apartment).with_values(all_apartments) }
     end
 
-    context "name" do
-      it { should validate_presence_of(:name).with_message("cannot be blank") }
+    context "with flat_no" do
+      it { is_expected.to validate_numericality_of(:flat_no).only_integer.with_message("must be an integer") }
 
-      it { should validate_uniqueness_of(:name).scoped_to(:its).with_message("has already been registered with this ITS number") }
+      it { is_expected.to validate_numericality_of(:flat_no).is_greater_than(0) }
     end
 
-    context "apartment" do
-      let(:all_apartments) { Sabeel.apartments.keys }
-      it { should validate_presence_of(:apartment).with_message("cannot be blank") }
+    context "with mobile" do
+      it { is_expected.to validate_numericality_of(:mobile).only_integer.with_message("must be an integer") }
 
-      it { should define_enum_for(:apartment).with_values(all_apartments) }
-    end
-
-    context "flat_no" do
-      it { should validate_numericality_of(:flat_no).only_integer.with_message("must be a number") }
-
-      it { should validate_numericality_of(:flat_no).is_greater_than(0).with_message("must be greater than 0") }
-    end
-
-    context "mobile" do
-      it { should validate_numericality_of(:mobile).only_integer.with_message("must be a number") }
-
-      it { should validate_numericality_of(:mobile).is_in(1000000000..9999999999).with_message("is in invalid format") }
-    end
-  end
-
-  context "callback method" do
-    context "#titleize_name" do
-      it { is_expected.to callback(:titleize_name).before(:save).if(:will_save_change_to_name?) }
-
-      it "must return capitalized name" do
-        subject.name = Faker::Name.name.swapcase
-        name_titleize_format = subject.name.split.map(&:capitalize).join(" ")
-        expect(subject).to receive(:titleize_name).and_return(name_titleize_format)
-        subject.save
-      end
-    end
-
-    context "#set_up_address" do
-      it { is_expected.to callback(:set_up_address).before(:save) }
-
-      it "must be in a specific format" do
-        subject.save
-        expect(subject.address).to match(/\A[a-z]+\s[a-z]?\s{1}?\d+\z/i)
+      it "length" do
+        sabeel.mobile = 12345678901
+        sabeel.save
+        expect(sabeel.errors[:mobile]).not_to be_empty
       end
     end
   end
 
-  context "scope" do
-    size = available_sizes.sample
-    other_size = available_sizes.difference([size]).sample
+  context "when using scope" do
+    let(:sabeel) { create(:sabeel) }
+    let(:active_sabeel) { create(:sabeel_taking_thaali) }
+    let(:prev_sabeel) { create(:burhani_sabeel_took_thaali) }
 
-    let(:phase_1) { create_list(:sabeel_phase1, 5) }
-    let(:phase_2) { create_list(:sabeel_phase2, 5) }
-    let(:phase_3) { create_list(:sabeel_phase3, 5) }
+    describe ".no_thaali" do
+      subject(:sabeels) { described_class.no_thaali }
 
-    context "Phases" do
-      context ".in_phase_1" do
-        it "should ONLY return all the sabeels of Phase 1 apartments" do
-          expect(described_class.in_phase_1).to contain_exactly(*phase_1)
-        end
-
-        it "should NOT return sabeels of other Phases, except for Phase 1" do
-          expect(described_class.in_phase_1).not_to contain_exactly(*phase_2, *phase_3)
-        end
+      it "returns records who have never taken thaali" do
+        expect(sabeels).to contain_exactly(sabeel)
       end
 
-      context ".in_phase_2" do
-        it "should ONLY return all the sabeels of Phase 2 apartments" do
-          expect(described_class.in_phase_2).to contain_exactly(*phase_2)
-        end
-        it "should NOT return sabeels of other Phases, except for Phase 2" do
-          expect(described_class.in_phase_2).not_to contain_exactly(*phase_1, *phase_3)
-        end
-      end
-
-      context ".in_phase_3" do
-        it "should ONLY return all the sabeels of Phase 3 apartments" do
-          expect(described_class.in_phase_3).to contain_exactly(*phase_3)
-        end
-
-        it "should NOT return sabeels of other Phases, except for Phase 3" do
-          expect(described_class.in_phase_3).not_to contain_exactly(*phase_1, *phase_2)
-        end
-      end
+      it { expect(sabeels).not_to include(active_sabeel) }
     end
 
-    context "for thaali" do
-      let(:sabeels) { [*phase_1, *phase_2, *phase_3] }
-      let(:current_thaali) { sabeels.sample(n) }
-      let(:x_thaali) { sabeels - current_thaali }
+    describe ".not_taking_thaali" do
+      subject(:sabeels) { described_class.not_taking_thaali }
 
-      context ".active_takhmeen" do
-        it "should ONLY return all sabeels who TAKES thaali in the CURRENT YEAR" do
-          current_thaali.each do |sabeel|
-            FactoryBot.create(:active_takhmeen, sabeel_id: sabeel.id)
-          end
-
-          expect(described_class.active_takhmeen(CURR_YR)).to contain_exactly(*current_thaali)
-        end
+      it "returns records who are actively not taking thaali" do
+        expect(sabeels).to include(prev_sabeel, sabeel)
       end
 
-      context ".never_done_takhmeen" do
-        it "should return ALL the sabeels who has never taken the thaali" do
-          sabeel = FactoryBot.create(:sabeel)
-          expect(described_class.never_done_takhmeen).to contain_exactly(sabeel)
-        end
+      it { expect(sabeels).not_to include(active_sabeel) }
+    end
+
+    describe ".not_taking_thaali_in" do
+      subject(:sabeels) { described_class.not_taking_thaali_in("burhani") }
+
+      let(:active_sabeel) { create(:burhani_sabeel_taking_thaali) }
+      let(:taiyebi_sabeel) { create(:taiyebi_sabeel_taking_thaali) }
+
+      it "returns records who are currently not taking thaali" do
+        expect(sabeels).to include(prev_sabeel)
       end
 
-      context ".with_the_size" do
-        it "should ONLY return all sabeels for the thaali size specified" do
-          sabeels_with_size = sabeels.first(n)
+      it { expect(sabeels).not_to include(active_sabeel) }
+      it { expect(sabeels).not_to include(taiyebi_sabeel) }
+    end
 
-          sabeels_with_size.each do |sabeel|
-            create(:thaali_takhmeen, sabeel:, size:)
-          end
+    describe ".taking_thaali" do
+      subject(:sabeels) { described_class.taking_thaali }
 
-          sabeel_with_other_size = create(:thaali_takhmeen, sabeel: sabeels.last, size: other_size)
-
-          output = described_class.with_the_size(size)
-
-          expect(output).to contain_exactly(*sabeels_with_size)
-          expect(output).not_to contain_exactly(*sabeel_with_other_size)
-        end
+      it "returns records who are actively taking thaali" do
+        expect(sabeels).to include(active_sabeel)
       end
 
-      context "from different Phases" do
-        context ".phase_1_size" do
-          it "should return all the thaalis of Phase 1 of the size specified" do
-            sabeels = phase_1.first(n)
+      it { expect(sabeels).not_to include(sabeel) }
+    end
 
-            sabeels.each do |sabeel|
-              create(:thaali_takhmeen, sabeel:, size:)
-            end
+    describe ".taking_thaali_in_year" do
+      subject(:sabeels) { described_class.taking_thaali_in_year(PREV_YR) }
 
-            sabeel_with_other_size = create(:thaali_takhmeen, sabeel: phase_1.last, size: other_size)
+      let(:prev_sabeel) { create(:sabeel_took_thaali) }
 
-            output = described_class.phase_1_size(size)
-
-            expect(output).to contain_exactly(*sabeels)
-            expect(output).not_to contain_exactly(*sabeel_with_other_size)
-          end
-        end
-
-        context ".phase_2_size" do
-          it "should return all the thaalis of Phase 2 of the size specified" do
-            sabeels = phase_2.first(n)
-
-            sabeels.each do |sabeel|
-              create(:thaali_takhmeen, sabeel:, size:)
-            end
-
-            sabeel_with_other_size = create(:thaali_takhmeen, sabeel: phase_2.last, size: other_size)
-
-            output = described_class.phase_2_size(size)
-
-            expect(output).to contain_exactly(*sabeels)
-            expect(output).not_to contain_exactly(*sabeel_with_other_size)
-          end
-        end
-
-        context ".phase_3_size" do
-          it "should return all the thaalis of Phase 3 of the size specified" do
-            sabeels = phase_3.first(n)
-
-            sabeels.each do |sabeel|
-              create(:thaali_takhmeen, sabeel:, size:)
-            end
-
-            sabeel_with_other_size = create(:thaali_takhmeen, sabeel: phase_3.last, size: other_size)
-
-            output = described_class.phase_3_size(size)
-
-            expect(output).to contain_exactly(*sabeels)
-            expect(output).not_to contain_exactly(*sabeel_with_other_size)
-          end
-        end
+      it "returns records who were taking thaali for the year provided" do
+        expect(sabeels).to include(prev_sabeel)
       end
+
+      it { expect(sabeels).not_to include(sabeel) }
+    end
+
+    describe ".took_thaali" do
+      subject(:sabeels) { described_class.took_thaali }
+
+      it "returns records who previuosly took thaali" do
+        expect(sabeels).to include(prev_sabeel)
+      end
+
+      it { expect(sabeels).not_to include(active_sabeel) }
+    end
+
+    describe ".with_thaali_size" do
+      subject(:sabeels) { described_class.with_thaali_size(:small) }
+
+      let(:large_thaali) { create(:sabeel_large_thaali) }
+      let(:small_thaali) { create(:sabeel_small_thaali) }
+
+      it "returns records for provided size" do
+        expect(sabeels).to contain_exactly(small_thaali)
+      end
+
+      it { is_expected.not_to include(large_thaali) }
     end
   end
 
-  context "class method" do
-    context ".inactive_takhmeen" do
-      before do
-        @apt = Sabeel.apartments.keys.sample
+  context "when using instance method" do
+    describe "address" do
+      subject { sabeel.address }
 
-        @sabeels_active = FactoryBot.create_list(:sabeel, n, apartment: @apt)
-        @sabeels_active.each do |sabeel|
-          FactoryBot.create(:active_takhmeen, sabeel:)
-        end
-
-        @sabeels_inactive = FactoryBot.create_list(:sabeel, n, apartment: @apt)
-        @sabeels_inactive.each do |sabeel|
-          FactoryBot.create(:previous_takhmeen, sabeel:)
-        end
-      end
-
-      it "should return all the sabeels of an apt who are currently NOT TAKING thaali" do
-        output = described_class.inactive_takhmeen(@apt)
-        expect(output).to contain_exactly(*@sabeels_inactive)
-      end
-
-      it "should NOT return sabeels of an apt who are currently TAKING thaali" do
-        output = described_class.inactive_takhmeen(@apt)
-        expect(output).not_to contain_exactly(*@sabeels_active)
-      end
-
-      it "should return 'nil' if input apt name is invalid" do
-        output = described_class.inactive_takhmeen(SecureRandom.alphanumeric(n))
-        expect(output).to be_empty
-      end
+      it { is_expected.to eq "#{sabeel.apartment.titleize} #{sabeel.flat_no}" }
     end
-  end
 
-  context "instance methods" do
-    context "#takhmeen_complete_of_last_year" do
-      before do
-        @sabeel = FactoryBot.create(:sabeel)
-        FactoryBot.create(:active_takhmeen, sabeel_id: @sabeel.id)
+    describe "last_year_thaali_dues_cleared?" do
+      context "when sabeel has dues cleared" do
+        subject { sabeel.last_year_thaali_dues_cleared? }
+
+        let(:sabeel) { create(:sabeel_prev_thaali_dues_cleared) }
+
+        it { is_expected.to be_truthy }
       end
 
-      it "should return TRUE if takhmeen is complete of previous year with respect to the given year" do
-        FactoryBot.create(:prev_completed_takhmeens, sabeel_id: @sabeel.id)
-        output = @sabeel.takhmeen_complete_of_last_year(CURR_YR)
+      context "when sabeel has dues" do
+        subject { sabeel.last_year_thaali_dues_cleared? }
 
-        expect(output).to be_truthy
-      end
+        let(:sabeel) { create(:sabeel_took_thaali) }
 
-      it "should return FALSE if takhmeen is NOT complete of previous year with respect to the given year" do
-        FactoryBot.create(:previous_takhmeen, sabeel_id: @sabeel.id)
-        output = @sabeel.takhmeen_complete_of_last_year(CURR_YR)
-
-        expect(output).to be_falsy
+        it { is_expected.to be_falsy }
       end
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_19_054211) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_02_042517) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,66 +25,77 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_054211) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
   create_table "sabeels", force: :cascade do |t|
     t.integer "its", null: false
     t.string "name", null: false
     t.integer "apartment", null: false
     t.integer "flat_no", null: false
-    t.string "address", null: false
     t.bigint "mobile", null: false
     t.string "email"
+    t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
     t.index ["its"], name: "index_sabeels_on_its", unique: true
-    t.index ["name", "its"], name: "index_sabeels_on_name_and_its", unique: true
     t.index ["slug"], name: "index_sabeels_on_slug", unique: true
   end
 
-  create_table "thaali_takhmeens", force: :cascade do |t|
+  create_table "thaalis", force: :cascade do |t|
     t.bigint "sabeel_id", null: false
     t.integer "year", null: false
     t.integer "total", null: false
-    t.integer "paid", default: 0, null: false
-    t.integer "balance", null: false
-    t.boolean "is_complete", default: false, null: false
     t.integer "number", null: false
     t.integer "size", null: false
+    t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
-    t.index ["sabeel_id"], name: "index_thaali_takhmeens_on_sabeel_id"
-    t.index ["slug"], name: "index_thaali_takhmeens_on_slug", unique: true
-    t.index ["year", "number"], name: "index_thaali_takhmeens_on_year_and_number", unique: true
-    t.index ["year", "sabeel_id"], name: "index_thaali_takhmeens_on_year_and_sabeel_id", unique: true
+    t.index ["sabeel_id"], name: "index_thaalis_on_sabeel_id"
+    t.index ["slug"], name: "index_thaalis_on_slug", unique: true
+    t.index ["year", "sabeel_id"], name: "index_thaalis_on_year_and_sabeel_id", unique: true
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.bigint "thaali_takhmeen_id", null: false
+    t.bigint "thaali_id", null: false
+    t.integer "recipe_no", null: false
     t.integer "mode", null: false
     t.integer "amount", null: false
     t.date "date", null: false
+    t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "recipe_no", null: false
-    t.string "slug"
-    t.index ["recipe_no"], name: "index_transactions_on_recipe_no"
+    t.index ["recipe_no"], name: "index_transactions_on_recipe_no", unique: true
     t.index ["slug"], name: "index_transactions_on_slug", unique: true
-    t.index ["thaali_takhmeen_id"], name: "index_transactions_on_thaali_takhmeen_id"
+    t.index ["thaali_id"], name: "index_transactions_on_thaali_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.integer "its", null: false
     t.string "name", null: false
     t.string "password_digest", null: false
+    t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
-    t.integer "role", null: false
     t.index ["its"], name: "index_users_on_its", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
-  add_foreign_key "thaali_takhmeens", "sabeels"
-  add_foreign_key "transactions", "thaali_takhmeens"
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "role_id"
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
+  end
+
+  add_foreign_key "thaalis", "sabeels"
+  add_foreign_key "transactions", "thaalis"
 end

@@ -1,5 +1,9 @@
-<%= turbo_stream.append :sabeels do %>
-    <%= render partial: "inactive_sabeel_content" %>
+<% if @sabeels.any? %>
+  <%= turbo_stream.append :sabeels, partial: "sabeel" %>
+<% else %>
+  <%= turbo_stream.append :sabeels, partial: "shared/no_results" %>
 <% end %>
 
-<%= render partial: "shared/pagy", locals: { path: sabeels_inactive_path(format: :turbo_stream, page: @pagy.next) } %>
+<%= render partial: "shared/pagy", formats: :html,
+  locals: {path: sabeels_inactive_path(format: :turbo_stream, page: @pagy.next)}
+%>

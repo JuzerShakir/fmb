@@ -1,33 +1,37 @@
 class User < ApplicationRecord
+  rolify
   has_secure_password
 
   # * Callbacks
-  before_save :titleize_name, if: :will_save_change_to_name?
+  include NameCallback
 
   # * FRIENDLY_ID
   include ITSFriendlyId
 
+  # * Methods
+  def cache_role
+    Rails.cache.fetch("user_#{id}_role") { roles_name.first }
+  end
+
+  def is?(role)
+    cache_role == role
+  end
+
   # * Validations
   # ITS
   include ITSValidation
-
   # name
-  validates_presence_of :name, :password_confirmation, message: "cannot be blank"
-  validates_length_of :name, minimum: 3, message: "must be more than 3 characters"
-  validates_length_of :name, maximum: 35, message: "must be less than 35 characters"
-
+  include NameValidation
   # password
-  validates_length_of :password, minimum: 6, message: "must be more than 6 characters"
-
+  validates :password, :password_confirmation, length: {minimum: 6}
   # role
-  validates_presence_of :role, message: "selection is required"
-
-  # * Enums
-  enum :role, %i[admin member viewer]
+  validate :must_have_a_role
 
   private
 
-  def titleize_name
-    self.name = name.split.map(&:capitalize).join(" ")
+  def must_have_a_role
+    unless roles.any?
+      errors.add(:role_ids, "selection is required")
+    end
   end
 end

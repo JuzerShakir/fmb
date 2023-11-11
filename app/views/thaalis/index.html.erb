@@ -1,0 +1,10 @@
+<%# * Title %>
+<h2 class="text-center">Thaalis in <span class="text-secondary"><%= CURR_YR %></span></h2>
+
+<%# * search %>
+<%= render partial: "shared/search",
+      locals: {message: "Thaali Number", path: root_path, search: :number_cont} %>
+
+<%# * show all Current Year Thaalis %>
+<%= render partial: "shared/results",
+      locals: {id: "thaalis", path: root_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h)} %>

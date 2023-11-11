@@ -1,5 +1,0 @@
-<%= turbo_stream.append :thaalis do %>
-    <%= render partial: "thaali_content" %>
-<% end %>
-
-<%= render partial: "shared/pagy", locals: { path: root_path(format: :turbo_stream, page: @pagy.next, q: params[:q]&.to_unsafe_h) } %>

@@ -6,21 +6,25 @@
 
 <%# * Content %>
 <% @apts.each do |apartment, values| %>
-    <div id="<%= apartment %>" class="text-center container col-lg-8 offset-lg-2 my-5 p-3 border rounded-5 shadow c-bg">
-        <h3><%= apartment.to_s.titleize %> </h3>
-        <div class=" mt-4 ">
-            <%= link_to "Active: #{values[:active_takhmeens]}", sabeels_active_path(apartment.to_s), class: " fw-bold button btn btn-outline-success rounded-5 mb-3 c-bg" %>
-            <%= link_to "Inactive: #{values[:inactive_takhmeens]}", sabeels_inactive_path(apartment.to_s), class: " fw-bold button cm btn btn-outline-danger rounded-5 mb-3 c-bg" %>
-        </div>
-        <div class=" row mt-2 fw-bold ">
-            <p class=" col text-primary ">Small: <%= values[:small].to_s %></p>
-            <p class=" col text-warning ">Medium: <%= values[:medium].to_s %></p>
-            <p class=" col text-dark ">Large: <%= values[:large].to_s %></p>
-        </div>
-        <div class=" row mt-1 ">
-            <p class=" fw-bold text-info fs-5 ">
-                Total Sabeels: <%= values[:total_sabeels].to_s %>
-            </p>
-        </div>
+  <div id="<%= apartment %>" class="text-center container col-lg-8 offset-lg-2 my-5 p-3 border rounded-5 shadow c-bg">
+    <h3><%= apartment.to_s.titleize %> </h3>
+
+    <div class=" mt-4 ">
+      <%= link_to "Active: #{values[:active_thaalis]}", sabeels_active_path(apartment.to_s), class: success_btn %>
+      <%= link_to "Inactive: #{values[:inactive_thaalis]}", sabeels_inactive_path(apartment.to_s), class: danger_btn %>
     </div>
+
+    <div class=" row mt-2 fw-bold ">
+      <p class=" col text-primary ">Small: <%= values[:small].to_s %></p>
+      <p class=" col text-warning ">Medium: <%= values[:medium].to_s %></p>
+      <p class=" col text-dark ">Large: <%= values[:large].to_s %></p>
+    </div>
+
+    <div class=" row mt-1 ">
+      <p class=" fw-bold text-info fs-5 ">
+        Total Sabeels: <%= values[:total_sabeels].to_s %>
+      </p>
+    </div>
+
+  </div>
 <% end %>

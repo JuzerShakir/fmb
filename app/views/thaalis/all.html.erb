@@ -1,0 +1,9 @@
+<%# * Title %>
+<h2 class="text-center">Thaalis in <span class="text-secondary"><%= @year.to_s %></span> </h2>
+
+<%# * show all thaalis %>
+<%= render partial: "shared/results", locals: {
+  instances: @thaalis,
+  id: "thaalis",
+  path: thaalis_all_path(format: :turbo_stream)
+} %>
