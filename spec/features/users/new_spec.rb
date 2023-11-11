@@ -6,9 +6,9 @@ RSpec.describe "User new template" do
   let(:user) { create(:admin_user) }
 
   before do
-    # rubocop:disable RSpec/SkipsModelValidations
+    # rubocop:disable Rails/SkipsModelValidations
     Role.insert_all([{name: "member"}, {name: "viewer"}])
-    # rubocop:enable RSpec/SkipsModelValidations
+    # rubocop:enable Rails/SkipsModelValidations
     page.set_rack_session(user_id: user.id)
     visit root_path
   end
