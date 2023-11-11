@@ -4,104 +4,65 @@
 #
 # This workflow will install a prebuilt Ruby version, install dependencies, and
 # run tests and linters.
-name: Testing the application
+name: Linting & Testing
 
 on:
-    pull_request:
-        branches: ["master"]
+  pull_request:
+    branches: ["master"]
 
 jobs:
-    rspec-test:
-        runs-on: ubuntu-latest
-        services:
-            postgres:
-                image: postgres
-                env:
-                    POSTGRES_USER: postgres
-                    POSTGRES_PASSWORD: password
-                ports: ["5432:5432"]
-                # Set health checks to wait until postgres has started
-                options: >-
-                    --health-cmd pg_isready
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
-        steps:
-            - name: Check out repository code
-              uses: actions/checkout@v3
+  lint-n-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports: ["5432:5432"]
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
 
-            - name: Setting up Ruby
-              uses: ruby/setup-ruby@v1.138.0
-              with:
-                  ruby-version: 3.1.2
+      - name: Setting up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
 
-            - name: Installing Bundler & Gems
-              run: |
-                  gem install bundler
-                  bundle install --jobs 4 --retry 3
+      - name: Setup Node
+        uses: actions/setup-node@v3
 
-            - name: Run yarn commands
-              run: |
-                  yarn install
-                  yarn run build
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y -qq libvips
+          yarn install --frozen-lockfile
 
-            - name: Preparing Database
-              env:
-                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
-                  RAILS_ENV: test
-                  PG_USER: postgres
-              run: |
-                  bundle exec rails db:create
-                  bundle exec rails db:migrate
+      - name: Installing Bundler & Gems
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
 
-            - name: StandardRB Linter
-              run: bundle exec standardrb
+      - name: Find linting errors
+        run: bundle exec erblint -l
 
-            - name: erb-lint
-              run: bundle exec erblint --lint-all
+      - name: Find rubocop errors
+        run: bundle exec rubocop
 
-            - name: Testing routes
-              env:
-                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
-                  RAILS_ENV: test
-                  PG_USER: postgres
-              run: rspec spec/routing -fd
+      - name: Precompile assets
+        run: yarn run build
 
-            - name: Testing requests
-              env:
-                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
-                  RAILS_ENV: test
-                  PG_USER: postgres
-              run: rspec spec/requests -fd
-
-            - name: Testing models
-              env:
-                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
-                  RAILS_ENV: test
-                  PG_USER: postgres
-              run: rspec spec/models -fd
-
-            - name: Testing helpers
-              env:
-                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
-                  RAILS_ENV: test
-                  PG_USER: postgres
-              run: rspec spec/helpers -fd
-
-            - name: Setup Chrome
-              uses: browser-actions/setup-chrome@v1.1.0
-
-            - name: setup-chromedriver
-              uses: nanasess/setup-chromedriver@v1.1.0
-
-            - name: Testing features
-              env:
-                  DATABASE_URL: postgres://postgres:password@localhost:5432/test
-                  RAILS_ENV: test
-                  PG_USER: postgres
-              run: |
-                  export DISPLAY=:99
-                  chromedriver &
-                  sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional
-                  rspec spec/features -fd
-            # 'sudo Xvfb -ac :99 > /dev/null 2>&1 & # optional' command launches an instance of Xvfb (X Virtual Framebuffer), a virtual display server for X11 that allows running graphical applications without an actual display hardware.
+      - name: Running Tests
+        env:
+          DATABASE_URL: postgres://postgres:password@localhost:5432/test
+          RAILS_ENV: test
+          PG_USER: postgres
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+          bundle exec rspec
