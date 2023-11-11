@@ -11,7 +11,7 @@ on:
     branches: ["master"]
 
 jobs:
-  rspec-test:
+  lint-n-test:
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -54,10 +54,10 @@ jobs:
           bundle exec rails db:create
           bundle exec rails db:migrate
 
-      # - name: Checking linting errors in erb files
-      #   run: bundle exec erblint -l
+      - name: Find linting errors
+        run: bundle exec erblint -l
 
-      - name: Checking rubocop errors
+      - name: Find rubocop errors
         run: bundle exec rubocop
 
       - name: Running Tests

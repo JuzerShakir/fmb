@@ -18,9 +18,9 @@ inherit_gem:
 AllCops:
   NewCops: enable
   Exclude:
-    - node_modules/**/*
-    - public/**/*
-    - vendor/**/*
+    - "node_modules/**/*"
+    - "public/**/*"
+    - "vendor/**/*"
 
 Rails:
   Enabled: true # enable rubocop-rails cops
