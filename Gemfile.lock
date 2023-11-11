@@ -103,6 +103,8 @@ GEM
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
+    dockerfile-rails (1.5.12)
+      rails (>= 3.0.0)
     erb_lint (0.4.0)
       activesupport
       better_html (>= 2.0.1)
@@ -284,6 +286,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.13.0)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.13.0)
+    sentry-ruby (5.13.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     shoulda-callback-matchers (1.1.4)
       activesupport (>= 3)
     shoulda-matchers (5.3.0)
@@ -351,6 +358,7 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   debug
+  dockerfile-rails (>= 1.5)
   erb_lint
   factory_bot_rails (~> 6.2.0)
   faker (~> 3.1.0)
@@ -376,6 +384,8 @@ DEPENDENCIES
   rubocop-rails (= 2.21.1)
   rubocop-rspec
   selenium-webdriver (~> 4.7)
+  sentry-rails (~> 5.13)
+  sentry-ruby (~> 5.13)
   shoulda-callback-matchers (~> 1.1.1)
   shoulda-matchers (~> 5.0)
   simple_form (~> 5.1)

@@ -25,6 +25,8 @@ gem "rails-i18n"
 gem "ransack", "~> 3.2.1"
 gem "redis", "~> 4.0"
 gem "rolify"
+gem "sentry-rails", "~> 5.13"
+gem "sentry-ruby", "~> 5.13"
 gem "simple_form", "~> 5.1"
 gem "stimulus-rails"
 gem "turbo-rails"
@@ -42,6 +44,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "dockerfile-rails", ">= 1.5"
   gem "erb_lint", require: false
   gem "web-console"
 end
