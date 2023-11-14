@@ -31,8 +31,12 @@ class Sabeel < ApplicationRecord
   end
 
   # * RANSACK
-  ransacker :its do
-    Arel.sql("to_char(\"#{table_name}\".\"its\", '99999999')")
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[thaalis]
   end
 
   # * Scopes

@@ -16,8 +16,8 @@ class Transaction < ApplicationRecord
   end
 
   # * RANSACK
-  ransacker :recipe_no do
-    Arel.sql("to_char(\"#{table_name}\".\"recipe_no\", '99999999')")
+  def self.ransackable_attributes(auth_object = nil)
+    %w[recipe_no]
   end
 
   # * Scopes

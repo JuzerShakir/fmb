@@ -32,8 +32,8 @@ class Thaali < ApplicationRecord
   end
 
   # * RANSACK
-  ransacker :number do
-    Arel.sql("to_char(\"#{table_name}\".\"number\", '99999999')")
+  def self.ransackable_attributes(auth_object = nil)
+    %w[number]
   end
 
   # * Scopes

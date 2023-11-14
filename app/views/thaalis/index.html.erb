@@ -3,7 +3,7 @@
 
 <%# * search %>
 <%= render partial: "shared/search",
-      locals: {message: "Thaali Number", path: root_path, search: :number_cont} %>
+      locals: {attr_name: "Thaali no.", path: root_path, search: :number_eq} %>
 
 <%# * show all Current Year Thaalis %>
 <%= render partial: "shared/results",

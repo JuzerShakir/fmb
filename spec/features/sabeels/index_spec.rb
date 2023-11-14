@@ -29,24 +29,14 @@ RSpec.describe "Sabeel Index template" do
       end
     end
 
-    describe "can search" do
-      context "with ITS number" do
-        let(:its_number) { Sabeel.first.its }
+    describe "can search with name" do
+      let(:first) { Sabeel.first }
+      let(:last) { Sabeel.last }
 
-        before { fill_in "q_name_or_its_cont", with: its_number }
+      before { fill_in "q_name_cont", with: first.name }
 
-        it { within("div#all-sabeels") { expect(page).to have_content(its_number) } }
-        it { within("div#all-sabeels") { expect(page).not_to have_content(Sabeel.last.its) } }
-      end
-
-      context "with name" do
-        let(:name) { Sabeel.first.name }
-
-        before { fill_in "q_name_or_its_cont", with: name }
-
-        it { within("div#all-sabeels") { expect(page).to have_content(name) } }
-        it { within("div#all-sabeels") { expect(page).to have_content(Sabeel.last.name) } }
-      end
+      it { within("div#all-sabeels") { expect(page).to have_content(first.name) } }
+      it { within("div#all-sabeels") { expect(page).not_to have_content(last.name) } }
     end
   end
 end
