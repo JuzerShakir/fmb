@@ -134,7 +134,7 @@ GEM
       railties (>= 5.0.0)
     faker (3.2.2)
       i18n (>= 1.8.11, < 2)
-    friendly_id (5.5.0)
+    friendly_id (5.5.1)
       activerecord (>= 4.0.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -392,7 +392,7 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails (~> 6.2.0)
   faker (~> 3.2)
-  friendly_id (~> 5.5.0)
+  friendly_id (~> 5.5)
   humanize (~> 2.5)
   jbuilder
   jsbundling-rails
