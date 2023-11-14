@@ -27,7 +27,7 @@ gem "redis", "~> 5.0"
 gem "rolify"
 gem "sentry-rails", "~> 5.13"
 gem "sentry-ruby", "~> 5.13"
-gem "simple_form", "~> 5.1"
+gem "simple_form", "~> 5.3"
 gem "stimulus-rails"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]

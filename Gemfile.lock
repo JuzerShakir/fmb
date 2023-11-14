@@ -326,7 +326,7 @@ GEM
       activesupport (>= 3)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
-    simple_form (5.1.0)
+    simple_form (5.3.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
     simplecov (0.22.0)
@@ -421,7 +421,7 @@ DEPENDENCIES
   sentry-ruby (~> 5.13)
   shoulda-callback-matchers (~> 1.1.1)
   shoulda-matchers (~> 5.0)
-  simple_form (~> 5.1)
+  simple_form (~> 5.3)
   simplecov
   standard
   stimulus-rails
