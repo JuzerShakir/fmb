@@ -8,15 +8,10 @@ class Thaali < ApplicationRecord
   RANSACK_ATTRIBUTES = %w[number]
 
   # * FRIENDLY_ID
-  extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :finders, :history]
+  include HasFriendlyId
 
-  def should_generate_new_friendly_id?
-    number_changed?
-  end
-
-  def slug_candidates
-    "#{year}-#{number}"
+  def sluggables
+    [year, number]
   end
 
   # * Enums

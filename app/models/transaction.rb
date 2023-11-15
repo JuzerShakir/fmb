@@ -9,11 +9,10 @@ class Transaction < ApplicationRecord
   RANSACK_ATTRIBUTES = %w[recipe_no]
 
   # * FRIENDLY_ID
-  extend FriendlyId
-  friendly_id :recipe_no, use: [:slugged, :finders, :history]
+  include HasFriendlyId
 
-  def should_generate_new_friendly_id?
-    recipe_no_changed?
+  def sluggables
+    [recipe_no]
   end
 
   # * Enums

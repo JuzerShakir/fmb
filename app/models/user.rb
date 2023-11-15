@@ -6,7 +6,11 @@ class User < ApplicationRecord
   include NameCallback
 
   # * FRIENDLY_ID
-  include ITSFriendlyId
+  include HasFriendlyId
+
+  def sluggables
+    [its]
+  end
 
   # * Validations
   include ITSValidation

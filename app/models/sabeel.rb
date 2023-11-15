@@ -7,7 +7,11 @@ class Sabeel < ApplicationRecord
   include NameCallback
 
   # * FRIENDLY_ID
-  include ITSFriendlyId
+  include HasFriendlyId
+
+  def sluggables
+    [its]
+  end
 
   # * RANSACK
   include Ransackable
