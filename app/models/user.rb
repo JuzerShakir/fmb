@@ -8,6 +8,12 @@ class User < ApplicationRecord
   # * FRIENDLY_ID
   include ITSFriendlyId
 
+  # * Validations
+  include ITSValidation
+  include NameValidation
+  validates :password, :password_confirmation, length: {minimum: 6}
+  validate :must_have_a_role
+
   # * Methods
   def cache_role
     Rails.cache.fetch("user_#{id}_role") { roles_name.first }
@@ -17,18 +23,9 @@ class User < ApplicationRecord
     cache_role == role
   end
 
-  # * Validations
-  # ITS
-  include ITSValidation
-  # name
-  include NameValidation
-  # password
-  validates :password, :password_confirmation, length: {minimum: 6}
-  # role
-  validate :must_have_a_role
-
   private
 
+  # * Custom Validations
   def must_have_a_role
     unless roles.any?
       errors.add(:role_ids, "selection is required")

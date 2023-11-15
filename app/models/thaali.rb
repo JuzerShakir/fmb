@@ -1,14 +1,11 @@
 class Thaali < ApplicationRecord
-  # * RANSACK
-  include Ransackable
-  RANSACK_ATTRIBUTES = %w[number]
-
   # * Associtions
   belongs_to :sabeel
   has_many :transactions, dependent: :destroy
 
-  # * Enums
-  enum :size, SIZES
+  # * RANSACK
+  include Ransackable
+  RANSACK_ATTRIBUTES = %w[number]
 
   # * FRIENDLY_ID
   extend FriendlyId
@@ -22,18 +19,8 @@ class Thaali < ApplicationRecord
     "#{year}-#{number}"
   end
 
-  # * Methods
-  def balance
-    total - paid
-  end
-
-  def dues_cleared?
-    balance.zero?
-  end
-
-  def paid
-    transactions.filter_map(&:amount).sum(0)
-  end
+  # * Enums
+  enum :size, SIZES
 
   # * Scopes
   scope :dues_cleared_in, ->(year) {
@@ -56,11 +43,21 @@ class Thaali < ApplicationRecord
   scope :preloading, -> { preload(:sabeel, :transactions) }
 
   # * Validations
-  # number & total
   validates :number, :total, numericality: {only_integer: true, greater_than: 0}
-  # size
   validates :size, presence: true
-  # year
   validates :year, uniqueness: {scope: :sabeel_id}
   validates :year, numericality: {only_integer: true, less_than_or_equal_to: CURR_YR}
+
+  # * Methods
+  def balance
+    total - paid
+  end
+
+  def dues_cleared?
+    balance.zero?
+  end
+
+  def paid
+    transactions.filter_map(&:amount).sum(0)
+  end
 end
