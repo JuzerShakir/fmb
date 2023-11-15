@@ -14,9 +14,8 @@ RSpec.describe "Transaction new template" do
     let(:user) { create(:user_admin_or_member) }
 
     before do
-      attributes_for(:transaction).except(:mode, :date).each do |k, v|
-        fill_in "transaction_#{k}", with: v
-      end
+      fill_in "transaction_recipe_no", with: 10
+      fill_in "transaction_amount", with: 1
     end
 
     context "with valid values" do
