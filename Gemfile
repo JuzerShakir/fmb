@@ -50,10 +50,10 @@ group :development do
 end
 
 group :test do
-  gem "capybara"
+  gem "capybara", "~> 3.39"
   gem "rack_session_access"
   gem "rails-controller-testing", "~> 1.0"
-  gem "selenium-webdriver", "~> 4.7"
+  gem "selenium-webdriver", "~> 4.15"
   gem "shoulda-callback-matchers", "~> 1.1"
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
