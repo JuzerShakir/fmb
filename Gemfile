@@ -21,7 +21,7 @@ gem "prawn", "~> 2.4.0"
 gem "prawn-table", "~> 0.2.2"
 gem "propshaft"
 gem "puma", "~> 6.4.0"
-gem "rails-i18n"
+gem "rails-i18n", "~> 7.0.8"
 gem "ransack", "~> 4.1.1"
 gem "redis", "~> 5.0.8"
 gem "rolify", "~> 6.0.1"
@@ -55,7 +55,7 @@ group :test do
   gem "rails-controller-testing", "~> 1.0.5"
   gem "selenium-webdriver", "~> 4.15.0"
   gem "shoulda-callback-matchers", "~> 1.1.4"
-  gem "shoulda-matchers", "~> 5.0"
+  gem "shoulda-matchers", "~> 5.3.0"
   gem "simplecov", require: false
 end
 
