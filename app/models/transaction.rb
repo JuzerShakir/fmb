@@ -1,6 +1,10 @@
 class Transaction < ApplicationRecord
   default_scope { order(date: :desc) }
 
+  # * RANSACK
+  include Ransackable
+  RANSACK_ATTRIBUTES = %w[recipe_no]
+
   # * Associations
   belongs_to :thaali
 
@@ -13,11 +17,6 @@ class Transaction < ApplicationRecord
 
   def should_generate_new_friendly_id?
     recipe_no_changed?
-  end
-
-  # * RANSACK
-  def self.ransackable_attributes(auth_object = nil)
-    %w[recipe_no]
   end
 
   # * Scopes

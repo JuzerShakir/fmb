@@ -1,4 +1,8 @@
 class Thaali < ApplicationRecord
+  # * RANSACK
+  include Ransackable
+  RANSACK_ATTRIBUTES = %w[number]
+
   # * Associtions
   belongs_to :sabeel
   has_many :transactions, dependent: :destroy
@@ -29,11 +33,6 @@ class Thaali < ApplicationRecord
 
   def paid
     transactions.filter_map(&:amount).sum(0)
-  end
-
-  # * RANSACK
-  def self.ransackable_attributes(auth_object = nil)
-    %w[number]
   end
 
   # * Scopes
