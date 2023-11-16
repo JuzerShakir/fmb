@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :sabeel do
     apartment { APARTMENTS.sample }
-    email { Faker::Internet.free_email }
+    email { Faker::Internet.email }
     flat_no { Faker::Number.within(range: 1..9999) }
     # rubocop:disable RSpec/NoExpectationExample
     its { Faker::Number.number(digits: 8) }

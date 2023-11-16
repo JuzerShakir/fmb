@@ -24,7 +24,6 @@ RSpec.describe "Sabeel Active template" do
 
         before { click_button("Generate PDF") }
 
-        # FIXME: for the test to pass in github actions wait 5 sec until the header appears
         it { within_window pdf_window { expect(page).to have_content("Burhani - #{CURR_YR}") } }
         it { within_window pdf_window { expect(page).to have_content(sabeel.flat_no) } }
         it { within_window pdf_window { expect(page).to have_content(sabeel.name) } }

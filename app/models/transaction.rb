@@ -4,34 +4,28 @@ class Transaction < ApplicationRecord
   # * Associations
   belongs_to :thaali
 
-  # * Enums
-  enum :mode, MODES
+  # * RANSACK
+  include Ransackable
+  RANSACK_ATTRIBUTES = %w[recipe_no]
 
   # * FRIENDLY_ID
-  extend FriendlyId
-  friendly_id :recipe_no, use: [:slugged, :finders, :history]
+  include HasFriendlyId
 
-  def should_generate_new_friendly_id?
-    recipe_no_changed?
+  def sluggables
+    [recipe_no]
   end
 
-  # * RANSACK
-  ransacker :recipe_no do
-    Arel.sql("to_char(\"#{table_name}\".\"recipe_no\", '99999999')")
-  end
+  # * Enums
+  enum :mode, MODES
 
   # * Scopes
   scope :that_occured_on, ->(date) { where(date: date) }
 
   # * Validations
-  # amount
   validates :amount, :recipe_no, numericality: {only_integer: true, greater_than: 0}
   validate :amount_to_be_less_than_balance, if: :will_save_change_to_amount?
-  # date
   validates_date :date, on_or_before: :today, if: :will_save_change_to_date?
-  # date & mode
   validates :mode, :date, presence: true
-  # recipe no
   validates :recipe_no, uniqueness: true
 
   private

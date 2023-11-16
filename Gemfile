@@ -1,33 +1,33 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby "~> 3.2.2"
 
-gem "rails", "~> 7.0.4"
+gem "rails", "~> 7.1.2"
 
 gem "active_record_union"
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
-gem "cancancan"
+gem "cancancan", "~> 3.5.0"
 gem "cssbundling-rails"
-gem "faker", "~> 3.1.0"
-gem "friendly_id", "~> 5.5.0"
-gem "humanize", "~> 2.5"
+gem "faker", "~> 3.2.2"
+gem "friendly_id", "~> 5.5.1"
+gem "humanize", "~> 2.5.1"
 gem "jbuilder"
 gem "jsbundling-rails"
-gem "pagy", "~> 6.0"
-gem "pg", "~> 1.1"
-gem "prawn", "~> 2.4"
+gem "pagy", "~> 6.2.0"
+gem "pg", "~> 1.5.4"
+gem "prawn", "~> 2.4.0"
 gem "prawn-table", "~> 0.2.2"
 gem "propshaft"
-gem "puma", "~> 5.0"
-gem "rails-i18n"
-gem "ransack", "~> 3.2.1"
-gem "redis", "~> 4.0"
-gem "rolify"
-gem "sentry-rails", "~> 5.13"
-gem "sentry-ruby", "~> 5.13"
-gem "simple_form", "~> 5.1"
+gem "puma", "~> 6.4.0"
+gem "rails-i18n", "~> 7.0.8"
+gem "ransack", "~> 4.1.1"
+gem "redis", "~> 5.0.8"
+gem "rolify", "~> 6.0.1"
+gem "sentry-rails", "~> 5.13.0"
+gem "sentry-ruby", "~> 5.13.0"
+gem "simple_form", "~> 5.3.0"
 gem "stimulus-rails"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
@@ -50,12 +50,12 @@ group :development do
 end
 
 group :test do
-  gem "capybara"
+  gem "capybara", "~> 3.39.2"
   gem "rack_session_access"
   gem "rails-controller-testing", "~> 1.0.5"
-  gem "selenium-webdriver", "~> 4.7"
-  gem "shoulda-callback-matchers", "~> 1.1.1"
-  gem "shoulda-matchers", "~> 5.0"
+  gem "selenium-webdriver", "~> 4.15.0"
+  gem "shoulda-callback-matchers", "~> 1.1.4"
+  gem "shoulda-matchers", "~> 5.3.0"
   gem "simplecov", require: false
 end
 

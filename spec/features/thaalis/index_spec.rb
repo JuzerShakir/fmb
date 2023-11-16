@@ -41,7 +41,7 @@ RSpec.describe "Thaali index template" do
       context "with thaali number" do
         let(:thaali_number) { Thaali.first.number }
 
-        before { fill_in "q_number_cont", with: thaali_number }
+        before { fill_in "q_number_eq", with: thaali_number }
 
         it { within("div#all-thaalis") { expect(page).to have_content(thaali_number) } }
         it { within("div#all-thaalis") { expect(page).not_to have_content(Thaali.last.number) } }
