@@ -17,7 +17,9 @@
 
 <%# * Transactions %>
 <% unless @thaali.dues_cleared? || current_user.is?("viewer") %>
-  <%= button_to "New Transaction", new_thaali_transaction_path(@thaali), method: :get, class: "btn btn-success mt-5 vstack mx-auto" %>
+  <div class="col-5 col-md-4 col-lg-3 col-xl-2 vstack mt-5 mx-auto">
+    <%= link_to "New Transaction", new_thaali_transaction_path(@thaali), method: :get, class: "btn btn-success" %>
+  </div>
 <% end %>
 
 <div id="transactions" class="mt-3">
