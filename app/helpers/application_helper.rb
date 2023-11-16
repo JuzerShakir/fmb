@@ -11,7 +11,7 @@ module ApplicationHelper
 
   def rupees(num)
     content_tag :span do
-      font_awesome_helper(number_with_delimiter(num), "fa-indian-rupee-sign")
+      font_awesome_helper(number_with_delimiter(num), "fa-indian-rupee-sign fa-sm")
     end
   end
 
@@ -51,7 +51,7 @@ module ApplicationHelper
 
   def font_awesome_helper(msg, logo)
     concat(content_tag(:i, "", class: "fa-solid #{logo}"))
-    concat(content_tag(:span, " #{msg}"))
+    concat(content_tag(:span, msg.to_s))
   end
 
   def flash_message_helper(type, msg, logo)
