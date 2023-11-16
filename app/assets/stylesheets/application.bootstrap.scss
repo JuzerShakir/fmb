@@ -1,11 +1,13 @@
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons";
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Nunito:wght@300&display=swap");
 
 body {
 	background: url("background.png") no-repeat center center;
 	background-size: cover;
 	background-attachment: fixed;
-	font-family: lato, sans-serif;
+	font-family: "Nunito", sans-serif;
+	font-weight: 300;
 }
 
 // for mobile-devices
@@ -37,6 +39,14 @@ body {
 	.desktop-mt {
 		margin-top: 4rem;
 	}
+}
+
+nav,
+h2,
+h4,
+h5 {
+	font-family: "Josefin Sans", sans-serif;
+	font-weight: 400;
 }
 
 .note {
