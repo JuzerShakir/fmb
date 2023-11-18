@@ -110,27 +110,21 @@ body {
 	font-size: 14px;
 }
 
-#show- {
-	&sabeel {
-		background-color: #f7e6bc;
+#sabeel {
+	background-color: #f7e6bc;
+}
 
-		&-header {
-			background-color: #ffefd5;
-		}
-	}
+#thaali {
+	background-color: #d4d4d4;
+}
 
-	&transaction,
-	&transaction-header {
-		background-color: #d7fcd7;
-	}
+#transaction {
+	background-color: #d7fcd7;
+}
 
-	&thaali {
-		background-color: #d4d4d4;
-
-		&-header {
-			background-color: #afeeee;
-		}
-	}
+#user {
+	background-color: #f7e6bc;
+}
 
 #sabeels,
 #thaalis,
