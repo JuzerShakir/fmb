@@ -58,6 +58,7 @@ body {
 	font-family: "Josefin Sans", sans-serif;
 	font-weight: 400;
 	text-align: center;
+	color: $primary;
 }
 
 .mt-6 {
@@ -113,6 +114,6 @@ body {
 #transactions,
 #users {
 	.row:not(:last-child) {
-		border-bottom: 2px solid $warning-border-subtle;
+		border-bottom: 2px solid $secondary;
 	}
 }

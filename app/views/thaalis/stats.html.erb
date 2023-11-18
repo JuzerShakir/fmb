@@ -23,16 +23,16 @@
     </div>
 
     <div class="row mt-4 fw-bold">
-      <p class="col text-primary">Small: <%= values[:small].to_s %></p>
-      <p class="col text-warning">Medium: <%= values[:medium].to_s %></p>
-      <p class="col text-dark">Large: <%= values[:large].to_s %></p>
+      <p class="col text-info">Small: <%= values[:small].to_s %></p>
+      <p class="col text-secondary">Medium: <%= values[:medium].to_s %></p>
+      <p class="col text-success">Large: <%= values[:large].to_s %></p>
     </div>
 
     <div class="row mt-2">
       <% if year == CURR_YR %>
-        <%= link_to "Total Thaalis: #{values[:count]}", root_path, class: "fw-bold text-info fs-5" %>
+        <%= link_to "Total Thaalis: #{values[:count]}", root_path, class: "fw-bold text-success fs-5" %>
       <% else %>
-        <%= link_to "Total Thaalis: #{values[:count]}", thaalis_all_path(year), class: "fw-bold text-info fs-5" %>
+        <%= link_to "Total Thaalis: #{values[:count]}", thaalis_all_path(year), class: "fw-bold text-success fs-5" %>
       <% end %>
     </div>
   </div>
