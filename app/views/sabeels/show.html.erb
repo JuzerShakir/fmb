@@ -15,7 +15,11 @@
 
 <% if @sabeel.taking_thaali? || @sabeel.took_thaali? || @thaalis.any? %>
   <div id="thaalis" class="mt-5">
-    <div class="container text-center c-bg">
+    <p class="fw-bold text-center text-info">
+      Total number of Thaalis: <%= @thaalis.size %>
+    </p>
+
+    <div class="container mt-3 mb-5 text-center c-bg border border-4 border-warning rounded-4">
       <%= render partial: "thaalis" %>
     </div>
   </div>
