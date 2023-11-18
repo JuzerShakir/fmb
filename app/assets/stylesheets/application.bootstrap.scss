@@ -66,6 +66,22 @@ body {
 }
 
 // * id level styles
+#create-sabeel {
+	background-image: linear-gradient(
+		to right,
+		$primary 0%,
+		$success 51%,
+		$secondary 100%
+	);
+	transition: 0.7s;
+	background-size: 200% auto;
+
+	&:hover {
+		background-position: right center;
+		color: white; /* change the direction of the change here */
+		text-decoration: none;
+	}
+}
 #flash {
 	position: absolute;
 	z-index: 2;
