@@ -4,6 +4,6 @@
 <%# * show all thaalis %>
 <%= render partial: "shared/results", locals: {
   instances: @thaalis,
-  id: "thaalis",
+  model: "thaalis",
   path: thaalis_all_path(format: :turbo_stream)
 } %>

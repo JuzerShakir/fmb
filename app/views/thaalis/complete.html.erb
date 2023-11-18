@@ -3,4 +3,4 @@
 
 <%# * show all Completed Takhmeens %>
 <%= render partial: "shared/results", formats: :html,
-      locals: {id: "thaalis", path: thaalis_complete_path(format: :turbo_stream)} %>
+      locals: {model: "thaalis", path: thaalis_complete_path(format: :turbo_stream)} %>

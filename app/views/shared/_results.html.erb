@@ -1,7 +1,7 @@
 <div class="container text-center my-5 rounded-bottom-4 shadow-lg c-bg">
   <%= turbo_frame_tag :results, data: {turbo_action: "advance"} do %>
     <%= render partial: "theader" %>
-    <div id="<%= id %>"> </div>
+    <div id="<%= model %>"> </div>
     <%= turbo_frame_tag :pagination, loading: :lazy, src: path %>
   <% end %>
 </div>

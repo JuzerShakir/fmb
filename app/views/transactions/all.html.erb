@@ -7,4 +7,4 @@
 
 <%# * show all transactions %>
 <%= render partial: "shared/results",
-      locals: {id: "transactions", path: transactions_all_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h)} %>
+      locals: {model: "transactions", path: transactions_all_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h)} %>
