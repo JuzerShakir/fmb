@@ -14,9 +14,9 @@ RSpec.describe "User show template" do
 
     describe "can view" do
       describe "user details" do
-        it { within("#show-user") { expect(page).to have_content(user.name) } }
-        it { within("#show-user") { expect(page).to have_content(user.its) } }
-        it { within("#show-user") { expect(page).to have_content(user.roles_name.first.capitalize) } }
+        it { within("#user") { expect(page).to have_content(user.name) } }
+        it { within("#user") { expect(page).to have_content(user.its) } }
+        it { within("#user") { expect(page).to have_content(user.roles_name.first.capitalize) } }
       end
 
       describe "action buttons" do

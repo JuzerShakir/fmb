@@ -43,8 +43,8 @@ RSpec.describe "Thaali index template" do
 
         before { fill_in "q_number_eq", with: thaali_number }
 
-        it { within("div#all-thaalis") { expect(page).to have_content(thaali_number) } }
-        it { within("div#all-thaalis") { expect(page).not_to have_content(Thaali.last.number) } }
+        it { within("div#thaalis") { expect(page).to have_content(thaali_number) } }
+        it { within("div#thaalis") { expect(page).not_to have_content(Thaali.last.number) } }
       end
     end
   end

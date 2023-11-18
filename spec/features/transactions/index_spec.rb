@@ -49,8 +49,8 @@ RSpec.describe "Transaction index template" do
 
         before { fill_in "q_recipe_no_eq", with: recipe }
 
-        it { within("div#all-transactions") { expect(page).to have_content(recipe) } }
-        it { within("div#all-transactions") { expect(page).not_to have_content(transactions.last.recipe_no) } }
+        it { within("div#transactions") { expect(page).to have_content(recipe) } }
+        it { within("div#transactions") { expect(page).not_to have_content(transactions.last.recipe_no) } }
       end
     end
   end
