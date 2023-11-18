@@ -6,26 +6,6 @@ $white-alpha-50: rgba(255, 255, 255, 0.5);
 $black-alpha-70: rgba(0, 0, 0, 0.7);
 $black-alpha-20: rgba(0, 0, 0, 0.2);
 
-// * Responsive layout styles
-// for mobile-devices
-@media (max-width: 767px) {
-	.button,
-	.button-contact {
-		width: 100%;
-	}
-}
-
-// for non-mobile-devices
-@media (min-width: 767px) {
-	.button {
-		width: 35%;
-	}
-
-	.button-contact {
-		width: 25%;
-	}
-}
-
 // * element styles
 body {
 	background: url("background.png") no-repeat center center;

@@ -40,11 +40,11 @@ module ApplicationHelper
   end
 
   def success_btn
-    "fw-bold button btn btn-outline-success rounded-5 mb-3 c-bg"
+    "fw-bold btn rounded-5 col-8 col-md-4 mb-3 c-bg btn-outline-success"
   end
 
   def danger_btn
-    "fw-bold button btn btn-outline-danger rounded-5 mb-3 c-bg"
+    "fw-bold btn rounded-5 col-8 col-md-4 mb-3 c-bg btn-outline-danger"
   end
 
   private
@@ -63,7 +63,7 @@ module ApplicationHelper
   def contact_options(url, custom_styles)
     {
       href: url,
-      class: "fw-bold btn rounded-5 mb-3 c-bg button-contact #{custom_styles}",
+      class: "fw-bold btn rounded-5 col-8 col-md-3 mb-3 c-bg #{custom_styles}",
       target: :_blank,
       rel: :noopener
     }
