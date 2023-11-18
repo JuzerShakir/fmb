@@ -43,14 +43,6 @@ body {
 	font-weight: 300;
 }
 
-h2,
-h4,
-h5,
-nav {
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: 400;
-}
-
 // * class level styles
 .about {
 	background-color: rgba(252, 244, 253, 0.5);
@@ -78,6 +70,12 @@ nav {
 	h1 {
 		font-size: 15vw;
 	}
+}
+
+.heading {
+	font-family: "Josefin Sans", sans-serif;
+	font-weight: 400;
+	text-align: center;
 }
 
 .note {

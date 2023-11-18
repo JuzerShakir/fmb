@@ -1,5 +1,5 @@
 <%# * Title %>
-<h2 class=" text-center ">Sabeel Statistics: <span class=" text-secondary "><%= CURR_YR %></span></h2>
+<h2 class="heading">Sabeel Statistics: <span class=" text-secondary "><%= CURR_YR %></span></h2>
 
 <%# * No. of Sabeels %>
 <p class=" mt-5 fw-bold text-center text-info fs-4 ">Total number of Sabeels: <%= Sabeel.count %></p>
@@ -7,7 +7,7 @@
 <%# * Content %>
 <% @apts.each do |apartment, values| %>
   <div id="<%= apartment %>" class="text-center container col-lg-8 offset-lg-2 my-5 p-3 border rounded-5 shadow c-bg">
-    <h3><%= apartment.to_s.titleize %> </h3>
+    <h3 class="heading"><%= apartment.to_s.titleize %></h3>
 
     <div class=" mt-4 ">
       <%= link_to "Active: #{values[:active_thaalis]}", sabeels_active_path(apartment.to_s), class: success_btn %>
