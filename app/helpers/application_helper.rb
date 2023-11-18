@@ -19,7 +19,7 @@ module ApplicationHelper
     options = contact_options("mailto:juzershakir.webdev@gmail.com", "btn-outline-danger")
 
     content_tag(:a, "", options) do
-      font_awesome_helper("Email", "fa-regular fa-envelope")
+      font_awesome_helper(" Email", "fa-regular fa-envelope")
     end
   end
 
@@ -27,7 +27,7 @@ module ApplicationHelper
     options = contact_options("https://wa.me/919819393148", "btn-outline-success")
 
     content_tag(:a, "", options) do
-      font_awesome_helper("WhatsApp", "fa-brands fa-whatsapp")
+      font_awesome_helper(" WhatsApp", "fa-brands fa-whatsapp")
     end
   end
 
@@ -35,7 +35,7 @@ module ApplicationHelper
     options = contact_options("https://t.me/juzershakir", "btn-outline-info")
 
     content_tag(:a, "", options) do
-      font_awesome_helper("Telegram", "fa-brands fa-telegram")
+      font_awesome_helper(" Telegram", "fa-brands fa-telegram")
     end
   end
 
@@ -56,7 +56,7 @@ module ApplicationHelper
 
   def flash_message_helper(type, msg, logo)
     content_tag :div, id: "flash-#{type}" do
-      font_awesome_helper(msg, "fa-circle-#{logo}")
+      font_awesome_helper(" #{msg}", "fa-circle-#{logo}")
     end
   end
 
