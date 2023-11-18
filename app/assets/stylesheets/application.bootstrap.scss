@@ -1,7 +1,11 @@
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons";
+
+// * Fonts
+// Josefin Sans & Nunito
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Nunito:wght@300&display=swap");
 
+// * Variables
 $white-alpha-50: rgba(255, 255, 255, 0.5);
 $black-alpha-70: rgba(0, 0, 0, 0.7);
 $black-alpha-20: rgba(0, 0, 0, 0.2);
@@ -15,7 +19,7 @@ body {
 	font-weight: 300;
 }
 
-// * custom class level styles
+// * custom styles
 .c- {
 	&bg {
 		background-color: $white-alpha-50;
