@@ -1,5 +1,5 @@
 <% if @sabeels.any? %>
-  <%= turbo_stream.append :sabeels, partial: "sabeel" %>
+  <%= turbo_stream.append :sabeels, partial: "sabeels" %>
 <% else %>
   <%= turbo_stream.append :sabeels, partial: "shared/no_results" %>
 <% end %>

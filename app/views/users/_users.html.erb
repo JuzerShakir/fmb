@@ -1,0 +1,10 @@
+<% @users.each do | user | %>
+  <div class="row py-3 border-bottom border-light">
+    <div class="col">
+      <%= button_to user.name, user_path(user), method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
+    </div>
+    <div class="col">
+      <%= user.roles_name.first.capitalize %>
+    </div>
+  </div>
+<% end %>

@@ -1,8 +1,8 @@
 <%# * Title %>
-<h2 class="text-center">Sabeel <span class="text-secondary">#<%= @sabeel.its %></span></h2>
+<h2 class="heading">Sabeel <span class="text-secondary">#<%= @sabeel.its %></span></h2>
 
 <%# * show %>
-<%= render partial: "show" %>
+<%= render @sabeel %>
 
 <%# * action buttons %>
 <%= render partial: "shared/actions",
