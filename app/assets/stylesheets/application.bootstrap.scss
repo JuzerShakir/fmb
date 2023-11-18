@@ -132,11 +132,11 @@ body {
 		}
 	}
 
-	&user {
-		background-color: #f7e6bc;
-
-		&-header {
-			background-color: #ffa07a;
-		}
+#sabeels,
+#thaalis,
+#transactions,
+#users {
+	.row:not(:last-child) {
+		border-bottom: 2px solid $warning-border-subtle;
 	}
 }

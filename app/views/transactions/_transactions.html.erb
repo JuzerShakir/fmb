@@ -1,5 +1,5 @@
 <% @transactions.each do |transaction| %>
-  <div class="row py-3 border-bottom border-light">
+  <div class="row py-3">
     <div class="col">
       <%= button_to transaction.recipe_no, transaction, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
     </div>

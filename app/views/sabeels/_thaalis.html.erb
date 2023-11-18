@@ -1,6 +1,6 @@
 <p class="fw-bold text-center text-info">Total number of Thaalis: <%= @thaalis.count %></p>
 
-<div id="show-thaali-header" class="row py-2 fs-5 fw-semibold rounded-4 border-bottom border-2 border-info rounded-bottom">
+<div class="row py-2 fs-5 fw-semibold rounded-4 rounded-bottom-0 border-bottom-0 bg-warning heading">
   <div class="col">
     <th>Year</th>
   </div>
@@ -13,7 +13,7 @@
 </div>
 
 <% @thaalis.each do |thaali| %>
-  <div id="thaali_<%= thaali.year %>" class="row py-3 border-bottom border-light">
+  <div id="thaali_<%= thaali.year %>" class="row py-3">
     <div id="<%= thaali.year %>" class="col">
       <%= button_to thaali.year, thaali, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
     </div>
