@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def contact_whatsapp
-    options = contact_options("https://wa.me/919819393148", "m-left btn-outline-success")
+    options = contact_options("https://wa.me/919819393148", "btn-outline-success")
 
     content_tag(:a, "", options) do
       font_awesome_helper("WhatsApp", "fa-brands fa-whatsapp")
@@ -32,7 +32,7 @@ module ApplicationHelper
   end
 
   def contact_telegram
-    options = contact_options("https://t.me/juzershakir", "m-left btn-outline-info")
+    options = contact_options("https://t.me/juzershakir", "btn-outline-info")
 
     content_tag(:a, "", options) do
       font_awesome_helper("Telegram", "fa-brands fa-telegram")
@@ -44,7 +44,7 @@ module ApplicationHelper
   end
 
   def danger_btn
-    "fw-bold button m-left btn btn-outline-danger rounded-5 mb-3 c-bg"
+    "fw-bold button btn btn-outline-danger rounded-5 mb-3 c-bg"
   end
 
   private
