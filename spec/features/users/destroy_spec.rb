@@ -17,8 +17,8 @@ RSpec.describe "User destroy" do
 
     describe "destroying self" do
       context "with action buttons" do
-        it { within(".modal-footer") { expect(page).to have_css(".btn-secondary", text: "Cancel") } }
-        it { within(".modal-footer") { expect(page).to have_css(".btn-primary", text: "Yes, delete it!") } }
+        it { within(".modal-footer") { expect(page).to have_css(".btn-light", text: "Cancel") } }
+        it { within(".modal-footer") { expect(page).to have_css(".btn-danger", text: "Yes, delete it!") } }
       end
 
       it "shows confirmation message" do
