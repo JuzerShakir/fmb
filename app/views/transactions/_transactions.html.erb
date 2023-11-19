@@ -6,9 +6,6 @@
     <div class="col text-info fw-bold">
       <%= rupees transaction.amount %>
     </div>
-    <div class="col">
-      <%= link_to transaction.thaali.number, transaction.thaali, class: "btn btn-outline-primary btn-sm" %>
-    </div>
     <div class="col text-info">
       <%= time_ago_in_words(transaction.date) %>
     </div>

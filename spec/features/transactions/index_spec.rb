@@ -34,13 +34,6 @@ RSpec.describe "Transaction index template" do
           expect(page).to have_content(date)
         end
       end
-
-      it "thaali number" do
-        transactions.each do |transaction|
-          number = transaction.thaali.number
-          expect(page).to have_content(number)
-        end
-      end
     end
 
     describe "search" do
