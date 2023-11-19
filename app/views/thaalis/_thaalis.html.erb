@@ -1,7 +1,7 @@
 <% @thaalis.each do |thaali| %>
   <div class="row py-2">
     <div class="col">
-      <%= button_to thaali.number, thaali, method: :get, class: "btn btn-outline-primary btn-sm px-4" %>
+      <%= link_to thaali.number, thaali, class: "btn btn-outline-primary btn-sm px-4" %>
     </div>
     <div class="col text-info fw-bold text-truncate">
       <%= thaali.sabeel.name %>
