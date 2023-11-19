@@ -1,15 +1,15 @@
 <% @transactions.each do |transaction| %>
-  <div class="row py-3">
+  <div class="row py-2">
     <div class="col">
       <%= button_to transaction.recipe_no, transaction, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
     </div>
-    <div class="col">
+    <div class="col text-info fw-bold">
       <%= rupees transaction.amount %>
     </div>
     <div class="col">
-      <%= button_to transaction.thaali.number, transaction.thaali, method: :get, class: "btn btn-outline-secondary btn-sm py-1" %>
+      <%= button_to transaction.thaali.number, transaction.thaali, method: :get, class: "btn btn-outline-primary btn-sm" %>
     </div>
-    <div class="col text-secondary">
+    <div class="col text-info">
       <%= time_ago_in_words(transaction.date) %>
     </div>
   </div>

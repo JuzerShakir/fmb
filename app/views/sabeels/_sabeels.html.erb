@@ -1,12 +1,12 @@
 <% @sabeels.each do |sabeel| %>
-  <div class="row py-3">
+  <div class="row py-2">
     <div class="col">
       <%= button_to sabeel.its, sabeel, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
     </div>
-    <div class="col text-truncate">
+    <div class="col text-truncate text-info fw-bold">
       <%= sabeel.name %>
     </div>
-    <div class="col text-secondary">
+    <div class="col text-info">
       <%= sabeel.apartment.titleize %>
     </div>
   </div>

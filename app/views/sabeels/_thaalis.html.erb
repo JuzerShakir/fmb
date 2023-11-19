@@ -11,14 +11,14 @@
 </div>
 
 <% @thaalis.each do |thaali| %>
-  <div id="thaali_<%= thaali.year %>" class="row py-3">
+  <div id="thaali_<%= thaali.year %>" class="row py-2">
     <div id="<%= thaali.year %>" class="col">
       <%= button_to thaali.year, thaali, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
     </div>
-    <div class="col text-danger">
+    <div class="col text-info fw-bold">
       <%= rupees thaali.total %>
     </div>
-    <div class="col text-success">
+    <div class="col text-danger">
       <%= rupees thaali.balance %>
     </div>
   </div>
