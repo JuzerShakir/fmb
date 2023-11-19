@@ -101,14 +101,7 @@ body {
 	}
 }
 #flash {
-	position: absolute;
-	z-index: 2;
 	transform: translateX(-15rem);
-	background-color: $primary;
-	font-size: larger;
-	padding: 15px;
-	border-radius: 25px;
-
 	animation: flash 5s;
 
 	@keyframes flash {
