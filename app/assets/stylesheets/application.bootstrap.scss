@@ -103,11 +103,28 @@ body {
 #flash {
 	position: absolute;
 	z-index: 2;
-	right: 10px;
-	background-color: $black-alpha-70;
+	transform: translateX(-15rem);
+	background-color: $primary;
 	font-size: larger;
 	padding: 15px;
 	border-radius: 25px;
+
+	animation: flash 5s;
+
+	@keyframes flash {
+		0% {
+			transform: translateX(-15rem);
+		}
+		35% {
+			transform: translateX(1.5rem);
+		}
+		65% {
+			transform: translateX(1.5rem);
+		}
+		100% {
+			transform: translateX(-15rem);
+		}
+	}
 
 	&-alert {
 		color: rgb(255, 0, 0);
