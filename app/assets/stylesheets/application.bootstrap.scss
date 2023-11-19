@@ -26,7 +26,40 @@ body {
 	font-weight: 300;
 }
 
-// * custom styles
+// * class level styles
+.btn-outline-cyan {
+	border-color: $cyan !important;
+	color: $cyan;
+	transition: all 0.5s;
+
+	&:hover {
+		background-color: $cyan !important;
+		color: black;
+	}
+}
+
+.btn-outline-green {
+	border-color: $green !important;
+	color: $green;
+	transition: all 0.5s;
+
+	&:hover {
+		background-color: $green !important;
+		color: white;
+	}
+}
+
+.btn-outline-red {
+	border-color: $red !important;
+	color: $red;
+	transition: all 0.5s;
+
+	&:hover {
+		background-color: $red !important;
+		color: white;
+	}
+}
+
 .c- {
 	&bg {
 		background-color: $white-alpha-50;

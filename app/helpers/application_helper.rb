@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def contact_email
-    options = contact_options("mailto:juzershakir.webdev@gmail.com", "btn-outline-danger")
+    options = contact_options("mailto:juzershakir.webdev@gmail.com", "btn-outline-red")
 
     content_tag(:a, "", options) do
       font_awesome_helper(" Email", "fa-regular fa-envelope")
@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def contact_whatsapp
-    options = contact_options("https://wa.me/919819393148", "btn-outline-success")
+    options = contact_options("https://wa.me/919819393148", "btn-outline-green")
 
     content_tag(:a, "", options) do
       font_awesome_helper(" WhatsApp", "fa-brands fa-whatsapp")
@@ -32,7 +32,7 @@ module ApplicationHelper
   end
 
   def contact_telegram
-    options = contact_options("https://t.me/juzershakir", "btn-outline-info")
+    options = contact_options("https://t.me/juzershakir", "btn-outline-cyan")
 
     content_tag(:a, "", options) do
       font_awesome_helper(" Telegram", "fa-brands fa-telegram")
