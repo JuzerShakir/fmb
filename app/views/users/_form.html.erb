@@ -3,7 +3,7 @@
     <%= f.error_notification %>
     <%= f.input :its %>
     <%= f.input :name, input_html: {autocomplete: "off"} %>
-    <%= f.input :role_ids, collection: Role.all.map { |role| [role.name.capitalize, role.id] } %>
+    <%= f.input :role_ids, collection: Role.all.map { |role| [role.name.capitalize, role.id] }, selected: 3 %>
     <%= f.input :password, input_html: {autocomplete: "off"} %>
     <%= f.input :password_confirmation %>
 
