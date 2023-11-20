@@ -117,7 +117,7 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.use :label, class: "fw-medium fs-5 mt-4 text-success"
     b.wrapper tag: "div", class: "d-flex flex-row justify-content-between align-items-center" do |ba|
-      ba.use :input, class: "form-select border border-2 border-success-subtle rounded-3 mx-1 mt-2", error_class: "is-invalid", valid_class: "is-valid"
+      ba.use :input, class: "form-select border border-2 border-info-subtle rounded-3 mx-1 mt-2 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid", valid_class: "is-valid", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
     end
     b.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
     b.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback d-block fw-medium"}
@@ -148,7 +148,7 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success d-flex align-items-center"
     b.wrapper :grid_wrapper, tag: "div", class: "col-md-8 mt-md-4" do |ba|
-      ba.use :input, class: "form-control border border-2 border-info-subtle rounded-3", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid border-success-subtle"
+      ba.use :input, class: "form-control border border-2 border-info-subtle rounded-3 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid border-success-subtle", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
       ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
       ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback fw-medium"}
     end
