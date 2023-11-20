@@ -17,7 +17,9 @@ RSpec.describe "Thaali new template" do
     context "when sabeel DIDN'T take it in previous year" do
       describe "displays with empty form fields" do
         it { expect(find_field("Number").value).to be_nil }
-        it { expect(find_field("Size").value).to eq "" }
+        it { expect(find_field("Small")).not_to be_checked }
+        it { expect(find_field("Medium")).not_to be_checked }
+        it { expect(find_field("Large")).not_to be_checked }
         it { expect(find_field("Total").value).to be_nil }
       end
     end
@@ -28,7 +30,7 @@ RSpec.describe "Thaali new template" do
 
       describe "displays form fields with previous values" do
         it { expect(find_field("Number").value).to eq thaali.number.to_s }
-        it { expect(find_field("Size").value).to eq thaali.size.to_s }
+        it { expect(find_field(thaali.size.capitalize)).to be_checked }
       end
     end
 
@@ -43,7 +45,7 @@ RSpec.describe "Thaali new template" do
 
       context "with valid values" do
         before do
-          select thaali[:size].capitalize, from: :thaali_size
+          choose thaali[:size].capitalize
           click_button "Create Thaali"
         end
 

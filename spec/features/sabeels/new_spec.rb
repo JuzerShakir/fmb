@@ -22,7 +22,7 @@ RSpec.describe "Sabeel New template" do
       let(:apartment) { APARTMENTS.sample.to_s.titleize }
 
       before do
-        select apartment, from: :sabeel_apartment
+        choose apartment
         click_button "Create Sabeel"
       end
 

@@ -63,15 +63,15 @@ SimpleForm.setup do |config|
     end
   end
 
-  # horizontal select
-  config.wrappers :horizontal_select, tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
+  # horizontal input for inline radio buttons and check boxes
+  config.wrappers :horizontal_collection_inline, item_wrapper_class: "form-check form-check-inline", item_label_class: "form-check-label fst-italic fw-medium text-secondary", tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
     b.use :html5
     b.optional :readonly
     b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success"
-    b.wrapper tag: "div", class: "col-md-8 mt-md-4" do |ba|
-      ba.use :input, class: "form-select border border-2 border-info-subtle rounded-3 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid border-success-subtle", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
+    b.wrapper :grid_wrapper, tag: "div", class: "col-md-8 mt-md-4" do |ba|
+      ba.use :input, class: "form-check-input border border-2 border-info-subtle focus-ring", error_class: "is-invalid", valid_class: "is-valid", style: "--bs-focus-ring-color: rgba(var(--bs-success-rgb), .25)"
       ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
-      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback fw-medium"}
+      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback d-block fw-medium"}
     end
   end
 
@@ -198,15 +198,15 @@ SimpleForm.setup do |config|
     end
   end
 
-  # horizontal input for inline radio buttons and check boxes
-  config.wrappers :horizontal_collection_inline, item_wrapper_class: "form-check form-check-inline", item_label_class: "form-check-label", tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
+  # horizontal select
+  config.wrappers :horizontal_select, tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
     b.use :html5
     b.optional :readonly
-    b.use :label, class: "col-sm-3 col-form-label pt-0"
-    b.wrapper :grid_wrapper, tag: "div", class: "col-sm-9" do |ba|
-      ba.use :input, class: "form-check-input", error_class: "is-invalid", valid_class: "is-valid"
-      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback d-block"}
-      ba.use :hint, wrap_with: {tag: "small", class: "form-text text-muted"}
+    b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success"
+    b.wrapper tag: "div", class: "col-md-8 mt-md-4" do |ba|
+      ba.use :input, class: "form-select border border-2 border-info-subtle rounded-3 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid border-success-subtle", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
+      ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
+      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback fw-medium"}
     end
   end
 
@@ -424,13 +424,13 @@ SimpleForm.setup do |config|
   # Custom wrappers for input types. This should be a hash containing an input
   # type as key and the wrapper that will be used for all inputs with specified type.
   config.wrapper_mappings = {
-    select: :horizontal_select,
+    radio_buttons: :horizontal_collection_inline,
     date: :vertical_multi_select,
     boolean: :vertical_boolean,
     check_boxes: :vertical_collection,
     datetime: :vertical_multi_select,
     file: :vertical_file,
-    radio_buttons: :vertical_collection,
+    select: :horizontal_select,
     range: :vertical_range,
     time: :vertical_multi_select
   }

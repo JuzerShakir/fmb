@@ -1,9 +1,9 @@
-<div class="container col-xxl-6 col-xl-7 col-lg-8 col-md-11 col-sm-10 pt-4 p-5 bg-white bg-opacity-50 shadow-lg border border-2 border-success-subtle rounded-4 mb-5">
+<div class="container col-xxl-8 col-sm-10 pt-4 p-5 bg-white bg-opacity-50 shadow-lg border border-2 border-success-subtle rounded-4 mb-5">
   <%= simple_form_for @sabeel do |f| %>
     <%= f.error_notification %>
     <%= f.input :its %>
     <%= f.input :name, placeholder: "Juzer Shabbir Shakir" %>
-    <%= f.input :apartment, collection: APARTMENTS.map { |apartment| [apartment.to_s.titleize, apartment] } %>
+    <%= f.input :apartment, collection: APARTMENTS.map { |apartment| [apartment.to_s.titleize, apartment] }, as: :radio_buttons %>
     <%= f.input :flat_no %>
     <%= f.input :mobile, placeholder: "9876543210" %>
     <%= f.input :email %>

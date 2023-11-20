@@ -67,6 +67,9 @@ body {
 		font-size: 15vw;
 	}
 }
+.form-check-input:checked {
+	background-color: $success !important;
+}
 
 .heading {
 	font-family: "Josefin Sans", sans-serif;
