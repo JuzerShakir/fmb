@@ -9,7 +9,7 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       format.html
       format.turbo_stream do
-        @pagy, @transactions = pagy_countless(query.preload(:thaali))
+        @pagy, @transactions = pagy_countless(query)
       end
     end
   end
