@@ -4,7 +4,7 @@
 <div class="container col-lg-4 offset-lg-4 p-5 bg-white bg-opacity-50 shadow-lg border rounded-5">
   <%= simple_form_for @user do |f| %>
     <%= f.error_notification %>
-    <%= f.input :password, input_html: {autocomplete: "off"}, required: true %>
+    <%= f.input :password, input_html: {autocomplete: "off"} %>
     <%= f.input :password_confirmation, input_html: {autocomplete: "off"} %>
 
     <%= f.button :submit, value: "Update Password" %>
