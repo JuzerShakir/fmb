@@ -210,17 +210,17 @@ SimpleForm.setup do |config|
     end
   end
 
-  # horizontal multi select
-  config.wrappers :horizontal_multi_select, tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
+  # horizontal select
+  config.wrappers :horizontal_select, tag: "div", class: "form-group row dropdown", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
     b.use :html5
     b.optional :readonly
-    b.use :label, class: "col-sm-3 col-form-label"
-    b.wrapper :grid_wrapper, tag: "div", class: "col-sm-9" do |ba|
-      ba.wrapper tag: "div", class: "d-flex flex-row justify-content-between align-items-center" do |bb|
-        bb.use :input, class: "form-control mx-1", error_class: "is-invalid", valid_class: "is-valid"
+    b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success d-flex align-items-center"
+    b.wrapper :grid_wrapper, tag: "div", class: "col-md-8 mt-md-4" do |ba|
+      ba.wrapper tag: "div", class: "" do |bb|
+        bb.use :input, class: "d-block w-100 px-2 py-1 bg-body border border-2 border-info-subtle rounded-3 fs-5 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid  border-success-subtle", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
       end
-      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback d-block"}
-      ba.use :hint, wrap_with: {tag: "small", class: "form-text text-muted"}
+      ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
+      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback d-block fw-medium"}
     end
   end
 
@@ -409,6 +409,7 @@ SimpleForm.setup do |config|
   # Custom wrappers for input types. This should be a hash containing an input
   # type as key and the wrapper that will be used for all inputs with specified type.
   config.wrapper_mappings = {
+    select: :horizontal_select,
     boolean: :vertical_boolean,
     check_boxes: :vertical_collection,
     date: :vertical_multi_select,
