@@ -92,21 +92,21 @@ en:
               taken: "has already been invoiced"
     attributes:
       user:
-        its: "ITS Number"
+        its: "ITS"
         name: "Full Name"
         role_ids: "Role"
       role:
         name: "Role"
       sabeel:
-        its: "ITS Number"
+        its: "ITS"
         name: "Full Name"
         flat_no: "Flat Number"
       thaali:
         total: "Total Takhmeen"
       transaction:
         recipe_no: "Recipe Number"
-        mode: "Payment Mode"
-        date: "Billing On"
+        mode: "Payment"
+        date: "Billing"
 
   users:
     create:
