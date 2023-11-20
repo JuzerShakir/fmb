@@ -55,7 +55,7 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success d-flex align-items-center"
+    b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success"
     b.wrapper :grid_wrapper, tag: "div", class: "col-md-8 mt-md-4" do |ba|
       ba.use :input, class: "form-control border border-2 border-info-subtle rounded-3 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid border-success-subtle", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
       ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
