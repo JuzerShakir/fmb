@@ -15,7 +15,7 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Default class for buttons
-  config.button_class = "btn btn-primary col-12 mt-5"
+  config.button_class = "btn btn-secondary col-12 mt-5 heading fs-4 rounded-4"
 
   # Define the default class of the input wrapper of the boolean input.
   config.boolean_label_class = "form-check-label"
@@ -34,7 +34,7 @@ SimpleForm.setup do |config|
   config.include_default_input_wrapper_class = false
 
   # CSS class to add for error notification helper.
-  config.error_notification_class = "alert alert-danger"
+  config.error_notification_class = "alert alert-danger mb-0"
 
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.
@@ -115,12 +115,12 @@ SimpleForm.setup do |config|
   config.wrappers :vertical_multi_select, tag: "div", class: "form-group mb-3", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
     b.use :html5
     b.optional :readonly
-    b.use :label, class: "fw-normal fs-5"
+    b.use :label, class: "fw-medium fs-5 mt-4 text-success"
     b.wrapper tag: "div", class: "d-flex flex-row justify-content-between align-items-center" do |ba|
-      ba.use :input, class: "form-control mx-1", error_class: "is-invalid", valid_class: "is-valid"
+      ba.use :input, class: "form-select border border-2 border-success-subtle rounded-3 mx-1 mt-2", error_class: "is-invalid", valid_class: "is-valid"
     end
-    b.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback d-block"}
-    b.use :hint, wrap_with: {tag: "small", class: "form-text text-muted"}
+    b.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
+    b.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback d-block fw-medium"}
   end
 
   # vertical range input
@@ -146,11 +146,11 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label, class: "col-sm-3 col-form-label"
-    b.wrapper :grid_wrapper, tag: "div", class: "col-sm-9" do |ba|
-      ba.use :input, class: "form-control", error_class: "is-invalid", valid_class: "is-valid"
-      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback"}
-      ba.use :hint, wrap_with: {tag: "small", class: "form-text text-muted"}
+    b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success d-flex align-items-center"
+    b.wrapper :grid_wrapper, tag: "div", class: "col-md-8 mt-md-4" do |ba|
+      ba.use :input, class: "form-control border border-2 border-info-subtle rounded-3", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid border-success-subtle"
+      ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
+      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback fw-medium"}
     end
   end
 

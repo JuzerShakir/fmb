@@ -1,9 +1,9 @@
-<div class="container col-lg-4 offset-lg-4 p-5 bg-white bg-opacity-50 shadow-lg border rounded-5 mb-5">
+<div class="container col-xxl-6 col-xl-7 col-lg-8 col-md-11 col-sm-10 pt-4 p-5 bg-white bg-opacity-50 shadow-lg border border-2 border-success-subtle rounded-4 mb-5">
   <%= simple_form_for @user do |f| %>
     <%= f.error_notification %>
     <%= f.input :its, required: true %>
-    <%= f.input :name, input_html: {autocomplete: "off"} %>
-    <%= f.input :role_ids, collection: Role.all.map { |role| [role.name.capitalize, role.id] } %>
+    <%= f.input :name, input_html: {autocomplete: "off"}, required: true %>
+    <%= f.input :role_ids, collection: Role.all.map { |role| [role.name.capitalize, role.id] }, required: true %>
     <%= f.input :password, input_html: {autocomplete: "off"}, required: true %>
     <%= f.input :password_confirmation %>
 
