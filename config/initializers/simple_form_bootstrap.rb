@@ -39,7 +39,7 @@ SimpleForm.setup do |config|
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.
   # :to_sentence to list all errors for each field.
-  config.error_method = :to_sentence
+  config.error_method = :first
 
   # add validation classes to `input_field`
   config.input_field_error_class = "is-invalid"
