@@ -45,6 +45,50 @@ SimpleForm.setup do |config|
   config.input_field_error_class = "is-invalid"
   config.input_field_valid_class = "is-valid"
 
+  # * 3 wrappers being used
+  # horizontal form default_wrapper
+  config.wrappers :horizontal_form, tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success d-flex align-items-center"
+    b.wrapper :grid_wrapper, tag: "div", class: "col-md-8 mt-md-4" do |ba|
+      ba.use :input, class: "form-control border border-2 border-info-subtle rounded-3 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid border-success-subtle", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
+      ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
+      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback fw-medium"}
+    end
+  end
+
+  # horizontal select
+  config.wrappers :horizontal_select, tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success"
+    b.wrapper tag: "div", class: "col-md-8 mt-md-4" do |ba|
+      ba.use :input, class: "form-select border border-2 border-info-subtle rounded-3 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid border-success-subtle", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
+      ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
+      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback fw-medium"}
+    end
+  end
+
+  # vertical multi select
+  config.wrappers :vertical_multi_select, tag: "div", class: "form-group mb-3", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label, class: "fw-medium fs-5 mt-4 text-success"
+    b.wrapper tag: "div", class: "d-flex flex-row justify-content-between align-items-center" do |ba|
+      ba.use :input, class: "form-select border border-2 border-info-subtle rounded-3 mx-1 mt-2 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid", valid_class: "is-valid", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
+    end
+    b.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
+    b.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback d-block fw-medium"}
+  end
+
+  # ---------------------------------------------------------------------------------------------- #
+
   # vertical forms
   #
   # vertical default_wrapper
@@ -111,18 +155,6 @@ SimpleForm.setup do |config|
     b.use :hint, wrap_with: {tag: "small", class: "form-text text-muted"}
   end
 
-  # vertical multi select
-  config.wrappers :vertical_multi_select, tag: "div", class: "form-group mb-3", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
-    b.use :html5
-    b.optional :readonly
-    b.use :label, class: "fw-medium fs-5 mt-4 text-success"
-    b.wrapper tag: "div", class: "d-flex flex-row justify-content-between align-items-center" do |ba|
-      ba.use :input, class: "form-select border border-2 border-info-subtle rounded-3 mx-1 mt-2 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid", valid_class: "is-valid", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
-    end
-    b.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
-    b.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback d-block fw-medium"}
-  end
-
   # vertical range input
   config.wrappers :vertical_range, tag: "div", class: "form-group", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
     b.use :html5
@@ -137,23 +169,6 @@ SimpleForm.setup do |config|
 
   # horizontal forms
   #
-  # horizontal default_wrapper
-  config.wrappers :horizontal_form, tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
-    b.use :html5
-    b.use :placeholder
-    b.optional :maxlength
-    b.optional :minlength
-    b.optional :pattern
-    b.optional :min_max
-    b.optional :readonly
-    b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success d-flex align-items-center"
-    b.wrapper :grid_wrapper, tag: "div", class: "col-md-8 mt-md-4" do |ba|
-      ba.use :input, class: "form-control border border-2 border-info-subtle rounded-3 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid border-success-subtle", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
-      ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
-      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback fw-medium"}
-    end
-  end
-
   # horizontal input for boolean
   config.wrappers :horizontal_boolean, tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
     b.use :html5
@@ -221,18 +236,6 @@ SimpleForm.setup do |config|
       end
       ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
       ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback d-block fw-medium"}
-    end
-  end
-
-  # horizontal select
-  config.wrappers :horizontal_select, tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
-    b.use :html5
-    b.optional :readonly
-    b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success"
-    b.wrapper tag: "div", class: "col-md-8 mt-md-4" do |ba|
-      ba.use :input, class: "form-select border border-2 border-info-subtle rounded-3 fst-italic fw-medium text-secondary focus-ring", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid border-success-subtle", style: "--bs-focus-ring-color: rgba(var(--bs-info-rgb), .25)"
-      ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
-      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback fw-medium"}
     end
   end
 
@@ -422,9 +425,9 @@ SimpleForm.setup do |config|
   # type as key and the wrapper that will be used for all inputs with specified type.
   config.wrapper_mappings = {
     select: :horizontal_select,
+    date: :vertical_multi_select,
     boolean: :vertical_boolean,
     check_boxes: :vertical_collection,
-    date: :vertical_multi_select,
     datetime: :vertical_multi_select,
     file: :vertical_file,
     radio_buttons: :vertical_collection,
