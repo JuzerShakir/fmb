@@ -3,7 +3,7 @@
     <%= f.error_notification %>
     <%= f.input :its %>
     <%= f.input :name, placeholder: "Juzer Shabbir Shakir" %>
-    <%= f.input :apartment, collection: APARTMENTS.map { |apartment| [apartment.to_s.titleize, apartment] }, selected: 1 %>
+    <%= f.input :apartment, collection: APARTMENTS.map { |apartment| [apartment.to_s.titleize, apartment] } %>
     <%= f.input :flat_no %>
     <%= f.input :mobile, placeholder: "9876543210" %>
     <%= f.input :email %>
