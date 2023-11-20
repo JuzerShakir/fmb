@@ -97,7 +97,7 @@ class ThaalisController < ApplicationController
     @thaalis = @sabeel.thaalis
 
     if @sabeel.taking_thaali?
-      message = "Already taking thaali"
+      message = "Taking thaali"
       redirect_back fallback_location: sabeel_path(@sabeel), notice: message
     end
   end

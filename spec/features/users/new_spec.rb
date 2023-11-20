@@ -30,7 +30,7 @@ RSpec.describe "User new template" do
       before { click_button "Create User" }
 
       it "is successfully created" do
-        expect(page).to have_content("User created successfully")
+        expect(page).to have_content("User created")
       end
     end
 

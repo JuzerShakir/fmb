@@ -30,7 +30,7 @@ RSpec.describe "Transaction new template" do
         expect(page).to have_current_path transaction_path(new_transaction)
       end
 
-      it { expect(page).to have_content("Transaction created successfully") }
+      it { expect(page).to have_content("Transaction created") }
     end
 
     context "with invalid values" do

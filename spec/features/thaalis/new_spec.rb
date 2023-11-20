@@ -52,7 +52,7 @@ RSpec.describe "Thaali new template" do
           expect(page).to have_current_path thaali_path(thaali)
         end
 
-        it { expect(page).to have_content("Thaali created successfully") }
+        it { expect(page).to have_content("Thaali created") }
       end
 
       context "with invalid values" do

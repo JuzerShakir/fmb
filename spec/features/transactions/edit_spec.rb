@@ -32,7 +32,7 @@ RSpec.describe "Transaction edit template" do
           expect(page).to have_current_path transaction_path(transaction)
         end
 
-        it { expect(page).to have_content("Transaction updated successfully") }
+        it { expect(page).to have_content("Transaction updated") }
       end
 
       context "with invalid values" do

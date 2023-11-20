@@ -31,7 +31,7 @@ RSpec.describe "User destroy" do
         before { click_button "Yes, delete it!" }
 
         it { expect(page).to have_current_path login_path }
-        it { expect(page).to have_content("Your account has been deleted") }
+        it { expect(page).to have_content("Account deleted") }
       end
     end
   end
@@ -58,7 +58,7 @@ RSpec.describe "User destroy" do
         before { click_button "Yes, delete it!" }
 
         it { expect(page).to have_current_path users_path }
-        it { expect(page).to have_content("User deleted successfully") }
+        it { expect(page).to have_content("Account deleted") }
       end
     end
   end

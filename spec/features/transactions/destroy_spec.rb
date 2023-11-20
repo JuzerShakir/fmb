@@ -29,7 +29,7 @@ RSpec.describe "Transaction destroy" do
       before { click_button "Yes, delete it!" }
 
       it { expect(page).to have_current_path thaali_path(transaction.thaali) }
-      it { expect(page).to have_content("Transaction destroyed successfully") }
+      it { expect(page).to have_content("Transaction destroyed") }
     end
   end
 end

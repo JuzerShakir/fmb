@@ -30,7 +30,7 @@ RSpec.describe "Sabeel destroy" do
 
       it { expect(page).to have_current_path root_path, ignore_query: true }
 
-      it { expect(page).to have_content("Sabeel deleted successfully") }
+      it { expect(page).to have_content("Sabeel deleted") }
     end
   end
 end

@@ -31,7 +31,7 @@ RSpec.describe "Sabeel New template" do
         expect(page).to have_current_path sabeel_path(sabeel)
       end
 
-      it { expect(page).to have_content("Sabeel created successfully") }
+      it { expect(page).to have_content("Sabeel created") }
     end
 
     context "with invalid values" do
