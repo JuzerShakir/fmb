@@ -1,3 +1,4 @@
+// * Theme defaults
 $primary: #1f2605 !default;
 $secondary: #53900f !default;
 $info: #a4a71e !default;
@@ -5,6 +6,8 @@ $success: #1f6521 !default;
 $danger: #6f2232 !default;
 $dropdown-bg: $primary !default;
 $light: #d6ce15 !default;
+// * Form defaults
+$form-check-input-checked-bg-color: $success !default;
 
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons";
@@ -66,9 +69,6 @@ body {
 	h1 {
 		font-size: 15vw;
 	}
-}
-.form-check-input:checked {
-	background-color: $success !important;
 }
 
 .heading {
