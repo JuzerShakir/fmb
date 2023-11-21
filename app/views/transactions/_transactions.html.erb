@@ -1,7 +1,7 @@
 <% @transactions.each do |transaction| %>
   <div class="row py-2">
     <div class="col">
-      <%= link_to transaction.recipe_no, transaction, class: "btn btn-outline-primary btn-sm px-3" %>
+      <%= link_to transaction.recipe_no, transaction, class: "btn btn-outline-primary btn-sm px-sm-2 px-lg-4" %>
     </div>
     <div class="col text-info fw-bold">
       <%= rupees transaction.amount %>
