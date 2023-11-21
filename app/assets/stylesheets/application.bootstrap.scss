@@ -14,7 +14,8 @@ $input-font-weight: 500;
 $input-border-color: $light;
 $input-focus-border-color: $secondary;
 $input-border-width: 2px;
-$form-check-input-checked-bg-color: $success !default;
+$form-check-input-checked-bg-color: $success;
+$form-check-input-checked-border-color: $success;
 
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons";
