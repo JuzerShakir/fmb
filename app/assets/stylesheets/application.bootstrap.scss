@@ -33,56 +33,6 @@ body {
 }
 
 // * class level styles
-.btn-outline-cyan {
-	border-color: $cyan !important;
-	color: $cyan;
-	transition: all 0.5s;
-
-	&:hover {
-		background-color: $cyan !important;
-		color: black;
-	}
-
-	&:active {
-		background-color: $cyan-400 !important;
-		transform: translateY(0.2rem);
-	}
-}
-
-.btn-outline-green {
-	border-color: $green !important;
-	color: $green;
-	transition: all 0.5s;
-
-	&:hover {
-		background-color: $green !important;
-		color: white;
-	}
-
-	&:active {
-		background-color: $green-400 !important;
-		color: white !important;
-		transform: translateY(0.2rem);
-	}
-}
-
-.btn-outline-red {
-	border-color: $red !important;
-	color: $red;
-	transition: all 0.5s;
-
-	&:hover {
-		background-color: $red !important;
-		color: white;
-	}
-
-	&:active {
-		background-color: $red-400 !important;
-		color: white !important;
-		transform: translateY(0.2rem);
-	}
-}
-
 .error-message {
 	margin: 0;
 	position: absolute;

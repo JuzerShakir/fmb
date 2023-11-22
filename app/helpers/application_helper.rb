@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def contact_email
-    options = contact_options("mailto:juzershakir.webdev@gmail.com", "btn-outline-red")
+    options = contact_options("mailto:juzershakir.webdev@gmail.com")
 
     content_tag(:a, "", options) do
       font_awesome_helper(" Email", "fa-regular fa-envelope")
@@ -28,7 +28,7 @@ module ApplicationHelper
   end
 
   def contact_whatsapp
-    options = contact_options("https://wa.me/919819393148", "btn-outline-green")
+    options = contact_options("https://wa.me/919819393148")
 
     content_tag(:a, "", options) do
       font_awesome_helper(" WhatsApp", "fa-brands fa-whatsapp")
@@ -36,7 +36,7 @@ module ApplicationHelper
   end
 
   def contact_telegram
-    options = contact_options("https://t.me/juzershakir", "btn-outline-cyan")
+    options = contact_options("https://t.me/juzershakir")
 
     content_tag(:a, "", options) do
       font_awesome_helper(" Telegram", "fa-brands fa-telegram")
@@ -53,15 +53,15 @@ module ApplicationHelper
 
   private
 
-  def font_awesome_helper(msg, logo)
-    concat(content_tag(:i, "", class: "fa-solid #{logo}"))
+  def font_awesome_helper(msg, fa_styles)
+    concat(content_tag(:i, "", class: "fa-solid #{fa_styles}"))
     concat(content_tag(:span, msg.to_s))
   end
 
-  def contact_options(url, custom_styles)
+  def contact_options(url)
     {
       href: url,
-      class: "fw-bold btn rounded-5 col-8 col-md-3 mb-3 #{custom_styles}",
+      class: "fw-medium btn rounded-5 col-8 col-md-3 mb-3 btn-secondary",
       target: :_blank,
       rel: :noopener
     }
