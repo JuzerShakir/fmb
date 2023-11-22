@@ -54,14 +54,18 @@ body {
 	}
 }
 
-.form-control::-moz-placeholder {
-	opacity: 0.85;
-}
-.form-control:-ms-input-placeholder {
-	opacity: 0.85;
-}
-.form-control::-webkit-input-placeholder {
-	opacity: 0.85;
+.form-control {
+	&::-moz-placeholder {
+		opacity: 0.85;
+	}
+
+	&:-ms-input-placeholder {
+		opacity: 0.85;
+	}
+
+	&::-webkit-input-placeholder {
+		opacity: 0.85;
+	}
 }
 
 .heading {
