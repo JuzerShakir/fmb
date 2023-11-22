@@ -2,10 +2,14 @@ module ApplicationHelper
   include Pagy::Frontend
 
   def render_flash_message(type, msg)
-    case type
-    when "success" then flash_message_helper("success", msg, "check")
-    when "notice" then flash_message_helper("notice", msg, "exclamation")
-    when "alert" then flash_message_helper("alert", msg, "xmark")
+    logo = case type
+    when "success" then "check"
+    when "notice" then "exclamation"
+    when "alert" then "xmark"
+    end
+
+    content_tag :div, id: "flash-#{type}" do
+      font_awesome_helper(" #{msg}", "fa-circle-#{logo}")
     end
   end
 
@@ -52,12 +56,6 @@ module ApplicationHelper
   def font_awesome_helper(msg, logo)
     concat(content_tag(:i, "", class: "fa-solid #{logo}"))
     concat(content_tag(:span, msg.to_s))
-  end
-
-  def flash_message_helper(type, msg, logo)
-    content_tag :div, id: "flash-#{type}" do
-      font_awesome_helper(" #{msg}", "fa-circle-#{logo}")
-    end
   end
 
   def contact_options(url, custom_styles)
