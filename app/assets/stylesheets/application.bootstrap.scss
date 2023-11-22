@@ -32,6 +32,15 @@ body {
 	font-weight: 300;
 }
 
+input[type="search"] {
+	&::-webkit-search-decoration,
+	&::-webkit-search-cancel-button,
+	&::-webkit-search-results-button,
+	&::-webkit-search-results-decoration {
+		display: none;
+	}
+}
+
 // * class level styles
 .default-btn {
 	@extend .col-7;
@@ -159,15 +168,6 @@ body {
 			box-shadow: none;
 			background-position: 98% center;
 		}
-	}
-}
-
-input[type="search"] {
-	&::-webkit-search-decoration,
-	&::-webkit-search-cancel-button,
-	&::-webkit-search-results-button,
-	&::-webkit-search-results-decoration {
-		display: none;
 	}
 }
 
