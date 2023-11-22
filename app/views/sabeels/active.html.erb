@@ -1,11 +1,9 @@
 <%# * Title %>
-<h2 class="heading">Active Sabeels: <span class="text-secondary"><%= @apt.titleize %></span> </h2>
+<h2 class="heading">Active Sabeels: <span class="text-secondary"><%= @apt.titleize %></span></h2>
 
 <%# * Generate PDF %>
 <div class="mt-4 text-center">
-  <%= button_to pdf_button,
-        sabeels_active_path(@apt, format: :pdf), method: :get, form: {target: "_blank"},
-        class: "btn btn-primary" %>
+  <%= pdf_button %>
 </div>
 
 <%# * show all sabeels %>

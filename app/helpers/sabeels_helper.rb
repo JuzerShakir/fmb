@@ -1,5 +1,14 @@
 module SabeelsHelper
   def pdf_button
-    "<i class='fa-regular fa-file-pdf fa-lg'></i> Generate PDF".html_safe
+    options = {
+      href: sabeels_active_url(@apt, format: :pdf),
+      class: "btn btn-primary",
+      target: :_blank,
+      rel: :noopener
+    }
+
+    content_tag(:a, "", options) do
+      font_awesome_helper(" Generate PDF", "fa-file-pdf fa-lg")
+    end
   end
 end
