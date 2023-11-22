@@ -3,7 +3,7 @@
 
 <%# * Generate PDF %>
 <div class="row justify-content-evenly mt-5">
-  <%= generate_pdf_of @apt %>
+  <%= fa_btn_gen "Generate PDF", sabeels_active_url(@apt, format: :pdf), "fa-file-pdf fa-lg" %>
 </div>
 
 <%# * show all sabeels %>

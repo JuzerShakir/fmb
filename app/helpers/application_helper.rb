@@ -1,27 +1,9 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  def contact_email
-    options = set_url("mailto:juzershakir.webdev@gmail.com")
-
-    content_tag(:a, "", options) do
-      font_awesome_helper(" Email", "fa-regular fa-envelope")
-    end
-  end
-
-  def contact_telegram
-    options = set_url("https://t.me/juzershakir")
-
-    content_tag(:a, "", options) do
-      font_awesome_helper(" Telegram", "fa-brands fa-telegram")
-    end
-  end
-
-  def contact_whatsapp
-    options = set_url("https://wa.me/919819393148")
-
-    content_tag(:a, "", options) do
-      font_awesome_helper(" WhatsApp", "fa-brands fa-whatsapp")
+  def fa_btn_gen(text, url, icons)
+    content_tag(:a, "", set_url_params_for(url)) do
+      fa_gen(" #{text}", icons)
     end
   end
 
