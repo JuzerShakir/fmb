@@ -33,24 +33,24 @@ module ApplicationHelper
     end
 
     content_tag :div, id: "flash-#{type}" do
-      font_awesome_helper(" #{msg}", "fa-circle-#{logo}")
+      fa_gen(" #{msg}", "fa-circle-#{logo}")
     end
   end
 
   def rupees(num)
     content_tag :span do
-      font_awesome_helper(number_with_delimiter(num), "fa-indian-rupee-sign fa-sm")
+      fa_gen(number_with_delimiter(num), "fa-indian-rupee-sign fa-sm")
     end
   end
 
   private
 
-  def font_awesome_helper(msg, fa_styles)
+  def fa_gen(content, fa_styles)
     concat(content_tag(:i, "", class: "fa-solid #{fa_styles}"))
     concat(content_tag(:span, msg.to_s))
   end
 
-  def set_url(url)
+  def set_url_params_for(url)
     {
       href: url,
       class: "default-btn btn-secondary",
