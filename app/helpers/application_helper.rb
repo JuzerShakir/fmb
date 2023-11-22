@@ -43,14 +43,6 @@ module ApplicationHelper
     end
   end
 
-  def success_btn
-    "fw-bold btn rounded-5 col-8 col-md-4 mb-3 btn-outline-success"
-  end
-
-  def danger_btn
-    "fw-bold btn rounded-5 col-8 col-md-4 mb-3 btn-outline-danger"
-  end
-
   private
 
   def font_awesome_helper(msg, fa_styles)
@@ -61,7 +53,7 @@ module ApplicationHelper
   def set_url(url)
     {
       href: url,
-      class: "fw-medium btn rounded-5 col-8 col-md-3 mb-3 btn-secondary",
+      class: "default-btn btn-secondary",
       target: :_blank,
       rel: :noopener
     }

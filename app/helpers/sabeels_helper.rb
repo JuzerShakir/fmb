@@ -2,7 +2,7 @@ module SabeelsHelper
   def pdf_button
     options = {
       href: sabeels_active_url(@apt, format: :pdf),
-      class: "btn btn-secondary fw-medium",
+      class: "default-btn btn-secondary",
       target: :_blank,
       rel: :noopener
     }

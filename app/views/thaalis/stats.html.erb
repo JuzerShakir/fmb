@@ -17,9 +17,9 @@
         </p>
     </div>
 
-    <div class="row justify-content-evenly mt-4">
-      <%= link_to "Complete: #{values[:complete]}", thaalis_complete_path(year), class: success_btn %>
-      <%= link_to "Pending: #{values[:pending]}", thaalis_pending_path(year), class: danger_btn %>
+    <div class="row justify-content-evenly mt-3">
+      <%= link_to "Complete: #{values[:complete]}", thaalis_complete_path(year), class: "default-btn btn-outline-success" %>
+      <%= link_to "Pending: #{values[:pending]}", thaalis_pending_path(year), class: "default-btn btn-outline-danger" %>
     </div>
 
     <div class="row mt-4 fw-bold">
