@@ -32,6 +32,15 @@ body {
 	font-weight: 300;
 }
 
+.default-btn {
+	@extend .col-7;
+	@extend .col-md-3;
+	@extend .btn;
+	@extend .rounded-pill;
+	@extend .fw-medium;
+	@extend .mb-3;
+}
+
 // * class level styles
 .error-message {
 	margin: 0;
