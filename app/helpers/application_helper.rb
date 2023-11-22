@@ -47,7 +47,7 @@ module ApplicationHelper
 
   def fa_gen(content, fa_styles)
     concat(content_tag(:i, "", class: "fa-solid #{fa_styles}"))
-    concat(content_tag(:span, msg.to_s))
+    concat(content_tag(:span, content.to_s))
   end
 
   def set_url_params_for(url)
