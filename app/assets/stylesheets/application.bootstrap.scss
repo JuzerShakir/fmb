@@ -4,11 +4,11 @@
 // ! IMPORTANT - load these files before any other css files
 @import "abstracts/themes";
 @import "abstracts/variables";
+@import "base/typography";
 
 // * load other sass files from here
 @import "bootstrap/scss/bootstrap";
 // base
-@import "base/typography";
 @import "base/base";
 @import "base/utilities";
 @import "base/animations";
