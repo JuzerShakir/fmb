@@ -1,0 +1,11 @@
+// * Josefin Sans (400) & Nunito (200, 300, 400, 500)
+// source: https://fonts.google.com/specimen/Nunito
+// source: https://fonts.google.com/specimen/Josefin+Sans
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Nunito:wght@200;300;400;500&display=swap");
+
+.heading {
+	font-family: "Josefin Sans", sans-serif;
+	font-weight: 400;
+	text-align: center;
+	color: $primary;
+}

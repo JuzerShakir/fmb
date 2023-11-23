@@ -1,0 +1,8 @@
+#sabeels,
+#thaalis,
+#transactions,
+#users {
+	.row:not(:last-child) {
+		border-bottom: 2px solid $secondary;
+	}
+}

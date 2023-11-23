@@ -1,193 +1,22 @@
-// * Theme defaults
-$primary: #1f2605 !default;
-$secondary: #53900f !default;
-$info: #a4a71e !default;
-$success: #1f6521 !default;
-$danger: #6f2232 !default;
-$dropdown-bg: $primary !default;
-$light: #d6ce15 !default;
-$lighter: #cac886 !default;
-// * Form defaults
-$input-color: $secondary;
-$input-placeholder-color: $lighter;
-$input-font-weight: 500;
-$input-border-color: $light;
-$input-focus-border-color: $secondary;
-$input-border-width: 2px;
-$form-check-input-checked-bg-color: $success;
-$form-check-input-checked-border-color: $success;
+// ? Using the 7-1 pattern for a manageable CSS
+// More info here: https://openclassrooms.com/en/courses/5625786-produce-maintainable-css-with-sass/5723581-use-the-7-1-pattern-for-a-manageable-codebase
 
+// ! IMPORTANT - load these files before any other css files
+@import "abstracts/themes";
+@import "abstracts/variables";
+
+// * load other sass files from here
 @import "bootstrap/scss/bootstrap";
+// base
+@import "base/typography";
+@import "base/base";
+@import "base/utilities";
+@import "base/animations";
+// layouts
+@import "layouts/error-message";
+@import "layouts/flash";
+@import "layouts/index";
+@import "layouts/search";
+@import "layouts/show";
 
-// * Fonts
-// Josefin Sans (400) & Nunito (200, 300, 400, 500)
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Nunito:wght@200;300;400;500&display=swap");
-
-// * element styles
-body {
-	background: url("background.png") no-repeat center center;
-	background-size: cover;
-	background-attachment: fixed;
-	font-family: "Nunito", sans-serif;
-	font-weight: 300;
-}
-
-input[type="search"] {
-	&::-webkit-search-decoration,
-	&::-webkit-search-cancel-button,
-	&::-webkit-search-results-button,
-	&::-webkit-search-results-decoration {
-		display: none;
-	}
-}
-
-// * class level styles
-.default-btn {
-	@extend .col-7;
-	@extend .col-md-3;
-	@extend .btn;
-	@extend .rounded-pill;
-	@extend .fw-medium;
-	@extend .mb-3;
-}
-
-.error-message {
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	h1 {
-		font-size: 15vw;
-	}
-}
-
-.form-control {
-	&::-moz-placeholder {
-		opacity: 0.85;
-	}
-
-	&:-ms-input-placeholder {
-		opacity: 0.85;
-	}
-
-	&::-webkit-input-placeholder {
-		opacity: 0.85;
-	}
-}
-
-.heading {
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: 400;
-	text-align: center;
-	color: $primary;
-}
-
-.mt-6 {
-	margin-top: 4rem !important;
-}
-
-// * id level styles
-#create-sabeel {
-	background-image: linear-gradient(
-		to right,
-		$primary 0%,
-		$success 51%,
-		$secondary 100%
-	);
-	transition: 0.7s;
-	background-size: 200% auto;
-
-	&:hover {
-		background-position: right center;
-		color: white; /* change the direction of the change here */
-		text-decoration: none;
-	}
-}
-#flash {
-	transform: translateX(-15rem);
-	animation: flash 5s;
-
-	@keyframes flash {
-		0% {
-			transform: translateX(-15rem);
-		}
-		35% {
-			transform: translateX(1.5rem);
-		}
-		65% {
-			transform: translateX(1.5rem);
-		}
-		100% {
-			transform: translateX(-15rem);
-		}
-	}
-
-	&-alert {
-		color: $red;
-	}
-
-	&-notice {
-		color: $yellow;
-	}
-
-	&-success {
-		color: $secondary;
-	}
-}
-
-#sabeel {
-	background-color: #f7e6bc;
-}
-
-#search {
-	input {
-		padding: 0.75rem 1.5rem;
-
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1em' fill='%23a4a71e' viewBox='0 0 512 512'%3E%3Cpath d='M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z'/%3E%3C/svg%3E");
-		background-repeat: no-repeat;
-		background-size: 18px 18px;
-		background-position: 94% center;
-
-		background-color: transparent;
-		backface-visibility: hidden;
-
-		border-radius: 2rem;
-		transform-style: preserve-3d;
-		transition: all 300ms ease-in-out;
-
-		&:hover,
-		&:focus {
-			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1em' fill='%2353900f' viewBox='0 0 512 512'%3E%3Cpath d='M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z'/%3E%3C/svg%3E");
-			padding: 0.75rem 0.5rem;
-			outline: 0;
-			border: 2px solid transparent;
-			border-bottom: 2px solid $input-focus-border-color;
-			border-radius: 0;
-			box-shadow: none;
-			background-position: 98% center;
-		}
-	}
-}
-
-#thaali {
-	background-color: #d4d4d4;
-}
-
-#transaction {
-	background-color: #d7fcd7;
-}
-
-#user {
-	background-color: #f7e6bc;
-}
-
-#sabeels,
-#thaalis,
-#transactions,
-#users {
-	.row:not(:last-child) {
-		border-bottom: 2px solid $secondary;
-	}
-}
+@import "components";

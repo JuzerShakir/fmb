@@ -1,0 +1,30 @@
+body {
+	background: url("background.png") no-repeat center center;
+	background-size: cover;
+	background-attachment: fixed;
+	font-family: "Nunito", sans-serif;
+	font-weight: 300;
+}
+
+input[type="search"] {
+	&::-webkit-search-decoration,
+	&::-webkit-search-cancel-button,
+	&::-webkit-search-results-button,
+	&::-webkit-search-results-decoration {
+		display: none;
+	}
+}
+
+.form-control {
+	&::-moz-placeholder {
+		opacity: 0.85;
+	}
+
+	&:-ms-input-placeholder {
+		opacity: 0.85;
+	}
+
+	&::-webkit-input-placeholder {
+		opacity: 0.85;
+	}
+}
