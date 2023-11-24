@@ -1,5 +1,5 @@
 <% @transactions.each do |transaction| %>
-  <div class="row py-2">
+  <div id="<%= dom_id(transaction) %>" class="row py-2">
     <div class="col">
       <%= link_to transaction.recipe_no, transaction, data: {turbo_frame: "_top"}, class: "btn btn-outline-primary btn-sm px-sm-2 px-lg-4" %>
     </div>

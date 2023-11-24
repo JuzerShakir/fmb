@@ -1,5 +1,5 @@
 <% @thaalis.each do |thaali| %>
-  <div class="row py-2">
+  <div id="<%= dom_id(thaali) %>"  class="row py-2">
     <div class="col">
       <%= link_to thaali.number, thaali, data: {turbo_frame: "_top"}, class: "btn btn-outline-primary btn-sm px-sm-3 px-lg-4" %>
     </div>

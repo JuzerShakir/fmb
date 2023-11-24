@@ -1,5 +1,5 @@
 <% @sabeels.each do |sabeel| %>
-  <div class="row py-2">
+  <div id="<%= dom_id(sabeel) %>" class="row py-2">
     <div class="col">
       <%= link_to sabeel.its, sabeel, data: {turbo_frame: "_top"}, class: "btn btn-outline-primary btn-sm px-sm-2 px-lg-4" %>
     </div>
