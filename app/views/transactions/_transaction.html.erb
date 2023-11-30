@@ -1,38 +1,50 @@
-<div id="transaction" class="col-md-5 mx-auto mt-5 shadow border border-1 border-success fs-5 py-4 px-4">
-  <div class="row py-3">
-    <div class="col-4 fw-bold text-end">
-      <span>Payer</span>
+<div id="transaction" class="col-xxl-5 col-xl-6 col-lg-7 col-md-9 rounded-4 shadow mx-auto mt-3 p-4 text-warning text-center">
+  <div class="row heading">
+    <div class="col-8 text-start">
+      <h4>Dawoodi Bohra Jamaat</h4>
     </div>
-    <div class="col-8 border-bottom border-2 border-success fst-italic">
-      <%= link_to @sabeel.name, @sabeel, class: "btn btn-outline-success" %>
-    </div>
-  </div>
-
-  <div class="row py-3">
-    <div class="col-4 fw-bold text-end">
-      <span>Amount</span>
-    </div>
-    <div class="col-8 border-bottom border-2 border-success text-success fst-italic">
-      <%= rupees @transaction.amount %>
+    <div class="col-4 text-end fs-3">
+      <h4><%= @transaction.recipe_no %></h4>
     </div>
   </div>
 
-  <div class="row py-3">
-    <div class="col-4 fw-bold text-end">
-    <span>Type</span>
+    <div class="row heading pb-4">
+    <div class="col-8 text-start">
+      <h6>A/c Faiz Al Mawaid Burhaniyah</h6>
     </div>
-    <div class="col-8 border-bottom border-2 border-success fst-italic">
-      <%= @transaction.mode.capitalize %>
-    </div>
-  </div>
-
-  <div class="row py-3">
-    <div class="col-4 fw-bold text-end">
-      <span>Date</span>
-    </div>
-    <div class="col-8 border-bottom border-2 border-success fst-italic">
-      <%= readable_date(@transaction.date) %>
+    <div class="col-4 text-end">
+      <h6><%= link_to("#{@thaali.number} (#{@thaali.year})", @thaali, class: "link-primary link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover") %></h6>
     </div>
   </div>
 
+  <div class="row pb-2">
+    <div class="col">
+      <%= link_to @sabeel.name, @sabeel, class: "fst-italic fw-bold link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" %>
+      <span>from</span>
+      <span class="fw-bold"><%= @sabeel.address %></span>
+    </div>
+  </div>
+
+  <div class="row pb-2">
+    <div class="col">
+      <span>has voluntarily contributed an amount</span>
+      <span class="fw-bold"><%= rupees @transaction.amount %></span>
+    </div>
+  </div>
+
+  <div class="row pb-2">
+    <div class="col">
+      <span>or rupees</span>
+      <span class="fst-italic"><%= @transaction.amount.humanize %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <span>via</span>
+      <span class="fw-bold"><%= @transaction.mode.capitalize %></span>
+      <span>on</span>
+      <span class="fw-bold"><%= "#{readable_date(@transaction.date)}." %></span>
+    </div>
+  </div>
 </div>

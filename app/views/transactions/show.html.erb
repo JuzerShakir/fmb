@@ -1,14 +1,3 @@
-<%# * Title %>
-<h2 class="heading">Transaction
-  <span class="text-muted">#<%= @transaction.recipe_no %></span>
-</h2>
-
-<h4 class="heading">of thaali
-  <%= link_to @thaali.number, @thaali, class: "btn btn-outline-primary" %>
-  <span class="text-muted">(<%= @transaction.thaali.year %>)</span>
-</h4>
-
-<%# * show %>
 <%= render @transaction %>
 
 <%# * action buttons %>

@@ -18,7 +18,12 @@
 }
 
 #transaction {
-	background-color: #d7fcd7;
+	background-image: linear-gradient(
+		to top,
+		$primary 0%,
+		$success 51%,
+		$secondary 100%
+	);
 }
 
 #user {
