@@ -1,4 +1,5 @@
-#sabeel {
+#sabeel,
+#user {
 	background: url(sabeel-bg.png) no-repeat;
 	background-size: 100% 100%;
 	height: 15.6rem;
@@ -27,5 +28,9 @@
 }
 
 #user {
-	background-color: #f7e6bc;
+	height: 12rem;
+
+	&-its-logo {
+		top: 25%;
+	}
 }
