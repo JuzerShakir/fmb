@@ -1,39 +1,30 @@
-<div id="thaali" class="col-5 col-md-4 col-lg-3 col-xl-2 mx-auto mt-5 rounded-5 shadow fs-6 py-3">
+<div id="thaali" class="col-lg-2 col-md-3 col-sm-4 col-5 mx-auto">
+  <div id="thaali__handle" class="">&nbsp;</div>
 
-  <div class="row border-bottom border-3 m-0 pb-3">
-    <div class="col fw-bolder text-end">
-      <span>Size</span>
+  <div id="thaali__container" class="border border-primary border-4 rounded-5 shadow text-center text-warning">
+    <div class="row border-bottom border-2 border-secondary m-0 py-sm-3 py-2">
+      <div class="col fw-bold">
+        <%= "#{@thaali.number} (#{thaali.year})" %>
+      </div>
     </div>
-    <div class="col text-primary">
-      <%= @thaali.size.capitalize %>
+
+    <div class="row border-bottom border-2 border-secondary m-0 py-sm-3 py-2">
+      <div class="col">
+        <%= @thaali.size.capitalize %>
+      </div>
+    </div>
+
+    <div class="row border-bottom border-2 border-secondary m-0 py-sm-3 py-2">
+      <div class="col">
+        <%= link_to @sabeel.its, @sabeel, class: "fw-bold link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" %>
+      </div>
+    </div>
+
+    <div class="row py-sm-3 py-2">
+      <div class="col fw-bold">
+        <% fa_gen("", "fa-sack-dollar") %>
+        <%= rupees @thaali.total %>
+      </div>
     </div>
   </div>
-
-  <div class="row border-bottom border-3 m-0 py-3">
-    <div class="col fw-bolder text-end">
-      <span>Total</span>
-    </div>
-    <div class="col text-info">
-      <%= rupees @thaali.total %>
-    </div>
-  </div>
-
-  <div class="row border-bottom border-3 m-0 py-3">
-    <div class="col fw-bolder text-end">
-      <span>Paid</span>
-    </div>
-    <div class="col text-success">
-      <%= rupees @thaali.paid %>
-    </div>
-  </div>
-
-  <div class="row pt-3">
-    <div class="col fw-bolder text-end">
-      <span>Balance</span>
-    </div>
-    <div class="col text-danger">
-      <%= rupees @thaali.balance %>
-    </div>
-  </div>
-
 </div>

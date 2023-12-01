@@ -15,9 +15,44 @@
 }
 
 #thaali {
-	background-color: #d4d4d4;
+	margin-top: 45px;
+
+	&__handle {
+		width: 5.5rem;
+		height: 9px;
+		margin: auto;
+		top: -25px;
+		position: relative;
+
+		&,
+		&::before,
+		&::after {
+			border-radius: 50px 50px 0 0;
+			background-image: linear-gradient(
+				to top,
+				$primary 0%,
+				$success 51%,
+				$secondary 100%
+			);
+		}
+
+		&::before,
+		&::after {
+			content: "";
+			width: 12px;
+			height: 60px;
+			display: inline-block;
+			position: absolute;
+			z-index: -1;
+		}
+
+		&::after {
+			right: 0;
+		}
+	}
 }
 
+#thaali__container,
 #transaction {
 	background-image: linear-gradient(
 		to top,

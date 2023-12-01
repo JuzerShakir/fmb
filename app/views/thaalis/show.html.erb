@@ -1,28 +1,35 @@
-<%# * Title %>
-<h2 class="heading">Thaali
-  <span class="text-muted">#<%= @thaali.number.to_s %></span>
-</h2>
-
-<h4 class="heading">
-  of ITS <%= link_to @sabeel.its, sabeel_path(@sabeel), class: "btn btn-outline-primary" %>
-  <span class="text-muted">(<%= @thaali.year %>)</span>
-</h4>
-
-<%# * show %>
 <%= render @thaali %>
 
 <%# * action buttons %>
 <%= render partial: "shared/actions",
       locals: {edit_path: edit_thaali_path(@thaali), destroy: @thaali} %>
 
+<div class="col-xl-3 col-lg-4 col-md-5 col-7 mx-auto mt-5">
+  <div class="row fw-bold text-center">
+    <div class="col text-success">
+      <% fa_gen("", "fa-hand-holding-dollar") %>
+      <%= rupees @thaali.paid %>
+    </div>
+
+    <div class="col text-danger">
+      <% if @thaali.dues_cleared? %>
+        <% fa_gen("", "fa-scale-balanced") %>
+      <% else %>
+        <% fa_gen("", "fa-scale-unbalanced-flip fa-bounce") %>
+      <% end %>
+      <%= rupees @thaali.balance %>
+    </div>
+  </div>
+</div>
+
 <%# * Transactions %>
 <% unless @thaali.dues_cleared? || current_user.is?("viewer") %>
-  <div class="col-5 col-md-4 col-lg-3 col-xl-2 vstack mt-5 mx-auto">
+  <div class="col-5 col-md-4 col-lg-3 col-xl-2 vstack mt-3 mx-auto">
     <%= link_to "New Transaction", new_thaali_transaction_path(@thaali), method: :get, class: "btn btn-success" %>
   </div>
 <% end %>
 
-<div id="transactions" class="mt-5">
+<div id="transactions" class="mt-3">
   <p class="fw-bold text-center text-info">
     Total number of Transactions: <%= @transactions.size %>
   </p>
