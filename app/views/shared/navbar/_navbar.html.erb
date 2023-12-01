@@ -10,25 +10,34 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <%# * Create Sabeel %>
-          <% if current_user.is? "admin" %>
-            <li class="nav-item">
-              <%= link_to "Create Sabeel", new_sabeel_path, id: "create-sabeel", class: "nav-link mt-3 mx-4 px-4 rounded-pill mt-lg-0 create-sabeel-btn" %>
-            </li>
-          <% end %>
+        <ul class="navbar-nav justify-content-center me-auto mb-2 mb-lg-0">
+          <% if current_user %>
+            <%# * Create Sabeel %>
+            <% if current_user.is? "admin" %>
+              <li class="nav-item">
+                <%= link_to "Create Sabeel", new_sabeel_path, id: "create-sabeel", class: "nav-link mt-3 mx-4 px-4 rounded-pill mt-lg-0 create-sabeel-btn" %>
+              </li>
+            <% end %>
 
-          <%# * Resources %>
-          <%= render partial: "shared/navbar/resources_dropdown" %>
-          <%# * Statistics %>
-          <%= render partial: "shared/navbar/statistics_dropdown" %>
-          <%# * User Dropdown %>
-          <% if current_user.is? "admin" %>
-            <%= render partial: "shared/navbar/admin_dropdown" %>
-          <% elsif current_user.is? "member" %>
-            <%= render partial: "shared/navbar/member_dropdown" %>
+            <%# * Resources %>
+            <%= render partial: "shared/navbar/resources_dropdown" %>
+            <%# * Statistics %>
+            <%= render partial: "shared/navbar/statistics_dropdown" %>
+            <%# * User Dropdown %>
+            <% if current_user.is? "admin" %>
+              <%= render partial: "shared/navbar/admin_dropdown" %>
+            <% elsif current_user.is? "member" %>
+              <%= render partial: "shared/navbar/member_dropdown" %>
+            <% else %>
+              <li id="viewer"><%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-danger fw-bold" %></li>
+            <% end %>
           <% else %>
-            <li id="viewer"><%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-center text-danger fw-bold" %></li>
+            <%# * Contact %>
+            <%= render partial: "shared/navbar/contact" %>
+            <%# * About %>
+            <li id="about">
+              <%= link_to "About", "https://www.thedawoodibohras.com/about-the-bohras/faiz-al-mawaid-al-burhaniyah/", target: :_blank,class: "nav-item nav-link" %>
+            </li>
           <% end %>
         </ul>
       </div>
