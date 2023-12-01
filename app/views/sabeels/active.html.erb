@@ -2,7 +2,7 @@
 <h2 class="heading">Active Sabeels: <span class="text-secondary"><%= @apt.titleize %></span></h2>
 
 <%# * Generate PDF %>
-<div class="row justify-content-evenly mt-5">
+<div class="hstack justify-content-center mt-3 heading">
   <%= fa_btn_gen "Generate PDF", sabeels_active_url(@apt, format: :pdf), "fa-file-pdf fa-lg" %>
 </div>
 

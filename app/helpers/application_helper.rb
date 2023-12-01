@@ -35,7 +35,7 @@ module ApplicationHelper
   def set_url_params_for(url)
     {
       href: url,
-      class: "default-btn btn-secondary",
+      class: "btn btn-secondary rounded-pill",
       target: :_blank,
       rel: :noopener
     }

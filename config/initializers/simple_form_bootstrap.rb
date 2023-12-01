@@ -15,7 +15,7 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Default class for buttons
-  config.button_class = "btn btn-secondary col-12 mt-5 heading fs-4 rounded-4"
+  config.button_class = "d-block btn btn-secondary col-6 mx-auto mt-5 fs-5 rounded-4"
 
   # Define the default class of the input wrapper of the boolean input.
   config.boolean_label_class = "form-check-label"
