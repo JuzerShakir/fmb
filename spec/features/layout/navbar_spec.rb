@@ -70,7 +70,7 @@ RSpec.describe "Navbar" do
 
         # * Home
         it do
-          within("#admin") { expect(page).to have_link("Home", href: users_path) }
+          within("#admin") { expect(page).to have_link("All Users", href: users_path) }
         end
 
         # * Log Out
