@@ -18,7 +18,7 @@
     <div class="col text-info fw-medium">
       <%= rupees thaali.total %>
     </div>
-    <div class="col text-danger">
+    <div class="col <%= thaali.dues_cleared? ? "fw-bold text-success" : "text-danger" %>">
       <%= rupees thaali.balance %>
     </div>
   </div>
