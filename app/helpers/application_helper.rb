@@ -14,11 +14,7 @@ module ApplicationHelper
   end
 
   def render_flash(type, msg)
-    logo = case type
-    when "success" then "check"
-    when "notice" then "exclamation"
-    when "alert" then "xmark"
-    end
+    logo = flash_icon_for(type)
 
     content_tag :div, id: "flash-#{type}" do
       fa_gen(msg, "fa-circle-#{logo}", space: true)
@@ -32,6 +28,14 @@ module ApplicationHelper
 
     concat(content_tag(:span, " ")) if space
     concat(content_tag(:span, content))
+  end
+
+  def flash_icon_for(type)
+    case type
+    when "success" then "check"
+    when "notice" then "exclamation"
+    when "alert" then "xmark"
+    end
   end
 
   def set_url_params_for(url)
