@@ -20,14 +20,14 @@
 
   <div class="row pb-3 fst-italic">
     <div class="col">
-      <% fa_gen("", "fa-phone") %>
+      <i class="fa-solid fa-phone"></i>
       <%= phone_to @sabeel.mobile, class: "link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" %>
     </div>
   </div>
 
   <div class="row fst-italic">
     <div class="col text-truncate">
-      <% fa_gen("", "fa-envelope") %>
+      <i class="fa-solid fa-envelope"></i>
       <%= link_to_if @sabeel.email.present?, @sabeel.email, "mailto:#{@sabeel.email}", class: "link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" do %>
         <p class="d-inline-block fw-bold">No email address provided</p>
       <% end %>
