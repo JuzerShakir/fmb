@@ -21,8 +21,8 @@ RSpec.describe "Sabeel destroy" do
     end
 
     context "with action buttons" do
-      it { within(".modal-footer") { expect(page).to have_css(".btn-secondary", text: "Cancel") } }
-      it { within(".modal-footer") { expect(page).to have_css(".btn-primary", text: "Yes, delete it!") } }
+      it { within(".modal-footer") { expect(page).to have_css(".btn-light", text: "Cancel") } }
+      it { within(".modal-footer") { expect(page).to have_css(".btn-danger", text: "Yes, delete it!") } }
     end
 
     context "when clicking 'delete button'" do
@@ -30,7 +30,7 @@ RSpec.describe "Sabeel destroy" do
 
       it { expect(page).to have_current_path root_path, ignore_query: true }
 
-      it { expect(page).to have_content("Sabeel deleted successfully") }
+      it { expect(page).to have_content("Sabeel deleted") }
     end
   end
 end

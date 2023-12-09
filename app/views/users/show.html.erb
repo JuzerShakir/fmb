@@ -1,8 +1,4 @@
-<%# * Title %>
-<h2 class="text-center">Show User</h2>
-
-<%# * show %>
-<%= render "show" %>
+<%= render @user %>
 
 <%# * action buttons %>
 <div class="col-5 col-md-4 col-lg-3 col-xl-2 vstack gap-2 mx-auto mt-5 fs-6">
@@ -17,6 +13,3 @@
   <%# * destroy Modal %>
   <%= render partial: "shared/destroy_modal", locals: {destroy: @user} %>
 </div>
-
-<%# * back button %>
-<%= render partial: "shared/back" %>

@@ -3,147 +3,153 @@
 require "rails_helper"
 
 RSpec.describe "Navbar" do
-  before do
-    page.set_rack_session(user_id: user.id)
-    visit root_path
-  end
+  # * Accessibile by logged-out user
+  # describe "logged out users can view" do
+  # end
 
-  # * Accessibile by ALL
-  describe "'Anyone' who have logged in displays" do
-    let(:user) { create(:user) }
+  # * Accessibile by logged-in user
+  describe "logged in" do
+    before do
+      page.set_rack_session(user_id: user.id)
+      visit root_path
+    end
 
-    # * Statistics
-    describe "Statistics dropdown menu" do
-      it do
-        within("#statistics") { expect(page).to have_link("Sabeels", href: stats_sabeels_path) }
+    describe "any user can view" do
+      let(:user) { create(:user) }
+
+      # * Statistics
+      describe "Statistics dropdown menu" do
+        it do
+          within("#statistics") { expect(page).to have_link("Sabeels", href: stats_sabeels_path) }
+        end
+
+        it do
+          within("#statistics") { expect(page).to have_link("Thaalis", href: thaalis_stats_path) }
+        end
       end
 
-      it do
-        within("#statistics") { expect(page).to have_link("Thaalis", href: thaalis_stats_path) }
+      # * Resources
+      describe "Resources dropdown menu" do
+        it do
+          within("#resources") { expect(page).to have_link("Sabeels", href: sabeels_path) }
+        end
+
+        it do
+          within("#resources") { expect(page).to have_link("Thaalis", href: root_path) }
+        end
+
+        it do
+          within("#resources") { expect(page).to have_link("Transactions", href: transactions_all_path) }
+        end
       end
     end
 
-    # * Resources
-    describe "Resources dropdown menu" do
-      it do
-        within("#resources") { expect(page).to have_link("Sabeels", href: sabeels_path) }
-      end
+    # * Admin
+    context "when admin" do
+      describe "has logged in, it displays" do
+        let(:user) { create(:admin_user) }
 
-      it do
-        within("#resources") { expect(page).to have_link("Thaalis", href: root_path) }
-      end
+        it do
+          within(".navbar-nav") { expect(page).to have_css("#admin", text: "Admin") }
+        end
 
-      it do
-        within("#resources") { expect(page).to have_link("Transactions", href: transactions_all_path) }
+        # * New Sabeel
+        it do
+          within(".navbar-nav") { expect(page).to have_link("Create Sabeel", href: new_sabeel_path) }
+        end
+
+        # * My Profile
+        it do
+          within("#admin") { expect(page).to have_link("My Profile", href: user_path(user)) }
+        end
+
+        # * New User
+        it do
+          within("#admin") { expect(page).to have_link("New User", href: new_user_path) }
+        end
+
+        # * Home
+        it do
+          within("#admin") { expect(page).to have_link("All Users", href: users_path) }
+        end
+
+        # * Log Out
+        it do
+          within("#admin") { expect(page).to have_link("Log out", href: destroy_path) }
+        end
       end
     end
-  end
 
-  # * Admin
-  context "when admin" do
-    describe "has logged in, it displays" do
-      let(:user) { create(:admin_user) }
+    # * Member
+    context "when Member" do
+      let(:user) { create(:member_user) }
 
-      it do
-        within(".navbar-nav") { expect(page).to have_css("#admin", text: "Admin") }
+      describe "it displays" do
+        it do
+          within(".navbar-nav") { expect(page).to have_css("#member", text: "Member") }
+        end
+
+        # * My Profile
+        it do
+          within("#member") { expect(page).to have_link("My Profile", href: user_path(user)) }
+        end
+
+        # * Log Out
+        it do
+          within("#member") { expect(page).to have_link("Log out", href: destroy_path) }
+        end
       end
 
-      # * New Sabeel
-      it do
-        within(".navbar-nav") { expect(page).to have_link("Create Sabeel", href: new_sabeel_path) }
-      end
-
-      # * My Profile
-      it do
-        within("#admin") { expect(page).to have_link("My Profile", href: user_path(user)) }
+      describe "doesn't display" do
+        # * Home
+        it do
+          within("#member") { expect(page).not_to have_content("Home") }
+        end
       end
 
       # * New User
       it do
-        within("#admin") { expect(page).to have_link("New User", href: new_user_path) }
+        within("#member") { expect(page).not_to have_content("New User") }
       end
+    end
 
-      # * Home
-      it do
-        within("#admin") { expect(page).to have_link("Home", href: users_path) }
+    # * Viewer
+    context "when Viewer, it displays" do
+      let(:user) { create(:viewer_user) }
+
+      it "have 'viewer' id" do
+        within(".navbar-nav") { expect(page).to have_css("#viewer") }
       end
 
       # * Log Out
       it do
-        within("#admin") { expect(page).to have_link("Log out", href: destroy_path) }
-      end
-    end
-  end
-
-  # * Member
-  context "when Member" do
-    let(:user) { create(:member_user) }
-
-    describe "it displays" do
-      it do
-        within(".navbar-nav") { expect(page).to have_css("#member", text: "Member") }
+        within("#viewer") { expect(page).to have_link("Log out", href: destroy_path) }
       end
 
       # * My Profile
       it do
-        within("#member") { expect(page).to have_link("My Profile", href: user_path(user)) }
+        within("#viewer") { expect(page).not_to have_content("My Profile") }
       end
 
-      # * Log Out
-      it do
-        within("#member") { expect(page).to have_link("Log out", href: destroy_path) }
-      end
-    end
-
-    describe "doesn't display" do
       # * Home
       it do
-        within("#member") { expect(page).not_to have_content("Home") }
+        within("#viewer") { expect(page).not_to have_content("Home") }
+      end
+
+      # * New User
+      it do
+        within("#viewer") { expect(page).not_to have_content("New User") }
       end
     end
 
-    # * New User
-    it do
-      within("#member") { expect(page).not_to have_content("New User") }
-    end
-  end
+    # * Member or Viewer
+    describe "Member or Viewer, do NOT display" do
+      let(:user) { create(:user_member_or_viewer) }
 
-  # * Viewer
-  context "when Viewer, it displays" do
-    let(:user) { create(:viewer_user) }
-
-    it "have 'viewer' id" do
-      within(".navbar-nav") { expect(page).to have_css("#viewer") }
-    end
-
-    # * Log Out
-    it do
-      within("#viewer") { expect(page).to have_link("Log out", href: destroy_path) }
-    end
-
-    # * My Profile
-    it do
-      within("#viewer") { expect(page).not_to have_content("My Profile") }
-    end
-
-    # * Home
-    it do
-      within("#viewer") { expect(page).not_to have_content("Home") }
-    end
-
-    # * New User
-    it do
-      within("#viewer") { expect(page).not_to have_content("New User") }
-    end
-  end
-
-  # * Member or Viewer
-  describe "Member or Viewer, do NOT display" do
-    let(:user) { create(:user_member_or_viewer) }
-
-    # * New Sabeel
-    it do
-      within(".navbar-nav") { expect(page).not_to have_content("Create Sabeel") }
+      # * New Sabeel
+      it do
+        within(".navbar-nav") { expect(page).not_to have_content("Create Sabeel") }
+      end
     end
   end
 end

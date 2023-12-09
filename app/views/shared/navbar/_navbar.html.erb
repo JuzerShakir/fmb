@@ -1,34 +1,43 @@
 <div class="mb-5">
-  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark navbar-dark fixed-top">
+  <nav class="navbar navbar-expand-lg fixed-top heading bg-primary" data-bs-theme="dark">
 
-    <div class="container-fluid">
-      <%# * Title %>
-      <%= link_to "FMB", root_path, class: "navbar-brand" %>
+    <div class="container container-fluid">
+      <%# * Navbar logo %>
+      <%= link_to image_tag("logo.png", size: "30", alt: "logo"), root_path, class: "navbar-brand" %>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <%# * Create Sabeel %>
-          <% if current_user.is? "admin" %>
-            <li class="nav-item">
-              <%= link_to "Create Sabeel", new_sabeel_path, class: "nav-link active" %>
-            </li>
-          <% end %>
+        <ul class="navbar-nav justify-content-center me-auto mb-2 mb-lg-0">
+          <% if current_user %>
+            <%# * Create Sabeel %>
+            <% if current_user.is? "admin" %>
+              <li class="nav-item">
+                <%= link_to "Create Sabeel", new_sabeel_path, id: "create-sabeel", class: "nav-link mt-3 mx-4 px-4 rounded-pill mt-lg-0 create-sabeel-btn" %>
+              </li>
+            <% end %>
 
-          <%# * Resources %>
-          <%= render partial: "shared/navbar/resources_dropdown" %>
-          <%# * Statistics %>
-          <%= render partial: "shared/navbar/statistics_dropdown" %>
-          <%# * User Dropdown %>
-          <% if current_user.is? "admin" %>
-            <%= render partial: "shared/navbar/admin_dropdown" %>
-          <% elsif current_user.is? "member" %>
-            <%= render partial: "shared/navbar/member_dropdown" %>
+            <%# * Resources %>
+            <%= render partial: "shared/navbar/resources_dropdown" %>
+            <%# * Statistics %>
+            <%= render partial: "shared/navbar/statistics_dropdown" %>
+            <%# * User Dropdown %>
+            <% if current_user.is? "admin" %>
+              <%= render partial: "shared/navbar/admin_dropdown" %>
+            <% elsif current_user.is? "member" %>
+              <%= render partial: "shared/navbar/member_dropdown" %>
+            <% else %>
+              <li id="viewer"><%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-danger fw-bold" %></li>
+            <% end %>
           <% else %>
-            <li id="viewer"><%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-center text-danger fw-bold" %></li>
+            <%# * Contact %>
+            <%= render partial: "shared/navbar/contact" %>
+            <%# * About %>
+            <li id="about">
+              <%= link_to "About", "https://www.thedawoodibohras.com/about-the-bohras/faiz-al-mawaid-al-burhaniyah/", target: :_blank, class: "nav-item nav-link", rel: :noopener %>
+            </li>
           <% end %>
         </ul>
       </div>

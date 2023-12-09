@@ -1,0 +1,16 @@
+#flash {
+	transform: translateX(-15rem);
+	animation: flash 5s;
+
+	&-alert {
+		color: $red;
+	}
+
+	&-notice {
+		color: $yellow;
+	}
+
+	&-success {
+		color: $secondary;
+	}
+}

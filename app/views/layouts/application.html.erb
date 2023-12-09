@@ -8,14 +8,15 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= favicon_link_tag asset_path("favicon.ico") %>
   </head>
 
-  <body>
-    <%= render partial: "shared/navbar/navbar" if current_user %>
+  <body onselectstart="return false">
+    <%= render partial: "shared/navbar/navbar" %>
     <br>
     <%= render partial: "shared/flash_messages" %>
 
-    <div class="container mt-5">
+    <div class="container mt-3">
       <%= yield %>
     </div>
   </body>

@@ -1,5 +1,5 @@
 <% if @thaalis.any? %>
-  <%= turbo_stream.append :thaalis, partial: "thaali" %>
+  <%= turbo_stream.append :thaalis, partial: "thaalis" %>
 <% else %>
   <%= turbo_stream.append :thaalis, partial: "shared/no_results" %>
 <% end %>

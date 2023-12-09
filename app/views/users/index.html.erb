@@ -1,11 +1,11 @@
 <%# * Title %>
-<h2 class="text-center">All Users</h2>
+<h2 class="heading">All Users</h2>
 
 <%# * show all users %>
-<div id="all-users" class="col-lg-5 mt-5 container text-center shadow rounded-4 pb-4 c-bg">
+<div class="col-lg-5 mt-5 container text-center border border-4 border-secondary shadow rounded-4 bg-white bg-opacity-75">
   <% if @users.any? %>
     <%= render partial: "theader" %>
-    <%= render "user" %>
+    <%= render "users" %>
   <% else %>
     <%= render partial: "shared/no_results" %>
   <% end %>

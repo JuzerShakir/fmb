@@ -1,0 +1,13 @@
+<% @thaalis.each do |thaali| %>
+  <div id="<%= dom_id(thaali) %>" class="row py-2">
+    <div class="col">
+      <%= link_to thaali.number, thaali, data: {turbo_frame: "_top"}, class: "btn btn-outline-primary btn-sm px-sm-3 px-lg-4" %>
+    </div>
+    <div class="col text-info fw-medium text-truncate">
+      <%= thaali.sabeel.name %>
+    </div>
+    <div class="col <%= thaali.dues_cleared? ? "fw-bold text-success" : "text-danger" %>">
+      <%= add_rupees_symbol_to thaali.balance %>
+    </div>
+  </div>
+<% end %>

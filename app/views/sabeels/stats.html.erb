@@ -1,27 +1,27 @@
 <%# * Title %>
-<h2 class=" text-center ">Sabeel Statistics: <span class=" text-secondary "><%= CURR_YR %></span></h2>
+<h2 class="heading">Sabeel Statistics: <span class=" text-secondary "><%= CURR_YR %></span></h2>
 
 <%# * No. of Sabeels %>
 <p class=" mt-5 fw-bold text-center text-info fs-4 ">Total number of Sabeels: <%= Sabeel.count %></p>
 
 <%# * Content %>
 <% @apts.each do |apartment, values| %>
-  <div id="<%= apartment %>" class="text-center container col-lg-8 offset-lg-2 my-5 p-3 border rounded-5 shadow c-bg">
-    <h3><%= apartment.to_s.titleize %> </h3>
+  <div id="<%= apartment %>" class="text-center container col-lg-8 offset-lg-2 my-5 p-3 border rounded-5 shadow bg-white bg-opacity-50">
+    <h3 class="heading"><%= apartment.to_s.titleize %></h3>
 
-    <div class=" mt-4 ">
-      <%= link_to "Active: #{values[:active_thaalis]}", sabeels_active_path(apartment.to_s), class: success_btn %>
-      <%= link_to "Inactive: #{values[:inactive_thaalis]}", sabeels_inactive_path(apartment.to_s), class: danger_btn %>
+    <div class="row justify-content-evenly mt-3">
+      <%= link_to "Active: #{values[:active_thaalis]}", sabeels_active_path(apartment.to_s), class: "default-btn btn-outline-success" %>
+      <%= link_to "Inactive: #{values[:inactive_thaalis]}", sabeels_inactive_path(apartment.to_s), class: "default-btn btn-outline-danger" %>
     </div>
 
-    <div class=" row mt-2 fw-bold ">
-      <p class=" col text-primary ">Small: <%= values[:small].to_s %></p>
-      <p class=" col text-warning ">Medium: <%= values[:medium].to_s %></p>
-      <p class=" col text-dark ">Large: <%= values[:large].to_s %></p>
+    <div class="row mt-2 fw-bold">
+      <p class="col text-info">Small: <%= values[:small].to_s %></p>
+      <p class="col text-secondary">Medium: <%= values[:medium].to_s %></p>
+      <p class="col text-success">Large: <%= values[:large].to_s %></p>
     </div>
 
-    <div class=" row mt-1 ">
-      <p class=" fw-bold text-info fs-5 ">
+    <div class="row mt-3">
+      <p class="fw-bold text-success fs-5">
         Total Sabeels: <%= values[:total_sabeels].to_s %>
       </p>
     </div>

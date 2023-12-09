@@ -20,7 +20,7 @@ RSpec.describe "User new template" do
 
       attributes_for(:user).each do |k, v|
         case k
-        when :roles then select ROLES.sample.capitalize, from: :user_role_ids
+        when :roles then choose ROLES.sample.capitalize
         else fill_in "user_#{k}", with: v
         end
       end
@@ -30,7 +30,7 @@ RSpec.describe "User new template" do
       before { click_button "Create User" }
 
       it "is successfully created" do
-        expect(page).to have_content("User created successfully")
+        expect(page).to have_content("User created")
       end
     end
 

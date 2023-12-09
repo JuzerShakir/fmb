@@ -20,7 +20,7 @@ RSpec.describe "Thaali edit template" do
           click_button "Update Thaali"
         end
 
-        it { expect(page).to have_content("Thaali updated successfully") }
+        it { expect(page).to have_content("Thaali updated") }
       end
 
       context "with invalid values" do

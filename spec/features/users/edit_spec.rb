@@ -21,7 +21,7 @@ RSpec.describe "User edit template" do
           fill_in "user_password_confirmation", with: new_password
 
           click_button "Update Password"
-          expect(page).to have_content("User updated successfully")
+          expect(page).to have_content("User updated")
         end
       end
 

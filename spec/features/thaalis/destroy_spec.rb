@@ -21,15 +21,15 @@ RSpec.describe "Thaali destroy" do
     end
 
     context "with action buttons" do
-      it { within(".modal-footer") { expect(page).to have_css(".btn-secondary", text: "Cancel") } }
-      it { within(".modal-footer") { expect(page).to have_css(".btn-primary", text: "Yes, delete it!") } }
+      it { within(".modal-footer") { expect(page).to have_css(".btn-light", text: "Cancel") } }
+      it { within(".modal-footer") { expect(page).to have_css(".btn-danger", text: "Yes, delete it!") } }
     end
 
     context "when clicking 'delete button'" do
       before { click_button "Yes, delete it!" }
 
       it { expect(page).to have_current_path sabeel_path(thaali.sabeel) }
-      it { expect(page).to have_content("Thaali destroyed successfully") }
+      it { expect(page).to have_content("Thaali destroyed") }
     end
   end
 end

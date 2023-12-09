@@ -1,10 +1,20 @@
-<% @users.each do | user | %>
-  <div class="row py-3 border-bottom border-light">
-    <div class="col">
-      <%= button_to user.name, user_path(user), method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
-    </div>
-    <div class="col">
-      <%= user.roles_name.first.capitalize %>
+<div id="user" class="position-relative col-xxl-3 col-lg-4 col-md-6 col-sm-7 col-9 rounded-4 shadow mx-auto mt-3 py-3 px-4 text-warning">
+  <div id="user-its-logo" class="z-0 position-absolute"></div>
+  <div class="row pb-3">
+    <div class="col heading fs-2 text-secondary">
+      <%= @user.its %>
     </div>
   </div>
-<% end %>
+
+  <div class="row pb-3">
+    <div class="z-1 col text-truncate">
+      <% fa_gen(@user.name, "fa-user", space: true) %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="z-1 col fw-bold">
+      <% fa_gen(@user.roles_name.first.capitalize, "fa-eye", space: true) %>
+    </div>
+  </div>
+</div>

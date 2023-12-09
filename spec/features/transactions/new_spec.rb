@@ -22,7 +22,7 @@ RSpec.describe "Transaction new template" do
       let(:new_transaction) { Transaction.last }
 
       before do
-        select MODES.sample.capitalize, from: :transaction_mode
+        choose MODES.sample.capitalize
         click_button "Create Transaction"
       end
 
@@ -30,7 +30,7 @@ RSpec.describe "Transaction new template" do
         expect(page).to have_current_path transaction_path(new_transaction)
       end
 
-      it { expect(page).to have_content("Transaction created successfully") }
+      it { expect(page).to have_content("Transaction created") }
     end
 
     context "with invalid values" do

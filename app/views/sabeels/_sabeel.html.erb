@@ -1,13 +1,36 @@
-<% @sabeels.each do |sabeel| %>
-  <div class="row py-3 border-bottom border-light">
-    <div class="col">
-      <%= button_to sabeel.its, sabeel, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
-    </div>
-    <div class="col fw-bold text-truncate">
-      <%= sabeel.name %>
-    </div>
-    <div class="col text-secondary">
-      <%= sabeel.apartment.titleize %>
+<div id="sabeel" class="position-relative col-xxl-4 col-xl-5 col-lg-6 col-md-8 col-sm-10 rounded-4 shadow mx-auto mt-3 py-3 px-4 text-warning">
+  <div id="sabeel-its-logo" class="z-0 position-absolute"></div>
+  <div class="row pb-3">
+    <div class="col heading fs-2 text-secondary">
+      <%= @sabeel.its %>
     </div>
   </div>
-<% end %>
+
+  <div class="row pb-3">
+    <div class="z-1 col text-truncate">
+      <% fa_gen(@sabeel.name, "fa-user", space: true) %>
+    </div>
+  </div>
+
+  <div class="row pb-3">
+    <div class="col">
+      <% fa_gen(@sabeel.address, "fa-location-pin", space: true) %>
+    </div>
+  </div>
+
+  <div class="row pb-3 fst-italic">
+    <div class="col">
+      <i class="fa-solid fa-phone"></i>
+      <%= phone_to @sabeel.mobile, class: "link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" %>
+    </div>
+  </div>
+
+  <div class="row fst-italic">
+    <div class="col text-truncate">
+      <i class="fa-solid fa-envelope"></i>
+      <%= link_to_if @sabeel.email.present?, @sabeel.email, "mailto:#{@sabeel.email}", class: "link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" do %>
+        <p class="d-inline-block fw-bold">No email address provided</p>
+      <% end %>
+    </div>
+  </div>
+</div>

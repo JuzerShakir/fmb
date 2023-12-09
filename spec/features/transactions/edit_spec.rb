@@ -17,7 +17,7 @@ RSpec.describe "Transaction edit template" do
 
     it "displays correct amount limit (total) as a hint" do
       within(".transaction_amount") do
-        expect(page).to have_css("small", text: "Amount shouldn't be greater than: #{total.humanize}")
+        expect(page).to have_css("small", text: "Amount shouldn't be greater than: ₹#{total}")
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe "Transaction edit template" do
           expect(page).to have_current_path transaction_path(transaction)
         end
 
-        it { expect(page).to have_content("Transaction updated successfully") }
+        it { expect(page).to have_content("Transaction updated") }
       end
 
       context "with invalid values" do

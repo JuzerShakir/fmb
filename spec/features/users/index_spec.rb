@@ -24,7 +24,7 @@ RSpec.describe "User index template" do
       end
 
       it "button" do
-        click_button other_user.name.to_s
+        click_link other_user.name.to_s
         expect(page).to have_current_path user_path(other_user)
       end
     end

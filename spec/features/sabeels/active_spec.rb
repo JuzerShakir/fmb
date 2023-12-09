@@ -16,13 +16,13 @@ RSpec.describe "Sabeel Active template" do
     describe "Generate PDF button" do
       let(:thaali) { sabeel.thaalis.first }
 
-      it { expect(page).to have_button("Generate PDF") }
+      it { expect(page).to have_link("Generate PDF") }
       it { expect(page).to have_css(".fa-file-pdf") }
 
       describe "Generates PDF of burhani building" do
         let(:pdf_window) { switch_to_window(windows.last) }
 
-        before { click_button("Generate PDF") }
+        before { click_link("Generate PDF") }
 
         it { within_window pdf_window { expect(page).to have_content("Burhani - #{CURR_YR}") } }
         it { within_window pdf_window { expect(page).to have_content(sabeel.flat_no) } }

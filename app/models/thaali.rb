@@ -53,6 +53,8 @@ class Thaali < ApplicationRecord
   end
 
   def paid
-    transactions.filter_map(&:amount).sum(0)
+    transactions.filter_map do |transaction|
+      transaction.amount if transaction.persisted?
+    end.sum(0)
   end
 end

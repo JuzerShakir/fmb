@@ -17,8 +17,8 @@ RSpec.describe "User destroy" do
 
     describe "destroying self" do
       context "with action buttons" do
-        it { within(".modal-footer") { expect(page).to have_css(".btn-secondary", text: "Cancel") } }
-        it { within(".modal-footer") { expect(page).to have_css(".btn-primary", text: "Yes, delete it!") } }
+        it { within(".modal-footer") { expect(page).to have_css(".btn-light", text: "Cancel") } }
+        it { within(".modal-footer") { expect(page).to have_css(".btn-danger", text: "Yes, delete it!") } }
       end
 
       it "shows confirmation message" do
@@ -31,7 +31,7 @@ RSpec.describe "User destroy" do
         before { click_button "Yes, delete it!" }
 
         it { expect(page).to have_current_path login_path }
-        it { expect(page).to have_content("Your account has been deleted") }
+        it { expect(page).to have_content("Account deleted") }
       end
     end
   end
@@ -58,7 +58,7 @@ RSpec.describe "User destroy" do
         before { click_button "Yes, delete it!" }
 
         it { expect(page).to have_current_path users_path }
-        it { expect(page).to have_content("User deleted successfully") }
+        it { expect(page).to have_content("Account deleted") }
       end
     end
   end

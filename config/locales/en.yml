@@ -92,30 +92,29 @@ en:
               taken: "has already been invoiced"
     attributes:
       user:
-        its: "ITS Number"
+        its: "ITS"
         name: "Full Name"
         role_ids: "Role"
       role:
         name: "Role"
       sabeel:
-        its: "ITS Number"
+        its: "ITS"
         name: "Full Name"
         flat_no: "Flat Number"
       thaali:
         total: "Total Takhmeen"
       transaction:
         recipe_no: "Recipe Number"
-        mode: "Payment Mode"
-        date: "Billing On"
+        mode: "Payment"
+        date: "Billing"
 
   users:
     create:
-      success: "User created successfully"
+      success: "User created"
     update:
-      success: "User updated successfully"
+      success: "User updated"
     destroy:
-      non_self: "User deleted successfully"
-      self: "Your account has been deleted"
+      success: "Account deleted"
   sessions:
     create:
       success: "Afzalus Salaam"
@@ -124,28 +123,28 @@ en:
       success: "Logged out"
   sabeels:
     create:
-      success: "Sabeel created successfully"
+      success: "Sabeel created"
     update:
-      success: "Sabeel updated successfully"
+      success: "Sabeel updated"
     destroy:
-      success: "Sabeel deleted successfully"
+      success: "Sabeel deleted"
   thaalis:
     create:
-      success: "Thaali created successfully"
+      success: "Thaali created"
     update:
-      success: "Thaali updated successfully"
+      success: "Thaali updated"
     destroy:
-      success: "Thaali destroyed successfully"
+      success: "Thaali destroyed"
   transactions:
     new:
-      notice: "Thaali has no outstanding balance"
+      notice: "Balance cleared"
     create:
-      success: "Transaction created successfully"
+      success: "Transaction created"
     update:
-      success: "Transaction updated successfully"
+      success: "Transaction updated"
     destroy:
-      success: "Transaction destroyed successfully"
+      success: "Transaction destroyed"
 
   flash:
     un_authorize: "Not Authorized"
-    active_session: "Already logged in!"
+    active_session: "Logged in!"

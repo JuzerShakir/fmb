@@ -18,6 +18,29 @@ RSpec.describe "Thaali show template" do
       it { expect(page).to have_content(thaali.size.humanize) }
       it { expect(page).to have_content(number_with_delimiter(thaali.total)) }
       it { expect(page).to have_content(number_with_delimiter(thaali.balance)) }
+      it { expect(page).to have_content(number_with_delimiter(thaali.paid)) }
+
+      describe "if its dues are cleared" do
+        let(:thaali) { create(:taking_thaali_dues_cleared) }
+
+        it "balance amount is not shown" do
+          within("#payment-summary") do
+            expect(page).not_to have_content(number_with_delimiter(thaali.balance))
+          end
+        end
+
+        it "paid amount is not shown" do
+          within("#payment-summary") do
+            expect(page).not_to have_content(number_with_delimiter(thaali.paid))
+          end
+        end
+
+        it "a prompt is shown" do
+          within("#payment-summary") do
+            expect(page).to have_content("Takhmeen Complete")
+          end
+        end
+      end
     end
 
     describe "transaction details" do
@@ -42,13 +65,13 @@ RSpec.describe "Thaali show template" do
 
       describe "New Transaction button" do
         context "when amount is partially paid" do
-          it { expect(page).to have_button("New Transaction") }
+          it { expect(page).to have_link("New Transaction") }
         end
 
         context "when amount is fully paid" do
           let(:thaali) { create(:taking_thaali_dues_cleared) }
 
-          it { expect(page).not_to have_button("New Transaction") }
+          it { expect(page).not_to have_link("New Transaction") }
         end
       end
     end
@@ -60,7 +83,7 @@ RSpec.describe "Thaali show template" do
     describe "action buttons" do
       it { expect(page).not_to have_link("Edit") }
       it { expect(page).not_to have_button("Delete") }
-      it { expect(page).not_to have_button("New Transaction") }
+      it { expect(page).not_to have_link("New Transaction") }
     end
   end
 end

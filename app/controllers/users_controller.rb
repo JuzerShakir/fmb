@@ -36,10 +36,10 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     if current_user.is?("admin") && current_user.id != @user&.id
-      redirect_to users_path, success: t(".non_self")
+      redirect_to users_path, success: t(".success")
     else
       session[:user_id] = nil
-      redirect_to login_path, success: t(".self")
+      redirect_to login_path, success: t(".success")
     end
   end
 

@@ -21,7 +21,7 @@ RSpec.describe "Sabeel Edit template" do
 
       it { expect(page).to have_current_path sabeel_path(sabeel) }
 
-      it { expect(page).to have_content("Sabeel updated successfully") }
+      it { expect(page).to have_content("Sabeel updated") }
     end
 
     context "with invalid values" do

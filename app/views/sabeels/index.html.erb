@@ -1,5 +1,5 @@
 <%# * Title %>
-<h2 class="text-center">Sabeels</h2>
+<h2 class="heading">Sabeels</h2>
 
 <%# * search %>
 <%= render partial: "shared/search",
@@ -7,4 +7,4 @@
 
 <%# * show all sabeels %>
 <%= render partial: "shared/results",
-      locals: {id: "sabeels", path: sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h)} %>
+      locals: {model: "sabeels", path: sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h)} %>

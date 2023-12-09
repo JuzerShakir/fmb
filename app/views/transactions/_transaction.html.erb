@@ -1,16 +1,50 @@
-<% @transactions.each do |transaction| %>
-  <div class="row py-3 border-bottom border-light">
-    <div class="col">
-      <%= button_to transaction.recipe_no, transaction, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
+<div id="transaction" class="col-xxl-5 col-xl-6 col-lg-7 col-md-9 rounded-4 shadow mx-auto mt-3 p-4 text-warning text-center">
+  <div class="row heading">
+    <div class="col-8 text-start">
+      <h4>Dawoodi Bohra Jamaat</h4>
     </div>
-    <div class="col fst-italic fw-bold">
-      <%= rupees transaction.amount %>
-    </div>
-    <div class="col">
-      <%= button_to transaction.thaali.number, transaction.thaali, method: :get, class: "btn btn-outline-secondary btn-sm py-1" %>
-    </div>
-    <div class="col text-secondary">
-      <%= time_ago_in_words(transaction.date) %>
+    <div class="col-4 text-end fs-3">
+      <h4><%= @transaction.recipe_no %></h4>
     </div>
   </div>
-<% end %>
+
+    <div class="row heading pb-4">
+    <div class="col-8 text-start">
+      <h6>A/c Faiz Al Mawaid Burhaniyah</h6>
+    </div>
+    <div class="col-4 text-end">
+      <h6><%= link_to("#{@thaali.number} (#{@thaali.year})", @thaali, class: "link-primary link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover") %></h6>
+    </div>
+  </div>
+
+  <div class="row pb-2">
+    <div class="col">
+      <%= link_to @sabeel.name, @sabeel, class: "fst-italic fw-bold link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" %>
+      <span>&nbsp;from</span>
+      <span class="fw-bold"><%= @sabeel.address %></span>
+    </div>
+  </div>
+
+  <div class="row pb-2">
+    <div class="col">
+      <span>has voluntarily contributed an amount</span>
+      <span class="fw-bold"><%= add_rupees_symbol_to @transaction.amount %></span>
+    </div>
+  </div>
+
+  <div class="row pb-2">
+    <div class="col">
+      <span>or rupees</span>
+      <span class="fst-italic"><%= @transaction.amount.humanize %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <span>via</span>
+      <span class="fw-bold"><%= @transaction.mode.capitalize %></span>
+      <span>on</span>
+      <span class="fw-bold"><%= "#{readable_date(@transaction.date)}." %></span>
+    </div>
+  </div>
+</div>

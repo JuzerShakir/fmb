@@ -44,11 +44,11 @@ RSpec.describe "Sabeel Show template" do
       context "when it's NOT CURRENTLY taking it" do
         let(:sabeel) { create(:sabeel) }
 
-        it { expect(page).to have_button("New Thaali") }
+        it { expect(page).to have_link("New Thaali") }
       end
 
       context "when it's CURRENTLY taking it" do
-        it { expect(page).not_to have_button("New Thaali") }
+        it { expect(page).not_to have_link("New Thaali") }
       end
     end
   end
@@ -60,7 +60,7 @@ RSpec.describe "Sabeel Show template" do
     describe "action buttons" do
       it { expect(page).not_to have_link("Edit") }
       it { expect(page).not_to have_button("Delete") }
-      it { expect(page).not_to have_button("New Thaali") }
+      it { expect(page).not_to have_link("New Thaali") }
     end
   end
 end

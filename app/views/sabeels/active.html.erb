@@ -1,13 +1,11 @@
 <%# * Title %>
-<h2 class="text-center">Active Sabeels: <span class="text-secondary"><%= @apt.titleize %></span> </h2>
+<h2 class="heading">Active Sabeels: <span class="text-secondary"><%= @apt.titleize %></span></h2>
 
 <%# * Generate PDF %>
-<div class="mt-4 text-center">
-  <%= button_to pdf_button,
-        sabeels_active_path(@apt, format: :pdf), method: :get, form: {target: "_blank"},
-        class: "btn btn-primary" %>
+<div class="hstack justify-content-center mt-3 heading">
+  <%= fa_btn_gen "Generate PDF", sabeels_active_url(@apt, format: :pdf), "fa-file-pdf fa-lg" %>
 </div>
 
 <%# * show all sabeels %>
 <%= render partial: "shared/results",
-      locals: {id: "sabeels", path: sabeels_active_path(format: :turbo_stream)} %>
+      locals: {model: "sabeels", path: sabeels_active_path(format: :turbo_stream)} %>
