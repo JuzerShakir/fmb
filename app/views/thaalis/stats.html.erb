@@ -9,11 +9,11 @@
     <div class="row mt-3">
         <p class="col fw-bold text-success">
           Total:
-          <%= rupees values[:total] %>
+          <%= add_rupees_symbol_to values[:total] %>
         </p>
         <p class="col fw-bold text-danger">
           Balance:
-          <%= rupees values[:balance] %>
+          <%= add_rupees_symbol_to values[:balance] %>
         </p>
     </div>
 

@@ -19,9 +19,9 @@ module ApplicationHelper
     end
   end
 
-  def rupees(num)
+  def add_rupees_symbol_to(amount)
     content_tag :span do
-      fa_gen(number_with_delimiter(num), "fa-indian-rupee-sign fa-xs")
+      fa_gen(number_with_delimiter(amount), "fa-indian-rupee-sign fa-xs")
     end
   end
 

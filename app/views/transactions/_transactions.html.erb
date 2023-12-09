@@ -4,7 +4,7 @@
       <%= link_to transaction.recipe_no, transaction, data: {turbo_frame: "_top"}, class: "btn btn-outline-primary btn-sm px-sm-2 px-lg-4" %>
     </div>
     <div class="col text-info fw-medium">
-      <%= rupees transaction.amount %>
+      <%= add_rupees_symbol_to transaction.amount %>
     </div>
     <div class="col text-info">
       <%= time_ago_in_words(transaction.date) %>

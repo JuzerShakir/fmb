@@ -16,10 +16,10 @@
       <%= button_to thaali.year, thaali, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
     </div>
     <div class="col text-info fw-medium">
-      <%= rupees thaali.total %>
+      <%= add_rupees_symbol_to thaali.total %>
     </div>
     <div class="col <%= thaali.dues_cleared? ? "fw-bold text-success" : "text-danger" %>">
-      <%= rupees thaali.balance %>
+      <%= add_rupees_symbol_to thaali.balance %>
     </div>
   </div>
 <% end %>

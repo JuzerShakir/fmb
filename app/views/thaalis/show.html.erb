@@ -8,7 +8,7 @@
   <div class="row fw-bold text-center">
     <div class="col text-success">
       <% fa_gen("", "fa-hand-holding-dollar") %>
-      <%= rupees @thaali.paid %>
+      <%= add_rupees_symbol_to @thaali.paid %>
     </div>
 
     <div class="col text-danger">
@@ -17,7 +17,7 @@
       <% else %>
         <% fa_gen("", "fa-scale-unbalanced-flip fa-bounce") %>
       <% end %>
-      <%= rupees @thaali.balance %>
+      <%= add_rupees_symbol_to @thaali.balance %>
     </div>
   </div>
 </div>
