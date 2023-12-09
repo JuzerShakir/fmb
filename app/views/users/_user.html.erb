@@ -8,13 +8,13 @@
 
   <div class="row pb-3">
     <div class="z-1 col text-truncate">
-      <% fa_gen(" #{@user.name}", "fa-user") %>
+      <% fa_gen(@user.name, "fa-user", space: true) %>
     </div>
   </div>
 
   <div class="row">
     <div class="z-1 col fw-bold">
-      <% fa_gen(" #{@user.roles_name.first.capitalize}", "fa-eye") %>
+      <% fa_gen(@user.roles_name.first.capitalize, "fa-eye", space: true) %>
     </div>
   </div>
 </div>

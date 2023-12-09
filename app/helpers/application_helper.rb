@@ -9,7 +9,7 @@ module ApplicationHelper
 
   def fa_btn_gen(text, url, icons)
     content_tag(:a, "", set_url_params_for(url)) do
-      fa_gen(" #{text}", icons)
+      fa_gen(text, icons, space: true)
     end
   end
 
@@ -21,15 +21,17 @@ module ApplicationHelper
     end
 
     content_tag :div, id: "flash-#{type}" do
-      fa_gen(" #{msg}", "fa-circle-#{logo}")
+      fa_gen(msg, "fa-circle-#{logo}", space: true)
     end
   end
 
   private
 
-  def fa_gen(content, fa_styles)
+  def fa_gen(content, fa_styles, space: false)
     concat(content_tag(:i, "", class: "fa-solid #{fa_styles}"))
-    concat(content_tag(:span, content.to_s))
+
+    concat(content_tag(:span, " ")) if space
+    concat(content_tag(:span, content))
   end
 
   def set_url_params_for(url)
