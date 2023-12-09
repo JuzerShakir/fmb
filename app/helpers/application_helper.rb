@@ -7,7 +7,7 @@ module ApplicationHelper
     end
   end
 
-  def render_flash_message(type, msg)
+  def render_flash(type, msg)
     logo = case type
     when "success" then "check"
     when "notice" then "exclamation"
