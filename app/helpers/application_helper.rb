@@ -1,6 +1,12 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def add_rupees_symbol_to(amount)
+    content_tag :span do
+      fa_gen(number_with_delimiter(amount), "fa-indian-rupee-sign fa-xs")
+    end
+  end
+
   def fa_btn_gen(text, url, icons)
     content_tag(:a, "", set_url_params_for(url)) do
       fa_gen(" #{text}", icons)
@@ -16,12 +22,6 @@ module ApplicationHelper
 
     content_tag :div, id: "flash-#{type}" do
       fa_gen(" #{msg}", "fa-circle-#{logo}")
-    end
-  end
-
-  def add_rupees_symbol_to(amount)
-    content_tag :span do
-      fa_gen(number_with_delimiter(amount), "fa-indian-rupee-sign fa-xs")
     end
   end
 
