@@ -4,21 +4,25 @@
 <%= render partial: "shared/actions",
       locals: {edit_path: edit_thaali_path(@thaali), destroy: @thaali} %>
 
-<div class="col-xl-3 col-lg-4 col-md-5 col-7 mx-auto mt-5">
+<div id="payment-summary" class="col-xl-3 col-lg-4 col-md-5 col-7 mx-auto mt-5">
   <div class="row fw-bold text-center">
-    <div class="col text-success">
-      <% fa_gen("", "fa-hand-holding-dollar") %>
-      <%= add_rupees_symbol_to @thaali.paid %>
-    </div>
+    <% if @thaali.dues_cleared? %>
+      <div class="col fs-5 text-success">
+        <i class="fa-solid fa-check-double"></i>
+        <span>&nbsp;</span>
+        <span>Takhmeen Complete</span>
+      </div>
+    <% else %>
+      <div class="col text-success">
+        <i class="fa-solid fa-hand-holding-dollar"></i>
+        <%= add_rupees_symbol_to @thaali.paid %>
+      </div>
 
-    <div class="col text-danger">
-      <% if @thaali.dues_cleared? %>
-        <% fa_gen("", "fa-scale-balanced") %>
-      <% else %>
-        <% fa_gen("", "fa-scale-unbalanced-flip fa-bounce") %>
-      <% end %>
-      <%= add_rupees_symbol_to @thaali.balance %>
-    </div>
+      <div class="col text-danger">
+        <i class="fa-solid fa-scale-unbalanced-flip fa-bounce"></i>
+        <%= add_rupees_symbol_to @thaali.balance %>
+      </div>
+    <% end %>
   </div>
 </div>
 
