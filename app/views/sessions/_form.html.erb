@@ -1,8 +1,10 @@
-<div class="col-xl-4 col-lg-6 col-md-8 col-sm-9 bg-white bg-opacity-50 shadow-lg border border-2 border-success-subtle rounded-4 mx-auto mt-4 p-4 pt-0">
-  <%= simple_form_for :sessions, url: signup_path do |f| %>
-    <%= f.input :its, label: "ITS", hint: "Guest ITS: 12345678" %>
-    <%= f.input :password, hint: "Guest Password: 123456" %>
+<div id="form-login" class="d-flex align-items-center justify-content-center">
+  <div class="col-xl-4 col-lg-6 col-md-8 col-sm-9 bg-white bg-opacity-50 shadow-lg border border-2 border-success-subtle rounded-4 p-4 pt-0">
+    <%= simple_form_for :sessions, url: signup_path do |f| %>
+      <%= f.input :its, label: "ITS", hint: "Guest ITS: 12345678" %>
+      <%= f.input :password, hint: "Guest Password: 123456" %>
 
-    <%= f.button :submit, value: "Login" %>
-  <% end %>
+      <%= f.button :submit, value: "Login" %>
+    <% end %>
+  </div>
 </div>
