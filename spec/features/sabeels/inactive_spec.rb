@@ -4,10 +4,10 @@ require "rails_helper"
 require_relative "sabeel_helpers"
 
 RSpec.describe "Sabeel Inactive template" do
-  # rubocop:disable Rails/LetSetup
+  # rubocop:disable RSpec/LetSetup
   let(:user) { create(:user) }
   let!(:sabeels) { create_list(:burhani_sabeel_took_thaali, 2) }
-  # rubocop:enable Rails/LetSetup
+  # rubocop:enable RSpec/LetSetup
 
   before do
     page.set_rack_session(user_id: user.id)
