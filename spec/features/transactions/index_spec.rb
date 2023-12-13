@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require_relative "transaction_helpers"
 
 RSpec.describe "Transaction index template" do
   let(:user) { create(:user) }
@@ -13,28 +14,7 @@ RSpec.describe "Transaction index template" do
 
   # * ALL user types
   describe "visited by any user type can", :js do
-    describe "see all transactions details" do
-      it "recipe_no" do
-        transactions.each do |transaction|
-          recipe_no = transaction.recipe_no.to_s
-          expect(page).to have_content(recipe_no)
-        end
-      end
-
-      it "amount" do
-        transactions.each do |transaction|
-          amount = number_with_delimiter(transaction.amount)
-          expect(page).to have_content(amount)
-        end
-      end
-
-      it "date" do
-        transactions.each do |transaction|
-          date = time_ago_in_words(transaction.date)
-          expect(page).to have_content(date)
-        end
-      end
-    end
+    it_behaves_like "view transaction records"
 
     describe "search" do
       context "with recipe number" do

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require_relative "thaali_helpers"
 
 RSpec.describe "Thaali all template" do
   let(:user) { create(:user) }
@@ -14,27 +15,7 @@ RSpec.describe "Thaali all template" do
   end
 
   # * ALL user types
-  describe "visited by any user type can" do
-    describe "view all its details", :js do
-      it "thaali_number" do
-        thaalis.each do |thaali|
-          number = thaali.number
-          expect(page).to have_content(number)
-        end
-      end
-
-      it "name" do
-        thaalis.each do |thaali|
-          sabeel = thaali.sabeel
-          expect(page).to have_content(sabeel.name)
-        end
-      end
-
-      it "balance" do
-        thaalis.each do |thaali|
-          expect(page).to have_content(number_with_delimiter(thaali.balance))
-        end
-      end
-    end
+  describe "visited by any user type can", :js do
+    it_behaves_like "view thaali records"
   end
 end

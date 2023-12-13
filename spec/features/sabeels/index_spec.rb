@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require_relative "sabeel_helpers"
 
 RSpec.describe "Sabeel Index template" do
   let(:user) { create(:user) }
@@ -15,19 +16,7 @@ RSpec.describe "Sabeel Index template" do
   describe "visited by any user type", :js do
     let(:sabeels) { Sabeel.first(2) }
 
-    describe "shows all sabeel details" do
-      it "ITS number" do
-        sabeels.each { |sabeel| expect(page).to have_content(sabeel.its) }
-      end
-
-      it "name" do
-        sabeels.each { |sabeel| expect(page).to have_content(sabeel.name) }
-      end
-
-      it "apartment" do
-        sabeels.each { |sabeel| expect(page).to have_content(sabeel.apartment.titleize) }
-      end
-    end
+    it_behaves_like "view sabeel records"
 
     describe "can search with name" do
       let(:first) { Sabeel.first }

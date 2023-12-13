@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require_relative "../transactions/transaction_helpers"
 require_relative "../shared_helpers"
 
 RSpec.describe "Thaali show template" do
@@ -35,13 +36,13 @@ RSpec.describe "Thaali show template" do
 
         it "balance amount is not shown" do
           within("#payment-summary") do
-            expect(page).not_to have_content(number_with_delimiter(thaali.balance))
+            expect(page).not_to have_content(number_to_human(thaali.balance, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
           end
         end
 
         it "paid amount is not shown" do
           within("#payment-summary") do
-            expect(page).not_to have_content(number_with_delimiter(thaali.paid))
+            expect(page).not_to have_content(number_to_human(thaali.paid, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
           end
         end
 
@@ -54,15 +55,13 @@ RSpec.describe "Thaali show template" do
     end
 
     describe "transaction details" do
-      let(:transaction) { thaali.transactions.first }
+      let(:transactions) { thaali.transactions }
 
       it do
         expect(page).to have_content("Total number of Transactions: #{thaali.transactions.count}")
       end
 
-      it { expect(page).to have_content(transaction.recipe_no.to_s) }
-      it { expect(page).to have_content(number_with_delimiter(transaction.amount)) }
-      it { expect(page).to have_content(time_ago_in_words(transaction.date)) }
+      it_behaves_like "view transaction records"
     end
   end
 

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require_relative "sabeel_helpers"
 
 RSpec.describe "Sabeel Active template" do
   let(:user) { create(:user) }
-  let!(:sabeel) { create(:burhani_sabeel_taking_thaali) }
+  let!(:sabeels) { create_list(:burhani_sabeel_taking_thaali, 2) }
 
   before do
     page.set_rack_session(user_id: user.id)
@@ -14,6 +15,7 @@ RSpec.describe "Sabeel Active template" do
   # * ALL user types
   describe "visited by any user type", :js do
     describe "Generate PDF button" do
+      let(:sabeel) { sabeels.first }
       let(:thaali) { sabeel.thaalis.first }
 
       it { expect(page).to have_link("Generate PDF") }
@@ -34,9 +36,7 @@ RSpec.describe "Sabeel Active template" do
     end
 
     describe "showing active sabeel details" do
-      it { expect(page).to have_content(sabeel.its) }
-      it { expect(page).to have_content(sabeel.name) }
-      it { expect(page).to have_content(sabeel.apartment.titleize) }
+      it_behaves_like "view sabeel records"
     end
   end
 end
