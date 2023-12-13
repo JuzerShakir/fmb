@@ -5,8 +5,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(its: params[:sessions][:its])
-    if user&.authenticate(params[:sessions][:password])
+    user = User.authenticate_by(user_params)
+    if user
       session[:user_id] = user.id
 
       respond_to do |format|
@@ -22,5 +22,11 @@ class SessionsController < ApplicationController
     Rails.cache.delete("user_#{current_user.id}_role")
     session[:user_id] = nil
     redirect_to login_path, success: t(".success")
+  end
+
+  private
+
+  def user_params
+    params.require(:sessions).permit(:its, :password)
   end
 end
