@@ -18,14 +18,14 @@ RSpec.describe "Thaali Stats template" do
     it "Total" do
       within("div##{CURR_YR}") do
         total = thaalis.sum(:total)
-        expect(page).to have_content(number_with_delimiter(total))
+        expect(page).to have_content(number_to_human(total, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
       end
     end
 
     it "Balance" do
       within("div##{CURR_YR}") do
         balance = thaalis.sum(&:balance)
-        expect(page).to have_content(number_with_delimiter(balance))
+        expect(page).to have_content(number_to_human(balance, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
       end
     end
 

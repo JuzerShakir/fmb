@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require_relative "../shared_helpers"
 
 RSpec.describe "Sabeel Show template" do
   let(:sabeel) { create(:sabeel_taking_thaali) }
@@ -27,8 +28,14 @@ RSpec.describe "Sabeel Show template" do
     describe "thaali details" do
       it { expect(page).to have_content("Total number of Thaalis: #{count}") }
       it { expect(page).to have_content(thaali.year) }
-      it { expect(page).to have_content(number_with_delimiter(thaali.total)) }
-      it { expect(page).to have_content(number_with_delimiter(thaali.balance)) }
+
+      it_behaves_like "abbreviated numbers" do
+        let(:number) { thaali.total }
+      end
+
+      it_behaves_like "abbreviated numbers" do
+        let(:number) { thaali.balance }
+      end
     end
   end
 

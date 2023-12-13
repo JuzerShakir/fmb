@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require_relative "../shared_helpers"
 
 RSpec.describe "Thaali show template" do
   let(:thaali) { create(:taking_thaali_partial_amount_paid) }
@@ -16,9 +17,18 @@ RSpec.describe "Thaali show template" do
 
     describe "thaali details" do
       it { expect(page).to have_content(thaali.size.humanize) }
-      it { expect(page).to have_content(number_with_delimiter(thaali.total)) }
-      it { expect(page).to have_content(number_with_delimiter(thaali.balance)) }
-      it { expect(page).to have_content(number_with_delimiter(thaali.paid)) }
+
+      it_behaves_like "abbreviated numbers" do
+        let(:number) { thaali.total }
+      end
+
+      it_behaves_like "abbreviated numbers" do
+        let(:number) { thaali.paid }
+      end
+
+      it_behaves_like "abbreviated numbers" do
+        let(:number) { thaali.balance }
+      end
 
       describe "if its dues are cleared" do
         let(:thaali) { create(:taking_thaali_dues_cleared) }
