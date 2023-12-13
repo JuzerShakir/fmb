@@ -28,7 +28,7 @@
   <div class="row pb-2">
     <div class="col">
       <span>has voluntarily contributed an amount</span>
-      <span class="fw-bold"><%= add_rupees_symbol_to @transaction.amount %></span>
+      <span class="fw-bold"><%= add_rupees_symbol_to(@transaction.amount, delimiter: true) %></span>
     </div>
   </div>
 

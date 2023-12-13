@@ -1,9 +1,10 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  def add_rupees_symbol_to(amount)
+  def add_rupees_symbol_to(amount, delimiter: false)
     content_tag :span do
-      fa_gen(number_with_delimiter(amount), "fa-indian-rupee-sign fa-xs")
+      fa_gen(delimiter ? number_with_delimiter(amount) : number_to_social(amount),
+        "fa-indian-rupee-sign fa-xs")
     end
   end
 
@@ -36,6 +37,15 @@ module ApplicationHelper
     when "notice" then "exclamation"
     when "alert" then "xmark"
     end
+  end
+
+  def number_to_social(number)
+    number_to_human(number,
+      precision: 1,
+      round_mode: :down,
+      significant: false,
+      format: "%n%u",
+      units: {thousand: "K", million: "M"})
   end
 
   def set_url_params_for(url)
