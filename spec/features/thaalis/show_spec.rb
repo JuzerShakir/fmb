@@ -69,8 +69,7 @@ RSpec.describe "Thaali show template" do
     let(:user) { create(:user_admin_or_member) }
 
     describe "action buttons" do
-      it { expect(page).to have_link("Edit") }
-      it { expect(page).to have_button("Delete") }
+      it_behaves_like "show_edit_delete"
 
       describe "New Transaction button" do
         context "when amount is partially paid" do
@@ -90,8 +89,8 @@ RSpec.describe "Thaali show template" do
     let(:user) { create(:viewer_user) }
 
     describe "action buttons" do
-      it { expect(page).not_to have_link("Edit") }
-      it { expect(page).not_to have_button("Delete") }
+      it_behaves_like "hide_edit_delete"
+
       it { expect(page).not_to have_link("New Transaction") }
     end
   end
