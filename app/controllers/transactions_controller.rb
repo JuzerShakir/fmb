@@ -53,10 +53,8 @@ class TransactionsController < ApplicationController
   end
 
   def destroy
-    @thaali = @transaction.thaali
-
     @transaction.destroy
-    redirect_to @thaali, success: t(".success")
+    redirect_to @transaction.thaali, success: t(".success")
   end
 
   private
