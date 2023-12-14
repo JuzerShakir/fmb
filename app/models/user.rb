@@ -27,6 +27,10 @@ class User < ApplicationRecord
     cache_role == role
   end
 
+  def role
+    cache_role
+  end
+
   private
 
   # * Custom Validations
