@@ -3,7 +3,7 @@
 require "rails_helper"
 require_relative "transaction_helpers"
 
-RSpec.describe "Transaction index template" do
+RSpec.describe "Transaction all template" do
   let(:user) { create(:user) }
   let!(:transactions) { create_list(:transaction, 2) }
 
