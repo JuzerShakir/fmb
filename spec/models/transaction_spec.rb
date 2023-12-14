@@ -44,7 +44,7 @@ RSpec.describe Transaction do
     end
 
     context "with date" do
-      today_str = Date.current.strftime("%e %B %Y")
+      today = Date.current.to_fs(:short)
 
       it { is_expected.to validate_presence_of(:date).with_message("selection is required") }
 
@@ -53,7 +53,7 @@ RSpec.describe Transaction do
       describe "will NOT raise an error for past dates" do
         subject { create(:transaction).errors[:date] }
 
-        it { is_expected.not_to include("must be on or before #{today_str}") }
+        it { is_expected.not_to include("must be on or before #{today}") }
       end
 
       context "when in future" do
@@ -62,7 +62,7 @@ RSpec.describe Transaction do
           transaction.validate
         end
 
-        it { expect(transaction.errors[:date]).to include("must be on or before #{today_str}") }
+        it { expect(transaction.errors[:date]).to include("must be on or before #{today}") }
       end
     end
 

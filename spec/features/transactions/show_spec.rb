@@ -19,7 +19,7 @@ RSpec.describe "Transaction show template" do
       it { expect(page).to have_content(transaction.recipe_no) }
       it { expect(page).to have_content(number_with_delimiter(transaction.amount)) }
       it { expect(page).to have_content(transaction.mode.capitalize) }
-      it { expect(page).to have_content(transaction.date.to_time.strftime("%A, %b %d %Y")) }
+      it { expect(page).to have_content(transaction.date.to_fs(:long)) }
     end
   end
 
