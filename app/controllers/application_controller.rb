@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   add_flash_types :success, :notice
   helper_method :current_user
 
-  rescue_from CanCan::AccessDenied do |exception|
+  rescue_from CanCan::AccessDenied do
     flash[:alert] = t("flash.un_authorize")
 
     if current_user.nil?
