@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    # let this be explicit to avoid PG::UniqueViolation exception in test suite
+    # let this be explicit to avoid PG::UniqueViolation exception
     @user = User.new(user_params)
 
     if @user.save
