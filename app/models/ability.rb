@@ -9,19 +9,20 @@ class Ability
   def initialize(user)
     return if user.blank?
 
-    if user.is? "admin"
+    case user.role
+    when "admin"
       can :manage, User, id: user.id
       can [:show, :destroy], User
       can :manage, Sabeel
       can :manage, Thaali
       can :manage, Transaction
-    elsif user.is? "member"
+    when "member"
       can [:show, :update, :destroy], User, id: user.id
       can :manage, Sabeel
       cannot [:create, :destroy], Sabeel
       can :manage, Thaali
       can :manage, Transaction
-    elsif user.is? "viewer"
+    when "viewer"
       can [:read, :stats, :active, :inactive], Sabeel
       can [:read, :stats, :complete, :pending, :all], Thaali
       can [:all, :show], Transaction
