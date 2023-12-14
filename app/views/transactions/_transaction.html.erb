@@ -13,15 +13,15 @@
       <h6>A/c Faiz Al Mawaid Burhaniyah</h6>
     </div>
     <div class="col-4 text-end">
-      <h6><%= link_to("#{@thaali.number} (#{@thaali.year})", @thaali, class: "link-primary link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover") %></h6>
+      <h6><%= link_to("#{thaali.number} (#{thaali.year})", thaali, class: "link-primary link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover") %></h6>
     </div>
   </div>
 
   <div class="row pb-2">
     <div class="col">
-      <%= link_to @sabeel.name, @sabeel, class: "fst-italic fw-bold link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" %>
+      <%= link_to sabeel.name, sabeel, class: "fst-italic fw-bold link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" %>
       <span>&nbsp;from</span>
-      <span class="fw-bold"><%= @sabeel.address %></span>
+      <span class="fw-bold"><%= sabeel.address %></span>
     </div>
   </div>
 

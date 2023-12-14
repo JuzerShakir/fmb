@@ -15,18 +15,13 @@ class TransactionsController < ApplicationController
   end
 
   def show
-    @thaali = @transaction.thaali
-    @sabeel = @thaali.sabeel
   end
 
   def new
-    @total_balance = @thaali.balance
     @transaction = @thaali.transactions.new
   end
 
   def edit
-    @thaali = @transaction.thaali
-    @total_balance = @thaali.balance + @transaction.amount
   end
 
   def create
@@ -36,7 +31,6 @@ class TransactionsController < ApplicationController
     if @transaction.save
       redirect_to @transaction, success: t(".success")
     else
-      @total_balance = @thaali.balance
       render :new, status: :unprocessable_entity
     end
   end
@@ -47,7 +41,6 @@ class TransactionsController < ApplicationController
     if @transaction.update(transaction_params)
       redirect_to @transaction, success: t(".success")
     else
-      @total_balance = @thaali.balance + @transaction.amount_was
       render :edit, status: :unprocessable_entity
     end
   end

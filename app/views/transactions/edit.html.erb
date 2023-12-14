@@ -1,3 +1,5 @@
+<%# locals: (total_balance: @transaction.thaali.balance + @transaction.amount_was) -%>
+
 <h2 class="heading mb-3">Edit Transaction</h2>
 
-<%= render partial: "form", locals: {url_helper: transaction_path} %>
+<%= render partial: "form", locals: {url_helper: transaction_path, total_balance:} %>

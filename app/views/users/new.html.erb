@@ -1,5 +1,7 @@
+<%# locals: (roles: Role.all.map { [_1.name.capitalize, _1.id] }) %>
+
 <%# * Title %>
 <h2 class="heading mb-3">New User</h2>
 
 <%# * Sign Up form %>
-<%= render partial: "form" %>
+<%= render partial: "form", locals: {roles:} %>

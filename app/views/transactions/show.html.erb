@@ -1,4 +1,6 @@
-<%= render @transaction %>
+<%# locals: (thaali: @transaction.thaali, sabeel: thaali.sabeel) -%>
+
+<%= render @transaction, sabeel:, thaali: %>
 
 <%# * action buttons %>
 <%= render partial: "shared/actions",

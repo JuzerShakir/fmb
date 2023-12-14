@@ -12,7 +12,6 @@ class ThaalisController < ApplicationController
 
   def show
     @transactions = @thaali.transactions.load
-    @sabeel = @thaali.sabeel
   end
 
   def new
