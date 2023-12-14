@@ -107,7 +107,7 @@ class ThaalisController < ApplicationController
   end
 
   def thaali_params
-    params.require(:thaali).permit(:number, :size, :total, year: CURR_YR)
+    params.require(:thaali).permit(:number, :size, :total)
   end
 
   def turbo_load(thaalis)
