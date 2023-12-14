@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require_relative "../shared_helpers"
 
 RSpec.describe "User show template" do
   before do
@@ -20,8 +21,7 @@ RSpec.describe "User show template" do
       end
 
       describe "action buttons" do
-        it { expect(page).to have_link("Edit") }
-        it { expect(page).to have_button("Delete") }
+        it_behaves_like "show_edit_delete"
       end
     end
   end
