@@ -11,7 +11,7 @@ module HasFriendlyId
     end
 
     def should_generate_new_friendly_id?
-      sluggables.each { |attr| attribute_changed?(attr) }
+      sluggables.each { attribute_changed? _1 }
     end
   end
 end
