@@ -1,19 +1,13 @@
 shared_examples "view transaction records" do
   it "recipe number" do
-    transactions.each do |transaction|
-      expect(page).to have_content(transaction.recipe_no)
-    end
+    transactions.each { expect(page).to have_content(_1.recipe_no) }
   end
 
   it "amount" do
-    transactions.each do |transaction|
-      expect(page).to have_content(number_to_human(transaction.amount, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
-    end
+    transactions.each { expect(page).to have_content(number_to_human(_1.amount, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"})) }
   end
 
   it "date" do
-    transactions.each do |transaction|
-      expect(page).to have_content(time_ago_in_words(transaction.date))
-    end
+    transactions.each { expect(page).to have_content(time_ago_in_words(_1.date)) }
   end
 end
