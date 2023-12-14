@@ -3,7 +3,7 @@
 
 <%# * search %>
 <%= render partial: "shared/search",
-      locals: {attr_name: "Recipe no.", path: transactions_all_path, search: :recipe_no_eq} %>
+      locals: {attr_name: "Recipe no.", path: transactions_all_path, search: :slug_start} %>
 
 <%# * show all transactions %>
 <%= render partial: "shared/results",

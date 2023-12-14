@@ -20,7 +20,7 @@ RSpec.describe "Transaction index template" do
       context "with recipe number" do
         let!(:recipe) { transactions.first.recipe_no }
 
-        before { fill_in "q_recipe_no_eq", with: recipe }
+        before { fill_in "q_slug_start", with: recipe }
 
         it { within("div#transactions") { expect(page).to have_content(recipe) } }
         it { within("div#transactions") { expect(page).not_to have_content(transactions.last.recipe_no) } }

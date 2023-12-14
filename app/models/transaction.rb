@@ -6,7 +6,7 @@ class Transaction < ApplicationRecord
 
   # * RANSACK
   include Ransackable
-  RANSACK_ATTRIBUTES = %w[recipe_no]
+  RANSACK_ATTRIBUTES = %w[slug]
 
   # * FRIENDLY_ID
   include HasFriendlyId
