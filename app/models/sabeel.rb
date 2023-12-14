@@ -15,7 +15,7 @@ class Sabeel < ApplicationRecord
 
   # * RANSACK
   include Ransackable
-  RANSACK_ATTRIBUTES = %w[name]
+  RANSACK_ATTRIBUTES = %w[slug]
   RANSACK_ASSOCIATIONS = %w[thaalis]
 
   include ITSValidation
