@@ -2,6 +2,6 @@
   <%= turbo_frame_tag :results, data: {turbo_action: "advance"} do %>
     <%= render "theader" %>
     <div id="<%= model %>"></div>
-    <%= turbo_frame_tag :pagination, loading: :lazy, src: path %>
+    <%= turbo_frame_tag :pagination, loading: :lazy, src: url %>
   <% end %>
 </div>

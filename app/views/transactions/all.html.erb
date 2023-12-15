@@ -2,7 +2,7 @@
 <h2 class="heading">Transactions</h2>
 
 <%# * search %>
-<%= render "shared/search", attr_name: "Recipe no.", path: transactions_all_path, search: :slug_start %>
+<%= render "shared/search", attr_name: "Recipe no.", url: transactions_all_path, search: :slug_start %>
 
 <%# * show all transactions %>
-<%= render "shared/results", model: "transactions", path: transactions_all_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) %>
+<%= render "shared/results", model: "transactions", url: transactions_all_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) %>

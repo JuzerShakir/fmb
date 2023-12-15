@@ -1,5 +1,5 @@
 <div id="search" class="col-lg-4 col-md-6 col-sm-8 mx-auto mt-5" role="search">
-  <%= search_form_for @q, url: path, data: {controller: "search", debounce_target: "form", turbo_frame: :results} do |f| %>
+  <%= search_form_for @q, url:, data: {controller: "search", debounce_target: "form", turbo_frame: :results} do |f| %>
 
     <% f.search_field search, placeholder: "Search by #{attr_name}", class: "form-control fst-italic fw-medium", type: "search", autocomplete: "off", data: {action: "input->search#submit"},
          # disables search with enter keypress
