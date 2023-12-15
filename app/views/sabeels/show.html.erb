@@ -1,8 +1,7 @@
 <%= render @sabeel %>
 
 <%# * action buttons %>
-<%= render partial: "shared/actions",
-      locals: {edit_path: edit_sabeel_path(@sabeel), destroy: @sabeel} %>
+<%= render "shared/actions", instance: @sabeel %>
 
 <%# * Thaalis %>
 <% if !@sabeel.taking_thaali? && !current_user.is?("viewer") %>

@@ -1,6 +1,6 @@
 <% unless current_user.is?("viewer") %>
   <div class="col-5 col-md-4 col-lg-3 col-xl-2 vstack gap-2 mx-auto mt-5">
-    <%= link_to "Edit", edit_path, class: "btn btn-info" %>
+    <%= link_to "Edit", {controller: params[:controller], action: "edit"}, class: "btn btn-info" %>
 
     <!-- DESTROY Button triggers destroy modal -->
     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
@@ -9,5 +9,5 @@
   </div>
 
   <%# * destroy Modal %>
-  <%= render partial: "shared/destroy_modal", locals: {destroy:} %>
+  <%= render "shared/destroy_modal", instance: %>
 <% end %>

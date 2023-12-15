@@ -3,8 +3,7 @@
 <%= render @thaali, sabeel: %>
 
 <%# * action buttons %>
-<%= render partial: "shared/actions",
-      locals: {edit_path: edit_thaali_path(@thaali), destroy: @thaali} %>
+<%= render "shared/actions", instance: @thaali %>
 
 <div id="payment-summary" class="col-xl-3 col-lg-4 col-md-5 col-7 mx-auto mt-5">
   <div class="row fw-bold text-center">
