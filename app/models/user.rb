@@ -19,16 +19,12 @@ class User < ApplicationRecord
   validate :must_have_a_role
 
   # * Methods
-  def cache_role
+  def role
     Rails.cache.fetch("user_#{id}_role") { roles_name.first }
   end
 
-  def is?(role)
-    cache_role == role
-  end
-
-  def role
-    cache_role
+  def is?(type)
+    role == type
   end
 
   private
