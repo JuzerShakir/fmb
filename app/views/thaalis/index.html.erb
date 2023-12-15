@@ -2,9 +2,7 @@
 <h2 class="heading">Thaalis in <span class="text-secondary"><%= CURR_YR %></span></h2>
 
 <%# * search %>
-<%= render partial: "shared/search",
-      locals: {attr_name: "Thaali no.", path: root_path, search: :number_eq} %>
+<%= render "shared/search", attr_name: "Thaali no.", path: root_path, search: :number_eq %>
 
 <%# * show all Current Year Thaalis %>
-<%= render partial: "shared/results",
-      locals: {model: "thaalis", path: root_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h)} %>
+<%= render "shared/results", model: "thaalis", path: root_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) %>

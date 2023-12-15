@@ -2,5 +2,4 @@
 <h2 class="heading">Completed Takhmeens in <span class="text-secondary"> <%= @year.to_s %></span> </h2>
 
 <%# * show all Completed Takhmeens %>
-<%= render partial: "shared/results", formats: :html,
-      locals: {model: "thaalis", path: thaalis_complete_path(format: :turbo_stream)} %>
+<%= render "shared/results", model: "thaalis", path: thaalis_complete_path(format: :turbo_stream) %>

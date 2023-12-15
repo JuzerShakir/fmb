@@ -2,5 +2,4 @@
 <h2 class="heading">Inactive Sabeels: <span class="text-secondary"><%= @apt.titleize.to_s %></span></h2>
 
 <%# * show all sabeels %>
-<%= render partial: "shared/results",
-      locals: {model: "sabeels", path: sabeels_inactive_path(format: :turbo_stream)} %>
+<%= render "shared/results", model: "sabeels", path: sabeels_inactive_path(format: :turbo_stream) %>

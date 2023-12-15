@@ -4,6 +4,4 @@
   <%= turbo_stream.append :sabeels, partial: "shared/no_results" %>
 <% end %>
 
-<%= render partial: "shared/pagy", formats: :html,
-  locals: { path: sabeels_path(format: :turbo_stream, page: @pagy.next, q: params[:q]&.to_unsafe_h)}
-%>
+<%= render "shared/pagy", path: sabeels_path(format: :turbo_stream, page: @pagy.next, q: params[:q]&.to_unsafe_h) %>

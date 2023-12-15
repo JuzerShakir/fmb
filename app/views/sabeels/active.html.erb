@@ -7,5 +7,4 @@
 </div>
 
 <%# * show all sabeels %>
-<%= render partial: "shared/results",
-      locals: {model: "sabeels", path: sabeels_active_path(format: :turbo_stream)} %>
+<%= render "shared/results", model: "sabeels", path: sabeels_active_path(format: :turbo_stream) %>

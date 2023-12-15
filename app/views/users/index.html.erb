@@ -4,9 +4,9 @@
 <%# * show all users %>
 <div class="col-lg-5 mt-5 container text-center border border-4 border-secondary shadow rounded-4 bg-white bg-opacity-75">
   <% if @users.any? %>
-    <%= render partial: "theader" %>
+    <%= render "theader" %>
     <%= render "users" %>
   <% else %>
-    <%= render partial: "shared/no_results" %>
+    <%= render "shared/no_results" %>
   <% end %>
 </div>

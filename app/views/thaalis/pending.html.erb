@@ -2,5 +2,4 @@
 <h2 class="heading">Pending Takhmeens in <span class="text-secondary"> <%= @year.to_s %></span> </h2>
 
 <%# * show all Pending Takhmeens %>
-<%= render partial: "shared/results",
-      locals: {model: "thaalis", path: thaalis_pending_path(format: :turbo_stream)} %>
+<%= render "shared/results", model: "thaalis", path: thaalis_pending_path(format: :turbo_stream) %>

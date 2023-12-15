@@ -20,9 +20,9 @@
             <% end %>
 
             <%# * Resources %>
-            <%= render partial: "shared/navbar/resources_dropdown" %>
+            <%= render "shared/navbar/resources_dropdown" %>
             <%# * Statistics %>
-            <%= render partial: "shared/navbar/statistics_dropdown" %>
+            <%= render "shared/navbar/statistics_dropdown" %>
             <%# * User Dropdown %>
             <% case current_user.role %>
             <% when "admin" %>
@@ -36,7 +36,7 @@
             <% end %>
           <% else %>
             <%# * Contact %>
-            <%= render partial: "shared/navbar/contact" %>
+            <%= render "shared/navbar/contact" %>
             <%# * About %>
             <li id="about">
               <%= link_to "About", "https://www.thedawoodibohras.com/about-the-bohras/faiz-al-mawaid-al-burhaniyah/", target: :_blank, class: "nav-item nav-link", rel: :noopener %>
