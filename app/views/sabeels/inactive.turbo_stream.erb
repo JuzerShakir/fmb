@@ -4,4 +4,4 @@
   <%= turbo_stream.append :sabeels, partial: "shared/no_results" %>
 <% end %>
 
-<%= render "shared/pagy", path: sabeels_inactive_path(format: :turbo_stream, page: @pagy.next) %>
+<%= render "shared/pagy", src: sabeels_inactive_path(format: :turbo_stream, page: @pagy.next) %>
