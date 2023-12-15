@@ -24,12 +24,15 @@
             <%# * Statistics %>
             <%= render partial: "shared/navbar/statistics_dropdown" %>
             <%# * User Dropdown %>
-            <% if current_user.is? "admin" %>
-              <%= render partial: "shared/navbar/admin_dropdown" %>
-            <% elsif current_user.is? "member" %>
-              <%= render partial: "shared/navbar/member_dropdown" %>
+            <% case current_user.role %>
+            <% when "admin" %>
+            <%= render "shared/navbar/admin_dropdown" %>
+            <% when "member" %>
+              <%= render "shared/navbar/member_dropdown" %>
             <% else %>
-              <li id="viewer"><%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-danger fw-bold" %></li>
+              <li id="viewer">
+                <%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-danger fw-bold" %>
+              </li>
             <% end %>
           <% else %>
             <%# * Contact %>
