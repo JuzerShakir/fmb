@@ -24,3 +24,9 @@
 	@extend .fw-medium;
 	@extend .mb-3;
 }
+
+mark {
+	padding: 0 !important;
+	color: $success !important;
+	background-color: $lighter !important;
+}

@@ -1,7 +1,7 @@
 <% @transactions.each do |transaction| %>
   <div id="<%= dom_id(transaction) %>" class="row py-2">
     <div class="col">
-      <%= link_to transaction.recipe_no, transaction, class: "btn btn-outline-primary btn-sm px-sm-2 px-lg-4" %>
+      <%= highlight(link_to(transaction.recipe_no, transaction, class: "btn btn-outline-primary btn-sm px-sm-2 px-lg-4"), params.dig(:q, :slug_start)) %>
     </div>
     <div class="col text-info fw-medium">
       <%= add_rupees_symbol_to transaction.amount %>

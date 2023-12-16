@@ -1,7 +1,7 @@
 <% @thaalis.each do |thaali| %>
   <div id="<%= dom_id(thaali) %>" class="row py-2">
     <div class="col">
-      <%= link_to thaali.number, thaali, class: "btn btn-outline-primary btn-sm px-sm-3 px-lg-4" %>
+      <%= highlight(link_to(thaali.number, thaali, class: "btn btn-outline-primary btn-sm px-sm-3 px-lg-4"), params.dig(:q, :number_eq)) %>
     </div>
     <div class="col text-info fw-medium text-truncate">
       <%= thaali.sabeel.name %>
