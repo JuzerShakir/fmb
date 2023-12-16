@@ -3,6 +3,8 @@ class Sabeel < ApplicationRecord
   has_many :thaalis, dependent: :destroy
   has_many :transactions, through: :thaalis
 
+  default_scope { order(its: :asc) }
+
   # * Callbacks
   include NameCallback
 
@@ -29,9 +31,9 @@ class Sabeel < ApplicationRecord
 
   scope :not_taking_thaali, -> { no_thaali.union(took_thaali) }
 
-  scope :not_taking_thaali_in, ->(apartment) { where(apartment:).not_taking_thaali.order(flat_no: :asc) }
+  scope :not_taking_thaali_in, ->(apartment) { where(apartment:).not_taking_thaali.reorder(flat_no: :asc) }
 
-  scope :taking_thaali, -> { thaalis.where(thaalis: {year: CURR_YR}).order(flat_no: :asc) }
+  scope :taking_thaali, -> { thaalis.where(thaalis: {year: CURR_YR}).reorder(flat_no: :asc) }
 
   scope :taking_thaali_in_year, ->(year) { thaalis.where(thaalis: {year:}) }
 
