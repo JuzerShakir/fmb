@@ -7,6 +7,28 @@
 # more about custom components.
 # Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }
 #
+
+module DisableOnSubmit
+  def submit(field, options = {})
+    if field.is_a?(Hash)
+      field[:data] ||= {}
+      field[:data][:turbo_submits_with] ||= inspect_action(field[:action_name])
+    end
+    super(field, options)
+  end
+
+  def inspect_action(type)
+    if type.nil?
+      "Processing..."
+    elsif type == "new"
+      "Creating..."
+    else
+      "Updating..."
+    end
+  end
+end
+SimpleForm::FormBuilder.prepend(DisableOnSubmit)
+
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Wrappers are used by the form builder to generate a

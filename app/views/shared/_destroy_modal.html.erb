@@ -13,7 +13,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-        <%= button_to "Yes, delete it!", instance, method: :delete, class: "btn btn-danger" %>
+        <%= button_to "Yes, delete it!", instance, method: :delete, data: {turbo_submits_with: "Deleting..."}, class: "btn btn-danger" %>
       </div>
     </div>
   </div>

@@ -4,7 +4,7 @@
       <%= f.input :its, label: "ITS", hint: "Guest ITS: 12345678" %>
       <%= f.input :password, hint: "Guest Password: 12345678" %>
 
-      <%= f.button :submit, value: "Login" %>
+      <%= f.button :submit, value: "Login", data: {turbo_submits_with: "Logging in..."} %>
     <% end %>
   </div>
 </div>
