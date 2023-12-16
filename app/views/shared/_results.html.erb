@@ -1,5 +1,5 @@
 <div class="container text-center my-5 border border-4 border-secondary rounded-4 shadow-lg bg-white bg-opacity-75">
-  <%= turbo_frame_tag :results, data: {turbo_action: "advance"} do %>
+  <%= turbo_frame_tag :results do %>
     <%= render "theader" %>
     <div id="<%= model %>"></div>
     <%= turbo_frame_tag :pagination, loading: :lazy, src: url %>
