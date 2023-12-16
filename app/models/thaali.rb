@@ -27,7 +27,7 @@ class Thaali < ApplicationRecord
 
   scope :dues_unpaid, -> { no_transaction.union(partial_amount_paid) }
 
-  scope :dues_unpaid_for, ->(year) { for_year(year).dues_unpaid }
+  scope :dues_unpaid_for, ->(year) { for_year(year).dues_unpaid.order(number: :asc) }
 
   scope :for_year, ->(year) { where(year: year).order(number: :ASC) }
 
