@@ -3,6 +3,8 @@ class Thaali < ApplicationRecord
   belongs_to :sabeel
   has_many :transactions, dependent: :destroy
 
+  delegate :its, :name, to: :sabeel, prefix: :sabeel
+
   # * RANSACK
   include Ransackable
   RANSACK_ATTRIBUTES = %w[number]

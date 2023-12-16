@@ -57,9 +57,7 @@ RSpec.describe "Thaali show template" do
     describe "transaction details" do
       let(:transactions) { thaali.transactions }
 
-      it do
-        expect(page).to have_content("Total number of Transactions: #{thaali.transactions.count}")
-      end
+      it { expect(page).to have_content("Total number of Transactions: #{transactions.count}") }
 
       it_behaves_like "view transaction records"
     end

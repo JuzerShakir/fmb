@@ -37,7 +37,7 @@ class ActiveSabeels < Prawn::Document
       @sabeels.map.with_index do |sabeel, i|
         n = i + 1
         t = sabeel.thaalis.last
-        [n, sabeel.flat_no, t.number, sabeel.name, t.size.chr.capitalize, sabeel.mobile]
+        [n, sabeel.flat_no, t.number, t.sabeel_name, t.size.chr.capitalize, sabeel.mobile]
       end
   end
 

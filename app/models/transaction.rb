@@ -4,6 +4,9 @@ class Transaction < ApplicationRecord
   # * Associations
   belongs_to :thaali
 
+  delegate :number, :year, :balance, to: :thaali, prefix: :thaali
+  delegate :sabeel, to: :thaali
+
   # * RANSACK
   include Ransackable
   RANSACK_ATTRIBUTES = %w[slug]

@@ -4,7 +4,7 @@ shared_examples "view thaali records" do
   end
 
   it "name" do
-    thaalis.each { expect(page).to have_content(_1.sabeel.name) }
+    thaalis.each { expect(page).to have_content(_1.sabeel_name) }
   end
 
   it "balance" do
