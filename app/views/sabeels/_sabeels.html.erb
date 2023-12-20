@@ -1,10 +1,7 @@
 <% @sabeels.each do |sabeel| %>
   <div id="<%= dom_id(sabeel) %>" class="row py-2">
-    <div class="col">
-      <%= highlight(link_to(sabeel.its, sabeel, class: "btn btn-outline-primary btn-sm px-sm-2 px-lg-4"), params.dig(:q, :slug_start)) %>
-    </div>
-    <div class="col text-truncate text-info fw-medium">
-      <%= sabeel.name %>
+    <div class="col-7 text-truncate fw-medium">
+      <%= link_to sabeel.name, sabeel, class: "link-primary link-offset-2 link-underline link-underline-opacity-25 link-underline-opacity-75-hover" %>
     </div>
     <div class="col text-info">
       <%= sabeel.apartment.titleize %>

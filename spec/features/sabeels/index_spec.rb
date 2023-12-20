@@ -26,8 +26,8 @@ RSpec.describe "Sabeel Index template" do
 
       before { fill_in "q_slug_start", with: first.its }
 
-      it { within("div#sabeels") { expect(page).to have_content(first.its) } }
-      it { within("div#sabeels") { expect(page).not_to have_content(last.its) } }
+      it { within("div#sabeels") { expect(page).to have_content(first.name) } }
+      it { within("div#sabeels") { expect(page).not_to have_content(last.name) } }
     end
   end
 end
