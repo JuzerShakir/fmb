@@ -14,6 +14,8 @@ RSpec.describe "Sabeel Stats template" do
 
   # * ALL user types
   describe "visited by any user type" do
+    it { expect(page).to have_title "Sabeel Statistics" }
+
     describe "shows statistics of burhani building for current year" do
       let(:active_burhani_sabeels) { Sabeel.burhani.taking_thaali }
 

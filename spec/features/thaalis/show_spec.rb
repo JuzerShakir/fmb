@@ -16,6 +16,8 @@ RSpec.describe "Thaali show template" do
   describe "visited by any user type can view" do
     let(:user) { create(:user) }
 
+    it { expect(page).to have_title "Thaali no. #{thaali.number}" }
+
     describe "thaali details" do
       it { expect(page).to have_content(thaali.size.humanize) }
 

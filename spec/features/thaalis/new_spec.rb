@@ -14,6 +14,8 @@ RSpec.describe "Thaali new template" do
   describe "Admin or Member" do
     let(:user) { create(:user_admin_or_member) }
 
+    it { expect(page).to have_title "New Thaali" }
+
     context "when sabeel DIDN'T take it in previous year" do
       describe "displays with empty form fields" do
         it { expect(find_field("Number").value).to be_nil }

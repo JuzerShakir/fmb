@@ -14,6 +14,8 @@ RSpec.describe "User index template" do
   describe "visited by admin" do
     let(:user) { create(:admin_user) }
 
+    it { expect(page).to have_title "Users" }
+
     describe "can see all users details" do
       it "name" do
         expect(page).to have_content(other_user.name)

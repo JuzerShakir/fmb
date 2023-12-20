@@ -13,6 +13,8 @@ RSpec.describe "User show template" do
   describe "visited by 'Admin' & 'Member'" do
     let(:user) { create(:user_admin_or_member) }
 
+    it { expect(page).to have_title "User: #{user.name}" }
+
     describe "can view" do
       describe "user details" do
         it { within("#user") { expect(page).to have_content(user.name) } }

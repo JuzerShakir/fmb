@@ -4,16 +4,19 @@ require "rails_helper"
 require_relative "sabeel_helpers"
 
 RSpec.describe "Sabeel Active template" do
+  let(:apt) { "Burhani" }
   let(:user) { create(:user) }
   let!(:sabeels) { create_list(:burhani_sabeel_taking_thaali, 2) }
 
   before do
     page.set_rack_session(user_id: user.id)
-    visit sabeels_active_path("burhani")
+    visit sabeels_active_path(apt.downcase)
   end
 
   # * ALL user types
   describe "visited by any user type", :js do
+    it { expect(page).to have_title "Active Sabeels - #{apt}" }
+
     describe "Generate PDF button" do
       let(:sabeel) { sabeels.first }
       let(:thaali) { sabeel.thaalis.first }
@@ -21,12 +24,12 @@ RSpec.describe "Sabeel Active template" do
       it { expect(page).to have_link("Generate PDF") }
       it { expect(page).to have_css(".fa-file-pdf") }
 
-      describe "Generates PDF of burhani building" do
+      describe "Generates PDF of an apartment" do # rubocop:disable RSpec/MultipleMemoizedHelpers
         let(:pdf_window) { switch_to_window(windows.last) }
 
         before { click_link("Generate PDF") }
 
-        it { within_window pdf_window { expect(page).to have_content("Burhani - #{CURR_YR}") } }
+        it { within_window pdf_window { expect(page).to have_content("#{apt} - #{CURR_YR}") } }
         it { within_window pdf_window { expect(page).to have_content(sabeel.flat_no) } }
         it { within_window pdf_window { expect(page).to have_content(sabeel.name) } }
         it { within_window pdf_window { expect(page).to have_content(sabeel.mobile) } }

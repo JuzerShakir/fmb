@@ -14,6 +14,8 @@ RSpec.describe "Transaction all template" do
 
   # * ALL user types
   describe "visited by any user type can", :js do
+    it { expect(page).to have_title "Transactions" }
+
     it_behaves_like "view transaction records"
 
     describe "search" do

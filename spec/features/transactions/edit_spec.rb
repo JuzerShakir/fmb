@@ -15,6 +15,8 @@ RSpec.describe "Transaction edit template" do
   describe "visited by Admin or Member" do
     let(:user) { create(:user_admin_or_member) }
 
+    it { expect(page).to have_title "Edit Transaction" }
+
     it "displays correct amount limit (total) as a hint" do
       within(".transaction_amount") do
         expect(page).to have_css("small", text: "Amount shouldn't be greater than: ₹#{total}")

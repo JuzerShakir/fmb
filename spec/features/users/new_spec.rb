@@ -26,6 +26,8 @@ RSpec.describe "User new template" do
       end
     end
 
+    it { expect(page).to have_title "New User" }
+
     context "with valid values" do
       before { click_button "Create User" }
 

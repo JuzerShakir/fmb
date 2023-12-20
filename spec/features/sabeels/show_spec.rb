@@ -17,6 +17,8 @@ RSpec.describe "Sabeel Show template" do
   describe "visited by any user type can view" do
     let(:user) { create(:user) }
 
+    it { expect(page).to have_title sabeel.name }
+
     describe "sabeel details" do
       it { expect(page).to have_content(sabeel.its) }
       it { expect(page).to have_content(sabeel.name) }

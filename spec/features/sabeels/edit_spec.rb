@@ -11,6 +11,8 @@ RSpec.describe "Sabeel Edit template" do
     visit edit_sabeel_path(sabeel)
   end
 
+  it { expect(page).to have_title "Edit Sabeel" }
+
   # * Admin & Member types
   describe "updating sabeel" do
     context "with valid values" do

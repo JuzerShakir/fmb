@@ -13,6 +13,8 @@ RSpec.describe "Thaali edit template" do
 
   # * Admins & Members
   describe "by Admin or Member" do
+    it { expect(page).to have_title "Edit Thaali" }
+
     describe "updating it" do
       context "with valid values" do
         before do

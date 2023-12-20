@@ -16,6 +16,8 @@ RSpec.describe "Sabeel Index template" do
   describe "visited by any user type", :js do
     let(:sabeels) { Sabeel.first(2) }
 
+    it { expect(page).to have_title "Sabeels" }
+
     it_behaves_like "view sabeel records"
 
     describe "can search with ITS" do

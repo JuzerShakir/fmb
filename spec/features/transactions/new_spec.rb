@@ -18,6 +18,8 @@ RSpec.describe "Transaction new template" do
       fill_in "transaction_amount", with: 1
     end
 
+    it { expect(page).to have_title "New Transaction" }
+
     context "with valid values" do
       let(:new_transaction) { Transaction.last }
 

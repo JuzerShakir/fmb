@@ -8,6 +8,8 @@ RSpec.describe "Sessions New template" do
   context "when user is not logged in" do
     before { visit login_path }
 
+    it { expect(page).to have_title "Login" }
+
     it "shows footer" do
       expect(page).to have_css("#footer")
     end

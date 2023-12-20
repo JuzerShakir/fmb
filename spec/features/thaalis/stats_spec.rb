@@ -13,6 +13,8 @@ RSpec.describe "Thaali Stats template" do
     visit thaalis_stats_path
   end
 
+  it { expect(page).to have_title "Thaali Statistics" }
+
   # * All user types
   describe "shows statistic details of all thaalis for current year" do
     it "Total" do

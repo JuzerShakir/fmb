@@ -16,6 +16,8 @@ RSpec.describe "Thaali index template" do
 
   # * ALL user types
   describe "visited by any user type can", :js do
+    it { expect(page).to have_title "Thaalis" }
+
     it_behaves_like "view thaali records"
 
     describe "search" do
