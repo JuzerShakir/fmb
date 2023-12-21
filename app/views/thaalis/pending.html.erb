@@ -1,7 +1,7 @@
 <% content_for :title, "Pending Takhmeens in #{@year}" %>
 
 <%# * Heading %>
-<h2 class="heading">Pending Takhmeens in <span class="text-secondary"> <%= @year.to_s %></span> </h2>
+<h2 class="heading">Pending Takhmeens in <span class="text-secondary"> <%= @year %></span> </h2>
 
 <%# * show all Pending Takhmeens %>
 <%= render "shared/results", model: "thaalis", url: thaalis_pending_path(format: :turbo_stream) %>

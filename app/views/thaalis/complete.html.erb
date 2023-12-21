@@ -1,7 +1,7 @@
 <% content_for :title, "Completed Takhmeens in #{@year}" %>
 
 <%# * Heading %>
-<h2 class="heading">Completed Takhmeens in <span class="text-secondary"> <%= @year.to_s %></span> </h2>
+<h2 class="heading">Completed Takhmeens in <span class="text-secondary"> <%= @year %></span> </h2>
 
 <%# * show all Completed Takhmeens %>
 <%= render "shared/results", model: "thaalis", url: thaalis_complete_path(format: :turbo_stream) %>
