@@ -4,7 +4,7 @@
 <h2 class="heading">Sabeels</h2>
 
 <%# * search %>
-<%= render "shared/search", attr_name: "ITS", url: sabeels_path, search: :slug_start %>
+<%= render "shared/search", attr_name: "ITS or Name", url: sabeels_path, search: :slug_or_name_cont %>
 
 <%# * show all sabeels %>
 <%= render "shared/results", model: "sabeels", url: sabeels_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) %>

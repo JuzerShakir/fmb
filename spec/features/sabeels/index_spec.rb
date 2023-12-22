@@ -20,14 +20,23 @@ RSpec.describe "Sabeel Index template" do
 
     it_behaves_like "view sabeel records"
 
-    describe "can search with ITS" do
+    describe "can search" do
       let(:first) { Sabeel.first }
       let(:last) { Sabeel.last }
 
-      before { fill_in "q_slug_start", with: first.its }
+      context "with ITS" do
+        before { fill_in "q_slug_or_name_cont", with: first.its }
 
-      it { within("div#sabeels") { expect(page).to have_content(first.name) } }
-      it { within("div#sabeels") { expect(page).not_to have_content(last.name) } }
+        it { within("div#sabeels") { expect(page).to have_content(first.name) } }
+        it { within("div#sabeels") { expect(page).not_to have_content(last.name) } }
+      end
+
+      context "with name" do
+        before { fill_in "q_slug_or_name_cont", with: last.name }
+
+        it { within("div#sabeels") { expect(page).to have_content(last.name) } }
+        it { within("div#sabeels") { expect(page).not_to have_content(first.name) } }
+      end
     end
   end
 end
