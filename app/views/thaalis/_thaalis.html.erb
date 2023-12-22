@@ -1,7 +1,7 @@
 <% @thaalis.each do |thaali| %>
-  <div id="<%= dom_id(thaali) %>" class="row py-2">
-    <div class="col">
-      <%= highlight(link_to(thaali.number, thaali, class: "btn btn-outline-primary btn-sm px-sm-3 px-lg-4"), params.dig(:q, :number_eq)) %>
+  <%= link_to(thaali, id: dom_id(thaali), class: "row py-2 link-underline link-underline-opacity-0") do %>
+    <div class="col fw-medium">
+      <%= highlight(thaali.number.to_s, params.dig(:q, :number_eq)) %>
     </div>
     <div class="col-6 col-md-4 text-info fw-medium text-truncate">
       <%= thaali.sabeel_name %>
@@ -9,5 +9,5 @@
     <div class="col <%= thaali.dues_cleared? ? "fw-bold text-success" : "text-danger" %>">
       <%= add_rupees_symbol_to thaali.balance %>
     </div>
-  </div>
+  <% end %>
 <% end %>

@@ -10,16 +10,18 @@
   </div>
 </div>
 
-<% @thaalis.each do |thaali| %>
-  <div id="thaali_<%= thaali.year %>" class="row py-2">
-    <div id="<%= thaali.year %>" class="col">
-      <%= button_to thaali.year, thaali, method: :get, class: "btn btn-outline-primary btn-sm px-3" %>
-    </div>
-    <div class="col text-info fw-medium">
-      <%= add_rupees_symbol_to thaali.total %>
-    </div>
-    <div class="col <%= thaali.dues_cleared? ? "fw-bold text-success" : "text-danger" %>">
-      <%= add_rupees_symbol_to thaali.balance %>
-    </div>
-  </div>
-<% end %>
+<div id="thaalis">
+  <% @thaalis.each do |thaali| %>
+    <%= link_to(thaali, id: "thaali_#{thaali.year}", class: "row py-2 link-underline link-underline-opacity-0") do %>
+      <div class="col fw-medium">
+        <%= thaali.year %>
+      </div>
+      <div class="col text-info fw-medium">
+        <%= add_rupees_symbol_to thaali.total %>
+      </div>
+      <div class="col <%= thaali.dues_cleared? ? "fw-bold text-success" : "text-danger" %>">
+        <%= add_rupees_symbol_to thaali.balance %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
