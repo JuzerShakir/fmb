@@ -101,13 +101,9 @@ class ThaalisController < ApplicationController
     end
   end
 
-  def set_year
-    @year = params[:year]
-  end
+  def set_year = @year = params[:year]
 
-  def thaali_params
-    params.require(:thaali).permit(:number, :size, :total)
-  end
+  def thaali_params = params.require(:thaali).permit(:number, :size, :total)
 
   def turbo_load(thaalis)
     respond_to do |format|

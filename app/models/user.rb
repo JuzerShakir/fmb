@@ -8,9 +8,7 @@ class User < ApplicationRecord
   # * FRIENDLY_ID
   include HasFriendlyId
 
-  def sluggables
-    [its]
-  end
+  def sluggables = [its]
 
   # * Validations
   include ITSValidation
@@ -19,13 +17,9 @@ class User < ApplicationRecord
   validate :must_have_a_role
 
   # * Methods
-  def role
-    Rails.cache.fetch("user_#{id}_role") { roles_name.first }
-  end
+  def role = Rails.cache.fetch("user_#{id}_role") { roles_name.first }
 
-  def is?(type)
-    role == type
-  end
+  def is?(type) = role == type
 
   private
 

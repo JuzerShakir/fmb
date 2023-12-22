@@ -11,9 +11,7 @@ class Sabeel < ApplicationRecord
   # * FRIENDLY_ID
   include HasFriendlyId
 
-  def sluggables
-    [its]
-  end
+  def sluggables = [its]
 
   # * RANSACK
   include Ransackable
@@ -50,19 +48,11 @@ class Sabeel < ApplicationRecord
   validates :mobile, numericality: {only_integer: true}, length: {is: 10}
 
   # * Methods
-  def address
-    "#{apartment.titleize} #{flat_no}"
-  end
+  def address = "#{apartment.titleize} #{flat_no}"
 
-  def taking_thaali?
-    Rails.cache.fetch("sabeel_#{id}_taking_thaali?") { thaalis.exists? year: CURR_YR }
-  end
+  def taking_thaali? = Rails.cache.fetch("sabeel_#{id}_taking_thaali?") { thaalis.exists? year: CURR_YR }
 
-  def took_thaali?
-    Rails.cache.fetch("sabeel_#{id}_took_thaali?") { thaalis.exists? year: PREV_YR }
-  end
+  def took_thaali? = Rails.cache.fetch("sabeel_#{id}_took_thaali?") { thaalis.exists? year: PREV_YR }
 
-  def last_year_thaali_dues_cleared?
-    thaalis.dues_cleared_in(PREV_YR).present?
-  end
+  def last_year_thaali_dues_cleared? = thaalis.dues_cleared_in(PREV_YR).present?
 end

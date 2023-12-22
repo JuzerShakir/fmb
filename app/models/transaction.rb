@@ -14,9 +14,7 @@ class Transaction < ApplicationRecord
   # * FRIENDLY_ID
   include HasFriendlyId
 
-  def sluggables
-    [recipe_no]
-  end
+  def sluggables = [recipe_no]
 
   # * Enums
   enum :mode, MODES

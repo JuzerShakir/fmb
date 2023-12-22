@@ -12,9 +12,7 @@ class Thaali < ApplicationRecord
   # * FRIENDLY_ID
   include HasFriendlyId
 
-  def sluggables
-    [year, number]
-  end
+  def sluggables = [year, number]
 
   # * Enums
   enum :size, SIZES
@@ -46,15 +44,9 @@ class Thaali < ApplicationRecord
   validates :year, numericality: {only_integer: true, less_than_or_equal_to: CURR_YR}
 
   # * Methods
-  def balance
-    total - paid
-  end
+  def balance = total - paid
 
-  def dues_cleared?
-    balance.zero?
-  end
+  def dues_cleared? = balance.zero?
 
-  def paid
-    transactions.filter_map { _1.amount if _1.persisted? }.sum(0)
-  end
+  def paid = transactions.filter_map { _1.amount if _1.persisted? }.sum(0)
 end
