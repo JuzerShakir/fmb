@@ -10,6 +10,11 @@ RSpec.describe Thaali do
     it { is_expected.to have_many(:transactions).dependent(:destroy) }
   end
 
+  context "with attributes" do
+    it { is_expected.to have_readonly_attribute(:year) }
+    it { is_expected.to have_readonly_attribute(:total) }
+  end
+
   context "when validating" do
     context "with number" do
       it { is_expected.to validate_numericality_of(:number).only_integer.with_message("must be an integer") }

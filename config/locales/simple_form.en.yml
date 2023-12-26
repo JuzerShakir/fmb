@@ -20,6 +20,11 @@ en:
         mobile: "without the country code"
         year: "You cannot change this field"
         name: "between 3 to 35 characters long"
+      thaali:
+        new:
+          total: "Cannot be edited later"
+        edit:
+          total: "You cannot change this field"
       user:
         password: "between 6 to 72 characters long"
         password_confirmation: "should match the password"

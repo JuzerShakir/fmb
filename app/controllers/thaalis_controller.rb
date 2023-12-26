@@ -29,7 +29,7 @@ class ThaalisController < ApplicationController
 
   def create
     @sabeel = Sabeel.find(params[:sabeel_id])
-    @thaali = @sabeel.thaalis.new(thaali_params)
+    @thaali = @sabeel.thaalis.new(create_params)
     @thaali.year = CURR_YR
 
     if @thaali.save
@@ -41,7 +41,7 @@ class ThaalisController < ApplicationController
   end
 
   def update
-    if @thaali.update(thaali_params)
+    if @thaali.update(update_params)
       redirect_to @thaali, success: t(".success")
     else
       render :edit, status: :unprocessable_entity
@@ -103,7 +103,7 @@ class ThaalisController < ApplicationController
 
   def set_year = @year = params[:year]
 
-  def thaali_params = params.require(:thaali).permit(:number, :size, :total)
+  def create_params = params.require(:thaali).permit(:number, :size, :total)
 
   def turbo_load(thaalis)
     respond_to do |format|
@@ -113,4 +113,6 @@ class ThaalisController < ApplicationController
       end
     end
   end
+
+  def update_params = params.require(:thaali).permit(:number, :size)
 end

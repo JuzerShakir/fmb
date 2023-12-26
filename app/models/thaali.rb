@@ -1,4 +1,6 @@
 class Thaali < ApplicationRecord
+  attr_readonly :total, :year
+
   # * Associtions
   belongs_to :sabeel
   has_many :transactions, dependent: :destroy
