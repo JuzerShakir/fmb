@@ -43,7 +43,7 @@ This application is hosted [here](https://fmb.fly.dev).
 **Password**
 
 ```
-123456
+12345678
 ```
 
 ---
