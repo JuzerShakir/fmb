@@ -1,6 +1,6 @@
 <div align="center">
   <img src="public/images/project_logo.jpeg" />
-  <h2>Faizul Mawaid il Burhaniyah (FMB)</h2>
+  <h2>Faiz al-Mawaid al-Burhaniyah (FMB)</h2>
   <p>A Dawoodi Bohra NPO with one overarching objective: <strong>to provide at least one wholesome & nutritious meal a day to every community household.</strong></p>
 </div>
 
