@@ -12,7 +12,7 @@
   </head>
 
   <body onselectstart="return false">
-    <%= render "shared/navbar/navbar" %>
+    <%= render "shared/navbar/navbar" if current_user.present? %>
     <br>
     <%= render "shared/flash_messages" %>
 
