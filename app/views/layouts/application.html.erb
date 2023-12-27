@@ -13,8 +13,7 @@
 
   <body onselectstart="return false">
     <%= render "shared/navbar/navbar" if current_user.present? %>
-    <br>
-    <%= render "shared/flash_messages" %>
+    <%= render "shared/flash_messages" if flash.present? %>
 
     <main class= "<%= action_name == 'home' ? '' : 'container mt-3'%>">
       <%= yield %>
