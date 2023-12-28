@@ -1,7 +1,9 @@
 <% content_for :title, "Login" %>
 
 <%# * Heading %>
-<h2 class="heading fs-1">Faiz al-Mawaid al-Burhaniyah</h2>
+<div class="text-center">
+  <%= image_tag("fmb-logo-full.png", alt: "FMB logo", id: "home__header-logo") %>
+</div>
 
 <%# * Login Form %>
 <%= render "form" %>
