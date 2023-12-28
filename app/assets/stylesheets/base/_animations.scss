@@ -12,3 +12,9 @@
 		transform: translateX(-15rem);
 	}
 }
+
+@keyframes slide_bg {
+	to {
+		background-position: right center;
+	}
+}
