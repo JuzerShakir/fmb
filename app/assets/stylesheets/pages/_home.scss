@@ -10,6 +10,16 @@
 	background-position: center;
 	padding: 2.5rem 8rem;
 
+	&__header-logo {
+		width: 14rem;
+		height: 5.5rem;
+
+		@media (min-width: 380px) {
+			width: 20rem;
+			height: 8rem;
+		}
+	}
+
 	&__body {
 		margin-top: 22rem;
 		letter-spacing: -0.05rem;
@@ -82,11 +92,6 @@
 @include media-breakpoint-down(xl) {
 	#home {
 		padding: 2.5rem 6rem;
-
-		&__header-logo {
-			width: 280px;
-			height: 120px;
-		}
 	}
 }
 
@@ -94,11 +99,6 @@
 @include media-breakpoint-down(lg) {
 	#home {
 		padding: 2.2rem 5rem;
-
-		&__header-logo {
-			width: 250px;
-			height: 100px;
-		}
 	}
 }
 
@@ -113,10 +113,5 @@
 @include media-breakpoint-down(sm) {
 	#home {
 		padding: 1.5rem 2rem;
-
-		&__header-logo {
-			width: 230px;
-			height: 90px;
-		}
 	}
 }
