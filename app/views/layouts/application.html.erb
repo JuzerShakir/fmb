@@ -15,7 +15,7 @@
     <%= render "shared/navbar/navbar" if current_user.present? %>
     <%= render "shared/flash_messages" if flash.present? %>
 
-    <main class= "<%= action_name == 'home' ? '' : 'container mt-3'%>">
+    <main class="<%= (action_name == "home") ? "" : "container mt-3" %>">
       <%= yield %>
     </main>
   </body>
