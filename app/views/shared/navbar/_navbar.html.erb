@@ -1,4 +1,4 @@
-<div class="mb-5">
+<div class="mb-5 pb-4">
   <nav class="navbar navbar-expand-lg fixed-top heading bg-primary" data-bs-theme="dark">
 
     <div class="container container-fluid">
@@ -11,35 +11,26 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav justify-content-center me-auto mb-2 mb-lg-0">
-          <% if current_user %>
-            <%# * Create Sabeel %>
-            <% if current_user.is? "admin" %>
-              <li class="nav-item">
-                <%= link_to "Create Sabeel", new_sabeel_path, id: "create-sabeel", class: "nav-link mt-3 mx-4 px-4 rounded-pill mt-lg-0 create-sabeel-btn" %>
-              </li>
-            <% end %>
+          <% if current_user.is? "admin" %>
+          <%# * Create Sabeel %>
+            <li class="nav-item">
+              <%= link_to "Create Sabeel", new_sabeel_path, id: "create-sabeel", class: "nav-link mt-3 mx-4 px-4 rounded-pill mt-lg-0 create-sabeel-btn" %>
+            </li>
+          <% end %>
 
-            <%# * Resources %>
-            <%= render "shared/navbar/resources_dropdown" %>
-            <%# * Statistics %>
-            <%= render "shared/navbar/statistics_dropdown" %>
-            <%# * User Dropdown %>
-            <% case current_user.role %>
-            <% when "admin" %>
+          <%# * Resources %>
+          <%= render "shared/navbar/resources_dropdown" %>
+          <%# * Statistics %>
+          <%= render "shared/navbar/statistics_dropdown" %>
+          <%# * User Dropdown %>
+          <% case current_user.role %>
+          <% when "admin" %>
             <%= render "shared/navbar/admin_dropdown" %>
-            <% when "member" %>
-              <%= render "shared/navbar/member_dropdown" %>
-            <% else %>
-              <li id="viewer">
-                <%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-danger fw-bold" %>
-              </li>
-            <% end %>
+          <% when "member" %>
+            <%= render "shared/navbar/member_dropdown" %>
           <% else %>
-            <%# * Contact %>
-            <%= render "shared/navbar/contact" %>
-            <%# * About %>
-            <li id="about">
-              <%= link_to "About", "https://www.thedawoodibohras.com/about-the-bohras/faiz-al-mawaid-al-burhaniyah/", target: :_blank, class: "nav-item nav-link", rel: :noopener %>
+            <li id="viewer">
+              <%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-danger fw-bold" %>
             </li>
           <% end %>
         </ul>

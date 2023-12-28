@@ -4,6 +4,7 @@
 // ! IMPORTANT - load these files before any other css files
 @import "abstracts/themes";
 @import "abstracts/variables";
+@import "abstracts/mixins";
 @import "base/typography";
 
 // * load other sass files from here
@@ -18,5 +19,7 @@
 @import "layouts/index";
 @import "layouts/search";
 @import "layouts/show";
+// pages
+@import "pages/home";
 
 @import "components";

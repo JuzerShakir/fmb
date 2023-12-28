@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   root "thaalis#index"
 
   # * CUSTOM ROUTES
+  # pages
+  get "/home", to: "pages#home"
   # session
   get "/login", to: "sessions#new"
   post "/signup", to: "sessions#create"

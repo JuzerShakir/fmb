@@ -1,7 +1,5 @@
-<% if flash.any? %>
-  <div id="flash" data-controller="autohide" class="z-2 position-fixed bg-primary fs-5 p-3 rounded-5">
-    <% flash.each do |name, msg| %>
-      <%= render_flash(name, msg) %>
-    <% end %>
-  </div>
-<% end %>
+<div id="flash" data-controller="autohide" class="z-2 position-fixed bg-primary rounded-5 fs-5 p-3 mt-4">
+  <% flash.each do |name, msg| %>
+    <%= render_flash(name, msg) %>
+  <% end %>
+</div>
