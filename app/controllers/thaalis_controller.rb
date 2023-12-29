@@ -4,12 +4,6 @@ class ThaalisController < ApplicationController
   before_action :check_thaali_for_current_year, only: [:new]
   before_action :set_year, only: %i[complete pending all]
 
-  def index
-    @q = Thaali.for_year(CURR_YR).ransack(params[:q])
-    query = @q.result(distinct: true)
-    turbo_load(query)
-  end
-
   def show
     @transactions = @thaali.transactions.load
   end

@@ -3,17 +3,6 @@
 require "rails_helper"
 
 RSpec.describe Thaali do
-  # * INDEX
-  describe "index action" do
-    it "is accessible by / route" do
-      expect(get("/")).to route_to("thaalis#index")
-    end
-
-    it "is accessible by root url helper" do
-      expect(get: root_path).to route_to(controller: "thaalis", action: "index")
-    end
-  end
-
   #  * NEW
   describe "new action" do
     it "is accessible by /sabeels/1/thaalis/new route" do
