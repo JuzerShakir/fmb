@@ -27,7 +27,7 @@ RSpec.describe "Sessions New template" do
       end
 
       it "redirects to thaalis_all_path after login" do
-        expect(page).to have_current_path thaalis_all_path(CURR_YR)
+        expect(page).to have_current_path thaalis_all_path(CURR_YR, format: :html)
       end
 
       it "displays welcome message" do
