@@ -87,7 +87,7 @@ RSpec.describe Sabeel do
     end
 
     it "is accessible by sabeel_stats_path route" do
-      expect(get: stats_sabeels_path).to route_to(controller: "sabeels", action: "stats")
+      expect(get: sabeels_stats_path).to route_to(controller: "sabeels", action: "stats")
     end
   end
 

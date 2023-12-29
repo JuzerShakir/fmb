@@ -12,15 +12,14 @@ Rails.application.routes.draw do
   post "/signup", to: "sessions#create"
   delete "/destroy", to: "sessions#destroy"
 
-  # thaali
+  # statistics
   get "/thaalis/stats", to: "thaalis#stats", as: :thaalis_stats
+  get "/sabeels/stats", to: "sabeels#stats", as: :sabeels_stats
 
   # * RESOURCEFUL ROUTES
   resources :users
 
   resources :sabeels, shallow: true do
-    get :stats, on: :collection
-
     resources :thaalis, except: %i[index] do
       resources :transactions, except: %i[index]
     end
