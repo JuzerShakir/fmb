@@ -20,7 +20,7 @@ RSpec.describe "Navbar" do
         end
 
         it do
-          within("#statistics") { expect(page).to have_link("Thaalis", href: thaalis_stats_path) }
+          within("#statistics") { expect(page).to have_link("Thaalis", href: statistics_thaalis_path) }
         end
       end
 

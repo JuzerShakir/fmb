@@ -80,17 +80,6 @@ RSpec.describe Thaali do
     end
   end
 
-  # * STATS
-  describe "stats action" do
-    it "is accessible by /thaalis/stats route" do
-      expect(get("/thaalis/stats")).to route_to("thaalis#stats")
-    end
-
-    it "is accessible by thaalis_stats_path route" do
-      expect(get: thaalis_stats_path).to route_to(controller: "thaalis", action: "stats")
-    end
-  end
-
   #  * COMPLETE
   describe "complete action" do
     it "is accessible by /thaalis/2022/complete route" do
