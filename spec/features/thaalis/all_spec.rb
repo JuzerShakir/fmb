@@ -5,18 +5,19 @@ require_relative "thaali_helpers"
 
 RSpec.describe "Thaali all template" do
   let(:user) { create(:user) }
+  let(:year) { [CURR_YR, PREV_YR].sample }
   let(:thaalis) { Thaali.first(2) }
 
   before do
     page.set_rack_session(user_id: user.id)
-    create_list(:took_thaali, 2)
+    create_list(:thaali, 2, year:)
 
-    visit thaalis_all_path(PREV_YR)
+    visit thaalis_all_path(year)
   end
 
   # * ALL user types
   describe "visited by any user type can", :js do
-    it { expect(page).to have_title "Thaalis in #{PREV_YR}" }
+    it { expect(page).to have_title "Thaalis in #{year}" }
 
     it_behaves_like "view thaali records"
 

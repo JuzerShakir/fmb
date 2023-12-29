@@ -24,7 +24,7 @@ RSpec.describe "User Show request" do
       let(:user) { create(:viewer_user) }
 
       it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to root_path }
+      it { expect(response).to redirect_to thaalis_all_path(CURR_YR) }
     end
 
     # * NOT ACCESSIBLE
@@ -35,7 +35,7 @@ RSpec.describe "User Show request" do
       before { get user_path(other_user) }
 
       it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to root_path }
+      it { expect(response).to redirect_to thaalis_all_path(CURR_YR) }
     end
 
     # * ACCESSIBLE

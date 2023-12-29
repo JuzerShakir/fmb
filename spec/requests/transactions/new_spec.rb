@@ -25,7 +25,7 @@ RSpec.describe "Transaction New request" do
       let(:thaali) { create(:thaali) }
 
       it { expect(response).to have_http_status(:found) }
-      it { expect(response).to redirect_to root_path }
+      it { expect(response).to redirect_to thaalis_all_path(CURR_YR) }
     end
 
     # * ACCESSIBLE

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     if current_user.nil?
       redirect_to login_path
     else
-      redirect_to request.referer || root_path
+      redirect_to request.referer || thaalis_all_path(CURR_YR)
     end
   end
 
@@ -20,6 +20,6 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    redirect_to root_path, notice: t("flash.active_session") if session[:user_id]
+    redirect_to thaalis_all_path(CURR_YR), notice: t("flash.active_session") if session[:user_id]
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe "Session New request" do
       get login_path
     end
 
-    it { expect(response).to redirect_to root_path }
+    it { expect(response).to redirect_to thaalis_all_path(CURR_YR) }
     it { expect(response).to have_http_status(:found) }
   end
 end
