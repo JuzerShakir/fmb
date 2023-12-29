@@ -2,11 +2,9 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  # root "thaalis#index"
+  root "pages#home"
 
   # * CUSTOM ROUTES
-  # pages
-  get "/home", to: "pages#home"
   # session
   get "/login", to: "sessions#new"
   post "/signup", to: "sessions#create"
