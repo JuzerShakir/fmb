@@ -9,29 +9,26 @@ class Ability
   def initialize(user)
     return if user.blank?
 
+    can :read, :thaalis
+    can :read, :sabeels
+
+    if %w[admin member].include?(user.role)
+      can :manage, Sabeel
+      can :manage, Thaali
+      can :manage, Transaction
+    end
+
     case user.role
     when "admin"
       can :manage, User, id: user.id
       can [:show, :destroy], User
-      can :manage, Sabeel
-      can :manage, Thaali
-      can :manage, Transaction
-      can :read, :thaalis
-      can :read, :sabeels
     when "member"
-      can [:show, :update, :destroy], User, id: user.id
-      can :manage, Sabeel
       cannot [:create, :destroy], Sabeel
-      can :manage, Thaali
-      can :manage, Transaction
-      can :read, :thaalis
-      can :read, :sabeels
+      can [:show, :update, :destroy], User, id: user.id
     when "viewer"
-      can [:read, :stats, :active, :inactive], Sabeel
-      can [:read, :stats, :complete, :pending, :all], Thaali
-      can [:all, :show], Transaction
-      can :read, :thaalis
-      can :read, :sabeels
+      can [:read, :active, :inactive], Sabeel
+      can [:read, :complete, :pending, :all], Thaali
+      can [:read, :all], Transaction
     end
   end
 end
