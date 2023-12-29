@@ -43,7 +43,7 @@ class SabeelsController < ApplicationController
   def destroy
     @sabeel.destroy
     respond_to do |format|
-      format.all { redirect_to root_path(format: :html), success: t(".success") }
+      format.all { redirect_to sabeels_path(format: :html), success: t(".success") }
     end
   end
 
