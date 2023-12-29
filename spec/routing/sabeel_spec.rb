@@ -80,17 +80,6 @@ RSpec.describe Sabeel do
     end
   end
 
-  # * STATS
-  describe "stats action" do
-    it "is accessible by /sabeels/stats route" do
-      expect(get("/sabeels/stats")).to route_to("sabeels#stats")
-    end
-
-    it "is accessible by sabeel_stats_path route" do
-      expect(get: sabeels_stats_path).to route_to(controller: "sabeels", action: "stats")
-    end
-  end
-
   # * ACTIVE
   describe "active action" do
     it "is accessible by /sabeels/mohammedi/active route" do

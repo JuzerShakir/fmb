@@ -16,7 +16,7 @@ RSpec.describe "Navbar" do
       # * Statistics
       describe "Statistics dropdown menu" do
         it do
-          within("#statistics") { expect(page).to have_link("Sabeels", href: sabeels_stats_path) }
+          within("#statistics") { expect(page).to have_link("Sabeels", href: statistics_sabeels_path) }
         end
 
         it do

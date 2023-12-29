@@ -13,4 +13,15 @@ RSpec.describe "Statistics" do
       expect(get: statistics_thaalis_path).to route_to(controller: "statistics", action: "thaalis")
     end
   end
+
+  # * SABEEL
+  describe "sabeels action" do
+    it "is accessible by /statistics/sabeels route" do
+      expect(get("/statistics/sabeels")).to route_to("statistics#sabeels")
+    end
+
+    it "is accessible by statistics_sabeels_path route" do
+      expect(get: statistics_sabeels_path).to route_to(controller: "statistics", action: "sabeels")
+    end
+  end
 end

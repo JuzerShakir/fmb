@@ -17,6 +17,7 @@ class Ability
       can :manage, Thaali
       can :manage, Transaction
       can :read, :thaalis
+      can :read, :sabeels
     when "member"
       can [:show, :update, :destroy], User, id: user.id
       can :manage, Sabeel
@@ -24,11 +25,13 @@ class Ability
       can :manage, Thaali
       can :manage, Transaction
       can :read, :thaalis
+      can :read, :sabeels
     when "viewer"
       can [:read, :stats, :active, :inactive], Sabeel
       can [:read, :stats, :complete, :pending, :all], Thaali
       can [:all, :show], Transaction
       can :read, :thaalis
+      can :read, :sabeels
     end
   end
 end

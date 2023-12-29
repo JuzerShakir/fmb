@@ -47,23 +47,6 @@ class SabeelsController < ApplicationController
     end
   end
 
-  def stats
-    @apts = {}
-
-    APARTMENTS.each do |apartment|
-      total_sabeels = Sabeel.send(apartment)
-      active_thaalis = total_sabeels.taking_thaali
-      inactive = total_sabeels.not_taking_thaali
-      @apts[apartment] = {}
-      @apts[apartment].store(:active_thaalis, active_thaalis.length)
-      @apts[apartment].store(:total_sabeels, total_sabeels.length)
-      @apts[apartment].store(:inactive_thaalis, inactive.length)
-      SIZES.each do |size|
-        @apts[apartment].store(size.to_sym, active_thaalis.with_thaali_size(size).length)
-      end
-    end
-  end
-
   def active
     @sabeels = Sabeel.send(@apt).taking_thaali
 

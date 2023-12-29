@@ -12,8 +12,6 @@ Rails.application.routes.draw do
   post "/signup", to: "sessions#create"
   delete "/destroy", to: "sessions#destroy"
 
-  get "/sabeels/stats", to: "sabeels#stats", as: :sabeels_stats
-
   # * RESOURCEFUL ROUTES
   resources :users
 
@@ -30,6 +28,7 @@ Rails.application.routes.draw do
 
   namespace :statistics do
     get :thaalis
+    get :sabeels
   end
 
   namespace :thaalis, path: "thaalis/:year" do
