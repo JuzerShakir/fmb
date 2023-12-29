@@ -3,5 +3,8 @@
 <%# * Heading %>
 <h2 class="heading">Thaalis in <span class="text-secondary"><%= @year %></span> </h2>
 
+<%# * search %>
+<%= render "shared/search", attr_name: "Thaali no.", url: thaalis_all_path(@year), search: :number_eq %>
+
 <%# * show all thaalis %>
-<%= render "shared/results", instances: @thaalis, model: "thaalis", url: thaalis_all_path(format: :turbo_stream) %>
+<%= render "shared/results", instances: @thaalis, model: "thaalis", url: thaalis_all_path(format: :turbo_stream, q: params[:q]&.to_unsafe_h) %>

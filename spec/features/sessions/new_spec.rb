@@ -26,8 +26,8 @@ RSpec.describe "Sessions New template" do
         click_button "Login"
       end
 
-      it "redirects to root path after login" do
-        expect(page).to have_current_path root_path, ignore_query: true
+      it "redirects to thaalis_all_path after login" do
+        expect(page).to have_current_path thaalis_all_path(CURR_YR, format: :html)
       end
 
       it "displays welcome message" do

@@ -7,7 +7,7 @@ RSpec.describe "Navbar" do
   describe "logged in" do
     before do
       page.set_rack_session(user_id: user.id)
-      visit root_path
+      visit thaalis_all_path(CURR_YR)
     end
 
     describe "any user can view" do
@@ -16,11 +16,11 @@ RSpec.describe "Navbar" do
       # * Statistics
       describe "Statistics dropdown menu" do
         it do
-          within("#statistics") { expect(page).to have_link("Sabeels", href: stats_sabeels_path) }
+          within("#statistics") { expect(page).to have_link("Sabeels", href: statistics_sabeels_path) }
         end
 
         it do
-          within("#statistics") { expect(page).to have_link("Thaalis", href: thaalis_stats_path) }
+          within("#statistics") { expect(page).to have_link("Thaalis", href: statistics_thaalis_path) }
         end
       end
 
@@ -31,7 +31,7 @@ RSpec.describe "Navbar" do
         end
 
         it do
-          within("#resources") { expect(page).to have_link("Thaalis", href: root_path) }
+          within("#resources") { expect(page).to have_link("Thaalis", href: thaalis_all_path(CURR_YR)) }
         end
 
         it do

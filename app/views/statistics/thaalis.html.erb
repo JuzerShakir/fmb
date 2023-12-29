@@ -31,9 +31,7 @@
     </div>
 
     <div class="row mt-2">
-      <%= link_to_if(year == CURR_YR, "Total Thaalis: #{values[:count]}", root_path, class: "fw-bold text-success fs-5") do %>
-          <%= link_to "Total Thaalis: #{values[:count]}", thaalis_all_path(year), class: "fw-bold text-success fs-5" %>
-      <% end %>
+      <%= link_to "Total Thaalis: #{values[:count]}", thaalis_all_path(year), class: "fw-bold text-success fs-5" %>
     </div>
   </div>
 <% end %>

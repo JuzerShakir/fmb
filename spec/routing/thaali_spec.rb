@@ -3,17 +3,6 @@
 require "rails_helper"
 
 RSpec.describe Thaali do
-  # * INDEX
-  describe "index action" do
-    it "is accessible by / route" do
-      expect(get("/")).to route_to("thaalis#index")
-    end
-
-    it "is accessible by root url helper" do
-      expect(get: root_path).to route_to(controller: "thaalis", action: "index")
-    end
-  end
-
   #  * NEW
   describe "new action" do
     it "is accessible by /sabeels/1/thaalis/new route" do
@@ -77,17 +66,6 @@ RSpec.describe Thaali do
 
     it "is accessible by thaali_path url helper" do
       expect(delete: thaali_path(1)).to route_to(controller: "thaalis", action: "destroy", id: "1")
-    end
-  end
-
-  # * STATS
-  describe "stats action" do
-    it "is accessible by /thaalis/stats route" do
-      expect(get("/thaalis/stats")).to route_to("thaalis#stats")
-    end
-
-    it "is accessible by thaalis_stats_path route" do
-      expect(get: thaalis_stats_path).to route_to(controller: "thaalis", action: "stats")
     end
   end
 

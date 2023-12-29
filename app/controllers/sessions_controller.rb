@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
 
       respond_to do |format|
-        format.all { redirect_to root_path(format: :html), success: t(".success") }
+        format.all { redirect_to thaalis_all_path(CURR_YR, format: :html), success: t(".success") }
       end
     else
       flash.now.alert = t(".error")

@@ -10,7 +10,7 @@ RSpec.describe "Thaali Stats template" do
     page.set_rack_session(user_id: user.id)
     create_list(:taking_thaali, 2)
     create_list(:taking_thaali_dues_cleared, 2)
-    visit thaalis_stats_path
+    visit statistics_thaalis_path
   end
 
   it { expect(page).to have_title "Thaali Statistics" }

@@ -33,6 +33,6 @@ RSpec.describe "User show template" do
     let(:user) { create(:viewer_user) }
 
     it { expect(page).to have_content("Not Authorized") }
-    it { expect(page).to have_current_path root_path }
+    it { expect(page).to have_current_path thaalis_all_path(CURR_YR) }
   end
 end

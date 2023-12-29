@@ -9,7 +9,7 @@ RSpec.describe "Sabeel Stats template" do
     page.set_rack_session(user_id: user.id)
     create_list(:burhani_sabeel_taking_thaali, 2)
     create_list(:burhani_sabeel_took_thaali, 2)
-    visit stats_sabeels_path
+    visit statistics_sabeels_path
   end
 
   # * ALL user types

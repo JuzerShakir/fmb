@@ -28,7 +28,7 @@ RSpec.describe "Sabeel destroy" do
     context "when clicking 'delete button'" do
       before { click_button "Yes, delete it!" }
 
-      it { expect(page).to have_current_path root_path, ignore_query: true }
+      it { expect(page).to have_current_path sabeels_path(format: :html) }
 
       it { expect(page).to have_content("Sabeel deleted") }
     end

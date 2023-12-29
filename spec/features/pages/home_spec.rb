@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Page Home template, displays" do
-  before { visit home_path }
+  before { visit root_path }
 
   it "logo" do
     within("#home__header") { expect(page).to have_css("img[src*='fmb-logo-full']") }

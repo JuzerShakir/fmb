@@ -4,12 +4,6 @@ class ThaalisController < ApplicationController
   before_action :check_thaali_for_current_year, only: [:new]
   before_action :set_year, only: %i[complete pending all]
 
-  def index
-    @q = Thaali.for_year(CURR_YR).ransack(params[:q])
-    query = @q.result(distinct: true)
-    turbo_load(query)
-  end
-
   def show
     @transactions = @thaali.transactions.load
   end
@@ -56,24 +50,6 @@ class ThaalisController < ApplicationController
     redirect_to sabeel_path(@thaali.sabeel), success: t(".success")
   end
 
-  def stats
-    years = Thaali.distinct.pluck(:year)
-    @years = {}
-
-    years.each do |y|
-      thaalis = Thaali.for_year(y).preload(:transactions)
-      @years[y] = {}
-      @years[y].store(:total, thaalis.sum(:total))
-      @years[y].store(:balance, thaalis.sum(&:balance))
-      @years[y].store(:count, thaalis.count)
-      @years[y].store(:pending, Thaali.dues_unpaid_for(y).length)
-      @years[y].store(:complete, Thaali.dues_cleared_in(y).length)
-      SIZES.each do |size|
-        @years[y].store(size.to_sym, thaalis.send(size).count)
-      end
-    end
-  end
-
   def complete
     thaalis = Thaali.dues_cleared_in(@year)
     turbo_load(thaalis)
@@ -85,8 +61,9 @@ class ThaalisController < ApplicationController
   end
 
   def all
-    thaalis = Thaali.for_year(@year)
-    turbo_load(thaalis)
+    @q = Thaali.for_year(@year).ransack(params[:q])
+    query = @q.result(distinct: true)
+    turbo_load(query)
   end
 
   private
