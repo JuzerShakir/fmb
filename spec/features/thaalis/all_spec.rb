@@ -19,5 +19,16 @@ RSpec.describe "Thaali all template" do
     it { expect(page).to have_title "Thaalis in #{PREV_YR}" }
 
     it_behaves_like "view thaali records"
+
+    describe "search" do
+      context "with thaali number" do
+        let(:thaali_number) { Thaali.first.number }
+
+        before { fill_in "q_number_eq", with: thaali_number }
+
+        it { within("div#thaalis") { expect(page).to have_content(thaali_number) } }
+        it { within("div#thaalis") { expect(page).not_to have_content(Thaali.last.number) } }
+      end
+    end
   end
 end

@@ -4,4 +4,4 @@
   <%= turbo_stream.append :thaalis, partial: "shared/no_results" %>
 <% end %>
 
-<%= render "shared/pagy", src: thaalis_all_path(format: :turbo_stream, page: @pagy.next) %>
+<%= render "shared/pagy", src: thaalis_all_path(format: :turbo_stream, page: @pagy.next, q: params[:q]&.to_unsafe_h) %>

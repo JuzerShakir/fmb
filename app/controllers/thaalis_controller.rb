@@ -67,8 +67,9 @@ class ThaalisController < ApplicationController
   end
 
   def all
-    thaalis = Thaali.for_year(@year)
-    turbo_load(thaalis)
+    @q = Thaali.for_year(@year).ransack(params[:q])
+    query = @q.result(distinct: true)
+    turbo_load(query)
   end
 
   private
