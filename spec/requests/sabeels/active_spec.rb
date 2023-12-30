@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Thaali Active request" do
-  let(:apartment) { APARTMENTS.sample }
+  let(:apartment) { APARTMENTS.keys.sample }
 
   # * NOT ACCESSIBLE
   context "when made by logged out user" do

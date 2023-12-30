@@ -22,7 +22,7 @@ class Sabeel < ApplicationRecord
   include NameValidation
 
   # * Enums
-  enum :apartment, APARTMENTS
+  enum apartment: APARTMENTS
 
   # * Scopes
   scope :no_thaali, -> { where.missing(:thaalis) }

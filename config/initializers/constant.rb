@@ -1,5 +1,12 @@
 # ! Add new apartments, sizes & modes to the END of the list
-APARTMENTS = %i[mohammedi taiyebi burhani maimoon_a maimoon_b]
+APARTMENTS = {
+  mohammedi: "Mohammedi",
+  taiyebi: "Taiyebi",
+  burhani: "Burhani",
+  maimoon_a: "Maimoon A",
+  maimoon_b: "Maimoon B"
+}
+
 SIZES = %i[small medium large]
 MODES = %i[cash cheque bank]
 ROLES = %w[admin member viewer]
