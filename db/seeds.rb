@@ -8,7 +8,7 @@ Sabeel.destroy_all
     apartment: APARTMENTS.sample,
     flat_no: Faker::Number.within(range: 1..9999),
     mobile: Faker::Number.number(digits: 10),
-    email: Faker::Internet.free_email
+    email: Faker::Internet.email
   )
 end
 
