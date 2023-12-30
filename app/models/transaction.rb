@@ -17,7 +17,7 @@ class Transaction < ApplicationRecord
   def sluggables = [recipe_no]
 
   # * Enums
-  enum :mode, MODES
+  enum mode: MODES
 
   # * Scopes
   scope :that_occured_on, ->(date) { where(date: date) }

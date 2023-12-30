@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_30_135852) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_30_171413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "apartments", ["Mohammedi", "Taiyebi", "Burhani", "Maimoon A", "Maimoon B"]
+  create_enum "modes", ["Cash", "Cheque", "Bank"]
   create_enum "sizes", ["Small", "Medium", "Large"]
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -71,12 +72,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_30_135852) do
   create_table "transactions", force: :cascade do |t|
     t.bigint "thaali_id", null: false
     t.integer "recipe_no", null: false
-    t.integer "mode", null: false
     t.integer "amount", null: false
     t.date "date", null: false
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "mode", default: "Cash", null: false, enum_type: "modes"
     t.index ["recipe_no"], name: "index_transactions_on_recipe_no", unique: true
     t.index ["slug"], name: "index_transactions_on_slug", unique: true
     t.index ["thaali_id"], name: "index_transactions_on_thaali_id"

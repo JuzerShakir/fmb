@@ -13,10 +13,9 @@ RSpec.describe Transaction do
 
   context "when validating" do
     context "with mode" do
-      let(:mode_of_payments) { %i[cash cheque bank] }
-
       it { is_expected.to validate_presence_of(:mode).with_message("selection is required") }
-      it { is_expected.to define_enum_for(:mode).with_values(mode_of_payments) }
+
+      it { is_expected.to define_enum_for(:mode).with_values(MODES).backed_by_column_of_type(:enum) }
     end
 
     context "with amount" do

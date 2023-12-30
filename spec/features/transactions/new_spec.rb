@@ -24,7 +24,7 @@ RSpec.describe "Transaction new template" do
       let(:new_transaction) { Transaction.last }
 
       before do
-        choose MODES.sample.capitalize
+        choose MODES.values.sample
         click_button "Create Transaction"
       end
 
