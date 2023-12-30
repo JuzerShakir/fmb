@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :thaali do
     sabeel
     number { Random.rand(1..10000) }
-    sequence :size, SIZES.cycle
+    sequence :size, SIZES.keys.cycle
     total { Faker::Number.number(digits: 5) }
     year { Random.rand(1..CURR_YR) }
 

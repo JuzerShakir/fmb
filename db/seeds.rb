@@ -20,7 +20,7 @@ sabeel_prev_thaali.each.with_index do |sabeel, i|
     year: PREV_YR,
     total: 48000,
     number: i + 1,
-    size: SIZES.sample
+    size: SIZES.keys.sample
   )
 end
 
@@ -61,7 +61,7 @@ active_sabeel.each.with_index do |sabeel, i|
     year: CURR_YR,
     total: 60000,
     number: i + 1,
-    size: SIZES.sample
+    size: SIZES.keys.sample
   )
 end
 

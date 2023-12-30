@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_30_113604) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_30_135852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "apartments", ["Mohammedi", "Taiyebi", "Burhani", "Maimoon A", "Maimoon B"]
+  create_enum "sizes", ["Small", "Medium", "Large"]
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -58,10 +59,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_30_113604) do
     t.integer "year", null: false
     t.integer "total", null: false
     t.integer "number", null: false
-    t.integer "size", null: false
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "size", default: "Small", null: false, enum_type: "sizes"
     t.index ["sabeel_id"], name: "index_thaalis_on_sabeel_id"
     t.index ["slug"], name: "index_thaalis_on_slug", unique: true
     t.index ["year", "sabeel_id"], name: "index_thaalis_on_year_and_sabeel_id", unique: true

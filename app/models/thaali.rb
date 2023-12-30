@@ -17,7 +17,7 @@ class Thaali < ApplicationRecord
   def sluggables = [year, number]
 
   # * Enums
-  enum :size, SIZES
+  enum size: SIZES
 
   # * Scopes
   scope :dues_cleared_in, ->(year) {

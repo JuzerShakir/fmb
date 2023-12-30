@@ -7,7 +7,12 @@ APARTMENTS = {
   maimoon_b: "Maimoon B"
 }
 
-SIZES = %i[small medium large]
+SIZES = {
+  small: "Small",
+  medium: "Medium",
+  large: "Large"
+}
+
 MODES = %i[cash cheque bank]
 ROLES = %w[admin member viewer]
 CURR_YR = 2022
