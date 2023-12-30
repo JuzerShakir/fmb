@@ -1,4 +1,3 @@
-# ! Add new apartments, sizes & modes to the END of the list
 APARTMENTS = {
   mohammedi: "Mohammedi",
   taiyebi: "Taiyebi",
