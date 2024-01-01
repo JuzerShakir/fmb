@@ -4,9 +4,9 @@
     <%= f.input :its %>
     <%= f.input :name, placeholder: "Juzer Shabbir Shakir" %>
     <% if action_name == "edit" %>
-      <%= f.input :apartment, collection: Sabeel.apartments.map { [_2, _1] }, as: :radio_buttons %>
+      <%= f.input :apartment, collection: collection_of(Sabeel.apartments), as: :radio_buttons %>
     <% else %>
-      <%= f.input :apartment, input_html: {checked: false}, collection: Sabeel.apartments.map { [_2, _1] }, as: :radio_buttons %>
+      <%= f.input :apartment, input_html: {checked: false}, collection: collection_of(Sabeel.apartments), as: :radio_buttons %>
     <% end %>
     <%= f.input :flat_no %>
     <%= f.input :mobile, placeholder: "9876543210" %>

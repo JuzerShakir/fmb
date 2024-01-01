@@ -4,9 +4,9 @@
     <%= f.input :recipe_no %>
     <%= f.input :amount, hint: "Amount shouldn't be greater than: ₹#{total_balance}" %>
     <% if action_name == "edit" %>
-      <%= f.input :mode, collection: Transaction.modes.map { [_2, _1] }, as: :radio_buttons %>
+      <%= f.input :mode, collection: collection_of(Transaction.modes), as: :radio_buttons %>
     <% else %>
-      <%= f.input :mode, input_html: {checked: false}, collection: Transaction.modes.map { [_2, _1] }, as: :radio_buttons %>
+      <%= f.input :mode, input_html: {checked: false}, collection: collection_of(Transaction.modes), as: :radio_buttons %>
     <% end %>
     <%= f.input :date, order: %i[day month year] %>
     <%= f.button :submit, action_name: %>
