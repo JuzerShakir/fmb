@@ -1,4 +1,13 @@
 class Sabeel < ApplicationRecord
+  # * Constants
+  APARTMENTS = {
+    mohammedi: "Mohammedi",
+    taiyebi: "Taiyebi",
+    burhani: "Burhani",
+    maimoon_a: "Maimoon A",
+    maimoon_b: "Maimoon B"
+  }
+
   # * Associations
   has_many :thaalis, dependent: :destroy
   has_many :transactions, through: :thaalis

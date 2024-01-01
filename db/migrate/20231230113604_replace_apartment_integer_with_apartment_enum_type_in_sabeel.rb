@@ -17,8 +17,8 @@ class ReplaceApartmentIntegerWithApartmentEnumTypeInSabeel < ActiveRecord::Migra
         apartments.each_with_index do |apartment, i|
           Sabeel.where(apartment_enum: apartment).update_all(apartment: i)
         end
-        # make sure to update the APARTMENT constant value in order to access the 'apartment' data
-        # APARTMENTS = %i[mohammedi taiyebi burhani maimoon_a maimoon_b]
+        # to access `#apartment` data, update the enum value of the it in `app/models/sabeels` file:
+        # enum apartment: APARTMENTS
       end
       # rubocop:enable Rails/SkipsModelValidations
     end

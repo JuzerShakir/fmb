@@ -5,7 +5,7 @@ Sabeel.destroy_all
   Sabeel.create(
     its: 10000000 + i,
     name: Faker::Name.name,
-    apartment: APARTMENTS.keys.sample,
+    apartment: Sabeel::APARTMENTS.keys.sample,
     flat_no: Faker::Number.within(range: 1..9999),
     mobile: Faker::Number.number(digits: 10),
     email: Faker::Internet.email

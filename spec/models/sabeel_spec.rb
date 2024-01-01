@@ -20,7 +20,7 @@ RSpec.describe Sabeel do
     context "with apartment" do
       it { is_expected.to validate_presence_of(:apartment).with_message("selection is required") }
 
-      it { is_expected.to define_enum_for(:apartment).with_values(APARTMENTS).backed_by_column_of_type(:enum) }
+      it { is_expected.to define_enum_for(:apartment).with_values(described_class::APARTMENTS).backed_by_column_of_type(:enum) }
     end
 
     context "with flat_no" do

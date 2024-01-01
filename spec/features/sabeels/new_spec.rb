@@ -21,7 +21,7 @@ RSpec.describe "Sabeel New template" do
     it { expect(page).to have_title "New Sabeel" }
 
     context "with valid values" do
-      let(:apartment) { APARTMENTS.values.sample }
+      let(:apartment) { Sabeel::APARTMENTS.values.sample }
 
       before do
         choose apartment
