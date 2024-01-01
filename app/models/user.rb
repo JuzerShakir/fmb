@@ -25,8 +25,6 @@ class User < ApplicationRecord
 
   # * Custom Validations
   def must_have_a_role
-    unless roles.any?
-      errors.add(:role_ids, "selection is required")
-    end
+    errors.add(:role_ids, "selection is required") unless roles.any?
   end
 end
