@@ -1,12 +1,6 @@
 class Sabeel < ApplicationRecord
   # * Constants
-  APARTMENTS = {
-    mohammedi: "Mohammedi",
-    taiyebi: "Taiyebi",
-    burhani: "Burhani",
-    maimoon_a: "Maimoon A",
-    maimoon_b: "Maimoon B"
-  }
+  APARTMENTS = %i[mohammedi taiyebi burhani maimoon_a maimoon_b]
 
   # * Associations
   has_many :thaalis, dependent: :destroy
@@ -30,8 +24,10 @@ class Sabeel < ApplicationRecord
   include ITSValidation
   include NameValidation
 
+  using ArrayExtensions
+
   # * Enums
-  enum apartment: APARTMENTS
+  enum apartment: APARTMENTS.to_h_titleize_value
 
   # * Scopes
   scope :no_thaali, -> { where.missing(:thaalis) }

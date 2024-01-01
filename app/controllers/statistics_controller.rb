@@ -4,7 +4,7 @@ class StatisticsController < ApplicationController
 
     @apts = {}
 
-    Sabeel::APARTMENTS.keys.each do |apartment|
+    Sabeel::APARTMENTS.each do |apartment|
       total_sabeels = Sabeel.send(apartment)
       active_thaalis = total_sabeels.taking_thaali
       inactive = total_sabeels.not_taking_thaali
