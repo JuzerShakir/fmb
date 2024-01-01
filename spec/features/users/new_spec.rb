@@ -20,7 +20,7 @@ RSpec.describe "User new template" do
 
       attributes_for(:user).each do |k, v|
         case k
-        when :roles then choose ROLES.sample.capitalize
+        when :roles then choose Role::NAMES.sample.titleize
         else fill_in "user_#{k}", with: v
         end
       end
