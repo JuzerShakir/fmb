@@ -1,4 +1,7 @@
 class Transaction < ApplicationRecord
+  # * Constants
+  MODES = %i[cash cheque bank]
+
   default_scope { order(date: :desc) }
 
   # * Associations
@@ -16,8 +19,10 @@ class Transaction < ApplicationRecord
 
   def sluggables = [recipe_no]
 
+  using ArrayExtensions
+
   # * Enums
-  enum mode: MODES
+  enum mode: MODES.to_h_titleize_value
 
   # * Scopes
   scope :that_occured_on, ->(date) { where(date: date) }

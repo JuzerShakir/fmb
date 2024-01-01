@@ -15,7 +15,7 @@ RSpec.describe Transaction do
     context "with mode" do
       it { is_expected.to validate_presence_of(:mode).with_message("selection is required") }
 
-      it { is_expected.to define_enum_for(:mode).with_values(MODES).backed_by_column_of_type(:enum) }
+      it { is_expected.to define_enum_for(:mode).with_values(described_class::MODES.to_h { [_1, _1.to_s.titleize] }).backed_by_column_of_type(:enum) }
     end
 
     context "with amount" do

@@ -22,9 +22,10 @@ RSpec.describe "Transaction new template" do
 
     context "with valid values" do
       let(:new_transaction) { Transaction.last }
+      let(:mode) { Transaction.modes.values.sample }
 
       before do
-        choose MODES.values.sample
+        choose mode
         click_button "Create Transaction"
       end
 

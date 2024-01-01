@@ -6,7 +6,7 @@ FactoryBot.define do
     amount { Faker::Number.number(digits: 4) }
     date { Faker::Date.backward }
     recipe_no { Random.rand(1000..100000) }
-    sequence :mode, MODES.keys.cycle
+    sequence :mode, Transaction::MODES.cycle
 
     factory :cleared_transaction, traits: [:cleared]
     factory :today_transaction, traits: [:today]

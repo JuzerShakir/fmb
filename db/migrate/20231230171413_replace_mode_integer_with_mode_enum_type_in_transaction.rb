@@ -17,8 +17,8 @@ class ReplaceModeIntegerWithModeEnumTypeInTransaction < ActiveRecord::Migration[
         modes.each_with_index do |mode, i|
           Transaction.where(mode_enum: mode).update_all(mode: i)
         end
-        # make sure to update the MODES constant value in order to access the 'mode' data
-        # MODES = %i[cash cheque bank]
+        # to access `#mode` data, update the enum value of it in `app/models/transactions` file:
+        # enum mode: MODES
       end
       # rubocop:enable Rails/SkipsModelValidations
     end
