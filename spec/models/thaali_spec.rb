@@ -22,7 +22,7 @@ RSpec.describe Thaali do
     end
 
     context "with size" do
-      it { is_expected.to define_enum_for(:size).with_values(SIZES).backed_by_column_of_type(:enum) }
+      it { is_expected.to define_enum_for(:size).with_values(described_class::SIZES.to_h { [_1, _1.to_s.titleize] }).backed_by_column_of_type(:enum) }
       it { is_expected.to validate_presence_of(:size).with_message("selection is required") }
     end
 

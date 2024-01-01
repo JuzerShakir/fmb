@@ -1,9 +1,3 @@
-SIZES = {
-  small: "Small",
-  medium: "Medium",
-  large: "Large"
-}
-
 MODES = {
   cash: "Cash",
   cheque: "Cheque",

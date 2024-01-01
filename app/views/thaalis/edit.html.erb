@@ -8,7 +8,7 @@
 
     <%= f.input :year, disabled: true, input_html: {value: @thaali.year} %>
     <%= f.input :number %>
-    <%= f.input :size, collection: SIZES.keys.map { [_1.capitalize, _1] }, as: :radio_buttons %>
+    <%= f.input :size, collection: Thaali.sizes.map { [_2, _1] }, as: :radio_buttons %>
     <%= f.input :total, disabled: true %>
     <%= f.button :submit, action_name: %>
   <% end %>

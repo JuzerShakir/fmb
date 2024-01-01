@@ -17,8 +17,8 @@ class ReplaceSizeIntegerWithSizeEnumTypeInThaali < ActiveRecord::Migration[7.1]
         sizes.each_with_index do |size, i|
           Thaali.where(size_enum: size).update_all(size: i)
         end
-        # make sure to update the SIZES constant value in order to access the 'size' data
-        # SIZES = %i[small medium large]
+        # to access `#size` data, update the enum value of it in `app/models/thaalis` file:
+        # enum size: SIZES
       end
       # rubocop:enable Rails/SkipsModelValidations
     end
