@@ -8,8 +8,6 @@ module ApplicationHelper
     end
   end
 
-  def collection_of(hash) = hash.map { [_2, _1] }
-
   def fa_btn_gen(text, url, icons)
     content_tag(:a, "", set_url_params_for(url)) do
       fa_gen(text, icons, space: true)
