@@ -3,7 +3,7 @@
     <%= f.error_notification %>
     <%= f.input :its %>
     <%= f.input :name, placeholder: "Juzer Shabbir Shakir" %>
-    <%= f.input :apartment, collection: collection_of(Sabeel.apartments), as: :radio_buttons %>
+    <%= f.input :apartment, collection: Sabeel.apartments.invert.to_a, as: :radio_buttons %>
     <%= f.input :flat_no %>
     <%= f.input :mobile, placeholder: "9876543210" %>
     <%= f.input :email %>
