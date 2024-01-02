@@ -13,6 +13,11 @@ RSpec.describe Thaali do
   context "with attributes" do
     it { is_expected.to have_readonly_attribute(:year) }
     it { is_expected.to have_readonly_attribute(:total) }
+
+    describe "set default values of" do
+      it { expect(described_class.new.year).to eq(CURR_YR) }
+      it { expect(described_class.new.size).to be_nil }
+    end
   end
 
   context "when validating" do

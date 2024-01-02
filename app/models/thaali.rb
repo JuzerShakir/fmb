@@ -4,6 +4,10 @@ class Thaali < ApplicationRecord
 
   attr_readonly :total, :year
 
+  # * Defaults
+  attribute :year, default: CURR_YR
+  attribute :size, default: nil
+
   # * Associtions
   belongs_to :sabeel
   has_many :transactions, dependent: :destroy
