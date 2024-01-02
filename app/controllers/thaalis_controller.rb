@@ -10,11 +10,11 @@ class ThaalisController < ApplicationController
 
   def new
     @thaali = @sabeel.thaalis.new
+    @thaali.year = CURR_YR
 
     if @sabeel.took_thaali?
       took_thaali = @thaalis.where(year: PREV_YR).first
-      @thaali.number = took_thaali[:number]
-      @thaali.size = took_thaali[:size]
+      @thaali.attributes = took_thaali.slice(:number, :size)
     else
       # uncheck the default option
       @thaali.size = nil

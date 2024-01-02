@@ -2,14 +2,4 @@
 
 <h2 class="heading mb-3">New Thaali</h2>
 
-<div class="container col-xxl-6 col-xl-7 col-lg-8 col-md-11 col-sm-10 pt-4 p-5 bg-white bg-opacity-50 shadow-lg border border-2 border-success-subtle rounded-4 mb-5">
-  <%= simple_form_for @thaali, url: sabeel_thaalis_path do |f| %>
-    <%= f.error_notification %>
-
-    <%= f.input :year, disabled: true, input_html: {value: CURR_YR} %>
-    <%= f.input :number %>
-    <%= f.input :size, collection: collection_of(Thaali.sizes), as: :radio_buttons %>
-    <%= f.input :total %>
-    <%= f.button :submit, action_name: %>
-  <% end %>
-</div>
+<%= render "form", path: sabeel_thaalis_path %>
