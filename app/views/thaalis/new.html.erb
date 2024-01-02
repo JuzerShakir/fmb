@@ -8,11 +8,7 @@
 
     <%= f.input :year, disabled: true, input_html: {value: CURR_YR} %>
     <%= f.input :number %>
-    <% if @sabeel.took_thaali? %>
-      <%= f.input :size, collection: collection_of(Thaali.sizes), as: :radio_buttons %>
-    <% else %>
-      <%= f.input :size, input_html: {checked: false}, collection: collection_of(Thaali.sizes), as: :radio_buttons %>
-    <% end %>
+    <%= f.input :size, collection: collection_of(Thaali.sizes), as: :radio_buttons %>
     <%= f.input :total %>
     <%= f.button :submit, action_name: %>
   <% end %>

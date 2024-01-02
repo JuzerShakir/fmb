@@ -15,6 +15,9 @@ class ThaalisController < ApplicationController
       took_thaali = @thaalis.where(year: PREV_YR).first
       @thaali.number = took_thaali[:number]
       @thaali.size = took_thaali[:size]
+    else
+      # uncheck the default option
+      @thaali.size = nil
     end
   end
 
