@@ -4,6 +4,9 @@ class Transaction < ApplicationRecord
 
   default_scope { order(date: :desc) }
 
+  # * Defaults
+  attribute :mode, default: nil
+
   # * Associations
   belongs_to :thaali
 

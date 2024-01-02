@@ -11,6 +11,12 @@ RSpec.describe Transaction do
     it { is_expected.to belong_to(:thaali) }
   end
 
+  context "with attributes" do
+    describe "set default values of" do
+      it { expect(described_class.new.mode).to be_nil }
+    end
+  end
+
   context "when validating" do
     context "with mode" do
       it { is_expected.to validate_presence_of(:mode).with_message("selection is required") }

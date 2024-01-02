@@ -19,8 +19,6 @@ class TransactionsController < ApplicationController
 
   def new
     @transaction = @thaali.transactions.new
-    # uncheck the default option
-    @transaction.mode = nil
   end
 
   def edit
