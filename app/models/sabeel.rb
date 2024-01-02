@@ -2,6 +2,9 @@ class Sabeel < ApplicationRecord
   # * Constants
   APARTMENTS = %i[mohammedi taiyebi burhani maimoon_a maimoon_b]
 
+  # * Defaults
+  attribute :apartment, default: nil
+
   # * Associations
   has_many :thaalis, dependent: :destroy
   has_many :transactions, through: :thaalis

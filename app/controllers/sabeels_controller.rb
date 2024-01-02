@@ -19,8 +19,6 @@ class SabeelsController < ApplicationController
   end
 
   def new
-    # uncheck the default option
-    @sabeel.apartment = nil
   end
 
   def edit

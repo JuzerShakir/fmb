@@ -11,6 +11,12 @@ RSpec.describe Sabeel do
     it { is_expected.to have_many(:transactions).through(:thaalis) }
   end
 
+  context "with attributes" do
+    describe "set default values of" do
+      it { expect(described_class.new.apartment).to be_nil }
+    end
+  end
+
   context "when validating" do
     context "with email" do
       it { is_expected.to validate_email_format_of(:email) }
