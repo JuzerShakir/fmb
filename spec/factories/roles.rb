@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :role do
-    name { ROLES.sample }
+    name { Role::NAMES.sample }
 
     # * Factories
     factory :admin do

@@ -13,6 +13,11 @@ RSpec.describe Thaali do
   context "with attributes" do
     it { is_expected.to have_readonly_attribute(:year) }
     it { is_expected.to have_readonly_attribute(:total) }
+
+    describe "set default values of" do
+      it { expect(described_class.new.year).to eq(CURR_YR) }
+      it { expect(described_class.new.size).to be_nil }
+    end
   end
 
   context "when validating" do
@@ -22,7 +27,7 @@ RSpec.describe Thaali do
     end
 
     context "with size" do
-      it { is_expected.to define_enum_for(:size).with_values([:small, :medium, :large]) }
+      it { is_expected.to define_enum_for(:size).with_values(described_class::SIZES.to_h { [_1, _1.to_s.titleize] }).backed_by_column_of_type(:enum) }
       it { is_expected.to validate_presence_of(:size).with_message("selection is required") }
     end
 

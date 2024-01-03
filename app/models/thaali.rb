@@ -1,5 +1,12 @@
 class Thaali < ApplicationRecord
+  # * Constants
+  SIZES = %i[small medium large]
+
   attr_readonly :total, :year
+
+  # * Defaults
+  attribute :year, default: CURR_YR
+  attribute :size, default: nil
 
   # * Associtions
   belongs_to :sabeel
@@ -16,8 +23,10 @@ class Thaali < ApplicationRecord
 
   def sluggables = [year, number]
 
+  using ArrayExtensions
+
   # * Enums
-  enum :size, SIZES
+  enum size: SIZES.to_h_titleize_value
 
   # * Scopes
   scope :dues_cleared_in, ->(year) {

@@ -1,11 +1,10 @@
 <div class="container col-xxl-6 col-xl-7 col-lg-8 col-md-11 col-sm-10 pt-4 p-5 bg-white bg-opacity-50 shadow-lg border border-2 border-success-subtle rounded-4 mb-5">
-  <%= simple_form_for @thaali, url: url_helper do |f| %>
+  <%= simple_form_for @thaali, url: path do |f| %>
     <%= f.error_notification %>
 
-    <%# for new thaali it will show current year %>
-    <%= f.input :year, disabled: true, input_html: {value: (action_name == "edit") ? @thaali.year : CURR_YR} %>
+    <%= f.input :year, disabled: true %>
     <%= f.input :number %>
-    <%= f.input :size, collection: SIZES.map { [_1.capitalize, _1] }, as: :radio_buttons %>
+    <%= f.input :size, collection: Thaali.sizes.invert.to_a, as: :radio_buttons %>
     <%= f.input :total, disabled: action_name == "edit" %>
     <%= f.button :submit, action_name: %>
   <% end %>

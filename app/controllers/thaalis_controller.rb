@@ -13,8 +13,7 @@ class ThaalisController < ApplicationController
 
     if @sabeel.took_thaali?
       took_thaali = @thaalis.where(year: PREV_YR).first
-      @thaali.number = took_thaali[:number]
-      @thaali.size = took_thaali[:size]
+      @thaali.attributes = took_thaali.slice(:number, :size)
     end
   end
 
@@ -24,7 +23,6 @@ class ThaalisController < ApplicationController
   def create
     @sabeel = Sabeel.find(params[:sabeel_id])
     @thaali = @sabeel.thaalis.new(create_params)
-    @thaali.year = CURR_YR
 
     if @thaali.save
       Rails.cache.write("sabeel_#{@sabeel.id}_taking_thaali?", true)

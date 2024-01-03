@@ -5,10 +5,10 @@ Sabeel.destroy_all
   Sabeel.create(
     its: 10000000 + i,
     name: Faker::Name.name,
-    apartment: APARTMENTS.sample,
+    apartment: Sabeel::APARTMENTS.sample,
     flat_no: Faker::Number.within(range: 1..9999),
     mobile: Faker::Number.number(digits: 10),
-    email: Faker::Internet.free_email
+    email: Faker::Internet.email
   )
 end
 
@@ -20,7 +20,7 @@ sabeel_prev_thaali.each.with_index do |sabeel, i|
     year: PREV_YR,
     total: 48000,
     number: i + 1,
-    size: SIZES.sample
+    size: Thaali::SIZES.sample
   )
 end
 
@@ -33,7 +33,7 @@ thaalis_no_dues.each do |thaali|
       amount: 4000,
       date: Faker::Date.in_date_period(year: PREV_YR),
       recipe_no: Random.rand(1..2000000),
-      mode: MODES.sample
+      mode: Transaction::MODES.sample
     )
   end
 end
@@ -48,7 +48,7 @@ thaalis_has_dues.each do |thaali|
       amount: 4000,
       date: Faker::Date.in_date_period(year: PREV_YR),
       recipe_no: Random.rand(2000001..3000000),
-      mode: MODES.sample
+      mode: Transaction::MODES.sample
     )
   end
 end
@@ -61,7 +61,7 @@ active_sabeel.each.with_index do |sabeel, i|
     year: CURR_YR,
     total: 60000,
     number: i + 1,
-    size: SIZES.sample
+    size: Thaali::SIZES.sample
   )
 end
 
@@ -75,7 +75,7 @@ thaalis_no_prev_dues.each do |thaali|
         amount: 5000,
         date: Faker::Date.in_date_period(year: CURR_YR),
         recipe_no: Random.rand(3000001..6000000),
-        mode: MODES.sample
+        mode: Transaction::MODES.sample
       )
     end
   end
@@ -91,7 +91,7 @@ thaalis_has_prev_dues.each do |thaali|
       amount: 5000,
       date: Faker::Date.in_date_period(year: CURR_YR),
       recipe_no: Random.rand(6000000..10000000),
-      mode: MODES.sample
+      mode: Transaction::MODES.sample
     )
   end
 end
@@ -100,9 +100,7 @@ end
 # *CREATES TOTAL Thaalis --> 175 (90 + 85)
 # *CREATES TOTAL Transactions --> ~1.1k
 
-ROLES.each do |role|
-  Role.create(name: role)
-end
+Role::NAMES.each { Role.create(name: _1) }
 
 User.create(
   its: 12345678,

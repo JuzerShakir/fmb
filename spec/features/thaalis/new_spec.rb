@@ -47,7 +47,7 @@ RSpec.describe "Thaali new template" do
 
       context "with valid values" do
         before do
-          choose thaali[:size].capitalize
+          choose thaali[:size].to_s.titleize
           click_button "Create Thaali"
         end
 

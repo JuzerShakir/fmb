@@ -11,6 +11,12 @@ RSpec.describe Sabeel do
     it { is_expected.to have_many(:transactions).through(:thaalis) }
   end
 
+  context "with attributes" do
+    describe "set default values of" do
+      it { expect(described_class.new.apartment).to be_nil }
+    end
+  end
+
   context "when validating" do
     context "with email" do
       it { is_expected.to validate_email_format_of(:email) }
@@ -18,11 +24,9 @@ RSpec.describe Sabeel do
     end
 
     context "with apartment" do
-      let(:all_apartments) { described_class.apartments.keys }
-
       it { is_expected.to validate_presence_of(:apartment).with_message("selection is required") }
 
-      it { is_expected.to define_enum_for(:apartment).with_values(all_apartments) }
+      it { is_expected.to define_enum_for(:apartment).with_values(described_class::APARTMENTS.to_h { [_1, _1.to_s.titleize] }).backed_by_column_of_type(:enum) }
     end
 
     context "with flat_no" do

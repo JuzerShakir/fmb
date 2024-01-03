@@ -11,12 +11,17 @@ RSpec.describe Transaction do
     it { is_expected.to belong_to(:thaali) }
   end
 
+  context "with attributes" do
+    describe "set default values of" do
+      it { expect(described_class.new.mode).to be_nil }
+    end
+  end
+
   context "when validating" do
     context "with mode" do
-      let(:mode_of_payments) { %i[cash cheque bank] }
-
       it { is_expected.to validate_presence_of(:mode).with_message("selection is required") }
-      it { is_expected.to define_enum_for(:mode).with_values(mode_of_payments) }
+
+      it { is_expected.to define_enum_for(:mode).with_values(described_class::MODES.to_h { [_1, _1.to_s.titleize] }).backed_by_column_of_type(:enum) }
     end
 
     context "with amount" do
