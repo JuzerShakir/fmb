@@ -1,4 +1,7 @@
-#home {
+// apply this bg image to body tag only if it has #home
+body:has(#home) {
+	// bg img 'background.png' doesn't load defined in body tag
+	background: none;
 	background-image: linear-gradient(
 			rgba(255, 255, 255, 0.75),
 			rgba(255, 255, 255, 0.75)
@@ -6,6 +9,11 @@
 		url(home-bg.png);
 	background-size: cover;
 	background-position: center;
+}
+
+#home {
+	width: 100%;
+	height: 100dvh;
 	padding: 2.5rem 8rem;
 
 	&__header-logo {
