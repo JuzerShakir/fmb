@@ -1,6 +1,6 @@
-// apply this bg image to body tag only if it has #home
+// apply bg image to body tag only if it has id 'home'
 body:has(#home) {
-	// bg img 'background.png' doesn't load defined in body tag
+	// do not load 'backgrounds/default.png' asset defined in body tag
 	background: none;
 	background-image: linear-gradient(
 			rgba(255, 255, 255, 0.75),
@@ -30,7 +30,7 @@ body:has(#home) {
 		margin-top: 22rem;
 		letter-spacing: -0.05rem;
 
-		//  use max-height to position element with respect to device viewport height
+		// position element with respect to device viewport height
 		@include respond_to_height(tab-medium) {
 			margin-top: 18rem;
 		}
