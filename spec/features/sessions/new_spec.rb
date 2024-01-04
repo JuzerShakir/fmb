@@ -10,7 +10,7 @@ RSpec.describe "Sessions New template" do
   it { expect(page).to have_title "Login" }
 
   it "logo" do
-    expect(page).to have_css("img[src*='fmb-logo-full']")
+    expect(page).to have_css("img[src*='logos/fmb']")
   end
 
   it "shows footer" do

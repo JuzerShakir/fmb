@@ -6,7 +6,7 @@ RSpec.describe "Page Home template, displays" do
   before { visit root_path }
 
   it "logo" do
-    within("#home__header") { expect(page).to have_css("img[src*='fmb-logo-full']") }
+    within("#home__header") { expect(page).to have_css("img[src*='logos/fmb']") }
   end
 
   it "secondary header" do
