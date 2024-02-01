@@ -3,46 +3,52 @@
 <%= render @thaali %>
 
 <%# * action buttons %>
-<%= render "shared/actions", instance: @thaali %>
+<% unless current_user.is?("viewer") %>
+  <section id="actions">
+    <%= render "shared/actions", instance: @thaali %>
 
-<div id="payment-summary" class="col-xl-3 col-lg-4 col-md-5 col-7 mx-auto mt-5">
+    <% unless @thaali.dues_cleared? %>
+      <nav class="col-5 col-md-4 col-lg-3 col-xl-2 vstack mt-5 mx-auto">
+        <%= link_to "New Transaction", new_thaali_transaction_path(@thaali), method: :get, class: "btn btn-success" %>
+      </nav>
+    <% end %>
+  </section>
+<% end %>
+
+<section id="payment-summary" class="col-xl-3 col-lg-4 col-md-5 col-7 mx-auto mt-4">
   <div class="row fw-bold text-center">
     <% if @thaali.dues_cleared? %>
-      <div class="col fs-5 text-success">
+      <strong class="col fs-5 text-success">
         <i class="fa-solid fa-check-double"></i>
         <span>&nbsp;</span>
         <span>Takhmeen Complete</span>
-      </div>
+      </strong>
     <% else %>
-      <div class="col text-success">
+      <em class="col text-success fst-normal">
         <i class="fa-solid fa-hand-holding-dollar"></i>
         <%= add_rupees_symbol_to @thaali.paid %>
-      </div>
+      </em>
 
-      <div class="col text-danger">
+      <strong class="col text-danger">
         <i class="fa-solid fa-scale-unbalanced-flip fa-bounce"></i>
         <%= add_rupees_symbol_to @thaali.balance %>
-      </div>
+      </strong>
     <% end %>
   </div>
-</div>
+</section>
 
 <%# * Transactions %>
-<% unless @thaali.dues_cleared? || current_user.is?("viewer") %>
-  <div class="col-5 col-md-4 col-lg-3 col-xl-2 vstack mt-3 mx-auto">
-    <%= link_to "New Transaction", new_thaali_transaction_path(@thaali), method: :get, class: "btn btn-success" %>
-  </div>
-<% end %>
-
-<div class="mt-3">
+<section id="transactions" class="mt-4">
   <p class="fw-bold text-center text-info">
-    Total number of Transactions: <%= @transactions.size %>
+    Total number of Transactions: <em class="fst-nornal"><%= @transactions.length %></em>
   </p>
 
   <% if @transactions.any? %>
-    <div class="container mt-3 mb-5 text-center bg-white bg-opacity-75 border border-4 border-secondary rounded-4">
+    <section class="bg-white bg-opacity-75 border border-4 border-secondary rounded-4 text-center mt-3 mb-5">
       <%= render "transactions/theader" %>
-      <div id="transactions"><%= render "transactions/transactions" %></div>
-    </div>
+      <div class="container">
+        <%= render "transactions/transactions" %>
+      </div>
+    </section>
   <% end %>
 </div>

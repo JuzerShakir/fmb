@@ -1,13 +1,13 @@
 <% @transactions.each do |transaction| %>
   <%= link_to(transaction, id: dom_id(transaction), class: "row py-2 link-underline link-underline-opacity-0") do %>
-    <div class="col fw-medium">
+    <em class="col fw-medium fst-normal">
       <%= highlight(transaction.recipe_no.to_s, params.dig(:q, :slug_start)) %>
-    </div>
-    <div class="col text-info fw-medium">
+    </em>
+    <strong class="col text-info fw-medium">
       <%= add_rupees_symbol_to transaction.amount %>
-    </div>
-    <div class="col text-info">
+    </strong>
+    <span class="col text-info">
       <%= time_ago_in_words(transaction.date) %>
-    </div>
+    </span>
   <% end %>
 <% end %>

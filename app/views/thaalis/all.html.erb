@@ -1,7 +1,7 @@
 <% content_for :title, "Thaalis in #{@year}" %>
 
 <%# * Heading %>
-<h2 class="heading">Thaalis in <span class="text-secondary"><%= @year %></span> </h2>
+<h2 class="heading">Thaalis in <em class="text-secondary"><%= @year %></em></h2>
 
 <%# * search %>
 <%= render "shared/search", attr_name: "Thaali no.", url: thaalis_all_path(@year), search: :number_eq %>

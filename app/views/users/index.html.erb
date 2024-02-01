@@ -4,11 +4,11 @@
 <h2 class="heading">All Users</h2>
 
 <%# * show all users %>
-<div class="col-lg-5 mt-5 container text-center border border-4 border-secondary shadow rounded-4 bg-white bg-opacity-75">
-  <% if @users.any? %>
+<% if @users.any? %>
+  <section id="users" class="col-lg-5 text-center border border-4 border-secondary shadow rounded-4 bg-white bg-opacity-75 mt-5 mx-auto">
     <%= render "theader" %>
     <%= render "users" %>
   <% else %>
     <%= render "shared/no_results" %>
-  <% end %>
-</div>
+  </div>
+<% end %>

@@ -1,7 +1,7 @@
-<div class="container text-center my-5 border border-4 border-secondary rounded-4 shadow-lg bg-white bg-opacity-75">
+<section class="text-center my-5 border border-4 border-secondary rounded-4 shadow-lg bg-white bg-opacity-75">
   <%= turbo_frame_tag :results, target: "_top" do %>
     <%= render "theader" %>
-    <div id="<%= model %>"></div>
+    <section id="<%= model %>" class="container"></section>
     <%= turbo_frame_tag :pagination, loading: :lazy, src: url %>
   <% end %>
-</div>
+</section>

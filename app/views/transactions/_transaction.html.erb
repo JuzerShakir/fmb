@@ -1,50 +1,37 @@
-<div id="transaction" class="col-xxl-5 col-xl-6 col-lg-7 col-md-9 rounded-4 shadow mx-auto mt-3 p-4 text-warning text-center">
-  <div class="row heading">
+<section id="transaction" class="col-xxl-5 col-xl-6 col-lg-7 col-md-9 rounded-4 shadow mx-auto text-warning text-center mt-3 p-4">
+  <header class="row heading">
     <div class="col-8 text-start">
       <h4>Dawoodi Bohra Jamaat</h4>
     </div>
     <div class="col-4 text-end fs-3">
       <h4><%= @transaction.recipe_no %></h4>
     </div>
-  </div>
+  </header>
 
-    <div class="row heading pb-4">
-    <div class="col-8 text-start">
-      <h6>A/c Faiz Al Mawaid Burhaniyah</h6>
-    </div>
-    <div class="col-4 text-end">
-      <h6><%= link_to("#{@transaction.thaali_number} (#{@transaction.thaali_year})", @transaction.thaali, class: "link-primary link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover") %></h6>
-    </div>
-  </div>
+    <header class="row heading pb-4">
+      <div class="col-8 text-start">
+        <h6>A/c Faiz Al Mawaid Burhaniyah</h6>
+      </div>
+      <div class="col-4 text-end">
+        <h6><%= link_to("#{@transaction.thaali_number} (#{@transaction.thaali_year})", @transaction.thaali, class: "link-primary link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover") %></h6>
+      </div>
+    </header>
+  </header>
 
-  <div class="row pb-2">
-    <div class="col">
-      <%= link_to @transaction.sabeel.name, @transaction.sabeel, class: "fst-italic fw-bold link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" %>
-      <span>&nbsp;from</span>
-      <span class="fw-bold"><%= @transaction.sabeel.address %></span>
-    </div>
-  </div>
-
-  <div class="row pb-2">
-    <div class="col">
-      <span>has voluntarily contributed an amount</span>
-      <span class="fw-bold"><%= add_rupees_symbol_to(@transaction.amount, delimiter: true) %></span>
-    </div>
-  </div>
-
-  <div class="row pb-2">
-    <div class="col">
-      <span>or rupees</span>
-      <span class="fst-italic"><%= @transaction.amount.humanize %></span>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <span>via</span>
-      <span class="fw-bold"><%= @transaction.mode.capitalize %></span>
-      <span>on</span>
-      <span class="fw-bold"><%= "#{@transaction.date.to_fs(:long)}." %></span>
-    </div>
-  </div>
-</div>
+  <p class="lh-lg mb-0">
+    <%= link_to @transaction.sabeel.name, @transaction.sabeel, class: "fst-italic fw-bold link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" %>
+    &nbsp;from
+    <span class="fw-bold"><%= @transaction.sabeel.address %></span>
+    <br>
+    has voluntarily contributed an amount
+    <strong class="fw-bold"><%= add_rupees_symbol_to(@transaction.amount, delimiter: true) %></strong>
+    <br>
+    or rupees
+    <em class="fst-italic"><%= @transaction.amount.humanize %></em>
+    <br>
+    via
+    <span class="fw-bold"><%= @transaction.mode.capitalize %></span>
+    on
+    <span class="fw-bold"><%= "#{@transaction.date.to_fs(:long)}." %></span>
+  </p>
+</section>

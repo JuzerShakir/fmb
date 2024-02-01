@@ -1,36 +1,37 @@
-<div id="sabeel" class="position-relative col-xxl-4 col-xl-5 col-lg-6 col-md-8 col-sm-10 rounded-4 shadow mx-auto mt-3 py-3 px-4 text-warning">
-  <div id="sabeel-its-logo" class="z-0 position-absolute"></div>
-  <div class="row pb-3">
-    <div class="col heading fs-2 text-secondary">
+<section id="sabeel" class="position-relative col-xxl-4 col-xl-5 col-lg-6 col-md-8 col-sm-10 rounded-4 shadow mx-auto mt-3 py-3 px-4 text-warning">
+  <aside id="sabeel-its-logo" class="z-0 position-absolute"></aside>
+
+  <header class="row pb-3">
+    <h1 class="col heading fs-2 text-secondary">
       <%= @sabeel.its %>
-    </div>
-  </div>
+    </h1>
+  </header>
 
   <div class="row pb-3">
-    <div class="z-1 col text-truncate">
+    <strong class="z-1 col text-truncate">
       <% fa_gen(@sabeel.name, "fa-user", space: true) %>
-    </div>
+    </strong>
   </div>
 
   <div class="row pb-3">
-    <div class="col">
+    <address class="col mb-0">
       <% fa_gen(@sabeel.address, "fa-location-pin", space: true) %>
-    </div>
+    </address>
   </div>
 
   <div class="row pb-3 fst-italic">
-    <div class="col">
+    <span class="col">
       <i class="fa-solid fa-phone"></i>
       <%= phone_to @sabeel.mobile, class: "link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" %>
-    </div>
+    </span>
   </div>
 
   <div class="row fst-italic">
-    <div class="col text-truncate">
+    <span class="col text-truncate">
       <i class="fa-solid fa-envelope"></i>
       <%= link_to_if @sabeel.email.present?, @sabeel.email, "mailto:#{@sabeel.email}", class: "link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" do %>
-        <p class="d-inline-block fw-bold">No email address provided</p>
+        <span class="d-inline-block fw-bold">No email address provided</span>
       <% end %>
     </div>
   </div>
-</div>
+</section>

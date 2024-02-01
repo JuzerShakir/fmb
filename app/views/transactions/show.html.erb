@@ -3,4 +3,8 @@
 <%= render @transaction %>
 
 <%# * action buttons %>
-<%= render "shared/actions", instance: @transaction %>
+<% unless current_user.is?("viewer") %>
+  <section id="actions">
+    <%= render "shared/actions", instance: @transaction %>
+  </section>
+<% end %>

@@ -24,8 +24,8 @@ RSpec.describe "Transaction all template" do
 
         before { fill_in "q_slug_start", with: recipe }
 
-        it { within("div#transactions") { expect(page).to have_content(recipe) } }
-        it { within("div#transactions") { expect(page).not_to have_content(transactions.last.recipe_no) } }
+        it { within("section#transactions") { expect(page).to have_content(recipe) } }
+        it { within("section#transactions") { expect(page).not_to have_content(transactions.last.recipe_no) } }
       end
     end
   end

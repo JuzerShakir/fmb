@@ -1,12 +1,11 @@
-<div id="users">
+<div class="container">
   <% @users.each do | user | %>
     <%= link_to(user, id: dom_id(user), class: "row py-3 link-underline link-underline-opacity-0") do %>
-      <div class="col fw-medium">
-        <%= user.name %>
-      </div>
-      <div class="col fw-bold text-danger">
+      <span class="col fw-medium"><%= user.name %></span>
+
+      <strong class="col fw-bold text-danger">
         <%= user.roles_name.first.capitalize %>
-      </div>
+      </strong>
     <% end %>
   <% end %>
 </div>
