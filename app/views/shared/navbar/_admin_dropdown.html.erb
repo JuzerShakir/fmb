@@ -1,11 +1,11 @@
 <li id="admin" class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
 
-  <ul class="dropdown-menu text-center">
+  <menu class="dropdown-menu text-center">
     <li><%= link_to "My Profile", current_user, class: "dropdown-item" %></li>
     <li><%= link_to "All Users", users_path, class: "dropdown-item" %></li>
     <li><%= link_to "New User", new_user_path, id: "new_user", class: "dropdown-item" %></li>
-    <li><hr class="dropdown-divider"></li>
+    <hr class="dropdown-divider">
     <li><%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "dropdown-item text-danger fw-bold" %></li>
-  </ul>
+  </menu>
 </li>

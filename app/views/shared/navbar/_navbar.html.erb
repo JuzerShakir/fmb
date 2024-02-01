@@ -1,7 +1,6 @@
-<div class="mb-5 pb-4">
+<header class="mb-5 pb-4">
   <nav class="navbar navbar-expand-lg fixed-top heading bg-primary" data-bs-theme="dark">
-
-    <div class="container container-fluid">
+    <article class="container container-fluid">
       <%# * Navbar logo %>
       <%= link_to image_tag("logos/default.png", size: "30", alt: "logo"), thaalis_all_path(CURR_YR), class: "navbar-brand" %>
 
@@ -9,8 +8,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav justify-content-center me-auto mb-2 mb-lg-0">
+      <aside class="collapse navbar-collapse" id="navbarSupportedContent">
+        <menu class="navbar-nav justify-content-center mt-0 me-auto mb-2 mb-lg-0">
           <% if current_user.is? "admin" %>
           <%# * Create Sabeel %>
             <li class="nav-item">
@@ -33,8 +32,8 @@
               <%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-danger fw-bold" %>
             </li>
           <% end %>
-        </ul>
-      </div>
-    </div>
+        </menu>
+      </aside>
+    </article>
   </nav>
-</div>
+</header>
