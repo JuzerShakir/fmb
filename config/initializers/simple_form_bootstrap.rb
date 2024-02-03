@@ -46,8 +46,8 @@ SimpleForm.setup do |config|
   config.input_field_valid_class = "is-valid"
 
   # * 3 wrappers being used
-  # horizontal form default_wrapper
-  config.wrappers :horizontal_form, tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
+  # horizontal form default_wrapper used in all forms
+  config.wrappers :horizontal_form, tag: "p", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -56,22 +56,22 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
     b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success"
-    b.wrapper :grid_wrapper, tag: "div", class: "col-md-8 mt-md-4" do |ba|
+    b.wrapper :grid_wrapper, tag: "span", class: "col-md-8 mt-md-4" do |ba|
       ba.use :input, class: "form-control rounded-3 fst-italic focus-ring focus-ring-secondary", error_class: "is-invalid border-danger-subtle", valid_class: "is-valid text-success"
       ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
-      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback fw-medium"}
+      ba.use :full_error, wrap_with: {tag: "strong", class: "invalid-feedback fw-medium"}
     end
   end
 
   # horizontal input for inline radio buttons and check boxes
-  config.wrappers :horizontal_collection_inline, item_wrapper_class: "form-check form-check-inline", item_label_class: "form-check-label fst-italic fw-medium text-secondary", tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
+  config.wrappers :horizontal_collection_inline, class: "form-group row mb-3", error_class: "form-group-invalid", valid_class: "form-group-valid", tag: "div", item_wrapper_class: "form-check form-check-inline", item_label_class: "form-check-label fst-italic fw-medium text-secondary", item_wrapper_tag: "p" do |b|
     b.use :html5
     b.optional :readonly
     b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success"
     b.wrapper :grid_wrapper, tag: "div", class: "col-md-8 mt-md-4" do |ba|
       ba.use :input, class: "form-check-input border border-2 border-secondary focus-ring focus-ring-secondary", error_class: "is-invalid", valid_class: "is-valid"
       ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
-      ba.use :full_error, wrap_with: {tag: "div", class: "invalid-feedback d-block fw-medium"}
+      ba.use :full_error, wrap_with: {tag: "strong", class: "invalid-feedback d-block fw-medium"}
     end
   end
 
