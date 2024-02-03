@@ -64,10 +64,12 @@ SimpleForm.setup do |config|
   end
 
   # horizontal input for inline radio buttons and check boxes
-  config.wrappers :horizontal_collection_inline, class: "form-group row mb-3", error_class: "form-group-invalid", valid_class: "form-group-valid", tag: "div", item_wrapper_class: "form-check form-check-inline", item_label_class: "form-check-label fst-italic fw-medium text-secondary", item_wrapper_tag: "p" do |b|
+  config.wrappers :horizontal_collection_inline, class: "form-group row mb-3", error_class: "form-group-invalid", valid_class: "form-group-valid", tag: "fieldset", item_wrapper_class: "form-check form-check-inline", item_label_class: "form-check-label fst-italic fw-medium text-secondary", item_wrapper_tag: "p" do |b|
     b.use :html5
     b.optional :readonly
-    b.use :label, class: "col-md-4 fw-medium fs-5 mt-4 text-success"
+    b.wrapper :legend_tag, tag: "legend", class: "col-md-4 fw-medium fs-5 mt-4 text-success" do |ba|
+      ba.use :label_text
+    end
     b.wrapper :grid_wrapper, tag: "div", class: "col-md-8 mt-md-4" do |ba|
       ba.use :input, class: "form-check-input border border-2 border-secondary focus-ring focus-ring-secondary", error_class: "is-invalid", valid_class: "is-valid"
       ba.use :hint, wrap_with: {tag: "small", class: "text-success fst-italic mb-0"}
