@@ -1,5 +1,5 @@
 <section id="thaalis" class="mt-5">
-  <p class="fw-bold text-center text-info">Total number of Thaalis: <em><%= @thaalis.size %></em></p>
+  <p class="fw-bold text-center text-info">Total number of Thaalis: <em class="fst-normal"><%= @thaalis.size %></em></p>
 
   <section class="bg-white bg-opacity-75 border border-4 border-secondary rounded-4 text-center  mt-3 mb-5">
     <table class="table mb-0">
@@ -18,10 +18,10 @@
           <strong class="col fw-medium">
             <%= thaali.year %>
           </strong>
-          <em class="col text-info fw-medium">
+          <em class="col text-info fw-medium fst-normal">
             <%= add_rupees_symbol_to thaali.total %>
           </em>
-          <strong class="col <%= thaali.dues_cleared? ? "fw-bold text-success" : "text-danger" %>">
+          <strong class="col fw-bold  <%= thaali.dues_cleared? ? "text-success" : "text-danger" %>">
             <%= add_rupees_symbol_to thaali.balance %>
           </strong>
         <% end %>
