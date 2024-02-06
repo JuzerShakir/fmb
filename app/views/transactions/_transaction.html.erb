@@ -27,7 +27,7 @@
     <strong class="fw-bold"><%= add_rupees_symbol_to(@transaction.amount, delimiter: true) %></strong>
     <br>
     or rupees
-    <em class="fst-italic"><%= @transaction.amount.humanize %></em>
+    <em><%= @transaction.amount.humanize %></em>
     <br>
     via
     <span class="fw-bold"><%= @transaction.mode.capitalize %></span>
