@@ -1,10 +1,12 @@
 <% content_for :title, "Sabeel Statistics" %>
 
 <%# * Heading %>
-<h2 class="heading">Sabeel Statistics: <em class=" text-secondary "><%= CURR_YR %></em></h2>
+<% content_for :heading do %>
+  <h2>Sabeel Statistics</h2>
+<% end %>
 
 <%# * No. of Sabeels %>
-<p class="text-center text-info fw-bold fs-4 mt-5">Total number of Sabeels: <em><%= Sabeel.count %></em></p>
+<p class="text-center text-info fw-bold fs-4">Total number of Sabeels: <em><%= Sabeel.count %></em></p>
 
 <%# * Content %>
 <% @apts.each do |apartment, values| %>

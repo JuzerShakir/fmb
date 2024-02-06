@@ -1,5 +1,9 @@
 <% content_for :title, @sabeel.name %>
 
+<% content_for :heading do %>
+  <h2><%= @sabeel.name %></h2>
+<% end %>
+
 <%= render @sabeel %>
 
 <%# * action buttons %>

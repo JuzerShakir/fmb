@@ -1,7 +1,9 @@
 <% content_for :title, "Transactions" %>
 
 <%# * Heading %>
-<h2 class="heading">Transactions</h2>
+<% content_for :heading do %>
+  <h2>Transactions</h2>
+<% end %>
 
 <%# * search %>
 <%= render "shared/search", attr_name: "Recipe no.", url: transactions_all_path, search: :slug_start %>

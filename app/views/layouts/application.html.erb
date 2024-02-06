@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= content_for(:title) || "FMB" %></title>
+    <title><%= content_for :title || "FMB" %></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
@@ -13,8 +13,16 @@
   </head>
 
   <body onselectstart="return false">
-    <%= render "shared/navbar/navbar" if current_user.present? %>
     <%= render "shared/flash_messages" if flash.present? %>
+
+    <% if current_user.present? %>
+      <header class="heading">
+        <%= render "shared/navbar/navbar" %>
+
+        <%= content_for :heading %>
+      </header>
+    <% end %>
+
 
     <main class="<%= (action_name == "home") ? "" : "container mt-3" %>">
       <%= yield %>

@@ -1,5 +1,9 @@
 <% content_for :title, "Recipe: #{@transaction.recipe_no}" %>
 
+<% content_for :heading do %>
+  <h2>Recipe: <em class="text-secondary"><%= @transaction.recipe_no %></em></h2>
+<% end %>
+
 <%= render @transaction %>
 
 <%# * action buttons %>

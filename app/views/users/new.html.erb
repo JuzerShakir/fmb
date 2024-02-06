@@ -3,7 +3,9 @@
 <% content_for :title, "New User" %>
 
 <%# * Heading %>
-<h2 class="heading mb-3">New User</h2>
+<% content_for :heading do %>
+  <h2>New User</h2>
+<% end %>
 
 <%# * Sign Up form %>
 <%= render "form", roles: %>

@@ -1,5 +1,9 @@
 <% content_for :title, "Thaali no. #{@thaali.number}" %>
 
+<% content_for :heading do %>
+  <h2>Thaali No: <em class="text-secondary"><%= @thaali.number %></em></h2>
+<% end %>
+
 <%= render @thaali %>
 
 <%# * action buttons %>

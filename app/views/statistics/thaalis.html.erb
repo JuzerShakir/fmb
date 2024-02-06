@@ -1,7 +1,9 @@
 <% content_for :title, "Thaali Statistics" %>
 
 <%# * Heading %>
-<h2 class="heading">Thaali Statistics</h2>
+<% content_for :heading do %>
+  <h2>Thaali Statistics</h2>
+<% end %>
 
 <%# * Content %>
 <% @years.each do |year, values| %>

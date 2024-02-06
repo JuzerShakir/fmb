@@ -1,7 +1,9 @@
 <% content_for :title, "Sabeels" %>
 
 <%# * Heading %>
-<h2 class="heading">Sabeels</h2>
+<% content_for :heading do %>
+  <h2>Sabeels</h2>
+<% end %>
 
 <%# * search %>
 <%= render "shared/search", attr_name: "ITS or Name", url: sabeels_path, search: :slug_or_name_cont %>
