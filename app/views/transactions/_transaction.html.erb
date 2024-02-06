@@ -1,4 +1,4 @@
-<section id="transaction" class="col-xxl-5 col-xl-6 col-lg-7 col-md-9 rounded-4 shadow mx-auto text-warning text-center mt-3 p-4">
+<section id="transaction" class="col-xxl-5 col-xl-6 col-lg-7 col-md-9 rounded-4 shadow mx-auto text-warning text-center p-4">
   <header class="row heading">
     <div class="col-8 text-start">
       <h4>Dawoodi Bohra Jamaat</h4>
@@ -8,14 +8,13 @@
     </div>
   </header>
 
-    <header class="row heading pb-4">
-      <div class="col-8 text-start">
-        <h6>A/c Faiz Al Mawaid Burhaniyah</h6>
-      </div>
-      <div class="col-4 text-end">
-        <h6><%= link_to("#{@transaction.thaali_number} (#{@transaction.thaali_year})", @transaction.thaali, class: "link-primary link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover") %></h6>
-      </div>
-    </header>
+  <header class="row heading pb-4">
+    <div class="col-8 text-start">
+      <h6>A/c Faiz Al Mawaid Burhaniyah</h6>
+    </div>
+    <div class="col-4 text-end">
+      <h6><%= link_to("#{@transaction.thaali_number} (#{@transaction.thaali_year})", @transaction.thaali, class: "link-primary link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover") %></h6>
+    </div>
   </header>
 
   <p class="lh-lg mb-0">
