@@ -1,30 +1,30 @@
-<div id="thaali" class="col-lg-2 col-md-3 col-sm-4 col-5 mx-auto">
+<section id="thaali" class="col-lg-2 col-md-3 col-sm-4 col-5 mx-auto">
   <div id="thaali__handle">&nbsp;</div>
 
-  <div id="thaali__container" class="border border-primary border-4 rounded-5 shadow text-center text-warning">
+  <section id="thaali__container" class="border border-primary border-4 rounded-5 shadow text-center text-warning">
     <div class="row border-bottom border-2 border-secondary m-0 py-sm-3 py-2">
-      <div class="col fw-bold">
+      <strong class="col fw-bold">
         <%= "#{@thaali.number} (#{thaali.year})" %>
-      </div>
+      </strong>
     </div>
 
     <div class="row border-bottom border-2 border-secondary m-0 py-sm-3 py-2">
-      <div class="col">
+      <em class="col fst-normal">
         <%= @thaali.size.capitalize %>
-      </div>
+      </em>
     </div>
 
     <div class="row border-bottom border-2 border-secondary m-0 py-sm-3 py-2">
-      <div class="col">
+      <span class="col">
         <%= link_to @thaali.sabeel_its, @thaali.sabeel, class: "fw-bold link-warning link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover" %>
-      </div>
+      </span>
     </div>
 
     <div class="row py-sm-3 py-2">
-      <div class="col fw-bold">
+      <span class="col fw-bold">
         <i class="fa-solid fa-sack-dollar"></i>
         <%= add_rupees_symbol_to @thaali.total %>
-      </div>
+      </span>
     </div>
-  </div>
-</div>
+  </section>
+</section>

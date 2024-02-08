@@ -1,10 +1,10 @@
-<div class="container col-xxl-6 col-xl-7 col-lg-8 col-md-11 col-sm-10 pt-4 p-5 bg-white bg-opacity-50 shadow-lg border border-2 border-success-subtle rounded-4 mb-5">
-  <%= simple_form_for @transaction, url: url_helper do |f| %>
+<article class="container col-xxl-6 col-xl-7 col-lg-8 col-md-11 pt-4 p-5 bg-white bg-opacity-50 shadow-lg border border-2 border-success-subtle rounded-4 mb-5">
+  <%= simple_form_for @transaction, url: do |f| %>
     <%= f.error_notification %>
     <%= f.input :recipe_no %>
     <%= f.input :amount, hint: "Amount shouldn't be greater than: ₹#{total_balance}" %>
     <%= f.input :mode, collection: Transaction.modes.invert.to_a, as: :radio_buttons %>
-    <%= f.input :date, order: %i[day month year] %>
+    <%= f.input :date, as: :date, order: %i[day month year], html5: true, input_html: {value: @transaction.date || Time.zone.today} %>
     <%= f.button :submit, action_name: %>
   <% end %>
-</div>
+</article>

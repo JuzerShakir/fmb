@@ -1,5 +1,7 @@
 <% content_for :title, "New Thaali" %>
 
-<h2 class="heading mb-3">New Thaali</h2>
+<% content_for :heading do %>
+  <h2>New Thaali</h2>
+<% end %>
 
 <%= render "form", path: sabeel_thaalis_path %>

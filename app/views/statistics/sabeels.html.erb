@@ -1,32 +1,31 @@
 <% content_for :title, "Sabeel Statistics" %>
 
-<%# * Heading %>
-<h2 class="heading">Sabeel Statistics: <span class=" text-secondary "><%= CURR_YR %></span></h2>
+<% content_for :heading do %>
+  <h2>Sabeel Statistics</h2>
+<% end %>
 
 <%# * No. of Sabeels %>
-<p class=" mt-5 fw-bold text-center text-info fs-4 ">Total number of Sabeels: <%= Sabeel.count %></p>
+<p class="text-center text-info fw-bold fs-4">Total number of Sabeels: <em><%= Sabeel.count %></em></p>
 
 <%# * Content %>
 <% @apts.each do |apartment, values| %>
-  <div id="<%= apartment %>" class="text-center container col-lg-8 offset-lg-2 my-5 p-3 border rounded-5 shadow bg-white bg-opacity-50">
+  <section id="<%= apartment %>" class="container col-lg-8 offset-lg-2 border border-2 border-light rounded-5 shadow bg-white bg-opacity-75 text-center my-5 p-3">
     <h3 class="heading"><%= apartment.to_s.titleize %></h3>
 
-    <div class="row justify-content-evenly mt-3">
+    <nav class="row justify-content-evenly mt-3">
       <%= link_to "Active: #{values[:active_thaalis]}", sabeels_active_path(apartment), class: "default-btn btn-outline-success" %>
       <%= link_to "Inactive: #{values[:inactive_thaalis]}", sabeels_inactive_path(apartment), class: "default-btn btn-outline-danger" %>
-    </div>
+    </nav>
 
     <div class="row mt-2 fw-bold">
-      <p class="col text-info">Small: <%= values[:small] %></p>
-      <p class="col text-secondary">Medium: <%= values[:medium] %></p>
-      <p class="col text-success">Large: <%= values[:large] %></p>
+      <p class="col text-info">Small: <em class="fst-normal"><%= values[:small] %></em></p>
+      <p class="col text-secondary">Medium: <em class="fst-normal"><%= values[:medium] %></em></p>
+      <p class="col text-success">Large: <em class="fst-normal"><%= values[:large] %></em></p>
     </div>
 
     <div class="row mt-3">
-      <p class="fw-bold text-success fs-5">
-        Total Sabeels: <%= values[:total_sabeels] %>
-      </p>
+      <strong class="fw-bold text-success fs-5">Total Sabeels: <%= values[:total_sabeels] %></strong>
     </div>
 
-  </div>
+  </section>
 <% end %>

@@ -1,25 +1,23 @@
 <% content_for :title, @sabeel.name %>
 
+<% content_for :heading do %>
+  <h2><%= @sabeel.name %></h2>
+<% end %>
+
 <%= render @sabeel %>
 
 <%# * action buttons %>
-<%= render "shared/actions", instance: @sabeel %>
+<% unless current_user.is?("viewer") %>
+  <section id="actions">
+    <%= render "shared/actions", instance: @sabeel %>
 
-<%# * Thaalis %>
-<% unless @sabeel.taking_thaali? || current_user.is?("viewer") %>
-  <div class="col-5 col-md-4 col-lg-3 col-xl-2 vstack mt-5 mx-auto">
-    <%= link_to "New Thaali", new_sabeel_thaali_path(@sabeel), method: :get, class: "btn btn-success" %>
-  </div>
+    <%# * Thaalis %>
+    <% unless @sabeel.taking_thaali? %>
+      <nav class="col-5 col-md-4 col-lg-3 col-xl-2 vstack mt-5 mx-auto">
+        <%= link_to "New Thaali", new_sabeel_thaali_path(@sabeel), method: :get, class: "btn btn-success" %>
+      </nav>
+    <% end %>
+  </section>
 <% end %>
 
-<% if @thaalis.present? %>
-  <div class="mt-5">
-    <p class="fw-bold text-center text-info">
-      Total number of Thaalis: <%= @thaalis.size %>
-    </p>
-
-    <div class="container mt-3 mb-5 text-center bg-white bg-opacity-75 border border-4 border-secondary rounded-4">
-      <%= render "thaalis" %>
-    </div>
-  </div>
-<% end %>
+<%= render "thaalis" if @thaalis.present? %>

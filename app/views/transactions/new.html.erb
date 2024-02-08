@@ -2,6 +2,8 @@
 
 <% content_for :title, "New Transaction" %>
 
-<h2 class="heading mb-3">New Transaction</h2>
+<% content_for :heading do %>
+  <h2>New Transaction</h2>
+<% end %>
 
-<%= render "form", url_helper: thaali_transactions_path, total_balance: %>
+<%= render "form", url: thaali_transactions_path, total_balance: %>

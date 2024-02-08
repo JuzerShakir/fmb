@@ -2,14 +2,20 @@
 
 <%= render @user %>
 
-<%# * action buttons %>
-<div class="col-5 col-md-4 col-lg-3 col-xl-2 vstack gap-2 mx-auto mt-5 fs-6">
-  <%= link_to "Edit", edit_user_path(@user), class: "btn btn-info" if current_user == @user %>
+<% content_for :heading do %>
+  <h2><%= @user.name %></h2>
+<% end %>
 
-  <!-- DESTROY Button triggers destroy modal -->
-  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
-    Delete
-  </button>
-  <%# * destroy Modal %>
-  <%= render "shared/destroy_modal", instance: @user %>
+<%# * action buttons %>
+<section id="actions">
+  <% if current_user == @user %>
+    <%= render "shared/actions", instance: @user %>
+  <% else %>
+    <nav class="col-5 col-md-4 col-lg-3 col-xl-2 vstack gap-2 mx-auto mt-5">
+      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
+        Delete
+      </button>
+      <%= render "shared/destroy_modal", instance: @user %>
+    </nav>
+  <% end %>
 </div>

@@ -22,14 +22,14 @@ RSpec.describe "Sabeel Stats template" do
       it { expect(page).to have_css("h3", text: "Burhani") }
 
       it "Active" do
-        within("div#burhani") do
+        within("section#burhani") do
           count = active_burhani_sabeels.count
           expect(page).to have_selector(:link_or_button, "Active: #{count}")
         end
       end
 
       it "Inactive" do
-        within("div#burhani") do
+        within("section#burhani") do
           count = Sabeel.burhani.count - active_burhani_sabeels.count
           expect(page).to have_selector(:link_or_button, "Inactive: #{count}")
         end
@@ -37,21 +37,21 @@ RSpec.describe "Sabeel Stats template" do
 
       describe "size count for" do
         it "small" do
-          within("div#burhani") do
+          within("section#burhani") do
             count = active_burhani_sabeels.with_thaali_size("small").count
             expect(page).to have_content("Small: #{count}")
           end
         end
 
         it "medium" do
-          within("div#burhani") do
+          within("section#burhani") do
             count = active_burhani_sabeels.with_thaali_size("medium").count
             expect(page).to have_content("Medium: #{count}")
           end
         end
 
         it "large" do
-          within("div#burhani") do
+          within("section#burhani") do
             count = active_burhani_sabeels.with_thaali_size("large").count
             expect(page).to have_content("Large: #{count}")
           end

@@ -1,7 +1,8 @@
 <% content_for :title, "Inactive Sabeels - #{@apt.titleize}" %>
 
-<%# * Heading %>
-<h2 class="heading">Inactive Sabeels: <span class="text-secondary"><%= @apt.titleize %></span></h2>
+<% content_for :heading do %>
+  <h2>Inactive Sabeels in: <em class="text-secondary"><%= @apt.titleize %></em></h2>
+<% end %>
 
 <%# * show all sabeels %>
 <%= render "shared/results", model: "sabeels", url: sabeels_inactive_path(format: :turbo_stream) %>

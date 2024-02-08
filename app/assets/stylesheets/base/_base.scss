@@ -3,26 +3,3 @@ body {
 	background-size: cover;
 	background-attachment: fixed;
 }
-
-input[type="search"] {
-	&::-webkit-search-decoration,
-	&::-webkit-search-cancel-button,
-	&::-webkit-search-results-button,
-	&::-webkit-search-results-decoration {
-		display: none;
-	}
-}
-
-.form-control {
-	&::-moz-placeholder {
-		opacity: 0.85;
-	}
-
-	&:-ms-input-placeholder {
-		opacity: 0.85;
-	}
-
-	&::-webkit-input-placeholder {
-		opacity: 0.85;
-	}
-}

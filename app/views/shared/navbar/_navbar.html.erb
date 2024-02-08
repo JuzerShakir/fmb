@@ -1,40 +1,37 @@
-<div class="mb-5 pb-4">
-  <nav class="navbar navbar-expand-lg fixed-top heading bg-primary" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark">
+  <article class="container container-fluid">
+    <%# * Navbar logo %>
+    <%= link_to image_tag("logos/default.png", size: "30", alt: "logo"), thaalis_all_path(CURR_YR), class: "navbar-brand" %>
 
-    <div class="container container-fluid">
-      <%# * Navbar logo %>
-      <%= link_to image_tag("logos/default.png", size: "30", alt: "logo"), thaalis_all_path(CURR_YR), class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <aside class="collapse navbar-collapse" id="navbarSupportedContent">
+      <menu class="navbar-nav justify-content-center mt-0 me-auto mb-2 mb-lg-0">
+        <% if current_user.is? "admin" %>
+        <%# * Create Sabeel %>
+          <li class="nav-item">
+            <%= link_to "Create Sabeel", new_sabeel_path, id: "create-sabeel", class: "nav-link mt-3 mx-4 px-4 rounded-pill mt-lg-0 create-sabeel-btn" %>
+          </li>
+        <% end %>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav justify-content-center me-auto mb-2 mb-lg-0">
-          <% if current_user.is? "admin" %>
-          <%# * Create Sabeel %>
-            <li class="nav-item">
-              <%= link_to "Create Sabeel", new_sabeel_path, id: "create-sabeel", class: "nav-link mt-3 mx-4 px-4 rounded-pill mt-lg-0 create-sabeel-btn" %>
-            </li>
-          <% end %>
-
-          <%# * Resources %>
-          <%= render "shared/navbar/resources_dropdown" %>
-          <%# * Statistics %>
-          <%= render "shared/navbar/statistics_dropdown" %>
-          <%# * User Dropdown %>
-          <% case current_user.role %>
-          <% when "admin" %>
-            <%= render "shared/navbar/admin_dropdown" %>
-          <% when "member" %>
-            <%= render "shared/navbar/member_dropdown" %>
-          <% else %>
-            <li id="viewer">
-              <%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-danger fw-bold" %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</div>
+        <%# * Resources %>
+        <%= render "shared/navbar/resources_dropdown" %>
+        <%# * Statistics %>
+        <%= render "shared/navbar/statistics_dropdown" %>
+        <%# * User Dropdown %>
+        <% case current_user.role %>
+        <% when "admin" %>
+          <%= render "shared/navbar/admin_dropdown" %>
+        <% when "member" %>
+          <%= render "shared/navbar/member_dropdown" %>
+        <% else %>
+          <li id="viewer">
+            <%= link_to "Log out", destroy_path, data: {turbo_method: :delete}, class: "nav-item nav-link text-danger fw-bold" %>
+          </li>
+        <% end %>
+      </menu>
+    </aside>
+  </article>
+</nav>

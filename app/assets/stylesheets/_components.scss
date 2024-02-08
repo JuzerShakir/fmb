@@ -10,9 +10,13 @@
 
 	&:hover {
 		background-position: right center;
-		color: white; /* change the direction of the change here */
+		color: white;
 		text-decoration: none;
 	}
+}
+
+header > h2 {
+	margin: 7rem 0 3rem 0;
 }
 
 // styles defined here will take precedence over the in-line styles defined
@@ -26,11 +30,11 @@
 }
 
 mark {
-	padding: 0 !important;
-	color: $success !important;
-	background-color: $lighter !important;
+	padding: 0;
+	color: $success;
+	background-color: $lighter;
 }
 
-#contact ul {
-	margin-left: -3.5rem !important;
+#contact menu {
+	margin-left: -3.5rem;
 }

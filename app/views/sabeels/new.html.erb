@@ -1,5 +1,7 @@
 <% content_for :title, "New Sabeel" %>
 
-<h2 class="heading mb-3">New Sabeel</h2>
+<% content_for :heading do %>
+  <h2>New Sabeel</h2>
+<% end %>
 
 <%= render "form" %>
