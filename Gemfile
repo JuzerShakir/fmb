@@ -50,7 +50,7 @@ group :development do
 end
 
 group :test do
-  gem "capybara", "~> 3.39.2"
+  gem "capybara", "~> 3.40.0"
   gem "rack_session_access"
   gem "rails-controller-testing", "~> 1.0.5"
   gem "selenium-webdriver", "~> 4.15.0"
