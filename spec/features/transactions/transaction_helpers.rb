@@ -1,6 +1,6 @@
 shared_examples "view transaction records" do
-  it "recipe number" do
-    transactions.each { expect(page).to have_content(_1.recipe_no) }
+  it "receipt number" do
+    transactions.each { expect(page).to have_content(_1.receipt_number) }
   end
 
   it "amount" do

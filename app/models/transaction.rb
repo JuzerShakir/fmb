@@ -20,7 +20,7 @@ class Transaction < ApplicationRecord
   # * FRIENDLY_ID
   include HasFriendlyId
 
-  def sluggables = [recipe_no]
+  def sluggables = [receipt_number]
 
   using ArrayExtensions
 
@@ -31,11 +31,11 @@ class Transaction < ApplicationRecord
   scope :that_occured_on, ->(date) { where(date: date) }
 
   # * Validations
-  validates :amount, :recipe_no, numericality: {only_integer: true, greater_than: 0}
+  validates :amount, :receipt_number, numericality: {only_integer: true, greater_than: 0}
   validate :amount_to_be_less_than_balance, if: :will_save_change_to_amount?
   validates_date :date, on_or_before: :today, if: :will_save_change_to_date?
   validates :mode, :date, presence: true
-  validates :recipe_no, uniqueness: true
+  validates :receipt_number, uniqueness: true
 
   private
 

@@ -14,7 +14,7 @@ RSpec.describe "Transaction new template" do
     let(:user) { create(:user_admin_or_member) }
 
     before do
-      fill_in "transaction_recipe_no", with: 10
+      fill_in "transaction_receipt_number", with: 10
       fill_in "transaction_amount", with: 1
     end
 

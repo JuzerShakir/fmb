@@ -19,13 +19,13 @@ RSpec.describe "Transaction all template" do
     it_behaves_like "view transaction records"
 
     describe "search" do
-      context "with recipe number" do
-        let!(:recipe) { transactions.first.recipe_no }
+      context "with receipt number" do
+        let!(:receipt) { transactions.first.receipt_number }
 
-        before { fill_in "q_slug_start", with: recipe }
+        before { fill_in "q_slug_start", with: receipt }
 
-        it { within("section#transactions") { expect(page).to have_content(recipe) } }
-        it { within("section#transactions") { expect(page).not_to have_content(transactions.last.recipe_no) } }
+        it { within("section#transactions") { expect(page).to have_content(receipt) } }
+        it { within("section#transactions") { expect(page).not_to have_content(transactions.last.receipt_number) } }
       end
     end
   end

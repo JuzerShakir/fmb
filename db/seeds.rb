@@ -32,7 +32,7 @@ thaalis_no_dues.each do |thaali|
     thaali.transactions.create(
       amount: 4000,
       date: Faker::Date.in_date_period(year: PREV_YR),
-      recipe_no: Random.rand(1..2000000),
+      receipt_number: Random.rand(1..2000000),
       mode: Transaction::MODES.sample
     )
   end
@@ -47,7 +47,7 @@ thaalis_has_dues.each do |thaali|
     thaali.transactions.create(
       amount: 4000,
       date: Faker::Date.in_date_period(year: PREV_YR),
-      recipe_no: Random.rand(2000001..3000000),
+      receipt_number: Random.rand(2000001..3000000),
       mode: Transaction::MODES.sample
     )
   end
@@ -74,7 +74,7 @@ thaalis_no_prev_dues.each do |thaali|
       thaali.transactions.create(
         amount: 5000,
         date: Faker::Date.in_date_period(year: CURR_YR),
-        recipe_no: Random.rand(3000001..6000000),
+        receipt_number: Random.rand(3000001..6000000),
         mode: Transaction::MODES.sample
       )
     end
@@ -90,7 +90,7 @@ thaalis_has_prev_dues.each do |thaali|
     thaali.transactions.create(
       amount: 5000,
       date: Faker::Date.in_date_period(year: CURR_YR),
-      recipe_no: Random.rand(6000000..10000000),
+      receipt_number: Random.rand(6000000..10000000),
       mode: Transaction::MODES.sample
     )
   end

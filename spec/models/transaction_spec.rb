@@ -71,10 +71,10 @@ RSpec.describe Transaction do
       end
     end
 
-    context "with recipe_no" do
-      it { is_expected.to validate_numericality_of(:recipe_no).only_integer.with_message("must be an integer") }
-      it { is_expected.to validate_numericality_of(:recipe_no).is_greater_than(0) }
-      it { is_expected.to validate_uniqueness_of(:recipe_no).with_message("has already been invoiced") }
+    context "with receipt_number" do
+      it { is_expected.to validate_numericality_of(:receipt_number).only_integer.with_message("must be an integer") }
+      it { is_expected.to validate_numericality_of(:receipt_number).is_greater_than(0) }
+      it { is_expected.to validate_uniqueness_of(:receipt_number).with_message("has already been invoiced") }
     end
   end
 

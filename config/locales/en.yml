@@ -86,7 +86,7 @@ en:
             amount:
               not_a_number: *not_a_number
               greater_than: "must be greater than 0"
-            recipe_no:
+            receipt_number:
               not_a_number: *not_a_number
               greater_than: "must be greater than 0"
               taken: "has already been invoiced"
@@ -104,7 +104,7 @@ en:
       thaali:
         total: "Total Takhmeen"
       transaction:
-        recipe_no: "Recipe Number"
+        receipt_number: "Receipt Number"
         mode: "Payment"
         date: "Billing"
 

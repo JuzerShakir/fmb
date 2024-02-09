@@ -1,7 +1,7 @@
-<% content_for :title, "Recipe: #{@transaction.recipe_no}" %>
+<% content_for :title, "Receipt: #{@transaction.receipt_number}" %>
 
 <% content_for :heading do %>
-  <h2>Recipe: <em class="text-secondary"><%= @transaction.recipe_no %></em></h2>
+  <h2>Receipt: <em class="text-secondary"><%= @transaction.receipt_number %></em></h2>
 <% end %>
 
 <%= render @transaction %>

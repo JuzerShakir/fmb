@@ -15,10 +15,10 @@ RSpec.describe "Transaction show template" do
   describe "visited by any user type can view" do
     let(:user) { create(:user) }
 
-    it { expect(page).to have_title "Recipe: #{transaction.recipe_no}" }
+    it { expect(page).to have_title "Receipt: #{transaction.receipt_number}" }
 
     describe "transaction details" do
-      it { expect(page).to have_content(transaction.recipe_no) }
+      it { expect(page).to have_content(transaction.receipt_number) }
       it { expect(page).to have_content(number_with_delimiter(transaction.amount)) }
       it { expect(page).to have_content(transaction.mode.capitalize) }
       it { expect(page).to have_content(transaction.date.to_fs(:long)) }

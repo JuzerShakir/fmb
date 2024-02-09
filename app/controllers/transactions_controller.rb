@@ -52,7 +52,7 @@ class TransactionsController < ApplicationController
 
   private
 
-  def transaction_params = params.require(:transaction).permit(:amount, :date, :mode, :recipe_no)
+  def transaction_params = params.require(:transaction).permit(:amount, :date, :mode, :receipt_number)
 
   def check_if_thaali_has_balance
     @thaali = Thaali.find(params[:thaali_id])

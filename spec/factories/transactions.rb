@@ -5,7 +5,7 @@ FactoryBot.define do
     thaali
     amount { Faker::Number.number(digits: 4) }
     date { Faker::Date.backward }
-    recipe_no { Random.rand(1000..100000) }
+    receipt_number { Random.rand(1000..100000) }
     sequence :mode, Transaction::MODES.cycle
 
     factory :cleared_transaction, traits: [:cleared]
