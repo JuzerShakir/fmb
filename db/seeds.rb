@@ -1,4 +1,6 @@
 Sabeel.destroy_all
+User.destroy_all
+Role.destroy_all
 
 #  CREATE SABEEL
 100.times do |i|
