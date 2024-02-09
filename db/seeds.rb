@@ -73,7 +73,7 @@ thaalis_no_prev_dues.each do |thaali|
     12.times do
       thaali.transactions.create(
         amount: 5000,
-        date: Faker::Date.in_date_period(year: CURR_YR),
+        date: Faker::Date.between(from: Time.zone.today.beginning_of_year, to: Time.zone.today),
         receipt_number: Random.rand(3000001..6000000),
         mode: Transaction::MODES.sample
       )
@@ -89,7 +89,7 @@ thaalis_has_prev_dues.each do |thaali|
   num.times do
     thaali.transactions.create(
       amount: 5000,
-      date: Faker::Date.in_date_period(year: CURR_YR),
+      date: Faker::Date.between(from: Time.zone.today.beginning_of_year, to: Time.zone.today),
       receipt_number: Random.rand(6000000..10000000),
       mode: Transaction::MODES.sample
     )
