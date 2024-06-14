@@ -38,7 +38,7 @@ group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "factory_bot_rails", "~> 6.2.0"
   gem "rspec-rails", "~> 6.0.1"
-  gem "rubocop-rails", "2.21.1", require: false
+  gem "rubocop-rails", "2.25", require: false
   gem "rubocop-rspec", require: false
   gem "standard", require: false
 end
@@ -55,7 +55,7 @@ group :test do
   gem "rails-controller-testing", "~> 1.0.5"
   gem "selenium-webdriver", "~> 4.21.0"
   gem "shoulda-callback-matchers", "~> 1.1.4"
-  gem "shoulda-matchers", "~> 5.3.0"
+  gem "shoulda-matchers", "~> 6.2.0"
   gem "simplecov", require: false
 end
 
