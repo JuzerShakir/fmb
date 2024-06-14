@@ -37,8 +37,8 @@ gem "validates_timeliness", "~> 7.0.0.beta1"
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "factory_bot_rails", "~> 6.2.0"
-  gem "rspec-rails", "~> 6.0.1"
-  gem "rubocop-rails", "2.25", require: false
+  gem "rspec-rails", "~> 6.1.0"
+  gem "rubocop-rails", "2.25.0", require: false
   gem "rubocop-rspec", require: false
   gem "standard", require: false
 end
