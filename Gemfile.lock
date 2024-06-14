@@ -312,7 +312,8 @@ GEM
       rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
-    selenium-webdriver (4.15.0)
+    selenium-webdriver (4.21.1)
+      base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -416,7 +417,7 @@ DEPENDENCIES
   rspec-rails (~> 6.0.1)
   rubocop-rails (= 2.21.1)
   rubocop-rspec
-  selenium-webdriver (~> 4.15.0)
+  selenium-webdriver (~> 4.21.0)
   sentry-rails (~> 5.13.0)
   sentry-ruby (~> 5.13.0)
   shoulda-callback-matchers (~> 1.1.4)

@@ -53,7 +53,7 @@ group :test do
   gem "capybara", "~> 3.40.0"
   gem "rack_session_access"
   gem "rails-controller-testing", "~> 1.0.5"
-  gem "selenium-webdriver", "~> 4.15.0"
+  gem "selenium-webdriver", "~> 4.21.0"
   gem "shoulda-callback-matchers", "~> 1.1.4"
   gem "shoulda-matchers", "~> 5.3.0"
   gem "simplecov", require: false
