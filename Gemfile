@@ -8,7 +8,7 @@ gem "rails", "~> 7.1.3"
 gem "active_record_union"
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
-gem "cancancan", "~> 3.5.0"
+gem "cancancan", "~> 3.6.0"
 gem "cssbundling-rails"
 gem "faker", "~> 3.2.2"
 gem "friendly_id", "~> 5.5.1"
@@ -36,7 +36,7 @@ gem "validates_timeliness", "~> 7.0.0.beta1"
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
-  gem "factory_bot_rails", "~> 6.2.0"
+  gem "factory_bot_rails", "~> 6.4.0"
   gem "rspec-rails", "~> 6.1.0"
   gem "rubocop-rails", "2.25.0", require: false
   gem "rubocop-rspec", require: false
