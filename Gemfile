@@ -8,14 +8,14 @@ gem "rails", "~> 7.1.3"
 gem "active_record_union"
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
-gem "cancancan", "~> 3.5.0"
+gem "cancancan", "~> 3.6.0"
 gem "cssbundling-rails"
-gem "faker", "~> 3.2.2"
+gem "faker", "~> 3.4.0"
 gem "friendly_id", "~> 5.5.1"
-gem "humanize", "~> 2.5.1"
+gem "humanize", "~> 3.1.0"
 gem "jbuilder"
 gem "jsbundling-rails"
-gem "pagy", "~> 6.2.0"
+gem "pagy", "~> 8.4.0"
 gem "pg", "~> 1.5.4"
 gem "prawn", "~> 2.4.0"
 gem "prawn-table", "~> 0.2.2"
@@ -36,9 +36,9 @@ gem "validates_timeliness", "~> 7.0.0.beta1"
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
-  gem "factory_bot_rails", "~> 6.2.0"
-  gem "rspec-rails", "~> 6.0.1"
-  gem "rubocop-rails", "2.21.1", require: false
+  gem "factory_bot_rails", "~> 6.4.0"
+  gem "rspec-rails", "~> 6.1.0"
+  gem "rubocop-rails", "2.25.0", require: false
   gem "rubocop-rspec", require: false
   gem "standard", require: false
 end
@@ -53,9 +53,9 @@ group :test do
   gem "capybara", "~> 3.40.0"
   gem "rack_session_access"
   gem "rails-controller-testing", "~> 1.0.5"
-  gem "selenium-webdriver", "~> 4.15.0"
+  gem "selenium-webdriver", "~> 4.21.0"
   gem "shoulda-callback-matchers", "~> 1.1.4"
-  gem "shoulda-matchers", "~> 5.3.0"
+  gem "shoulda-matchers", "~> 6.2.0"
   gem "simplecov", require: false
 end
 
