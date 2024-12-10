@@ -30,7 +30,7 @@ class Sabeel < ApplicationRecord
   using ArrayExtensions
 
   # * Enums
-  enum apartment: APARTMENTS.to_h_titleize_value
+  enum apartment: APARTMENTS.to_h_titleize_value # rubocop:disable Rails/EnumSyntax
 
   # * Scopes
   scope :no_thaali, -> { where.missing(:thaalis) }
