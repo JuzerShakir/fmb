@@ -10,7 +10,7 @@ gem "bcrypt", "~> 3.1.20"
 gem "bootsnap", require: false
 gem "cancancan", "~> 3.6.1"
 gem "cssbundling-rails"
-gem "faker", "~> 3.4.0"
+gem "faker", "~> 3.5.1"
 gem "friendly_id", "~> 5.5.1"
 gem "humanize", "~> 3.1.0"
 gem "jbuilder"

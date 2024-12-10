@@ -135,7 +135,7 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
-    faker (3.4.1)
+    faker (3.5.1)
       i18n (>= 1.8.11, < 2)
     friendly_id (5.5.1)
       activerecord (>= 4.0.0)
@@ -402,7 +402,7 @@ DEPENDENCIES
   dockerfile-rails (>= 1.5)
   erb_lint
   factory_bot_rails (~> 6.4.0)
-  faker (~> 3.4.0)
+  faker (~> 3.5.1)
   friendly_id (~> 5.5.1)
   humanize (~> 3.1.0)
   jbuilder
