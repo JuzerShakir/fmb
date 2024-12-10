@@ -429,6 +429,7 @@ DEPENDENCIES
   redis (~> 5.0.8)
   rolify (~> 6.0.1)
   rspec-rails (~> 7.1.0)
+  rubocop-performance
   rubocop-rails (= 2.27.0)
   rubocop-rspec
   rubocop-rspec_rails

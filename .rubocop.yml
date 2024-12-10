@@ -12,6 +12,7 @@ require:
   - rubocop-rspec
   - rubocop-rspec_rails
   - rubocop-capybara
+  - rubocop-performance
 
 inherit_gem:
   standard: config/base.yml
