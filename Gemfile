@@ -6,7 +6,7 @@ ruby "~> 3.3.6"
 gem "rails", "~> 7.1.5"
 
 gem "active_record_union"
-gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.20"
 gem "bootsnap", require: false
 gem "cancancan", "~> 3.6.0"
 gem "cssbundling-rails"
