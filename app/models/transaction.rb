@@ -25,7 +25,7 @@ class Transaction < ApplicationRecord
   using ArrayExtensions
 
   # * Enums
-  enum mode: MODES.to_h_titleize_value
+  enum mode: MODES.to_h_titleize_value # rubocop:disable Rails/EnumSyntax
 
   # * Scopes
   scope :that_occured_on, ->(date) { where(date: date) }

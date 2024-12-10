@@ -14,7 +14,7 @@ module DisableOnSubmit
       field[:data] ||= {}
       field[:data][:turbo_submits_with] ||= inspect_action(field[:action_name])
     end
-    super(field, options)
+    super
   end
 
   def inspect_action(type)
