@@ -8,7 +8,7 @@ gem "rails", "~> 7.1.5"
 gem "active_record_union"
 gem "bcrypt", "~> 3.1.20"
 gem "bootsnap", require: false
-gem "cancancan", "~> 3.6.0"
+gem "cancancan", "~> 3.6.1"
 gem "cssbundling-rails"
 gem "faker", "~> 3.4.0"
 gem "friendly_id", "~> 5.5.1"
