@@ -58,7 +58,3 @@ group :test do
   gem "shoulda-matchers", "~> 6.2.0"
   gem "simplecov", require: false
 end
-
-group :productiom do
-  gem "matrix", "~> 0.4.2"
-end
