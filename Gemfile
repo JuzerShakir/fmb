@@ -27,7 +27,7 @@ gem "redis", "~> 5.0.8"
 gem "rolify", "~> 6.0.1"
 gem "simple_form", "~> 5.3.0"
 gem "stimulus-rails"
-gem "turbo-rails", "~> 1.5.0"
+gem "turbo-rails", "~> 2.0.11"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "validates_email_format_of", "~> 1.8.2"
 gem "validates_timeliness", "~> 7.0.0"
