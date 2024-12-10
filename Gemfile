@@ -44,7 +44,7 @@ group :development, :test do
 end
 
 group :development do
-  gem "dockerfile-rails", ">= 1.5"
+  gem "dockerfile-rails", ">= 1.6"
   gem "erb_lint", require: false
   gem "web-console"
 end
@@ -53,7 +53,7 @@ group :test do
   gem "capybara", "~> 3.40.0"
   gem "rack_session_access"
   gem "rails-controller-testing", "~> 1.0.5"
-  gem "selenium-webdriver", "~> 4.21.0"
+  gem "selenium-webdriver", "~> 4.27.0"
   gem "shoulda-callback-matchers", "~> 1.1.4"
   gem "shoulda-matchers", "~> 6.2.0"
   gem "simplecov", require: false
