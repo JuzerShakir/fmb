@@ -30,7 +30,7 @@ gem "stimulus-rails"
 gem "turbo-rails", "~> 1.5.0"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "validates_email_format_of", "~> 1.8.2"
-gem "validates_timeliness", "~> 7.0.0.beta1"
+gem "validates_timeliness", "~> 7.0.0"
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
