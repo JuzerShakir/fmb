@@ -204,7 +204,7 @@ GEM
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
-    puma (6.4.2)
+    puma (6.5.0)
       nio4r (~> 2.0)
     racc (1.8.0)
     rack (3.1.3)
@@ -409,13 +409,12 @@ DEPENDENCIES
   humanize (~> 3.1.0)
   jbuilder
   jsbundling-rails
-  matrix (~> 0.4.2)
   pagy (~> 8.4.0)
   pg (~> 1.5.4)
   prawn (~> 2.5.0)
   prawn-table (~> 0.2.2)
   propshaft
-  puma (~> 6.4.2)
+  puma (~> 6.5.0)
   rack_session_access
   rails (~> 7.1.5)
   rails-controller-testing (~> 1.0.5)
