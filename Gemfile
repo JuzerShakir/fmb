@@ -25,8 +25,6 @@ gem "rails-i18n", "~> 7.0.8"
 gem "ransack", "~> 4.2.1"
 gem "redis", "~> 5.0.8"
 gem "rolify", "~> 6.0.1"
-gem "sentry-rails", "~> 5.13.0"
-gem "sentry-ruby", "~> 5.13.0"
 gem "simple_form", "~> 5.3.0"
 gem "stimulus-rails"
 gem "turbo-rails", "~> 1.5.0"
@@ -57,4 +55,9 @@ group :test do
   gem "shoulda-callback-matchers", "~> 1.1.4"
   gem "shoulda-matchers", "~> 6.2.0"
   gem "simplecov", require: false
+end
+
+group :production do
+  gem "sentry-rails", "~> 5.22.0"
+  gem "sentry-ruby", "~> 5.22.0"
 end
