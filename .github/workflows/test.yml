@@ -36,6 +36,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Scan for common Rails security vulnerabilities using static analysis
+        run: brakeman --no-pager
+
       - name: Setup Node
         uses: actions/setup-node@v4
 
