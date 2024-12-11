@@ -35,7 +35,7 @@ gem "validates_timeliness", "~> 7.0.0"
 group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
-  gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "factory_bot_rails", "~> 6.4.0"
   gem "rspec-rails", "~> 7.1.0"
   gem "rubocop-rails", "2.27.0", require: false
