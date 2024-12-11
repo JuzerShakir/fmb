@@ -36,9 +36,6 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Scan for common Rails security vulnerabilities using static analysis
-        run: brakeman
-
       - name: Setup Node
         uses: actions/setup-node@v4
 
@@ -51,6 +48,9 @@ jobs:
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
+
+      - name: Scan for common Rails security vulnerabilities using static analysis
+        run: brakeman
 
       - name: Find linting errors
         run: bundle exec erblint -l
