@@ -27,7 +27,7 @@ RSpec.describe "Transaction edit template" do
       context "with valid values" do
         before do
           fill_in "transaction_amount", with: Faker::Number.number(digits: 4)
-          click_button "Update Transaction"
+          click_on "Update Transaction"
         end
 
         it "redirects to newly updated transaction" do
@@ -41,7 +41,7 @@ RSpec.describe "Transaction edit template" do
         before do
           incorrect_amount = total + Random.rand(1..100)
           fill_in "transaction_amount", with: incorrect_amount
-          click_button "Update Transaction"
+          click_on "Update Transaction"
         end
 
         it "shows validation error message for amount field" do

@@ -26,7 +26,7 @@ class Thaali < ApplicationRecord
   using ArrayExtensions
 
   # * Enums
-  enum size: SIZES.to_h_titleize_value # rubocop:disable Rails/EnumSyntax
+  enum :size, SIZES.to_h_titleize_value
 
   # * Scopes
   scope :dues_cleared_in, ->(year) {

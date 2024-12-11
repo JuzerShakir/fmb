@@ -29,7 +29,7 @@ RSpec.describe "User new template" do
     it { expect(page).to have_title "New User" }
 
     context "with valid values" do
-      before { click_button "Create User" }
+      before { click_on "Create User" }
 
       it "is successfully created" do
         expect(page).to have_content("User created")
@@ -39,7 +39,7 @@ RSpec.describe "User new template" do
     context "with invalid values" do
       before do
         fill_in "user_password", with: ""
-        click_button "Create User"
+        click_on "Create User"
       end
 
       it "returns a validation error message for password field" do

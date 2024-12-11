@@ -12,7 +12,7 @@ RSpec.describe "User destroy" do
 
     before do
       visit user_path(user)
-      click_button "Delete"
+      click_on "Delete"
     end
 
     describe "destroying self" do
@@ -28,7 +28,7 @@ RSpec.describe "User destroy" do
       end
 
       describe "destroy" do
-        before { click_button "Yes, delete it!" }
+        before { click_on "Yes, delete it!" }
 
         it { expect(page).to have_current_path login_path }
         it { expect(page).to have_content("Account deleted") }
@@ -43,7 +43,7 @@ RSpec.describe "User destroy" do
 
     before do
       visit user_path(other_user)
-      click_button "Delete"
+      click_on "Delete"
     end
 
     # * OTHER USERS
@@ -55,7 +55,7 @@ RSpec.describe "User destroy" do
       end
 
       describe "destroy" do
-        before { click_button "Yes, delete it!" }
+        before { click_on "Yes, delete it!" }
 
         it { expect(page).to have_current_path users_path }
         it { expect(page).to have_content("Account deleted") }

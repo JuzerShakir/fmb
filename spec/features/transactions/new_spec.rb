@@ -26,7 +26,7 @@ RSpec.describe "Transaction new template" do
 
       before do
         choose mode
-        click_button "Create Transaction"
+        click_on "Create Transaction"
       end
 
       it "redirects to newly created transaction" do
@@ -37,7 +37,7 @@ RSpec.describe "Transaction new template" do
     end
 
     context "with invalid values" do
-      before { click_button "Create Transaction" }
+      before { click_on "Create Transaction" }
 
       it "shows validation error messsage for mode field" do
         expect(page).to have_content("selection is required")

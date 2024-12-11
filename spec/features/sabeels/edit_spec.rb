@@ -18,7 +18,7 @@ RSpec.describe "Sabeel Edit template" do
     context "with valid values" do
       before do
         fill_in "sabeel_mobile", with: Faker::Number.number(digits: 10)
-        click_button "Update Sabeel"
+        click_on "Update Sabeel"
       end
 
       it { expect(page).to have_current_path sabeel_path(sabeel) }
@@ -29,7 +29,7 @@ RSpec.describe "Sabeel Edit template" do
     context "with invalid values" do
       before do
         fill_in "sabeel_mobile", with: 0
-        click_button "Update Sabeel"
+        click_on "Update Sabeel"
       end
 
       it { expect(page).to have_content("Mobile is the wrong length (should be 10 characters)") }

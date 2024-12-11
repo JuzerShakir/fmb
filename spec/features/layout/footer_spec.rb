@@ -10,7 +10,7 @@ RSpec.describe "Footer displays" do
   end
 
   describe "contact of" do
-    before { click_link "Contact" }
+    before { click_on "Contact" }
 
     it "email" do
       within("footer") { expect(page).to have_link(nil, href: "mailto:juzershakir.webdev@gmail.com") }

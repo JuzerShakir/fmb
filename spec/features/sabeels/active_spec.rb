@@ -27,7 +27,7 @@ RSpec.describe "Sabeel Active template" do
       describe "Generates PDF of an apartment" do # rubocop:disable RSpec/MultipleMemoizedHelpers
         let(:pdf_window) { switch_to_window(windows.last) }
 
-        before { click_link("Generate PDF") }
+        before { click_on("Generate PDF") }
 
         it { within_window pdf_window { expect(page).to have_content("#{apt} - #{CURR_YR}") } }
         it { within_window pdf_window { expect(page).to have_content(sabeel.flat_no) } }

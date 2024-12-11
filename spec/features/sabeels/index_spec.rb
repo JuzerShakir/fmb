@@ -28,14 +28,14 @@ RSpec.describe "Sabeel Index template" do
         before { fill_in "q_slug_or_name_cont", with: first.its }
 
         it { within("section#sabeels") { expect(page).to have_content(first.name) } }
-        it { within("section#sabeels") { expect(page).not_to have_content(last.name) } }
+        it { within("section#sabeels") { expect(page).to have_no_content(last.name) } }
       end
 
       context "with name" do
         before { fill_in "q_slug_or_name_cont", with: last.name }
 
         it { within("section#sabeels") { expect(page).to have_content(last.name) } }
-        it { within("section#sabeels") { expect(page).not_to have_content(first.name) } }
+        it { within("section#sabeels") { expect(page).to have_no_content(first.name) } }
       end
     end
   end

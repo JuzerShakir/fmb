@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "~> 3.3.6"
 
-gem "rails", "~> 7.1.5"
+gem "rails", "~> 7.2.2"
 
 gem "active_record_union"
 gem "bcrypt", "~> 3.1.20"
@@ -33,11 +33,15 @@ gem "validates_email_format_of", "~> 1.8.2"
 gem "validates_timeliness", "~> 7.0.0"
 
 group :development, :test do
-  gem "debug", platforms: %i[mri mingw x64_mingw]
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "brakeman", require: false
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "factory_bot_rails", "~> 6.4.0"
   gem "rspec-rails", "~> 7.1.0"
   gem "rubocop-rails", "2.27.0", require: false
   gem "rubocop-rspec_rails", require: false
+  gem "rubocop-factory_bot", "~> 2.26", ">= 2.26.1", require: false
+  gem "rubocop-capybara", "~> 2.21", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rspec", require: false
   gem "standard", require: false

@@ -26,13 +26,13 @@ RSpec.describe "User index template" do
       end
 
       it "button" do
-        click_link other_user.name
+        click_on other_user.name
         expect(page).to have_current_path user_path(other_user)
       end
     end
 
-    it "will not show current admin details" do
-      expect(page).not_to have_content(user.name)
+    it "does not show current admin details" do
+      expect(page).to have_no_content(user.name)
     end
   end
 

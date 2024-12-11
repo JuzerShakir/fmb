@@ -79,8 +79,8 @@ RSpec.describe Transaction do
   end
 
   context "when using scope" do
-    describe ".that_occured_on" do
-      subject { described_class.that_occured_on(today) }
+    describe ".that_occurred_on" do
+      subject { described_class.that_occurred_on(today) }
 
       let(:today) { Time.zone.now.to_date }
       let(:today_transaction) { create(:today_transaction) }

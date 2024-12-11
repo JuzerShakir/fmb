@@ -33,6 +33,7 @@ jobs:
       - name: Setting up Ruby
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: .ruby-version
           bundler-cache: true
 
       - name: Setup Node
@@ -48,14 +49,17 @@ jobs:
           gem install bundler
           bundle install --jobs 4 --retry 3
 
+      - name: Scan for common Rails security vulnerabilities using static analysis
+        run: bundle exec brakeman
+
       - name: Find linting errors
         run: bundle exec erblint -l
 
       - name: Find rubocop errors
-        run: bundle exec rubocop
+        run: bin/rubocop
 
       - name: Precompile assets
-        run: yarn run build
+        run: bundle exec rails assets:precompile
 
       - name: Running Tests
         env:

@@ -9,7 +9,7 @@ RSpec.describe "Thaali destroy" do
   before do
     page.set_rack_session(user_id: user.id)
     visit thaali_path(thaali)
-    click_button "Delete"
+    click_on "Delete"
   end
 
   # * Admin or Member
@@ -26,7 +26,7 @@ RSpec.describe "Thaali destroy" do
     end
 
     context "when clicking 'delete button'" do
-      before { click_button "Yes, delete it!" }
+      before { click_on "Yes, delete it!" }
 
       it { expect(page).to have_current_path sabeel_path(thaali.sabeel) }
       it { expect(page).to have_content("Thaali destroyed") }

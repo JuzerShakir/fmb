@@ -3,8 +3,8 @@ shared_examples "abbreviated numbers" do
 end
 
 shared_examples "hide_edit_delete" do
-  it { expect(page).not_to have_link("Edit") }
-  it { expect(page).not_to have_button("Delete") }
+  it { expect(page).to have_no_link("Edit") }
+  it { expect(page).to have_no_button("Delete") }
 end
 
 shared_examples "show_edit_delete" do

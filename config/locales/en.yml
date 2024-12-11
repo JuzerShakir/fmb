@@ -148,3 +148,4 @@ en:
   flash:
     un_authorize: "Not Authorized"
     active_session: "Logged in!"
+    invalid_apartment: "Invalid Apartment"

@@ -9,7 +9,7 @@ RSpec.describe "Transaction destroy" do
   before do
     page.set_rack_session(user_id: user.id)
     visit transaction_path(transaction)
-    click_button "Delete"
+    click_on "Delete"
   end
 
   # * Admin or Member
@@ -26,7 +26,7 @@ RSpec.describe "Transaction destroy" do
     end
 
     context "when clicking 'delete button'" do
-      before { click_button "Yes, delete it!" }
+      before { click_on "Yes, delete it!" }
 
       it { expect(page).to have_current_path thaali_path(transaction.thaali) }
       it { expect(page).to have_content("Transaction destroyed") }

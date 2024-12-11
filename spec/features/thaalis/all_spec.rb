@@ -28,7 +28,7 @@ RSpec.describe "Thaali all template" do
         before { fill_in "q_number_eq", with: thaali_number }
 
         it { within("section#thaalis") { expect(page).to have_content(thaali_number) } }
-        it { within("section#thaalis") { expect(page).not_to have_content(Thaali.last.number) } }
+        it { within("section#thaalis") { expect(page).to have_no_content(Thaali.last.number) } }
       end
     end
   end

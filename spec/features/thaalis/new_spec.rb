@@ -48,7 +48,7 @@ RSpec.describe "Thaali new template" do
       context "with valid values" do
         before do
           choose thaali[:size].to_s.titleize
-          click_button "Create Thaali"
+          click_on "Create Thaali"
         end
 
         it "redirects to newly created thaali" do
@@ -60,7 +60,7 @@ RSpec.describe "Thaali new template" do
       end
 
       context "with invalid values" do
-        before { click_button "Create Thaali" }
+        before { click_on "Create Thaali" }
 
         it { expect(page).to have_content("selection is required") }
       end
