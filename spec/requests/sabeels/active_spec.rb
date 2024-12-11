@@ -24,8 +24,19 @@ RSpec.describe "Thaali Active request" do
     context "with /html format" do
       before { get sabeels_active_path(apartment) }
 
-      it { expect(response).to render_template(:active) }
-      it { expect(response).to have_http_status(:ok) }
+      context "with valid apartment" do
+        it { expect(response).to render_template(:active) }
+        it { expect(response).to have_http_status(:ok) }
+      end
+
+      context "with invalid apartment" do
+        let(:apartment) { Faker::Lorem.word }
+
+        it { expect(response).not_to render_template(:active) }
+        it { expect(response).to have_http_status(:found) }
+        it { expect(response).to redirect_to statistics_sabeels_path }
+        it { (expect(flash[:notice]).to eq("Invalid Apartment")) }
+      end
     end
 
     context "with /pdf format" do

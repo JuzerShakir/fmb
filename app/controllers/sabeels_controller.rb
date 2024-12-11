@@ -82,5 +82,10 @@ class SabeelsController < ApplicationController
 
   def set_apt
     @apt = params[:apt]
+    redirect_to_statistics_sabeels unless Sabeel::APARTMENTS.include? @apt.to_sym
+  end
+
+  def redirect_to_statistics_sabeels
+    redirect_to statistics_sabeels_path, notice: t("flash.invalid_apartment")
   end
 end

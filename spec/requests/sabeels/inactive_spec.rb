@@ -22,7 +22,18 @@ RSpec.describe "Thaali Inactive request" do
       get sabeels_inactive_path(apartment)
     end
 
-    it { expect(response).to render_template(:inactive) }
-    it { expect(response).to have_http_status(:ok) }
+    context "with valid apartment" do
+      it { expect(response).to render_template(:inactive) }
+      it { expect(response).to have_http_status(:ok) }
+    end
+
+    context "with invalid apartment" do
+      let(:apartment) { Faker::Lorem.word }
+
+      it { expect(response).not_to render_template(:inactive) }
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to statistics_sabeels_path }
+      it { (expect(flash[:notice]).to eq("Invalid Apartment")) }
+    end
   end
 end
