@@ -59,7 +59,7 @@ jobs:
         run: bin/rubocop
 
       - name: Precompile assets
-        run: yarn run build
+        run: bundle exec rails assets:precompile
 
       - name: Running Tests
         env:
