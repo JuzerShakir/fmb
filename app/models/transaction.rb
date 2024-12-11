@@ -28,7 +28,7 @@ class Transaction < ApplicationRecord
   enum :mode, MODES.to_h_titleize_value
 
   # * Scopes
-  scope :that_occured_on, ->(date) { where(date: date) }
+  scope :that_occurred_on, ->(date) { where(date: date) }
 
   # * Validations
   validates :amount, :receipt_number, numericality: {only_integer: true, greater_than: 0}
