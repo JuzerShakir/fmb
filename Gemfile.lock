@@ -91,6 +91,8 @@ GEM
     bindex (0.8.1)
     bootsnap (1.15.0)
       msgpack (~> 1.2)
+    brakeman (6.2.2)
+      racc
     builder (3.3.0)
     cancancan (3.6.1)
     capybara (3.40.0)
@@ -395,6 +397,7 @@ DEPENDENCIES
   active_record_union
   bcrypt (~> 3.1.20)
   bootsnap
+  brakeman
   cancancan (~> 3.6.1)
   capybara (~> 3.40.0)
   cssbundling-rails
