@@ -48,7 +48,7 @@ class SabeelsController < ApplicationController
   end
 
   def active
-    @sabeels = Sabeel.send(@apt).taking_thaali
+    @sabeels = Sabeel.where(apartment: @apt).taking_thaali
 
     respond_to do |format|
       format.html
