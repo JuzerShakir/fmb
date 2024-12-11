@@ -56,7 +56,7 @@ jobs:
         run: bundle exec erblint -l
 
       - name: Find rubocop errors
-        run: bundle exec rubocop
+        run: bin/rubocop
 
       - name: Precompile assets
         run: yarn run build
