@@ -9,7 +9,7 @@
     "bootstrap": "^5.3.3",
     "debounce": "^2.2.0",
     "esbuild": "^0.24.0",
-    "sass": "^1.56.2"
+    "sass": "^1.82.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
