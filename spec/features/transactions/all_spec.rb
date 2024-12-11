@@ -25,7 +25,7 @@ RSpec.describe "Transaction all template" do
         before { fill_in "q_slug_start", with: receipt }
 
         it { within("section#transactions") { expect(page).to have_content(receipt) } }
-        it { within("section#transactions") { expect(page).not_to have_content(transactions.last.receipt_number) } }
+        it { within("section#transactions") { expect(page).to have_no_content(transactions.last.receipt_number) } }
       end
     end
   end

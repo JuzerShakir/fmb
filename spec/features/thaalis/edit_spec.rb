@@ -19,7 +19,7 @@ RSpec.describe "Thaali edit template" do
       context "with valid values" do
         before do
           fill_in "thaali_number", with: Random.rand(1..400)
-          click_button "Update Thaali"
+          click_on "Update Thaali"
         end
 
         it { expect(page).to have_content("Thaali updated") }
@@ -28,7 +28,7 @@ RSpec.describe "Thaali edit template" do
       context "with invalid values" do
         before do
           fill_in "thaali_number", with: 0
-          click_button "Update Thaali"
+          click_on "Update Thaali"
         end
 
         it { expect(page).to have_content("Number must be greater than 0") }

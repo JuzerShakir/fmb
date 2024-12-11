@@ -9,7 +9,7 @@ RSpec.describe "Sabeel destroy" do
   before do
     page.set_rack_session(user_id: user.id)
     visit sabeel_path(sabeel)
-    click_button "Delete"
+    click_on "Delete"
   end
 
   # * Admin
@@ -26,7 +26,7 @@ RSpec.describe "Sabeel destroy" do
     end
 
     context "when clicking 'delete button'" do
-      before { click_button "Yes, delete it!" }
+      before { click_on "Yes, delete it!" }
 
       it { expect(page).to have_current_path sabeels_path(format: :html) }
 

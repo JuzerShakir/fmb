@@ -99,13 +99,13 @@ RSpec.describe "Navbar" do
       describe "doesn't display" do
         # * Home
         it do
-          within("#member") { expect(page).not_to have_content("Home") }
+          within("#member") { expect(page).to have_no_content("Home") }
         end
       end
 
       # * New User
       it do
-        within("#member") { expect(page).not_to have_content("New User") }
+        within("#member") { expect(page).to have_no_content("New User") }
       end
     end
 
@@ -124,17 +124,17 @@ RSpec.describe "Navbar" do
 
       # * My Profile
       it do
-        within("#viewer") { expect(page).not_to have_content("My Profile") }
+        within("#viewer") { expect(page).to have_no_content("My Profile") }
       end
 
       # * Home
       it do
-        within("#viewer") { expect(page).not_to have_content("Home") }
+        within("#viewer") { expect(page).to have_no_content("Home") }
       end
 
       # * New User
       it do
-        within("#viewer") { expect(page).not_to have_content("New User") }
+        within("#viewer") { expect(page).to have_no_content("New User") }
       end
     end
 
@@ -144,7 +144,7 @@ RSpec.describe "Navbar" do
 
       # * New Sabeel
       it do
-        within(".navbar-nav") { expect(page).not_to have_content("Create Sabeel") }
+        within(".navbar-nav") { expect(page).to have_no_content("Create Sabeel") }
       end
     end
   end

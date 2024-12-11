@@ -56,7 +56,7 @@ RSpec.describe "Sabeel Show template" do
       end
 
       context "when it's CURRENTLY taking it" do
-        it { expect(page).not_to have_link("New Thaali") }
+        it { expect(page).to have_no_link("New Thaali") }
       end
     end
   end
@@ -68,7 +68,7 @@ RSpec.describe "Sabeel Show template" do
     describe "action buttons" do
       it_behaves_like "hide_edit_delete"
 
-      it { expect(page).not_to have_link("New Thaali") }
+      it { expect(page).to have_no_link("New Thaali") }
     end
   end
 end

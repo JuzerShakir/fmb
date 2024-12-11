@@ -20,13 +20,13 @@ RSpec.describe "User edit template" do
           fill_in "user_password", with: new_password
           fill_in "user_password_confirmation", with: new_password
 
-          click_button "Update Password"
+          click_on "Update Password"
           expect(page).to have_content("User updated")
         end
       end
 
       context "with invalid values" do
-        before { click_button "Update Password" }
+        before { click_on "Update Password" }
 
         it "render validation error messages for 'password' field" do
           expect(page).to have_content("Password must be more than 6 characters")

@@ -23,7 +23,7 @@ RSpec.describe "Sessions New template" do
     context "with valid credentials" do
       before do
         fill_in "sessions_password", with: user.password
-        click_button "Login"
+        click_on "Login"
       end
 
       it "redirects to thaalis_all_path after login" do
@@ -38,7 +38,7 @@ RSpec.describe "Sessions New template" do
     context "with invalid credentials" do
       before do
         fill_in "sessions_password", with: ""
-        click_button "Login"
+        click_on "Login"
       end
 
       it "displays validation error" do

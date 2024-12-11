@@ -25,7 +25,7 @@ RSpec.describe "Sabeel New template" do
 
       before do
         choose apartment
-        click_button "Create Sabeel"
+        within("#new_sabeel") { click_on "Create Sabeel" }
       end
 
       it "redirects to newly created thaali" do
@@ -37,7 +37,9 @@ RSpec.describe "Sabeel New template" do
     end
 
     context "with invalid values" do
-      before { click_button "Create Sabeel" }
+      before do
+        within("#new_sabeel") { click_on "Create Sabeel" }
+      end
 
       it { expect(page).to have_content("selection is required") }
     end

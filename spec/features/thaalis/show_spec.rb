@@ -38,13 +38,13 @@ RSpec.describe "Thaali show template" do
 
         it "balance amount is not shown" do
           within("#payment-summary") do
-            expect(page).not_to have_content(number_to_human(thaali.balance, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
+            expect(page).to have_no_content(number_to_human(thaali.balance, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
           end
         end
 
         it "paid amount is not shown" do
           within("#payment-summary") do
-            expect(page).not_to have_content(number_to_human(thaali.paid, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
+            expect(page).to have_no_content(number_to_human(thaali.paid, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
           end
         end
 
@@ -79,7 +79,7 @@ RSpec.describe "Thaali show template" do
         context "when amount is fully paid" do
           let(:thaali) { create(:taking_thaali_dues_cleared) }
 
-          it { expect(page).not_to have_link("New Transaction") }
+          it { expect(page).to have_no_link("New Transaction") }
         end
       end
     end
@@ -91,7 +91,7 @@ RSpec.describe "Thaali show template" do
     describe "action buttons" do
       it_behaves_like "hide_edit_delete"
 
-      it { expect(page).not_to have_link("New Transaction") }
+      it { expect(page).to have_no_link("New Transaction") }
     end
   end
 end
