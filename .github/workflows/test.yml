@@ -50,16 +50,16 @@ jobs:
           bundle install --jobs 4 --retry 3
 
       - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bundle exec brakeman
+        run: bin/brakeman
 
       - name: Find linting errors
-        run: bundle exec erblint -l
+        run: bundle exec erb_lint --lint-all
 
       - name: Find rubocop errors
         run: bin/rubocop
 
       - name: Precompile assets
-        run: bundle exec rails assets:precompile
+        run: bin/rails assets:precompile
 
       - name: Running Tests
         env:
@@ -67,6 +67,6 @@ jobs:
           RAILS_ENV: test
           PG_USER: postgres
         run: |
-          bundle exec rails db:create
-          bundle exec rails db:migrate
+          bin/rails db:create
+          bin/rails db:migrate
           bundle exec rspec

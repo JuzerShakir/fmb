@@ -3,9 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "~> 3.3.6"
 
-gem "rails", "~> 7.2.2"
+gem "rails", "~> 8.0.0"
 
-gem "active_record_union"
+gem "active_record_union", github: "brianhempel/active_record_union", branch: "master"
 gem "bcrypt", "~> 3.1.20"
 gem "bootsnap", require: false
 gem "cancancan", "~> 3.6.1"
@@ -21,7 +21,7 @@ gem "prawn", "~> 2.5.0"
 gem "prawn-table", "~> 0.2.2"
 gem "propshaft"
 gem "puma", "~> 6.5.0"
-gem "rails-i18n", "~> 7.0.8"
+gem "rails-i18n"
 gem "ransack", "~> 4.2.1"
 gem "redis", "~> 5.3.0"
 gem "rolify", "~> 6.0.1"
@@ -30,7 +30,7 @@ gem "stimulus-rails"
 gem "turbo-rails", "~> 2.0.11"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "validates_email_format_of", "~> 1.8.2"
-gem "validates_timeliness", "~> 7.0.0"
+gem "validates_timeliness", "~> 8.0.0.beta1"
 
 group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]

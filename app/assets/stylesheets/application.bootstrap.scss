@@ -1,6 +1,18 @@
-// ? Using the 7-1 pattern for a manageable CSS
-// More info here: https://openclassrooms.com/en/courses/5625786-produce-maintainable-css-with-sass/5723581-use-the-7-1-pattern-for-a-manageable-codebase
+/*
+* This is a manifest file that'll be compiled into app/assets/builds/application.css.
 
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+/*
+  ? Using the 7-1 pattern for a manageable CSS
+   More info here: https://openclassrooms.com/en/courses/5625786-produce-maintainable-css-with-sass/5723581-use-the-7-1-pattern-for-a-manageable-codebase
+*/
 // ! IMPORTANT - load these files before any other css files
 @import "abstracts/themes";
 @import "abstracts/variables";
