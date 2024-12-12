@@ -5,7 +5,7 @@ ruby "~> 3.3.6"
 
 gem "rails", "~> 8.0.0"
 
-gem "active_record_union"
+gem "active_record_union", github: "brianhempel/active_record_union", branch: "master"
 gem "bcrypt", "~> 3.1.20"
 gem "bootsnap", require: false
 gem "cancancan", "~> 3.6.1"
