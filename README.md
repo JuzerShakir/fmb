@@ -7,10 +7,10 @@
 <div align="center">
 
   <!-- RUBY -->
-  <img src="https://img.shields.io/badge/Ruby_3.3.0-CC342D?style=for-the-badge&logo=ruby&logoColor=white">
+  <img src="https://img.shields.io/badge/Ruby_3.3.6-CC342D?style=for-the-badge&logo=ruby&logoColor=white">
 
   <!-- RAILS -->
-  <img src="https://img.shields.io/badge/Rails_7.1.3-CC0000?style=for-the-badge&logo=ruby-on-rails&logoColor=white">
+  <img src="https://img.shields.io/badge/Rails_8.0.1-CC0000?style=for-the-badge&logo=ruby-on-rails&logoColor=white">
 
   <!-- POSTGRESQL -->
   <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white">
