@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "~> 3.3.6"
 
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.0.1"
 
 gem "active_record_union", github: "brianhempel/active_record_union", branch: "master"
 gem "bcrypt", "~> 3.1.20"
