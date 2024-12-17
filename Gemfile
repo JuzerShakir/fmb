@@ -65,5 +65,5 @@ end
 
 group :production do
   gem "sentry-rails", "~> 5.22.0"
-  gem "sentry-ruby", "~> 5.22.0"
+  gem "sentry-ruby", "~> 5.22.1"
 end
