@@ -27,6 +27,7 @@ class Sabeel < ApplicationRecord
   include ITSValidation
   include NameValidation
 
+  using ActiveRecordRelationExtensions
   using ArrayExtensions
 
   # * Enums
