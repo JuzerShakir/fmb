@@ -23,6 +23,7 @@ class Thaali < ApplicationRecord
 
   def sluggables = [year, number]
 
+  using ActiveRecordRelationExtensions
   using ArrayExtensions
 
   # * Enums

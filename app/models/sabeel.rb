@@ -27,6 +27,7 @@ class Sabeel < ApplicationRecord
   include ITSValidation
   include NameValidation
 
+  using ActiveRecordRelationExtensions
   using ArrayExtensions
 
   # * Enums
@@ -63,4 +64,13 @@ class Sabeel < ApplicationRecord
   def took_thaali? = Rails.cache.fetch("sabeel_#{id}_took_thaali?") { thaalis.exists? year: PREV_YR }
 
   def last_year_thaali_dues_cleared? = thaalis.dues_cleared_in(PREV_YR).present?
+
+  private
+
+  # class << self
+  #   def unioned(q1, q2)
+  #     union_query = Arel::Nodes::Union.new(no_thaali.arel, took_thaali.arel).as("sabeels")
+  #     from(union_query)
+  #   end
+  # end
 end
