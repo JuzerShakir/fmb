@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_02_09_122254) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_20_050110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -53,6 +53,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_02_09_122254) do
     t.enum "apartment", default: "Mohammedi", null: false, enum_type: "apartments"
     t.index ["its"], name: "index_sabeels_on_its", unique: true
     t.index ["slug"], name: "index_sabeels_on_slug", unique: true
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "ip_address"
+    t.string "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "thaalis", force: :cascade do |t|
@@ -102,6 +111,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_02_09_122254) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "sessions", "users"
   add_foreign_key "thaalis", "sabeels"
   add_foreign_key "transactions", "thaalis"
 end
