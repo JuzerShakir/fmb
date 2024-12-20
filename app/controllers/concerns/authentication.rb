@@ -53,7 +53,7 @@ module Authentication
     cookies.delete(:session_id)
   end
 
-  def return_to_thaali_all_path(type: :notice, msg: "flash.active_session")
+  def return_to_default_path(type: :notice, msg: "flash.active_session")
     flash[type] = t(msg)
     redirect_to thaalis_all_path(CURR_YR)
   end

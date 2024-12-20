@@ -27,7 +27,7 @@
   <body onselectstart="return false">
     <%= render "shared/flash_messages" if flash.present? %>
 
-    <% if current_user.present? %>
+    <% if authenticated? %>
       <header class="heading">
         <%= render "shared/navbar/navbar" %>
 
@@ -39,6 +39,6 @@
       <%= yield %>
     </main>
 
-    <%= render "shared/footer" if current_user.blank? %>
+    <%= render "shared/footer" unless authenticated? %>
   </body>
 </html>
