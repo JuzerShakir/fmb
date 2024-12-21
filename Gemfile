@@ -49,6 +49,7 @@ end
 group :development do
   gem "dockerfile-rails", ">= 1.6"
   gem "erb_lint", require: false
+  gem "hotwire-spark", "~> 0.1.7"
   gem "web-console"
 end
 
