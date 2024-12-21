@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Navbar" do
-  # * Accessibile by logged-in user
+  # * Accessible by logged-in user
   describe "logged in" do
     before do
       sign_in(user)
