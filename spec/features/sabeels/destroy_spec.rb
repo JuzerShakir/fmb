@@ -7,7 +7,7 @@ RSpec.describe "Sabeel destroy" do
   let(:sabeel) { create(:sabeel) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit sabeel_path(sabeel)
     click_on "Delete"
   end

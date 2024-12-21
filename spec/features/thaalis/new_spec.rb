@@ -6,7 +6,7 @@ RSpec.describe "Thaali new template" do
   let(:sabeel) { create(:sabeel) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit new_sabeel_thaali_path(sabeel)
   end
 

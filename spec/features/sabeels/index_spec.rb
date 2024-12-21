@@ -7,7 +7,7 @@ RSpec.describe "Sabeel Index template" do
   let(:user) { create(:user) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     create_list(:sabeel, 2)
     visit sabeels_path
   end

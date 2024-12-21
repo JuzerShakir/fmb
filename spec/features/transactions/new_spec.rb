@@ -3,9 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Transaction new template" do
+  let(:thaali) { create(:thaali) }
+
   before do
-    page.set_rack_session(user_id: user.id)
-    thaali = create(:thaali)
+    sign_in(user)
     visit new_thaali_transaction_path(thaali)
   end
 

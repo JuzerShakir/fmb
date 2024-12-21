@@ -9,7 +9,7 @@ RSpec.describe "Sabeel Show template" do
   let(:thaali) { sabeel.thaalis.first }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit sabeel_path(sabeel)
   end
 

@@ -9,7 +9,7 @@ RSpec.describe "Thaali all template" do
   let(:thaalis) { Thaali.first(2) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     create_list(:thaali, 2, year:)
 
     visit thaalis_all_path(year)

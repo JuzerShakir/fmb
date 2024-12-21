@@ -7,7 +7,7 @@ RSpec.describe "Transaction destroy" do
   let(:transaction) { create(:transaction) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit transaction_path(transaction)
     click_on "Delete"
   end

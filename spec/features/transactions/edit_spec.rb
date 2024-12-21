@@ -7,7 +7,7 @@ RSpec.describe "Transaction edit template" do
   let(:total) { transaction.thaali.total }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit edit_transaction_path(transaction)
   end
 

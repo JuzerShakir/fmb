@@ -8,14 +8,14 @@ RSpec.describe "Transaction all template" do
   let!(:transactions) { create_list(:transaction, 2) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit transactions_all_path
   end
 
   # * ALL user types
-  describe "visited by any user type can", :js do
-    it { expect(page).to have_title "Transactions" }
+  it { expect(page).to have_title "Transactions" }
 
+  describe "visited by any user type can", :js do
     it_behaves_like "view transaction records"
 
     describe "search" do

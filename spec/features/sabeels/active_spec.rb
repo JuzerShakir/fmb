@@ -9,7 +9,7 @@ RSpec.describe "Sabeel Active template" do
   let!(:sabeels) { create_list(:burhani_sabeel_taking_thaali, 2) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit sabeels_active_path(apt.downcase)
   end
 

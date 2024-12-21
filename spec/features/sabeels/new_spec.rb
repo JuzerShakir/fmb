@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Sabeel New template" do
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit new_sabeel_path
   end
 
