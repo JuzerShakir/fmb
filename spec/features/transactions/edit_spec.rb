@@ -30,11 +30,9 @@ RSpec.describe "Transaction edit template" do
           click_on "Update Transaction"
         end
 
-        it "redirects to newly updated transaction" do
-          expect(page).to have_current_path transaction_path(transaction)
+        it "redirects to transaction show page with success message" do
+          expect(page).to (have_current_path transaction_path(transaction)).and have_content("Transaction updated")
         end
-
-        it { expect(page).to have_content("Transaction updated") }
       end
 
       context "with invalid values" do

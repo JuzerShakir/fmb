@@ -17,12 +17,12 @@ RSpec.describe "Thaali new template" do
     it { expect(page).to have_title "New Thaali" }
 
     context "when sabeel DIDN'T take it in previous year" do
-      describe "displays with empty form fields" do
-        it { expect(find_field("Number").value).to be_nil }
-        it { expect(find_field("Small")).not_to be_checked }
-        it { expect(find_field("Medium")).not_to be_checked }
-        it { expect(find_field("Large")).not_to be_checked }
-        it { expect(find_field("Total").value).to be_nil }
+      it "displays with empty form fields" do
+        expect(find_field("Number").value).to be_nil
+        expect(find_field("Small")).not_to be_checked
+        expect(find_field("Medium")).not_to be_checked
+        expect(find_field("Large")).not_to be_checked
+        expect(find_field("Total").value).to be_nil
       end
     end
 
@@ -30,9 +30,9 @@ RSpec.describe "Thaali new template" do
       let(:sabeel) { create(:sabeel_took_thaali) }
       let(:thaali) { sabeel.thaalis.first }
 
-      describe "displays form fields with previous values" do
-        it { expect(find_field("Number").value).to eq thaali.number.to_s }
-        it { expect(find_field(thaali.size.capitalize)).to be_checked }
+      it "displays form fields with previous values" do
+        expect(find_field("Number").value).to eq thaali.number.to_s
+        expect(find_field(thaali.size.capitalize)).to be_checked
       end
     end
 
@@ -51,12 +51,10 @@ RSpec.describe "Thaali new template" do
           click_on "Create Thaali"
         end
 
-        it "redirects to newly created thaali" do
+        it "redirects to newly created thaali with success message" do
           thaali = Thaali.last
-          expect(page).to have_current_path thaali_path(thaali)
+          expect(page).to (have_current_path thaali_path(thaali)).and have_content("Thaali created")
         end
-
-        it { expect(page).to have_content("Thaali created") }
       end
 
       context "with invalid values" do

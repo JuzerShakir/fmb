@@ -20,16 +20,19 @@ RSpec.describe "Transaction destroy" do
       end
     end
 
-    context "with action buttons" do
-      it { within(".modal-footer") { expect(page).to have_css(".btn-light", text: "Cancel") } }
-      it { within(".modal-footer") { expect(page).to have_css(".btn-danger", text: "Yes, delete it!") } }
+    it "with action buttons" do
+      within(".modal-footer") do
+        expect(page).to have_css(".btn-light", text: "Cancel")
+        expect(page).to have_css(".btn-danger", text: "Yes, delete it!")
+      end
     end
 
     context "when clicking 'delete button'" do
       before { click_on "Yes, delete it!" }
 
-      it { expect(page).to have_current_path thaali_path(transaction.thaali) }
-      it { expect(page).to have_content("Transaction destroyed") }
+      it "redirects to thaali show page of deleted transaction with success message" do
+        expect(page).to (have_current_path thaali_path(transaction.thaali)).and have_content("Transaction destroyed")
+      end
     end
   end
 end

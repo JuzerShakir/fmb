@@ -11,7 +11,5 @@ RSpec.describe "Sessions destroy" do
     click_on "Log out"
   end
 
-  it { expect(page).to have_current_path login_path }
-
-  it { expect(page).to have_content("Logged out") }
+  it { expect(page).to (have_current_path login_path).and have_content("Logged out") }
 end

@@ -14,47 +14,33 @@ RSpec.describe "Sabeel Stats template" do
 
   # * ALL user types
   describe "visited by any user type" do
-    it { expect(page).to have_title "Sabeel Statistics" }
+    it "shows heading & sub-heading" do
+      expect(page).to have_title "Sabeel Statistics"
+      expect(page).to have_css("h3", text: "Burhani")
+    end
 
     describe "shows statistics of burhani building for current year" do
       let(:active_burhani_sabeels) { Sabeel.burhani.taking_thaali }
 
-      it { expect(page).to have_css("h3", text: "Burhani") }
+      it "Active & Inactive" do
+        active_count = active_burhani_sabeels.count
+        inactive_count = Sabeel.burhani.count - active_count
 
-      it "Active" do
         within("section#burhani") do
-          count = active_burhani_sabeels.count
-          expect(page).to have_selector(:link_or_button, "Active: #{count}")
+          expect(page).to have_selector(:link_or_button, "Active: #{active_count}")
+          expect(page).to have_selector(:link_or_button, "Inactive: #{inactive_count}")
         end
       end
 
-      it "Inactive" do
+      it "thaali count for size: small, medium & large" do
+        small_count = active_burhani_sabeels.with_thaali_size("small").count
+        med_count = active_burhani_sabeels.with_thaali_size("medium").count
+        large_count = active_burhani_sabeels.with_thaali_size("large").count
+
         within("section#burhani") do
-          count = Sabeel.burhani.count - active_burhani_sabeels.count
-          expect(page).to have_selector(:link_or_button, "Inactive: #{count}")
-        end
-      end
-
-      describe "size count for" do
-        it "small" do
-          within("section#burhani") do
-            count = active_burhani_sabeels.with_thaali_size("small").count
-            expect(page).to have_content("Small: #{count}")
-          end
-        end
-
-        it "medium" do
-          within("section#burhani") do
-            count = active_burhani_sabeels.with_thaali_size("medium").count
-            expect(page).to have_content("Medium: #{count}")
-          end
-        end
-
-        it "large" do
-          within("section#burhani") do
-            count = active_burhani_sabeels.with_thaali_size("large").count
-            expect(page).to have_content("Large: #{count}")
-          end
+          expect(page).to have_content("Small: #{small_count}")
+          expect(page).to have_content("Medium: #{med_count}")
+          expect(page).to have_content("Large: #{large_count}")
         end
       end
     end

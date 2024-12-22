@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require_relative "sabeel_helpers"
 
 RSpec.describe "Sabeel Index template" do
   let(:user) { create(:user) }
@@ -13,29 +12,37 @@ RSpec.describe "Sabeel Index template" do
   end
 
   # * ALL user types
-  describe "visited by any user type", :js do
+  describe "visited by any user type" do
     let(:sabeels) { Sabeel.first(2) }
 
     it { expect(page).to have_title "Sabeels" }
 
     it_behaves_like "view sabeel records"
 
-    describe "can search" do
-      let(:first) { Sabeel.first }
-      let(:last) { Sabeel.last }
+    describe "can search", :js do
+      let(:sabeel_a) { Sabeel.first }
+      let(:sabeel_b) { Sabeel.last }
 
       context "with ITS" do
-        before { fill_in "q_slug_or_name_cont", with: first.its }
+        before { fill_in "q_slug_or_name_cont", with: sabeel_a.its }
 
-        it { within("section#sabeels") { expect(page).to have_content(first.name) } }
-        it { within("section#sabeels") { expect(page).to have_no_content(last.name) } }
+        it "returns sabeel with that ITS" do
+          within("section#sabeels") do
+            expect(page).to have_content(sabeel_a.name)
+            expect(page).to have_no_content(sabeel_b.name)
+          end
+        end
       end
 
       context "with name" do
-        before { fill_in "q_slug_or_name_cont", with: last.name }
+        before { fill_in "q_slug_or_name_cont", with: sabeel_b.name }
 
-        it { within("section#sabeels") { expect(page).to have_content(last.name) } }
-        it { within("section#sabeels") { expect(page).to have_no_content(first.name) } }
+        it "returns sabeel with that name" do
+          within("section#sabeels") do
+            expect(page).to have_content(sabeel_b.name)
+            expect(page).to have_no_content(sabeel_a.name)
+          end
+        end
       end
     end
   end

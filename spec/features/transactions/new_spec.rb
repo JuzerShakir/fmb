@@ -30,17 +30,15 @@ RSpec.describe "Transaction new template" do
         click_on "Create Transaction"
       end
 
-      it "redirects to newly created transaction" do
-        expect(page).to have_current_path transaction_path(new_transaction)
+      it "redirects to transaction page with success message" do
+        expect(page).to (have_current_path transaction_path(new_transaction)).and have_content("Transaction created")
       end
-
-      it { expect(page).to have_content("Transaction created") }
     end
 
     context "with invalid values" do
       before { click_on "Create Transaction" }
 
-      it "shows validation error messsage for mode field" do
+      it "shows validation error message for mode field" do
         expect(page).to have_content("selection is required")
       end
     end
