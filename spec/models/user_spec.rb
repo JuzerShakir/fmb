@@ -5,6 +5,10 @@ require "rails_helper"
 RSpec.describe User do
   subject(:user) { build(:user) }
 
+  context "with associations" do
+    it { is_expected.to have_many(:sessions).dependent(:destroy) }
+  end
+
   context "when validating" do
     context "with password" do
       it { is_expected.to validate_length_of(:password).is_at_least(6).with_short_message("must be more than 6 characters") }

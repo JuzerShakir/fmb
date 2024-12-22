@@ -8,7 +8,7 @@ RSpec.describe "Thaali pending template" do
   let(:thaalis) { Thaali.first(2) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     create_list(:taking_thaali, 2)
 
     visit thaalis_pending_path(CURR_YR)

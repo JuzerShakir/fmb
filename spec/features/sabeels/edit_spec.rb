@@ -7,7 +7,7 @@ RSpec.describe "Sabeel Edit template" do
   let(:sabeel) { create(:sabeel) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit edit_sabeel_path(sabeel)
   end
 

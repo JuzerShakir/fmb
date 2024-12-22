@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     if current_user.is?("admin") && current_user.id != @user&.id
       redirect_to users_path, success: t(".success")
     else
-      session[:user_id] = nil
+      terminate_session
       redirect_to login_path, success: t(".success")
     end
   end

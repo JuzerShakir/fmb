@@ -8,7 +8,7 @@ RSpec.describe "Thaali complete template" do
   let(:thaalis) { Thaali.dues_cleared_in(CURR_YR) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     create_list(:taking_thaali_dues_cleared, 2)
 
     visit thaalis_complete_path(CURR_YR)

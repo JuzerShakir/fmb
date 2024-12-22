@@ -7,7 +7,7 @@ RSpec.describe "Thaali destroy" do
   let(:thaali) { create(:thaali) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit thaali_path(thaali)
     click_on "Delete"
   end

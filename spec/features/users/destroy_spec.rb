@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "User destroy" do
-  before { page.set_rack_session(user_id: user.id) }
+  before { sign_in(user) }
 
   # * Admins & Members
   # * ITSELF

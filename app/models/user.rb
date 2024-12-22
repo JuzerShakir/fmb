@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   rolify
   has_secure_password
+  has_many :sessions, dependent: :destroy
 
   # * Callbacks
   include NameCallback

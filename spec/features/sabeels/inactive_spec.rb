@@ -11,7 +11,7 @@ RSpec.describe "Sabeel Inactive template" do
   # rubocop:enable RSpec/LetSetup
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit sabeels_inactive_path(apt.downcase)
   end
 

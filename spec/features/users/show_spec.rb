@@ -5,7 +5,7 @@ require_relative "../shared_helpers"
 
 RSpec.describe "User show template" do
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit user_path(user)
   end
 

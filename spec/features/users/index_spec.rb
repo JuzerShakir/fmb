@@ -6,7 +6,7 @@ RSpec.describe "User index template" do
   let!(:other_user) { create(:user) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit users_path
   end
 

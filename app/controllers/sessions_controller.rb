@@ -1,26 +1,25 @@
 class SessionsController < ApplicationController
-  before_action :logged_in?, only: :new
+  allow_unauthenticated_access only: %i[new create]
+  before_action :return_to_default_path, only: %i[new create], if: -> { authenticated? }
+  # rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
 
   def new
   end
 
   def create
-    user = User.authenticate_by(user_params)
-    if user
-      session[:user_id] = user.id
+    if user ||= User.authenticate_by(user_params)
+      start_new_session_for user
 
       respond_to do |format|
-        format.all { redirect_to thaalis_all_path(CURR_YR, format: :html), success: t(".success") }
+        format.all { redirect_to after_authentication_url, success: t(".success") }
       end
     else
-      flash.now.alert = t(".error")
-      render :new, status: :not_found
+      redirect_to login_path, alert: t(".error")
     end
   end
 
   def destroy
-    Rails.cache.delete("user_#{current_user.id}_role")
-    session[:user_id] = nil
+    terminate_session
     redirect_to login_path, success: t(".success")
   end
 

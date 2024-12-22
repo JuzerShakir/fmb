@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
-  before_action :logged_in?
+  allow_unauthenticated_access
+  before_action :return_to_default_path, if: -> { authenticated? }
 
   def home
   end

@@ -6,7 +6,7 @@ RSpec.describe "Sessions destroy" do
   let(:user) { create(:user) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit thaalis_all_path(CURR_YR)
     click_on "Log out"
   end

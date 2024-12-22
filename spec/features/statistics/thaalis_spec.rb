@@ -7,7 +7,7 @@ RSpec.describe "Thaali Stats template" do
   let(:thaalis) { Thaali.for_year(CURR_YR) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     create_list(:taking_thaali, 2)
     create_list(:taking_thaali_dues_cleared, 2)
     visit statistics_thaalis_path

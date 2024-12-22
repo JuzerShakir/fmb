@@ -7,7 +7,7 @@ RSpec.describe "Thaali edit template" do
   let(:thaali) { create(:thaali) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit edit_thaali_path(thaali)
   end
 

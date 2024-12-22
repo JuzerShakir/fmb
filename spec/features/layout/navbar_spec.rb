@@ -3,10 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Navbar" do
-  # * Accessibile by logged-in user
+  # * Accessible by logged-in user
   describe "logged in" do
     before do
-      page.set_rack_session(user_id: user.id)
+      sign_in(user)
       visit thaalis_all_path(CURR_YR)
     end
 

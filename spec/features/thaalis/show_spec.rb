@@ -8,7 +8,7 @@ RSpec.describe "Thaali show template" do
   let(:thaali) { create(:taking_thaali_partial_amount_paid) }
 
   before do
-    page.set_rack_session(user_id: user.id)
+    sign_in(user)
     visit thaali_path(thaali)
   end
 
