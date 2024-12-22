@@ -44,8 +44,6 @@ RSpec.describe "Sabeel New template" do
   describe "visited by Member or Viewer" do
     let(:user) { create(:user_member_or_viewer) }
 
-    it "redirects to default path with not authorized message" do
-      expect(page).to (have_current_path thaalis_all_path(CURR_YR)).and have_content("Not Authorized")
-    end
+    it_behaves_like "an unauthorized action"
   end
 end

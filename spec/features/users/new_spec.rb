@@ -54,8 +54,6 @@ RSpec.describe "User new template" do
 
     before { visit new_user_path }
 
-    it "redirects to default path with not authorized message" do
-      expect(page).to (have_current_path thaalis_all_path(CURR_YR)).and have_content("Not Authorized")
-    end
+    it_behaves_like "an unauthorized action"
   end
 end

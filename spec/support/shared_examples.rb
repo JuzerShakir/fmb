@@ -41,3 +41,9 @@ shared_examples "show_edit_delete" do
     expect(page).to have_link("Edit").and have_button("Delete")
   end
 end
+
+shared_examples_for "an unauthorized action" do
+  it "redirects to default path with unauthorized message" do
+    expect(page).to (have_current_path thaalis_all_path(CURR_YR)).and have_content("Not Authorized")
+  end
+end
