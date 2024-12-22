@@ -20,17 +20,19 @@ RSpec.describe "Sabeel destroy" do
       end
     end
 
-    context "with action buttons" do
-      it { within(".modal-footer") { expect(page).to have_css(".btn-light", text: "Cancel") } }
-      it { within(".modal-footer") { expect(page).to have_css(".btn-danger", text: "Yes, delete it!") } }
+    it "shows action buttons" do
+      within(".modal-footer") do
+        expect(page).to have_css(".btn-light", text: "Cancel")
+        expect(page).to have_css(".btn-danger", text: "Yes, delete it!")
+      end
     end
 
     context "when clicking 'delete button'" do
       before { click_on "Yes, delete it!" }
 
-      it { expect(page).to have_current_path sabeels_path(format: :html) }
-
-      it { expect(page).to have_content("Sabeel deleted") }
+      it "redirects to sabeel index path with success message" do
+        expect(page).to (have_current_path sabeels_path(format: :html)).and have_content("Sabeel deleted")
+      end
     end
   end
 end

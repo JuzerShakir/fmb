@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require_relative "../transactions/transaction_helpers"
-require_relative "../shared_helpers"
 
 RSpec.describe "Thaali show template" do
   let(:thaali) { create(:taking_thaali_partial_amount_paid) }
@@ -36,20 +34,10 @@ RSpec.describe "Thaali show template" do
       describe "if its dues are cleared" do
         let(:thaali) { create(:taking_thaali_dues_cleared) }
 
-        it "balance amount is not shown" do
+        it "balance & paid amount is not shown but a prompt is shown" do
           within("#payment-summary") do
             expect(page).to have_no_content(number_to_human(thaali.balance, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
-          end
-        end
-
-        it "paid amount is not shown" do
-          within("#payment-summary") do
             expect(page).to have_no_content(number_to_human(thaali.paid, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
-          end
-        end
-
-        it "a prompt is shown" do
-          within("#payment-summary") do
             expect(page).to have_content("Takhmeen Complete")
           end
         end

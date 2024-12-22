@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require_relative "thaali_helpers"
 
 RSpec.describe "Thaali all template" do
   let(:user) { create(:user) }
@@ -11,24 +10,25 @@ RSpec.describe "Thaali all template" do
   before do
     sign_in(user)
     create_list(:thaali, 2, year:)
-
     visit thaalis_all_path(year)
   end
 
   # * ALL user types
-  describe "visited by any user type can", :js do
+  describe "visited by any user type can" do
     it { expect(page).to have_title "Thaalis in #{year}" }
 
     it_behaves_like "view thaali records"
 
-    describe "search" do
-      context "with thaali number" do
-        let(:thaali_number) { Thaali.first.number }
+    describe "search with thaali number", :js do
+      let(:thaali_number) { Thaali.first.number }
 
-        before { fill_in "q_number_eq", with: thaali_number }
+      before { fill_in "q_number_eq", with: thaali_number }
 
-        it { within("section#thaalis") { expect(page).to have_content(thaali_number) } }
-        it { within("section#thaalis") { expect(page).to have_no_content(Thaali.last.number) } }
+      it "returns correct thaali" do
+        within("section#thaalis") do
+          expect(page).to have_content(thaali_number)
+          expect(page).to have_no_content(Thaali.last.number)
+        end
       end
     end
   end

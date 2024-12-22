@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require_relative "transaction_helpers"
 
 RSpec.describe "Transaction all template" do
   let(:user) { create(:user) }
@@ -24,8 +23,12 @@ RSpec.describe "Transaction all template" do
 
         before { fill_in "q_slug_start", with: receipt }
 
-        it { within("section#transactions") { expect(page).to have_content(receipt) } }
-        it { within("section#transactions") { expect(page).to have_no_content(transactions.last.receipt_number) } }
+        it "returns correct transaction" do
+          within("section#transactions") do
+            expect(page).to have_content(receipt)
+            expect(page).to have_no_content(transactions.last.receipt_number)
+          end
+        end
       end
     end
   end

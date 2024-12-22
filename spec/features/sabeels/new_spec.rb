@@ -22,26 +22,21 @@ RSpec.describe "Sabeel New template" do
 
     context "with valid values" do
       let(:apartment) { Sabeel.apartments.values.sample }
+      let(:sabeel_b) { Sabeel.last }
 
       before do
         choose apartment
         within("#new_sabeel") { click_on "Create Sabeel" }
       end
 
-      it "redirects to newly created thaali" do
-        sabeel = Sabeel.last
-        expect(page).to have_current_path sabeel_path(sabeel)
+      it "redirects to newly created thaali and shows success message" do
+        expect(page).to (have_current_path sabeel_path(sabeel_b)).and have_content("Sabeel created")
       end
-
-      it { expect(page).to have_content("Sabeel created") }
     end
 
-    context "with invalid values" do
-      before do
-        within("#new_sabeel") { click_on "Create Sabeel" }
-      end
-
-      it { expect(page).to have_content("selection is required") }
+    it "with invalid values displays an error message" do
+      within("#new_sabeel") { click_on "Create Sabeel" }
+      expect(page).to have_content("selection is required")
     end
   end
 
@@ -49,7 +44,8 @@ RSpec.describe "Sabeel New template" do
   describe "visited by Member or Viewer" do
     let(:user) { create(:user_member_or_viewer) }
 
-    it { expect(page).to have_content("Not Authorized") }
-    it { expect(page).to have_current_path thaalis_all_path(CURR_YR) }
+    it "redirects to default path with not authorized message" do
+      expect(page).to (have_current_path thaalis_all_path(CURR_YR)).and have_content("Not Authorized")
+    end
   end
 end

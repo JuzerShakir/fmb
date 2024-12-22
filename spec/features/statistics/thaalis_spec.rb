@@ -16,45 +16,24 @@ RSpec.describe "Thaali Stats template" do
   it { expect(page).to have_title "Thaali Statistics" }
 
   # * All user types
-  describe "shows statistic details of all thaalis for current year" do
-    it "Total" do
+  describe "shows its statistics for current year" do
+    it "Total Payment, Balance Payment, Completed (Paid), Payment Pending, Thaali Size, & Total thaalis count" do
+      total = thaalis.sum(:total)
+      balance = thaalis.sum(&:balance)
+
       within("section##{CURR_YR}") do
-        total = thaalis.sum(:total)
+        # total
         expect(page).to have_content(number_to_human(total, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
-      end
-    end
-
-    it "Balance" do
-      within("section##{CURR_YR}") do
-        balance = thaalis.sum(&:balance)
+        # balance
         expect(page).to have_content(number_to_human(balance, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
-      end
-    end
-
-    it "Complete" do
-      within("section##{CURR_YR}") do
-        expect(page).to have_selector(:link_or_button,
-          "Complete: #{Thaali.dues_cleared_in(CURR_YR).length}")
-      end
-    end
-
-    it "Pending" do
-      within("section##{CURR_YR}") do
-        expect(page).to have_selector(:link_or_button,
-          "Pending: #{Thaali.dues_unpaid_for(CURR_YR).length}")
-      end
-    end
-
-    it "each size" do
-      within("section##{CURR_YR}") do
+        # Complete
+        expect(page).to have_selector(:link_or_button, "Complete: #{Thaali.dues_cleared_in(CURR_YR).length}")
+        # Pending
+        expect(page).to have_selector(:link_or_button, "Pending: #{Thaali.dues_unpaid_for(CURR_YR).length}")
+        # Thaali Size
         Thaali::SIZES.each { |k, v| expect(page).to have_content("#{v}: #{thaalis.send(k).count}") }
-      end
-    end
-
-    it "total active thaalis count" do
-      within("section##{CURR_YR}") do
-        expect(page).to have_selector(:link_or_button,
-          "Total Thaalis: #{thaalis.count}")
+        # Total Thaalis
+        expect(page).to have_selector(:link_or_button, "Total Thaalis: #{thaalis.count}")
       end
     end
   end

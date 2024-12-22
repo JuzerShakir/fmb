@@ -21,9 +21,9 @@ RSpec.describe "Sabeel Edit template" do
         click_on "Update Sabeel"
       end
 
-      it { expect(page).to have_current_path sabeel_path(sabeel) }
-
-      it { expect(page).to have_content("Sabeel updated") }
+      it "redirects to the sabeel page with success message" do
+        expect(page).to (have_current_path sabeel_path(sabeel)).and have_content("Sabeel updated")
+      end
     end
 
     context "with invalid values" do

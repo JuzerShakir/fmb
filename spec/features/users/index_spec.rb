@@ -17,15 +17,10 @@ RSpec.describe "User index template" do
     it { expect(page).to have_title "Users" }
 
     describe "can see all users details" do
-      it "name" do
-        expect(page).to have_content(other_user.name)
-      end
-
-      it "role" do
+      it "name as a button & role" do
         expect(page).to have_content(other_user.roles_name.first.capitalize)
-      end
 
-      it "button" do
+        expect(page).to have_content(other_user.name)
         click_on other_user.name
         expect(page).to have_current_path user_path(other_user)
       end
@@ -40,7 +35,8 @@ RSpec.describe "User index template" do
   describe "visited by Member or Viewer" do
     let(:user) { create(:user_member_or_viewer) }
 
-    it { expect(page).to have_content("Not Authorized") }
-    it { expect(page).to have_current_path thaalis_all_path(CURR_YR) }
+    it "redirects to default path with not authorized message" do
+      expect(page).to (have_current_path thaalis_all_path(CURR_YR)).and have_content("Not Authorized")
+    end
   end
 end

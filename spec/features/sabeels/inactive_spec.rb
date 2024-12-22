@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require_relative "sabeel_helpers"
 
 RSpec.describe "Sabeel Inactive template" do
   # rubocop:disable RSpec/LetSetup
@@ -16,7 +15,7 @@ RSpec.describe "Sabeel Inactive template" do
   end
 
   # * ALL user types
-  describe "visited by any user type", :js do
+  describe "visited by any user type" do
     it { expect(page).to have_title "Inactive Sabeels - #{apt}" }
 
     it_behaves_like "view sabeel records"

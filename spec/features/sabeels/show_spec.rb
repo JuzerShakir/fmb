@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require_relative "../shared_helpers"
 
 RSpec.describe "Sabeel Show template" do
   let(:sabeel) { create(:sabeel_taking_thaali) }
@@ -17,19 +16,21 @@ RSpec.describe "Sabeel Show template" do
   describe "visited by any user type can view" do
     let(:user) { create(:user) }
 
-    it { expect(page).to have_title sabeel.name }
+    it "sabeel details" do
+      expect(page).to have_title sabeel.name
 
-    describe "sabeel details" do
-      it { expect(page).to have_content(sabeel.its) }
-      it { expect(page).to have_content(sabeel.name) }
-      it { expect(page).to have_content(sabeel.address) }
-      it { expect(page).to have_content(sabeel.mobile) }
-      it { expect(page).to have_content(sabeel.email) }
+      expect(page).to have_content(sabeel.its)
+      expect(page).to have_content(sabeel.name)
+      expect(page).to have_content(sabeel.address)
+      expect(page).to have_content(sabeel.mobile)
+      expect(page).to have_content(sabeel.email)
     end
 
     describe "thaali details" do
-      it { expect(page).to have_content("Total number of Thaalis: #{count}") }
-      it { expect(page).to have_content(thaali.year) }
+      it do
+        expect(page).to have_content("Total number of Thaalis: #{count}")
+        expect(page).to have_content(thaali.year)
+      end
 
       it_behaves_like "abbreviated numbers" do
         let(:number) { thaali.total }

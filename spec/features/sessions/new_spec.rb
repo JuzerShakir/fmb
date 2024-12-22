@@ -7,13 +7,10 @@ RSpec.describe "Sessions New template" do
 
   before { visit login_path }
 
-  it { expect(page).to have_title "Login" }
-
-  it "logo" do
+  it do
+    expect(page).to have_title "Login"
+    # Logo
     expect(page).to have_css("img[src*='logos/fmb']")
-  end
-
-  it "shows footer" do
     expect(page).to have_css("#footer")
   end
 
@@ -26,12 +23,8 @@ RSpec.describe "Sessions New template" do
         click_on "Login"
       end
 
-      it "redirects to thaalis_all_path after login" do
-        expect(page).to have_current_path thaalis_all_path(CURR_YR, format: :html)
-      end
-
-      it "displays welcome message" do
-        expect(page).to have_content("Afzalus Salaam")
+      it "redirects to default and greets user" do
+        expect(page).to (have_current_path thaalis_all_path(CURR_YR, format: :html)).and have_content("Afzalus Salaam")
       end
     end
 

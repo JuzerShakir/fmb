@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require_relative "../shared_helpers"
 
 RSpec.describe "Transaction show template" do
   let(:transaction) { create(:transaction) }
@@ -17,11 +16,11 @@ RSpec.describe "Transaction show template" do
 
     it { expect(page).to have_title "Receipt: #{transaction.receipt_number}" }
 
-    describe "transaction details" do
-      it { expect(page).to have_content(transaction.receipt_number) }
-      it { expect(page).to have_content(number_with_delimiter(transaction.amount)) }
-      it { expect(page).to have_content(transaction.mode.capitalize) }
-      it { expect(page).to have_content(transaction.date.to_fs(:long)) }
+    it "transaction details" do
+      expect(page).to have_content(transaction.receipt_number)
+      expect(page).to have_content(number_with_delimiter(transaction.amount))
+      expect(page).to have_content(transaction.mode.capitalize)
+      expect(page).to have_content(transaction.date.to_fs(:long))
     end
   end
 
