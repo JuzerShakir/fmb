@@ -11,7 +11,7 @@ shared_examples "view thaali records" do
     thaalis.each do
       expect(page).to have_content(_1.number)
       expect(page).to have_content(_1.sabeel_name)
-      expect(page).to have_content(number_to_human(_1.balance, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
+      expect(page).to have_humanized_number(_1.balance)
     end
   end
 end
@@ -20,14 +20,10 @@ shared_examples "view transaction records" do
   it "receipt number, amount & date" do
     transactions.each do
       expect(page).to have_content(_1.receipt_number)
-      expect(page).to have_content(number_to_human(_1.amount, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
+      expect(page).to have_humanized_number(_1.amount)
       expect(page).to have_content(time_ago_in_words(_1.date))
     end
   end
-end
-
-shared_examples "abbreviated numbers" do
-  it { expect(page).to have_content(number_to_human(number, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"})) }
 end
 
 shared_examples "hide_edit_delete" do

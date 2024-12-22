@@ -23,9 +23,9 @@ RSpec.describe "Thaali Stats template" do
 
       within("section##{CURR_YR}") do
         # total
-        expect(page).to have_content(number_to_human(total, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
+        expect(page).to have_humanized_number(total)
         # balance
-        expect(page).to have_content(number_to_human(balance, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
+        expect(page).to have_humanized_number(balance)
         # Complete
         expect(page).to have_selector(:link_or_button, "Complete: #{Thaali.dues_cleared_in(CURR_YR).length}")
         # Pending

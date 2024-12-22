@@ -14,31 +14,32 @@ RSpec.describe "Thaali show template" do
   describe "visited by any user type can view" do
     let(:user) { create(:user) }
 
-    it { expect(page).to have_title "Thaali no. #{thaali.number}" }
-
     describe "thaali details" do
-      it { expect(page).to have_content(thaali.size.humanize) }
-
-      it_behaves_like "abbreviated numbers" do
-        let(:number) { thaali.total }
+      it do
+        expect(page).to have_title "Thaali no. #{thaali.number}"
+        expect(page).to have_content(thaali.size.humanize)
+        expect(page).to have_humanized_number(thaali.total)
       end
 
-      it_behaves_like "abbreviated numbers" do
-        let(:number) { thaali.paid }
+      context "when dues are not cleared" do
+        it "shows paid & balance amounts" do
+          expect(page).to have_humanized_number(thaali.paid)
+          expect(page).to have_humanized_number(thaali.balance)
+        end
       end
 
-      it_behaves_like "abbreviated numbers" do
-        let(:number) { thaali.balance }
-      end
+      context "when dues are cleared" do
+        let!(:thaali) { create(:taking_thaali_dues_cleared) }
 
-      describe "if its dues are cleared" do
-        let(:thaali) { create(:taking_thaali_dues_cleared) }
+        before { visit thaali_path(thaali) }
 
         it "balance & paid amount is not shown but a prompt is shown" do
           within("#payment-summary") do
-            expect(page).to have_no_content(number_to_human(thaali.balance, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
-            expect(page).to have_no_content(number_to_human(thaali.paid, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"}))
-            expect(page).to have_content("Takhmeen Complete")
+            scope_to_text = page.text
+
+            expect(scope_to_text).not_to have_humanized_number(thaali.balance)
+            expect(scope_to_text).not_to have_humanized_number(thaali.paid)
+            expect(scope_to_text).to have_content("Takhmeen Complete")
           end
         end
       end

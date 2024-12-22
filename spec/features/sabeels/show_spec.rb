@@ -30,14 +30,8 @@ RSpec.describe "Sabeel Show template" do
       it do
         expect(page).to have_content("Total number of Thaalis: #{count}")
         expect(page).to have_content(thaali.year)
-      end
-
-      it_behaves_like "abbreviated numbers" do
-        let(:number) { thaali.total }
-      end
-
-      it_behaves_like "abbreviated numbers" do
-        let(:number) { thaali.balance }
+        expect(page).to have_humanized_number(thaali.total)
+        expect(page).to have_humanized_number(thaali.balance)
       end
     end
   end
