@@ -384,7 +384,7 @@ GEM
     validates_email_format_of (1.8.2)
       i18n (>= 0.8.0)
       simpleidn
-    validates_timeliness (8.0.0.beta1)
+    validates_timeliness (8.0.0)
       activemodel (>= 8.0.0, < 9)
       timeliness (>= 0.3.10, < 1)
     web-console (4.2.1)
@@ -452,7 +452,7 @@ DEPENDENCIES
   turbo-rails (~> 2.0.11)
   tzinfo-data
   validates_email_format_of (~> 1.8.2)
-  validates_timeliness (~> 8.0.0.beta1)
+  validates_timeliness (~> 8.0.0)
   web-console
 
 RUBY VERSION
