@@ -29,7 +29,7 @@ gem "stimulus-rails"
 gem "turbo-rails", "~> 2.0.11"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "validates_email_format_of", "~> 1.8.2"
-gem "validates_timeliness", "~> 8.0.0.beta1"
+gem "validates_timeliness", "~> 8.0.0"
 
 group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
