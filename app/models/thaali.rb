@@ -60,5 +60,5 @@ class Thaali < ApplicationRecord
 
   def dues_cleared? = balance.zero?
 
-  def paid = transactions.filter_map { _1.amount if _1.persisted? }.sum(0)
+  def paid = transactions.filter_map { it.amount if it.persisted? }.sum(0)
 end
