@@ -8,6 +8,6 @@ module HasFriendlyId
 
     def slug_candidates = sluggables.join("-")
 
-    def should_generate_new_friendly_id? = sluggables.each { attribute_changed? _1 }
+    def should_generate_new_friendly_id? = sluggables.each { attribute_changed? it }
   end
 end

@@ -1,4 +1,4 @@
-<%# locals: (roles: Role.all.map { [_1.name.capitalize, _1.id] }) %>
+<%# locals: (roles: Role.all.map { [it.name.capitalize, it.id] }) %>
 
 <% content_for :title, "New User" %>
 

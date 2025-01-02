@@ -12,7 +12,7 @@ class StatisticsController < ApplicationController
       @apts[apartment].store(:active_thaalis, active_thaalis.length)
       @apts[apartment].store(:total_sabeels, total_sabeels.length)
       @apts[apartment].store(:inactive_thaalis, inactive.length)
-      Thaali::SIZES.each { @apts[apartment].store(_1, active_thaalis.with_thaali_size(_1).length) }
+      Thaali::SIZES.each { @apts[apartment].store(it, active_thaalis.with_thaali_size(it).length) }
     end
   end
 
@@ -30,7 +30,7 @@ class StatisticsController < ApplicationController
       @years[y].store(:count, thaalis.count)
       @years[y].store(:pending, Thaali.dues_unpaid_for(y).length)
       @years[y].store(:complete, Thaali.dues_cleared_in(y).length)
-      Thaali::SIZES.each { @years[y].store(_1, thaalis.send(_1).count) }
+      Thaali::SIZES.each { @years[y].store(it, thaalis.send(it).count) }
     end
   end
 end

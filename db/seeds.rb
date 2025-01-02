@@ -102,7 +102,7 @@ end
 # *CREATES TOTAL Thaalis --> 175 (90 + 85)
 # *CREATES TOTAL Transactions --> ~1.1k
 
-Role::NAMES.each { Role.create(name: _1) }
+Role::NAMES.each { Role.create(name: it) }
 
 User.create(
   its: 12345678,
