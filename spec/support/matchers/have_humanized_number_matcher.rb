@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec::Matchers.define :have_humanized_number do |expected_value|
-  humanized_number = number_to_human(expected_value, precision: 1, round_mode: :down, significant: false, format: "%n%u", units: {thousand: "K", million: "M"})
+  humanized_number = expected_value.to_human
 
   match do
     _1.body.include? humanized_number
