@@ -37,7 +37,7 @@ group :development, :test do
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "factory_bot_rails", "~> 6.4.0"
   gem "rspec-rails", "~> 7.1.0"
-  gem "rubocop-rails", "2.27.0", require: false
+  gem "rubocop-rails", "2.28.0", require: false
   gem "rubocop-rspec_rails", require: false
   gem "rubocop-factory_bot", "~> 2.26", ">= 2.26.1", require: false
   gem "rubocop-capybara", "~> 2.21", require: false
